@@ -1,4 +1,4 @@
-package com.isakaro.qwik
+package com.isakaro.qwik.lifecycle.textfield
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -45,7 +46,6 @@ import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
@@ -56,10 +56,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-import com.isakaro.qwik.theme.ErrorColor
-import com.isakaro.qwik.theme.HintColor
-import com.isakaro.qwik.theme.SuccessColor
+import com.isakaro.qwik.theme.QwikColorHint
+import com.isakaro.qwik.theme.QwikColorSuccess
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -92,6 +90,25 @@ fun QwikTextField(
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
     isEnabled: Boolean = true,
+    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
+        focusedTextColor = Color.Black,
+        cursorColor = Color.Black,
+        focusedContainerColor = Color.White,
+        focusedLabelColor = Color.Gray,
+        focusedPlaceholderColor = Color.Black,
+        focusedBorderColor = Color.Gray,
+        unfocusedBorderColor = Color.Gray,
+        unfocusedLabelColor = Color.Gray,
+        unfocusedPlaceholderColor = Color.Gray,
+        unfocusedTextColor = Color.Black,
+        disabledBorderColor = if(isEditable) Color.Unspecified else Color.Gray,
+        disabledTextColor = if(isEditable) Color.Unspecified else Color.Gray,
+        errorBorderColor = MaterialTheme.colorScheme.error,
+        errorLabelColor = MaterialTheme.colorScheme.error,
+        errorPlaceholderColor = MaterialTheme.colorScheme.error,
+        errorTextColor = Color.Black,
+        errorCursorColor = MaterialTheme.colorScheme.error
+    )
 ) {
     val autofillTypes = mutableListOf<AutofillType>()
 
@@ -256,36 +273,18 @@ fun QwikTextField(
                             modifier = Modifier.size(20.dp),
                             contentDescription = null,
                             imageVector = Icons.Filled.CheckCircle,
-                            tint = SuccessColor
+                            tint = QwikColorSuccess
                         )
                     }
                     if(isError) {
                         Icon(
                             imageVector = Icons.Filled.Info, "field error",
-                            tint = ErrorColor
+                            tint = MaterialTheme.colorScheme.error
                         )
                     }
                 }
             },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.Black,
-                cursorColor = Color.Black,
-                focusedContainerColor = Color.White,
-                focusedLabelColor = Color.Gray,
-                focusedPlaceholderColor = Color.Black,
-                focusedBorderColor = Color.Gray,
-                unfocusedBorderColor = Color.Gray,
-                unfocusedLabelColor = Color.Gray,
-                unfocusedPlaceholderColor = Color.Gray,
-                unfocusedTextColor = Color.Black,
-                disabledBorderColor = if(isEditable) Color.Unspecified else Color.Gray,
-                disabledTextColor = if(isEditable) Color.Unspecified else Color.Gray,
-                errorBorderColor = ErrorColor,
-                errorLabelColor = ErrorColor,
-                errorPlaceholderColor = ErrorColor,
-                errorTextColor = Color.Black,
-                errorCursorColor = ErrorColor
-            ),
+            colors = colors,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = imeAction,
                 keyboardType = keyboardType,
@@ -300,7 +299,7 @@ fun QwikTextField(
                     is Int -> {
                         Text(
                             text = stringResource(id = hint),
-                            color = HintColor,
+                            color = QwikColorHint,
                             textAlign = TextAlign.Start,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -312,7 +311,7 @@ fun QwikTextField(
                         if(hint.isNotBlank()){
                             Text(
                                 text = hint,
-                                color = HintColor,
+                                color = QwikColorHint,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -325,7 +324,7 @@ fun QwikTextField(
                         if(hint.isNotBlank()){
                             Text(
                                 text = hint,
-                                color = HintColor,
+                                color = QwikColorHint,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -342,7 +341,7 @@ fun QwikTextField(
                 if(isError){
                     Text(
                         text = error,
-                        color = ErrorColor,
+                        color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()

@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.lifecycle.QwikComposableLifeCycle
 import com.isakaro.qwik.theme.QwikColorOrange
+import com.isakaro.qwik.utils.isPermissionGranted
 
 @Composable
 fun QwikPermissionsRequest(

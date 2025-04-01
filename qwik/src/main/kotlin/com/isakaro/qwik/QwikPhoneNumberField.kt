@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -47,12 +48,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.CountryCodeButton
-import com.isakaro.qwik.theme.ColorSecondaryAccent
-import com.isakaro.qwik.theme.ErrorColor
-import com.isakaro.qwik.theme.SuccessColor
+import com.isakaro.qwik.theme.QwikColorSuccess
 import com.isakaro.qwik.utils.CountryInfo
-import com.isakaro.qwik.utils.RWANDA
+import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.text
 
 val allowedChars = Regex("^[0-9]*$")
@@ -74,6 +72,18 @@ fun QwikPhoneNumberField(
     isValid: Boolean = false,
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
+    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
+        focusedTextColor = Color.Black,
+        unfocusedTextColor = Color.Black,
+        cursorColor = Color.Black,
+        focusedContainerColor = Color.White,
+        focusedBorderColor = Color.Black,
+        unfocusedBorderColor = Color.Black,
+        disabledBorderColor = Color.Gray,
+        unfocusedContainerColor = Color.White,
+        errorBorderColor = MaterialTheme.colorScheme.error,
+        errorCursorColor = MaterialTheme.colorScheme.error
+    ),
     onShowCountryList: () -> Unit = {}
 ) {
 
@@ -83,7 +93,7 @@ fun QwikPhoneNumberField(
     Column {
         Text(
             text = stringResource(id = placeholder),
-            color = ColorSecondaryAccent,
+            color = Color.DarkGray,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .fillMaxWidth()
@@ -137,38 +147,27 @@ fun QwikPhoneNumberField(
                 enabled = enabled,
                 shape = shape,
                 trailingIcon = {
-                    if (isError) Icon(Icons.Filled.Info, "field error", tint = ErrorColor)
+                    if (isError) Icon(Icons.Filled.Info, "field error", tint = MaterialTheme.colorScheme.error)
                     if(isValid){
                         Icon(
                             modifier = Modifier.size(20.dp),
                             contentDescription = null,
                             imageVector = Icons.Filled.CheckCircle,
-                            tint = SuccessColor
+                            tint = QwikColorSuccess
                         )
                     }
                 },
                 leadingIcon = {
                     Spacer(modifier = Modifier.width(countryCodePickerWidth.value.dp - 12.dp)) // 12 is the padding of CountryCodeButton
                 },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    cursorColor = Color.Black,
-                    focusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Black,
-                    disabledBorderColor = Color.Gray,
-                    unfocusedContainerColor = Color.White,
-                    errorBorderColor = ErrorColor,
-                    errorCursorColor = ErrorColor
-                ),
+                colors = colors,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = imeAction,
                     keyboardType = KeyboardType.Phone,
                 ),
                 keyboardActions = KeyboardActions(onDone = { onKeyboardDone() }),
             )
-            CountryCodeButton(
+            QwikCountryCodeButton(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .height(55.dp)
@@ -187,7 +186,7 @@ fun QwikPhoneNumberField(
         if(isError){
             Text(
                 text = error,
-                color = ErrorColor,
+                color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -203,11 +202,11 @@ fun QwikPhoneNumberField(
 fun QwikPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
-    IsakaroPhoneNumberField(
+    QwikPhoneNumberField(
         value = value,
         onValueChange = {},
         onKeyboardDone = {},
         placeholder = 0,
-        selectedCountryInfo = RWANDA
+        selectedCountryInfo = countryList.random()
     )
 }

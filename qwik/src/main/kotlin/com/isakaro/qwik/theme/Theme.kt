@@ -41,23 +41,23 @@ object Theme {
 }
 
 internal val LightColorPalette = lightColorScheme(
-    primary = PrimaryColor,
+    primary = QwikColorPrimary,
     secondary = Color.White,
-    error = ErrorColor,
+    error = QwikColorError,
     onBackground = Color.Black,
     onSurface = Color.Black,
-    onError = ErrorColor
+    onError = QwikColorError
 )
 
 internal val DarkColorPalette = darkColorScheme(
-    primary = PrimaryColor,
+    primary = QwikColorPrimary,
     secondary = Color.White,
     surface = Color.Black,
     background = Color.Black,
-    error = ErrorColor,
+    error = QwikColorError,
     onPrimary = Color.LightGray,
     onSecondary = Color.Black,
     onBackground = Color.Gray,
     onSurface = Color.Gray,
-    onError = ErrorColor
+    onError = QwikColorError
 )
