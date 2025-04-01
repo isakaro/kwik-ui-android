@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -27,44 +26,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.isakaro.screens.home.search.vehicles.VehicleYearFiltersData
-import com.isakaro.screens.home.search.vehicles.VehiclesSearchViewModel
 import com.isakaro.qwik.theme.ColorSecondaryAccent
-import java.time.Year
+import java.util.Calendar
+
+data class QwikYearsData(
+    val minYear: Int = 1965,
+    val maxYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+)
 
 @Composable
 fun QwikYearsRangeSelector(
-    viewModel: VehiclesSearchViewModel = hiltViewModel(),
+    title: String = "Year Range",
+    fromYearText: String = "From Year",
+    toYearText: String = "To Year",
+    qwikYearsData: QwikYearsData = QwikYearsData(),
     onYearRangeChanged: (Int, Int) -> Unit
 ) {
-    val currentYear = Year.now().value
-    val oldestYear = 1965
+    val currentYear = qwikYearsData.maxYear
+    val oldestYear = qwikYearsData.minYear
     val yearRange = (oldestYear..currentYear).sortedByDescending { it }
     val startYearVisible = remember { mutableStateOf(false) }
     val endYearVisible = remember { mutableStateOf(false) }
-    val vehicleYearsData by viewModel.vehicleYearsData.collectAsState()
 
     var selectedMinYear by remember {
-        mutableIntStateOf(vehicleYearsData.minYear)
+        mutableIntStateOf(oldestYear)
     }
     var selectedMaxYear by remember {
-        mutableIntStateOf(vehicleYearsData.maxYear)
+        mutableIntStateOf(currentYear)
     }
 
     LaunchedEffect(selectedMinYear, selectedMaxYear) {
-        viewModel.updateSearchFilters {
-            minYear = selectedMinYear
-            maxYear = selectedMaxYear
-        }
-        viewModel.localData.saveVehicleYearSearchData(
-            VehicleYearFiltersData(
-                minYear = selectedMinYear,
-                maxYear = selectedMaxYear
-            )
-        )
         onYearRangeChanged(selectedMinYear, selectedMaxYear)
-        viewModel.updateYears()
     }
 
     Column(
@@ -74,7 +66,7 @@ fun QwikYearsRangeSelector(
     ) {
 
         Text(
-            text = "Year Range",
+            text = title,
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -89,7 +81,7 @@ fun QwikYearsRangeSelector(
                 }
             ) {
                 Text(
-                    text = "From Year",
+                    text = fromYearText,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Row(
@@ -137,7 +129,7 @@ fun QwikYearsRangeSelector(
                 horizontalAlignment = Alignment.End
             ) {
                 Text(
-                    text = "To Year",
+                    text = toYearText,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Row(

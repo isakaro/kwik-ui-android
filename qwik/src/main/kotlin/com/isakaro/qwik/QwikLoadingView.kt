@@ -48,7 +48,7 @@ fun QwikCircularLoading(
 @Composable
 @Preview(showBackground = true)
 fun QwikLoadingViewPreview() {
-    IsakaroLoadingView(
+    QwikLoadingView(
         text = "Loading... Please Wait..."
     )
 }
@@ -56,5 +56,5 @@ fun QwikLoadingViewPreview() {
 @Composable
 @Preview(showBackground = true)
 fun QwikLoadingPreview() {
-    IsakaroCircularLoading()
+    QwikCircularLoading()
 }

@@ -4,23 +4,6 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.webkit.JavascriptInterface
-import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-
-class WebViewModel @Inject constructor() : ViewModel() {
-    private val _webViewEvents = MutableStateFlow<WebViewEvent?>(null)
-    val webViewEvents = _webViewEvents.asStateFlow()
-
-    fun onWebViewEvent(event: WebViewEvent) {
-        _webViewEvents.value = event
-    }
-
-    fun clearEvent() {
-        _webViewEvents.value = null
-    }
-}
 
 sealed class WebViewEvent {
     data object ListingCreated: WebViewEvent()

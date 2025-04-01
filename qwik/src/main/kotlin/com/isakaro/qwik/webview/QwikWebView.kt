@@ -30,19 +30,33 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
-import androidx.hilt.navigation.compose.hiltViewModel
-import timber.log.Timber
+import com.isakaro.qwik.QwikCircularLoading
 
-@SuppressLint("SetJavaScriptEnabled")
+data class QwikWebViewSettings(
+    val userAgent: String = "Qwik-Android-WebView",
+    val cookies: List<QwikCookie> = emptyList(),
+    val debug: Boolean = false,
+    val javaScriptEnabled: Boolean = true,
+    val domStorageEnabled: Boolean = true,
+    val allowFileAccess: Boolean = true,
+    val allowContentAccess: Boolean = true,
+    val allowFileAccessFromFileURLs: Boolean = true,
+    val allowUniversalAccessFromFileURLs: Boolean = true,
+    val javaScriptCanOpenWindowsAutomatically: Boolean = true,
+    val supportMultipleWindows: Boolean = true
+)
+
+@SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
 @Composable
 fun QwikWebView(
     modifier: Modifier = Modifier,
     url: String,
+    javaScriptBridge: Any? = null,
+    javaScriptBridgeName: String = "QwikBridge",
     hideProgressAfterLoading: Boolean = true,
-    cookies: List<QwikCookie> = emptyList(),
-    webViewModel: WebViewModel = hiltViewModel(),
-    userAgent: String = "Qwik-Android-WebView",
-    failedToOpenLink: () -> Unit = {}
+    pageLoaded: () -> Unit = {},
+    failedToOpenLink: () -> Unit = {},
+    webViewSettings: QwikWebViewSettings.() -> Unit = {}
 ) {
     var valueCallback by remember { mutableStateOf<ValueCallback<Array<Uri>>?>(null) }
     val pageLoadingProgress = remember { mutableIntStateOf(0) }
@@ -52,6 +66,7 @@ fun QwikWebView(
     }
     var progressVisible by remember { mutableStateOf(true) }
     var loaded by remember { mutableStateOf(true) }
+    val _webViewSettings = QwikWebViewSettings().apply(webViewSettings)
 
     Box {
         Column(modifier = modifier) {
@@ -89,24 +104,26 @@ fun QwikWebView(
                             }
                         }
 
-                        settings.userAgentString = userAgent
-                        settings.javaScriptEnabled = true
-                        settings.domStorageEnabled = true
-                        settings.allowFileAccess = true
-                        settings.allowContentAccess = true
-                        settings.allowFileAccessFromFileURLs = true
-                        settings.allowUniversalAccessFromFileURLs = true
-                        settings.javaScriptCanOpenWindowsAutomatically = true
-                        settings.setSupportMultipleWindows(true)
+                        settings.javaScriptEnabled = _webViewSettings.javaScriptEnabled
+                        settings.domStorageEnabled = _webViewSettings.domStorageEnabled
+                        settings.allowFileAccess = _webViewSettings.allowFileAccess
+                        settings.allowContentAccess = _webViewSettings.allowContentAccess
+                        settings.allowFileAccessFromFileURLs = _webViewSettings.allowFileAccessFromFileURLs
+                        settings.allowUniversalAccessFromFileURLs = _webViewSettings.allowFileAccessFromFileURLs
+                        settings.javaScriptCanOpenWindowsAutomatically = _webViewSettings.javaScriptCanOpenWindowsAutomatically
+                        settings.setSupportMultipleWindows(_webViewSettings.supportMultipleWindows)
 
-                        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
+                        WebView.setWebContentsDebuggingEnabled(_webViewSettings.debug)
 
-                        //addJavascriptInterface(IsakaroWebBridge(context, webViewModel), userAgent)
+                        javaScriptBridge?.let {
+                            addJavascriptInterface(it, javaScriptBridgeName)
+                        }
 
                         webChromeClient = object : WebChromeClient() {
                             override fun onProgressChanged(view: WebView, newProgress: Int) {
                                 pageLoadingProgress.intValue = newProgress
                                 if (newProgress == 100) {
+                                    pageLoaded()
                                     if(hideProgressAfterLoading){
                                         progressVisible = false
                                     }
@@ -135,7 +152,6 @@ fun QwikWebView(
 
                                     launcher.launch("*/*")
                                 } catch (e: Exception) {
-                                    Timber.e(e)
                                     return false
                                 }
                                 return true
@@ -148,14 +164,14 @@ fun QwikWebView(
                                 resultMsg: android.os.Message?
                             ): Boolean {
                                 val newWebView = WebView(view?.context!!).apply {
-                                    settings.javaScriptEnabled = true
-                                    settings.domStorageEnabled = true
-                                    settings.allowFileAccess = true
-                                    settings.allowContentAccess = true
-                                    settings.allowFileAccessFromFileURLs = true
-                                    settings.allowUniversalAccessFromFileURLs = true
-                                    settings.javaScriptCanOpenWindowsAutomatically = true
-                                    settings.setSupportMultipleWindows(true)
+                                    settings.javaScriptEnabled = _webViewSettings.javaScriptEnabled
+                                    settings.domStorageEnabled = _webViewSettings.domStorageEnabled
+                                    settings.allowFileAccess = _webViewSettings.allowFileAccess
+                                    settings.allowContentAccess = _webViewSettings.allowContentAccess
+                                    settings.allowFileAccessFromFileURLs = _webViewSettings.allowFileAccessFromFileURLs
+                                    settings.allowUniversalAccessFromFileURLs = _webViewSettings.allowFileAccessFromFileURLs
+                                    settings.javaScriptCanOpenWindowsAutomatically = _webViewSettings.javaScriptCanOpenWindowsAutomatically
+                                    settings.setSupportMultipleWindows(_webViewSettings.supportMultipleWindows)
 
                                     webViewClient = object : WebViewClient() {
                                         override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
@@ -172,7 +188,13 @@ fun QwikWebView(
                                         }
                                     }
 
-                                    webChromeClient = this@apply.webChromeClient
+                                    webChromeClient = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                        this@apply.webChromeClient
+                                    } else {
+                                        object : WebChromeClient() {
+
+                                        }
+                                    }
                                 }
 
                                 val transport = resultMsg?.obj as? WebView.WebViewTransport
@@ -182,7 +204,7 @@ fun QwikWebView(
                                 return true
                             }
                         }
-                        setCookie(cookies)
+                        setCookie(_webViewSettings.cookies)
                         loadUrl(url)
                     }
                 },

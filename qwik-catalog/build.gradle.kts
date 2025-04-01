@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
 }
 
@@ -59,10 +58,7 @@ dependencies {
     implementation(libs.bundles.app)
     implementation(libs.bundles.app.theming)
     implementation(libs.splashscreen)
-    implementation(libs.hilt)
     ksp(libs.compose.destinations.ksp)
-    ksp(libs.moshi.codegen)
-    kapt(libs.hilt.compiler)
     debugImplementation(libs.compose.ui.tooling)
     androidTestImplementation(libs.bundles.test)
     testImplementation(libs.bundles.test)
