@@ -45,7 +45,6 @@ import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
 import com.isakaro.qwik.utils.text
-import com.isakaro.qwik.IsakaroSearchView
 
 @Composable
 fun QwikCountryCodePicker(
@@ -67,7 +66,7 @@ fun QwikCountryCodePicker(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        IsakaroSearchView(
+        QwikSearchView(
             state = searchQuery,
             onTextChange = { query ->
                 if (query.isBlank()) {

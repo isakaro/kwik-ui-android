@@ -19,9 +19,8 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="s">
         <activity
-            android:name=".MainActivity"
+            android:name="com.isakaro.qwik.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.Ampersand">
             <intent-filter>

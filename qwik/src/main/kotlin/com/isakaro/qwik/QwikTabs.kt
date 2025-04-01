@@ -98,7 +98,7 @@ fun QwikTabsPreview() {
         list.size
     }
 
-    IsakaroTabs(
+    QwikTabs(
         tabs = list,
         pagerState = pagerState
     )

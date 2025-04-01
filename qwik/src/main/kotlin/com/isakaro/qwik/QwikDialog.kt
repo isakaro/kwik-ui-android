@@ -36,8 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.isakaro.qwik.theme.ColorPrimaryAccent
-import com.isakaro.qwik.IsakaroButton
-import com.isakaro.qwik.IsakaroText
 
 object QwikDialog {
     @Composable
@@ -202,16 +200,16 @@ object QwikDialog {
                             }
                         ) {
                             Text(
-                                text = cancelText ?: stringResource(id = R.string.cancel),
+                                text = cancelText ?: "Cancel",
                                 color = Color.Black
                             )
                         }
                     }
 
                     if(confirmButtonVisible){
-                        IsakaroButton(
+                        QwikButton(
                             modifier = Modifier.weight(0.6f),
-                            text = confirmText ?: stringResource(id = R.string.confirm),
+                            text = confirmText ?: "Confirm",
                             containerColor = confirmColor,
                             height = 40,
                             isLoading = isLoading

@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,14 +28,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
-import com.google.firebase.analytics.FirebaseAnalytics
 
-import com.isakaro.logging.IsakaroEvents
-import com.isakaro.networking.ApiClient
-import com.isakaro.qwik.firebaseAnalytics
-import com.isakaro.qwik.theme.ColorPrimaryAccent
-import com.isakaro.qwik.utils.openURL
+enum class QwikSocialPlatform {
+    GOOGLE,
+    APPLE,
+    FACEBOOK
+}
 
 @Composable
 fun QwikSocialButton(
@@ -48,7 +45,7 @@ fun QwikSocialButton(
 ) {
     Button(
         onClick = { onClick() },
-        border = BorderStroke(1.dp, ColorPrimaryAccent),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
@@ -87,111 +84,75 @@ fun QwikSocialButton(
 
 @Composable
 fun QwikSocialButtonGroup(
-    firebaseAnalytics: FirebaseAnalytics = firebaseAnalytics(),
+    enabled: List<QwikSocialPlatform> = listOf(QwikSocialPlatform.GOOGLE, QwikSocialPlatform.APPLE, QwikSocialPlatform.FACEBOOK),
+    onClick: (QwikSocialPlatform) -> Unit
 ){
-
-    val context = LocalContext.current
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Button(
-            modifier = Modifier.weight(1f),
-            border = BorderStroke(1.dp, Color.LightGray),
-            onClick = {
-                context.openURL(ApiClient.Oauth2.GOOGLE_AUTH_REQUEST)
-
-                firebaseAnalytics.logEvent(
-                    IsakaroEvents.ACTION,
-                    bundleOf(
-                        IsakaroEvents.ACTION_NAME to "click_login_google"
-                    )
+        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+            Button(
+                modifier = Modifier.weight(1f),
+                border = BorderStroke(1.dp, Color.LightGray),
+                onClick = {
+                    onClick(QwikSocialPlatform.GOOGLE)
+                },
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(8.dp),
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.google_logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(35.dp)
                 )
-            },
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = Color.White,
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.google_logo),
-                contentDescription = null,
-                modifier = Modifier.size(35.dp)
-            )
+            }
         }
 
-        Button(
-            modifier = Modifier.weight(1f),
-            border = BorderStroke(1.dp, Color.LightGray),
-            onClick = {
-                context.openURL(ApiClient.Oauth2.FACEBOOK_AUTH_REQUEST)
-
-                firebaseAnalytics.logEvent(
-                    IsakaroEvents.ACTION,
-                    bundleOf(
-                        IsakaroEvents.ACTION_NAME to "click_login_facebook"
-                    )
+        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+            Button(
+                modifier = Modifier.weight(1f),
+                border = BorderStroke(1.dp, Color.LightGray),
+                onClick = {
+                    onClick(QwikSocialPlatform.APPLE)
+                },
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(8.dp),
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.apple_logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(35.dp)
                 )
-            },
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = Color.White,
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.facebook_logo),
-                contentDescription = null,
-                modifier = Modifier.size(35.dp)
-            )
+            }
         }
-    }
-}
 
-@Composable
-fun QwikEmailButton(
-    text: String,
-    onClick: () -> Unit = {}
-) {
-    Button(
-        onClick = { onClick() },
-        border = BorderStroke(1.dp, ColorPrimaryAccent),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .clickable(
-                indication = LocalIndication.current,
-                interactionSource = remember { MutableInteractionSource() }
-            ){
-
-            },
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = ColorPrimaryAccent,
-            contentColor = Color.White
-        ),
-        contentPadding = PaddingValues(12.dp),
-        shape = RoundedCornerShape(8.dp),
-        interactionSource = remember { MutableInteractionSource() }
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ){
-            Icon(
-                modifier = Modifier.size(35.dp).align(Alignment.CenterStart),
-                painter = painterResource(id = R.drawable.email),
-                tint = Color.White,
-                contentDescription = null,
-            )
-            Text(
-                modifier = Modifier.align(Alignment.Center),
-                text = text,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White
-            )
+        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+            Button(
+                modifier = Modifier.weight(1f),
+                border = BorderStroke(1.dp, Color.LightGray),
+                onClick = {
+                    onClick(QwikSocialPlatform.FACEBOOK)
+                },
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(8.dp),
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.facebook_logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(35.dp)
+                )
+            }
         }
     }
 }
@@ -199,22 +160,13 @@ fun QwikEmailButton(
 @Preview
 @Composable
 fun QwikSocialButtonPreview() {
-    IsakaroSocialButton(
+    QwikSocialButton(
         icon = R.drawable.google_logo,
         text = "Google"
     )
 }
-
-@Preview
-@Composable
-fun QwikEmailButtonPreview() {
-    IsakaroEmailButton(
-        text = "E-Mail"
-    )
-}
-
 @Preview
 @Composable
 fun QwikSocialButtonGroupPreview() {
-    IsakaroSocialButtonGroup()
+    QwikSocialButtonGroup()
 }
