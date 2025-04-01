@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -21,25 +22,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-Light2
-
-
 @Composable
 fun QwikIconTextButton(
+    modifier: Modifier = Modifier,
     text: Int,
     icon: Any,
     color: Color = MaterialTheme.colorScheme.primary,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
     TextButton(
         onClick = { onClick() },
-        modifier = Modifier,
+        modifier = modifier,
         contentPadding = PaddingValues(4.dp),
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.textButtonColors(
             contentColor = Color.White,
-            containerColor = MaterialTheme.colorScheme.primaryLight2
+            containerColor = MaterialTheme.colorScheme.primary
         ),
         interactionSource = remember { MutableInteractionSource() }
     ) {

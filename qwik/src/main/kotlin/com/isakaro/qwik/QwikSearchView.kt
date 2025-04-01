@@ -1,4 +1,4 @@
-package com.isakaro.qwik
+package com.Qwik.qwik
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,9 +47,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
-
-
-
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,7 +56,7 @@ fun QwikSearchView(
     modifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
     suggestions: List<String> = listOf(),
-    placeholder: String = stringResource(id = R.string.search),
+    placeholder: String = "Search",
     delay: Boolean = false,
     maxChars: Int = 30,
     isError: Boolean = false,
@@ -113,7 +110,7 @@ fun QwikSearchView(
                 Icon(
                     Icons.Default.Search,
                     tint = Color.DarkGray,
-                    contentDescription = stringResource(id = R.string.search),
+                    contentDescription = "search",
                     modifier = Modifier.size(26.dp)
                 )
             },
@@ -136,7 +133,7 @@ fun QwikSearchView(
                             Icon(
                                 Icons.Default.Close,
                                 tint = Color.DarkGray,
-                                contentDescription = stringResource(id = R.string.clear_all),
+                                contentDescription = "clear all",
                                 modifier = Modifier.size(26.dp)
                             )
                         }
@@ -218,7 +215,7 @@ fun QwikSearchView(
 @Preview
 @Composable
 fun QwikSearchViewPreview() {
-    IsakaroSearchView(
+    QwikSearchView(
         state = remember { mutableStateOf(TextFieldValue("")) },
         onTextChange = {},
         onTextCleared = {}
@@ -228,7 +225,7 @@ fun QwikSearchViewPreview() {
 @Preview
 @Composable
 fun QwikSearchViewWithErrorPreview() {
-    IsakaroSearchView(
+    QwikSearchView(
         state = remember { mutableStateOf(TextFieldValue("")) },
         onTextChange = {},
         isError = true,

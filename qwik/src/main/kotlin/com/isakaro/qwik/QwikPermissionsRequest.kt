@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.lifecycle.QwikComposableLifeCycle
-import com.isakaro.qwik.theme.QwikColorOrange
+import com.isakaro.qwik.theme.QwikColorWarning
 import com.isakaro.qwik.utils.isPermissionGranted
 
 @Composable
@@ -142,7 +142,7 @@ fun QwikPermissionsRequest(
             if(permissionRequestState == QwikPermissionRequestState.Denied){
                 QwikCard(
                     modifier = Modifier.padding(12.dp),
-                    containerColor = QwikColorOrange
+                    containerColor = QwikColorWarning
                 ) {
                     IsakaroText.TitleText(
                         modifier = Modifier.padding(12.dp),

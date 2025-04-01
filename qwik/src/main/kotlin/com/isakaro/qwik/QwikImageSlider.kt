@@ -34,11 +34,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-import com.isakaro.qwik.fadingEdge
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListingImageSlider(
     images: List<Any>,
@@ -73,7 +70,7 @@ fun ListingImageSlider(
                 Orientation.Horizontal
             ),
             pageContent = { page ->
-                IsakaroImageLoader(
+                QwikImageLoader(
                     url = images[page],
                     contentScale = if(galleryMode) ContentScale.Fit else ContentScale.Crop,
                 )
@@ -98,8 +95,7 @@ fun ListingImageSlider(
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(vertical = 6.dp)
-                    .align(Alignment.Center)
-                    .fadingEdge(leftRightFade),
+                    .align(Alignment.Center),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 userScrollEnabled = false,
                 contentPadding = PaddingValues(horizontal = 12.dp)

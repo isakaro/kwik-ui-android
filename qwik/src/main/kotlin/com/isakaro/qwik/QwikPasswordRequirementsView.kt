@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,8 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-import com.isakaro.qwik.theme.SuccessColor
+import com.isakaro.qwik.theme.QwikColorSuccess
 
 @Composable
 fun QwikPasswordRequirementsView(
@@ -40,7 +40,7 @@ fun QwikPasswordRequirementsView(
             .background(Color.White, RoundedCornerShape(8.dp))
             .border(
                 2.dp,
-                if (allRequirementsMet) SuccessColor else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Gray,
+                if (allRequirementsMet) QwikColorSuccess else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Gray,
                 RoundedCornerShape(8.dp)
             )
     ) {
@@ -69,14 +69,14 @@ fun RequirementRow(
         Icon(
             imageVector = Icons.Filled.Info,
             contentDescription = "field error",
-            tint = if (requirement.requirementMet) SuccessColor else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Gray,
+            tint = if (requirement.requirementMet) QwikColorSuccess else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Gray,
             modifier = Modifier.size(20.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = requirement.description,
             fontSize = 14.sp,
-            color = if (requirement.requirementMet) SuccessColor else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Black,
+            color = if (requirement.requirementMet) QwikColorSuccess else if (formSubmitAttempted) MaterialTheme.colorScheme.error else Color.Black,
             fontWeight = FontWeight.Normal
         )
     }

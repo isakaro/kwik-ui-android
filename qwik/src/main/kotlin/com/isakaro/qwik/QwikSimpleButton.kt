@@ -22,13 +22,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
-
 @Composable
 fun QwikSimpleButton(
     text: String,
     isLoading: Boolean = false,
-    loadingText: String = stringResource(id = R.string.generic_data_updating_message),
+    loadingText: String = "",
     enabled: Boolean = true,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
@@ -54,13 +52,15 @@ fun QwikSimpleButton(
                 color = Color.White
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = loadingText.ifBlank { stringResource(id = R.string.generic_data_updating_message) },
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            if(loadingText.isNotBlank()){
+                Text(
+                    text = loadingText,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         } else {
             Text(
                 text = text,
@@ -74,5 +74,5 @@ fun QwikSimpleButton(
 @Preview
 @Composable
 fun QwikSimpleButtonPreview() {
-    IsakaroSimpleButton(text = "Click me", isLoading = true) {}
+    QwikSimpleButton(text = "Click me", isLoading = true) {}
 }

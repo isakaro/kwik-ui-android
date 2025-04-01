@@ -21,26 +21,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-import java.time.LocalDate
-import java.time.ZoneOffset
 import java.util.Calendar
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QwikDateRangePickerModal(
+fun QwikDateRangePickerDialog(
     title: String = "Select date range",
-    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
+    confirmText: String = "Confirm",
+    cancelText: String = "Cancel",
+    onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val today = Calendar.getInstance().get(Calendar.DATE)
-    val sixMonthsLater = today.plusMonths(6)
+    val calendar = Calendar.getInstance()
 
-    val todayMillis = today.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
-    val sixMonthsLaterMillis = sixMonthsLater.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+    val today = calendar.clone() as Calendar
 
-    var checkInDate by remember { mutableStateOf<LocalDate?>(null) }
-    var checkOutDate by remember { mutableStateOf<LocalDate?>(null) }
+    val sixMonthsLater = calendar.clone() as Calendar
+    sixMonthsLater.add(Calendar.MONTH, 6)
+
+    val todayMillis = today.timeInMillis
+    val sixMonthsLaterMillis = sixMonthsLater.timeInMillis
+
+    var checkInDate by remember { mutableStateOf<Date?>(null) }
+    var checkOutDate by remember { mutableStateOf<Date?>(null) }
 
     val dateRangePickerState = rememberDateRangePickerState(
         selectableDates = object: SelectableDates {
@@ -58,13 +62,16 @@ fun QwikDateRangePickerModal(
         confirmButton = {
             TextButton(
                 onClick = {
-                    val first = dateRangePickerState.selectedStartDateMillis.toLocalDate()
-                    val second = dateRangePickerState.selectedEndDateMillis.toLocalDate()
+                    val startMillis = dateRangePickerState.selectedStartDateMillis
+                    val endMillis = dateRangePickerState.selectedEndDateMillis
 
-                    if (first != null && second != null) {
-                        onDateRangeSelected(Pair(first, second))
-                        checkInDate = first
-                        checkOutDate = second
+                    if (startMillis != null && endMillis != null) {
+                        val startDate = Date(startMillis)
+                        val endDate = Date(endMillis)
+
+                        onDateRangeSelected(Pair(startDate, endDate))
+                        checkInDate = startDate
+                        checkOutDate = endDate
                     }
                     onDismiss()
                 },
@@ -73,14 +80,14 @@ fun QwikDateRangePickerModal(
                 )
             ) {
                 Text(
-                    text = "Confirm",
+                    text = confirmText,
                     color = Color.White
                 )
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(cancelText)
             }
         }
     ) {

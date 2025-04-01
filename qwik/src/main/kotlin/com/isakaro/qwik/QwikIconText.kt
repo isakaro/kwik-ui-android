@@ -28,14 +28,14 @@ fun TextWithIcon(
     ){
         if(icon is Int){
             Icon(
-                modifier = iconModifier,
+                modifier = modifier,
                 painter = painterResource(id = icon),
                 tint = Color.Gray,
                 contentDescription = null
             )
         } else if(icon is ImageVector){
             Icon(
-                modifier = iconModifier,
+                modifier = modifier,
                 imageVector = icon,
                 tint = Color.Gray,
                 contentDescription = null
@@ -46,39 +46,6 @@ fun TextWithIcon(
             text = text,
             color = Color.Gray,
             style = MaterialTheme.typography.labelMedium
-        )
-    }
-}
-
-@Composable
-fun VehicleTextIcon(
-    text: String,
-    icon: Any
-) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        if(icon is Int){
-            Icon(
-                modifier = Modifier.size(25.dp),
-                painter = painterResource(id = icon),
-                tint = Color.Gray,
-                contentDescription = null
-            )
-        } else if(icon is ImageVector){
-            Icon(
-                modifier = Modifier.size(25.dp),
-                imageVector = icon,
-                tint = Color.Gray,
-                contentDescription = null
-            )
-        }
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = text,
-            color = Color.Gray,
-            style = MaterialTheme.typography.labelSmall
         )
     }
 }

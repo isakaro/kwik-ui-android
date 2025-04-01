@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @SuppressLint("MissingPermission")
-class NetworkUtils(
+class QwikNetworkUtils(
     private val context: Context,
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {

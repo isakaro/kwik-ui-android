@@ -1,4 +1,4 @@
-package com.isakaro.qwik
+package com.Qwik.qwik
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikImageLoader
 
 @Composable
 fun BoxWithConstraintsScope.QwikImageGrid(
@@ -61,7 +62,7 @@ fun BoxWithConstraintsScope.QwikImageGrid(
                             defaultElevation = 0.dp
                         )
                     ) {
-                        IsakaroImageLoader(
+                        QwikImageLoader(
                             url = photos[index],
                         )
                     }
@@ -92,7 +93,7 @@ fun BoxWithConstraintsScope.QwikImageGrid(
                             defaultElevation = 0.dp
                         )
                     ) {
-                        IsakaroImageLoader(
+                        QwikImageLoader(
                             url = photos[index],
                         )
                     }
@@ -123,7 +124,7 @@ fun BoxWithConstraintsScope.QwikImageGrid(
                             defaultElevation = 0.dp
                         )
                     ) {
-                        IsakaroImageLoader(
+                        QwikImageLoader(
                             url = photos[index],
                         )
                     }
@@ -154,7 +155,7 @@ fun BoxWithConstraintsScope.QwikImageGrid(
                             defaultElevation = 0.dp
                         )
                     ) {
-                        IsakaroImageLoader(
+                        QwikImageLoader(
                             url = photos[index],
                         )
                     }
@@ -177,7 +178,7 @@ fun BoxWithConstraintsScope.QwikImageGrid(
                 Box(
                     modifier = modifier.clickable(onClick = { onClick(photo) })
                 ) {
-                    IsakaroImageLoader(
+                    QwikImageLoader(
                         url = photos[index],
                     )
                     if(total > 5){

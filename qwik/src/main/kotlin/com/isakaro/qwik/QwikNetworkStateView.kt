@@ -21,22 +21,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.isakaro.networking.utils.NetworkUtils
-import com.isakaro.qwik.theme.SuccessColor
-import com.isakaro.qwik.theme.WarningColor
+import com.isakaro.qwik.theme.QwikColorWarning
+import com.isakaro.qwik.theme.QwikColorSuccess
+import com.isakaro.qwik.utils.QwikNetworkUtils
 import kotlinx.coroutines.delay
 
 @Composable
 fun QwikNetworkStateView(
-    networkState: NetworkUtils.NetworkState,
+    networkState: QwikNetworkUtils.NetworkState,
     modifier: Modifier = Modifier
 ) {
     var showGreenIndicator by remember { mutableStateOf(false) }
-    var previousNetworkState by remember { mutableStateOf<NetworkUtils.NetworkState?>(null) }
+    var previousNetworkState by remember { mutableStateOf<QwikNetworkUtils.NetworkState?>(null) }
 
     LaunchedEffect(networkState) {
-        if (networkState is NetworkUtils.NetworkState.Available &&
-            (previousNetworkState is NetworkUtils.NetworkState.Unavailable || previousNetworkState is NetworkUtils.NetworkState.Reconnecting)
+        if (networkState is QwikNetworkUtils.NetworkState.Available &&
+            (previousNetworkState is QwikNetworkUtils.NetworkState.Unavailable || previousNetworkState is QwikNetworkUtils.NetworkState.Reconnecting)
         ) {
             showGreenIndicator = true
             delay(2000)
@@ -46,8 +46,8 @@ fun QwikNetworkStateView(
     }
 
     AnimatedVisibility(
-        visible = networkState is NetworkUtils.NetworkState.Unavailable ||
-                networkState is NetworkUtils.NetworkState.Reconnecting ||
+        visible = networkState is QwikNetworkUtils.NetworkState.Unavailable ||
+                networkState is QwikNetworkUtils.NetworkState.Reconnecting ||
                 showGreenIndicator,
     ) {
         Row(
@@ -55,16 +55,16 @@ fun QwikNetworkStateView(
                 .fillMaxWidth()
                 .background(
                     when {
-                        networkState is NetworkUtils.NetworkState.Unavailable -> Color.Gray
-                        networkState is NetworkUtils.NetworkState.Reconnecting -> WarningColor
-                        showGreenIndicator -> SuccessColor
+                        networkState is QwikNetworkUtils.NetworkState.Unavailable -> Color.Gray
+                        networkState is QwikNetworkUtils.NetworkState.Reconnecting -> QwikColorWarning
+                        showGreenIndicator -> QwikColorSuccess
                         else -> Color.Transparent
                     }
                 ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if(networkState is NetworkUtils.NetworkState.Reconnecting) {
+            if(networkState is QwikNetworkUtils.NetworkState.Reconnecting) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
                     color = Color.White
@@ -77,9 +77,9 @@ fun QwikNetworkStateView(
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodySmall,
                 text = when (networkState) {
-                    is NetworkUtils.NetworkState.Available -> "Connected"
-                    is NetworkUtils.NetworkState.Unavailable -> "No internet connection"
-                    is NetworkUtils.NetworkState.Reconnecting -> "Reconnecting..."
+                    is QwikNetworkUtils.NetworkState.Available -> "Connected"
+                    is QwikNetworkUtils.NetworkState.Unavailable -> "No internet connection"
+                    is QwikNetworkUtils.NetworkState.Reconnecting -> "Reconnecting..."
                     else -> ""
                 },
                 color = Color.White

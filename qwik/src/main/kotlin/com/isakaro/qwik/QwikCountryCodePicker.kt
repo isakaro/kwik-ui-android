@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.Qwik.qwik.QwikSearchView
 import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
