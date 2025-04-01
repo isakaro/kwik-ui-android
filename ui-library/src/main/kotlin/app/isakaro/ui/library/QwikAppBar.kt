@@ -1,9 +1,9 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,21 +13,18 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IsakaroAppBar(
+fun QwikAppBar(
     title: String,
     subtitle: String? = null,
-    @DrawableRes navigationIcon: Int = R.drawable.arrow_back,
-    navIconContentDescription: String? = null,
+    navigationIcon: Any = Icons.AutoMirrored.Filled.ArrowBack,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     contentColor: Color = MaterialTheme.colorScheme.background,
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
@@ -68,9 +65,8 @@ fun IsakaroAppBar(
             IconButton(
                 onClick = navigationClick
             ) {
-                Icon(
-                    painter = painterResource(id = navigationIcon),
-                    contentDescription = navIconContentDescription
+                QwikImageView(
+                    url = navigationIcon
                 )
             }
         },

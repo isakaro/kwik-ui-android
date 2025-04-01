@@ -3,8 +3,6 @@ package app.isakaro.ui.library.utils
 import androidx.annotation.DrawableRes
 import com.isakaro.qwik.ui.library.R
 
-val RWANDA = CountryInfo("Rwanda", "RW", "+250", flag = R.drawable.rw, tags = listOf("Kigali"))
-
 val countryList = listOf(
     CountryInfo("Afghanistan", "AF", "+93", flag = R.drawable.af),
     CountryInfo("Åland Islands", "AX", "+358", flag = R.drawable.ax),
@@ -187,7 +185,7 @@ val countryList = listOf(
     CountryInfo("Reunion", "RE", "+262", flag = R.drawable.re),
     CountryInfo("Romania", "RO", "+40", flag = R.drawable.ro),
     CountryInfo("Russian Federation", "RU", "+7", flag = R.drawable.ru),
-    RWANDA,
+    CountryInfo("Rwanda", "RW", "+250", flag = R.drawable.rw, tags = listOf("Kigali")),
     CountryInfo("Saint Helena", "SH", "+290", flag = R.drawable.sh),
     CountryInfo("Saint Kitts and Nevis", "KN", "+1", flag = R.drawable.kn),
     CountryInfo("Saint Lucia", "LC", "+1", flag = R.drawable.lc),
@@ -248,6 +246,11 @@ val countryList = listOf(
     CountryInfo("Zambia", "ZM", "+260", flag = R.drawable.zm),
     CountryInfo("Zimbabwe", "ZW", "+263", flag = R.drawable.zw)
 )
+
+fun resolveCountries(omit: List<String> = listOf()): List<CountryInfo> {
+    if(omit.isEmpty()) return countryList
+    return countryList.filter { country -> !omit.contains(country.code) }
+}
 
 /*
 * name = country name

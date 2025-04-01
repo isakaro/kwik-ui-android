@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.height
@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
-import app.isakaro.ui.library.IsakaroWidget
 
 data class IsakaroWidgetItem(
     val image: String? = null,
@@ -29,7 +28,7 @@ data class IsakaroGridItem(
 )
 
 @Composable
-fun BoxWithConstraintsScope.IsakaroGridBuilder(
+fun BoxWithConstraintsScope.QwikGridBuilder(
     cols: Int = 1,
     rows: Int = 1,
     items: List<IsakaroGridItem>

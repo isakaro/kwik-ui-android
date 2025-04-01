@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxWithConstraintsScope.ImageGrid(
+fun BoxWithConstraintsScope.QwikImageGrid(
     photos: List<Any>,
     total: Int,
     onClick: (Any) -> Unit = {}

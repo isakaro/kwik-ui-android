@@ -33,7 +33,7 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.isakaro.ui.library.IsakaroCircularLoading
 import com.isakaro.ui.components.IsakaroToast
-import com.isakaro.ui.components.rememberIsakaroToastState
+import app.isakaro.ui.library.rememberIsakaroToastState
 import timber.log.Timber
 
 @SuppressLint("SetJavaScriptEnabled")

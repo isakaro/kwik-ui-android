@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import app.isakaro.ui.library.IsakaroImageView
+import app.isakaro.ui.library.QwikImageView
 import java.util.UUID
 
 @Composable
@@ -71,7 +71,7 @@ fun ListActionItem(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        IsakaroImageView(url = item.icon)
+        QwikImageView(url = item.icon)
         Column(
             modifier = Modifier
                 .weight(1f)

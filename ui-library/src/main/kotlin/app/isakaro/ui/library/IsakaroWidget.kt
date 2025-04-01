@@ -13,9 +13,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.isakaro.ui.components.IsakaroCard
-import com.isakaro.ui.components.IsakaroGridItem
 import com.isakaro.ui.components.IsakaroText
-import com.isakaro.ui.components.IsakaroWidgetItem
 
 @Composable
 fun IsakaroWidget(

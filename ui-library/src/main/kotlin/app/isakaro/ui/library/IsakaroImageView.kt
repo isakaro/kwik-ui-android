@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.ui.library.R
 
 @Composable
-fun IsakaroImageView(
+fun QwikImageView(
     modifier: Modifier = Modifier,
     url: Any
 ){
@@ -44,8 +44,8 @@ fun IsakaroImageView(
 
 @Preview
 @Composable
-fun IsakaroImageViewPreview(){
-    IsakaroImageView(
+fun QwikImageViewPreview(){
+    QwikImageView(
         url = painterResource(id = R.drawable.shield)
     )
 }

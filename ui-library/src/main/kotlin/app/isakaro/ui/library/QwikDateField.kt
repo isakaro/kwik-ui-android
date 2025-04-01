@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -22,10 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+import com.isakaro.qwik.ui.library.R
+import com.isakaro.ui.components.IsakaroText
 
 @Composable
-fun IsakaroDateField(
+fun QwikDateField(
     modifier: Modifier = Modifier,
     label: String,
     date: String,
@@ -86,8 +87,8 @@ fun IsakaroDateField(
 
 @Preview
 @Composable
-fun IsakaroDateFieldPreview() {
-    IsakaroDateField(
+fun QwikDateFieldPreview() {
+    QwikDateField(
         label = "Check-in",
         date = "2022-12-31",
         onClick = {}

@@ -36,30 +36,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.isakaro.ui.library.theme.ColorSecondaryAccent
+import app.isakaro.ui.library.utils.CountryInfo
+import app.isakaro.ui.library.utils.countryList
+import app.isakaro.ui.library.utils.resolveCountries
 import app.isakaro.ui.library.utils.text
-import com.isakaro.qwik.ui.library.R
-import com.isakaro.ui.components.IsakaroDialog
 import com.isakaro.ui.components.IsakaroSearchView
 
 @Composable
-fun CountrySelector(
+fun QwikCountryCodePicker(
     state: LazyListState,
+    omitCountries: List<String> = emptyList(),
+    showFlags: Boolean = true,
+    noCountryFoundMessage: String = "No country found",
     onSelect: (CountryInfo) -> Unit
 ){
-    val searchResults = remember { mutableStateOf(countryList) }
-    val countries = remember { countryList }
+    val countries = remember { resolveCountries(omitCountries) }
+    val searchResults = remember { mutableStateOf(countries) }
     val searchQuery = remember { mutableStateOf(TextFieldValue("")) }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(8.dp)
-        .background(Color.White),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -80,10 +84,9 @@ fun CountrySelector(
             }
         )
 
-        //if search box is not empty but no results are found, show a message
         if (searchResults.value.isEmpty() && searchQuery.text.isNotEmpty()) {
             Text(
-                text = stringResource(id = R.string.no_such_country_found),
+                text = noCountryFoundMessage,
                 modifier = Modifier.padding(bottom = 100.dp),
                 style = MaterialTheme.typography.titleMedium
             )
@@ -91,7 +94,10 @@ fun CountrySelector(
 
         LazyColumn(state = state, modifier = Modifier.fillMaxSize().weight(1f)) {
             itemsIndexed(searchResults.value) { index, country ->
-                CountryCodeItem(country = country){
+                CountryCodeItem(
+                    country = country,
+                    showFlags = showFlags
+                ){
                     onSelect(country)
                 }
             }
@@ -101,19 +107,20 @@ fun CountrySelector(
 }
 
 @Composable
-fun CountrySelectorDialog(
+fun QwikCountryCodePickerDialog(
     open: Boolean,
+    title: String = "Where are you from?",
     countryListState: LazyListState,
     onSelect: (CountryInfo) -> Unit,
     onDismiss: () -> Unit
 ){
-    IsakaroDialog.ContentDialog(
+    QwikDialog.ContentDialog(
         open = open,
-        title = stringResource(id = R.string.where_are_you_from),
+        title = title,
         withCloseIcon = true,
         dismiss = { onDismiss() }
     ) {
-        CountrySelector(
+        QwikCountryCodePicker(
             state = countryListState,
             onSelect = { onSelect(it) },
         )
@@ -121,9 +128,9 @@ fun CountrySelectorDialog(
 }
 
 @Composable
-fun CountryCodeButton(
-    country: CountryInfo,
+fun QwikCountryCodeButton(
     modifier: Modifier = Modifier.height(65.dp),
+    country: CountryInfo,
     enabled: Boolean = true,
     onClick: () -> Unit
 ){
@@ -161,8 +168,13 @@ fun CountryCodeButton(
 }
 
 @Composable
-fun CountryCodeItem(country: CountryInfo, onClick: () -> Unit) {
-    Box(modifier = Modifier
+fun CountryCodeItem(
+    country: CountryInfo,
+    showFlags: Boolean = true,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
         .height(80.dp)
         .fillMaxWidth()
         .padding(10.dp)
@@ -170,13 +182,15 @@ fun CountryCodeItem(country: CountryInfo, onClick: () -> Unit) {
             onClick()
         }) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.align(Alignment.Center)) {
-            Image(
-                modifier = Modifier
-                    .size(40.dp)
-                    .padding(start = 10.dp),
-                painter = painterResource(id = country.flag),
-                contentDescription = country.name
-            )
+            if(showFlags){
+                Image(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(start = 10.dp),
+                    painter = painterResource(id = country.flag),
+                    contentDescription = country.name
+                )
+            }
             Spacer(modifier = Modifier.width(10.dp))
             Text(
                 modifier = Modifier.weight(1f),
@@ -197,8 +211,8 @@ fun CountryCodeItem(country: CountryInfo, onClick: () -> Unit) {
 
 @Preview
 @Composable
-fun CountrySelectorPreview(){
-    CountrySelector(
+fun QwikCountryCodePickerPreview(){
+    QwikCountryCodePicker(
         state = rememberLazyListState(),
         onSelect = {},
     )

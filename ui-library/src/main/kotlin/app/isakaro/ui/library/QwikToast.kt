@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,15 +35,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.isakaro.ui.theme.ColorPrimaryAccent
-import com.isakaro.ui.theme.ErrorColor
-import com.isakaro.ui.theme.SuccessColor
-import com.isakaro.ui.theme.WarningColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-enum class IsakaroToastType {
+enum class QwikToastType {
     NEUTRAL,
     WARNING,
     SUCCESS,
@@ -52,7 +49,7 @@ enum class IsakaroToastType {
 data class MessageState(
     val id: UUID = UUID.randomUUID(),
     val message: String = "",
-    val type: IsakaroToastType = IsakaroToastType.NEUTRAL,
+    val type: QwikToastType = QwikToastType.NEUTRAL,
     val isVisible: Boolean = false,
     val duration: Long = 4000L
 )
@@ -63,7 +60,7 @@ fun rememberIsakaroToastState(): MutableState<MessageState> {
 }
 
 @Composable
-fun IsakaroToast(
+fun QwikToast(
     state: MutableState<MessageState>,
     modifier: Modifier = Modifier
 ) {
@@ -73,17 +70,17 @@ fun IsakaroToast(
     val progress = remember { Animatable(1f) }
 
     val backgroundColor = when (state.value.type) {
-        IsakaroToastType.NEUTRAL -> ColorPrimaryAccent
-        IsakaroToastType.WARNING -> WarningColor
-        IsakaroToastType.SUCCESS -> SuccessColor
-        IsakaroToastType.ERROR -> ErrorColor
+        QwikToastType.NEUTRAL -> Color.White
+        QwikToastType.WARNING -> Color.Yellow
+        QwikToastType.SUCCESS -> Color.Green
+        QwikToastType.ERROR -> MaterialTheme.colorScheme.error
     }
 
     val icon = when (state.value.type) {
-        IsakaroToastType.NEUTRAL -> Icons.Default.Info
-        IsakaroToastType.WARNING -> Icons.Default.Warning
-        IsakaroToastType.SUCCESS -> Icons.Default.Check
-        IsakaroToastType.ERROR -> Icons.Default.Info
+        QwikToastType.NEUTRAL -> Icons.Default.Info
+        QwikToastType.WARNING -> Icons.Default.Warning
+        QwikToastType.SUCCESS -> Icons.Default.Check
+        QwikToastType.ERROR -> Icons.Default.Info
     }
 
     if (state.value.isVisible) {
@@ -174,7 +171,7 @@ fun IsakaroToast(
 fun MutableState<MessageState>.showToast(
     message: String,
     duration: Long = 4000L,
-    type: IsakaroToastType = IsakaroToastType.NEUTRAL
+    type: QwikToastType = QwikToastType.NEUTRAL
 ) {
     this.value = MessageState(
         message = message,

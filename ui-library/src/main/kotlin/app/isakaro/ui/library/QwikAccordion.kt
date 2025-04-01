@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
@@ -24,11 +24,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
-import com.isakaro.ui.theme.ErrorColor
+import app.isakaro.ui.library.theme.ErrorColor
+import com.isakaro.qwik.ui.library.R
 
 @Composable
-fun IsakaroAccordion(
+fun QwikIsakaroAccordion(
     title: String,
     headerIcon: Int? = null,
     elevation: Int = 8,
@@ -48,7 +48,7 @@ fun IsakaroAccordion(
             defaultElevation = elevation.dp
         )
     ){
-        AccordionHeader(
+        QwikAccordionHeader(
             title = title,
             headerIcon = headerIcon,
             isExpanded = expanded,
@@ -64,7 +64,7 @@ fun IsakaroAccordion(
 }
 
 @Composable
-fun AccordionHeader(
+private fun QwikAccordionHeader(
     title: String,
     headerIcon: Int? = null,
     isExpanded: Boolean = false,

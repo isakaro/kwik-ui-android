@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,10 +35,12 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.isakaro.R
-import com.isakaro.ui.theme.ColorPrimaryAccent
+import app.isakaro.ui.library.theme.ColorPrimaryAccent
+import com.isakaro.qwik.ui.library.R
+import com.isakaro.ui.components.IsakaroButton
+import com.isakaro.ui.components.IsakaroText
 
-object IsakaroDialog {
+object QwikDialog {
     @Composable
     private fun BaseDialog(
         modifier: Modifier = Modifier,
@@ -117,8 +120,8 @@ object IsakaroDialog {
                                     modifier = Modifier
                                         .padding(8.dp)
                                         .size(30.dp),
-                                    painter = painterResource(id = R.drawable.close),
-                                    contentDescription = stringResource(id = R.string.close),
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "close",
                                     tint = Color.Black
                                 )
                             }
@@ -264,8 +267,8 @@ object IsakaroDialog {
                             modifier = Modifier
                                 .padding(8.dp)
                                 .size(30.dp),
-                            painter = painterResource(id = R.drawable.close),
-                            contentDescription = stringResource(id = R.string.close),
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "close",
                             tint = Color.White
                         )
                     }

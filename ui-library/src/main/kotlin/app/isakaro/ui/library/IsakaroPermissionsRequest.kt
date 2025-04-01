@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.isakaro.ui.library.IsakaroDialog
 import app.isakaro.ui.library.PermissionDto
 import app.isakaro.ui.library.PermissionRequest
 import app.isakaro.ui.library.PermissionRequestState

@@ -1,4 +1,4 @@
-package com.isakaro.ui.components
+package app.isakaro.ui.library
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ExpandableText(
+fun QwikExpandableText(
     text: String,
     title: String,
     modifier: Modifier = Modifier,
@@ -67,7 +67,7 @@ fun ExpandableText(
             }
         }
 
-        IsakaroDialog.ContentDialog(
+        QwikDialog.ContentDialog(
             open = isExpanded,
             title = title,
             dismiss = { isExpanded = false },
