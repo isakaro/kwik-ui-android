@@ -31,9 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.isakaro.qwik.IsakaroCircularLoading
-import com.isakaro.qwik.IsakaroToast
-import com.isakaro.qwik.rememberIsakaroToastState
 import timber.log.Timber
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -47,11 +44,6 @@ fun QwikWebView(
     userAgent: String = "Qwik-Android-WebView",
     failedToOpenLink: () -> Unit = {}
 ) {
-    val isakaroToastState = rememberIsakaroToastState()
-    if (isakaroToastState.value.isVisible) {
-        IsakaroToast(state = isakaroToastState)
-    }
-
     var valueCallback by remember { mutableStateOf<ValueCallback<Array<Uri>>?>(null) }
     val pageLoadingProgress = remember { mutableIntStateOf(0) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
@@ -198,7 +190,7 @@ fun QwikWebView(
             )
         }
         if(!loaded){
-            IsakaroCircularLoading(
+            QwikCircularLoading(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -226,5 +218,5 @@ data class QwikCookie(
 @Preview
 @Composable
 fun QwikWebViewPreview() {
-    IsakaroWebView(url = "https://www.google.com")
+    QwikWebView(url = "https://www.google.com")
 }

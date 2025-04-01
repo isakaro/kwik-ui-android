@@ -30,7 +30,6 @@ import com.isakaro.qwik.IsakaroDialog
 import com.isakaro.qwik.PermissionDto
 import com.isakaro.qwik.PermissionRequest
 import com.isakaro.qwik.PermissionRequestState
-import com.isakaro.qwik.showInstalledAppDetails
 
 import com.isakaro.qwik.theme.RatingOrange
 import com.isakaro.qwik.utils.ComposableLifeCycle

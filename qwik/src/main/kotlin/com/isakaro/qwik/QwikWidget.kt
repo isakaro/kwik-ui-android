@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.IsakaroCard
-import com.isakaro.qwik.IsakaroText
 
 @Composable
 fun QwikWidget(
