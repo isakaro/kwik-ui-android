@@ -26,9 +26,11 @@ splashscreen = "1.0.1"
 androidx-security = "1.0.0"
 google-play-auth-phone = "18.2.0"
 compose-bom = "2025.03.01"
+android-documentation-plugin = "2.0.0"
 
 [libraries]
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
+android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "android-documentation-plugin" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-arch-core-test = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-core-testing" }
 androidx-core-test = { module = "androidx.test:core", version.ref = "androidx-core-test" }
@@ -99,3 +101,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "plugin-kotlinter" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "plugin-ksp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-documentation-plugin = { id = "org.jetbrains.dokka", version.ref = "android-documentation-plugin" }

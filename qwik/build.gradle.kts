@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("maven-publish")
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.documentation.plugin)
 }
 
 android {
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.splashscreen)
     debugImplementation(libs.compose.ui.tooling)
     testImplementation(libs.bundles.test)
+    dokkaPlugin(libs.android.documentation.plugin)
 }
 
 publishing {
