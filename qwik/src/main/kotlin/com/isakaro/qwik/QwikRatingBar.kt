@@ -79,7 +79,7 @@ private fun determineRatingColor(rating: Double): Color {
 
 @Preview
 @Composable
-fun FiveStarsRatingPreview() {
+private fun FiveStarsRatingPreview() {
     QwikRatingBar(
         stars = 5,
         rating = 5.0
@@ -88,7 +88,7 @@ fun FiveStarsRatingPreview() {
 
 @Preview
 @Composable
-fun TwoPoint5iveRatingPreview() {
+private fun TwoPoint5iveRatingPreview() {
     QwikRatingBar(
         rating = 2.5
     )

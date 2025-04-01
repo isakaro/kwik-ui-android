@@ -1,4 +1,4 @@
-package com.Qwik.qwik
+package com.isakaro.qwik
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.QwikImageLoader
 
 @Composable
 fun BoxWithConstraintsScope.QwikImageGrid(

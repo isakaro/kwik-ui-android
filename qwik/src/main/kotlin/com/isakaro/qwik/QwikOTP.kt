@@ -54,7 +54,7 @@ import com.isakaro.qwik.textfield.PasswordToggle
  * @param size: The number of fields in the OTP. Default is 6.
  * @param isError: If true, the error message will be displayed.
  * @param error: The error message to display.
- * @param visualTransformation: The visual transformation to apply to the OTP fields. Default is VisualTransformation.None. Pass in [PasswordVisualTransformation] for password masking.
+ * @param visualTransformation: The visual transformation to apply to the OTP fields. Default is [VisualTransformation.None]. Pass in [PasswordVisualTransformation] for password masking.
  * @param clearAll: If true, all OTP fields will be cleared.
  * @param onKeyboardDone: Callback that is called when the user presses the done key on the keyboard.
  *
@@ -63,7 +63,7 @@ import com.isakaro.qwik.textfield.PasswordToggle
  * ```
  * QwikOTP(
  *    onValidOTP = { otp ->
- *    // handle valid OTP
+ *      // handle valid OTP
  *    },
  *    error = "Invalid OTP"
  * )
