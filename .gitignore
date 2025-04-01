@@ -8,14 +8,11 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.kotlin
-.keystore
 .DS_Store
-secrets.properties
 /build
 /**/build
-Kwik-catalog/build/
-Kwik/build/
+ui-catalog/build/
+ui-library/build/
 /captures
 /**/google-services.json
 .externalNativeBuild
