@@ -27,7 +27,7 @@ import com.isakaro.qwik.theme.WarningColor
 import kotlinx.coroutines.delay
 
 @Composable
-fun IsakaroNetworkStateView(
+fun QwikNetworkStateView(
     networkState: NetworkUtils.NetworkState,
     modifier: Modifier = Modifier
 ) {

@@ -16,7 +16,7 @@ import com.isakaro.qwik.utils.activity
  * @param @[String] [permission] the permission to be requested
  * @param @[String] [rationaleMessage] the message to show when the user denies the permission but can still show rationale
  * */
-data class PermissionDto(
+data class QwikPermissionDto(
     val permission: String,
     val rationaleMessage: String
 )
@@ -29,10 +29,10 @@ data class PermissionDto(
  * @param @[Composable] [content] optional content that can be displayed when the user grants the permission
  * */
 @Composable
-fun PermissionRequest(
-    permissions: List<PermissionDto>,
-    permissionRequestState: PermissionRequestState,
-    onPermissionRequestStateChange: (PermissionRequestState) -> Unit,
+fun QwikPermissionRequest(
+    permissions: List<QwikPermissionDto>,
+    permissionRequestState: QwikPermissionRequestState,
+    onPermissionRequestStateChange: (QwikPermissionRequestState) -> Unit,
     onGrantAction: () -> Unit = {},
     onShowRationale: () -> Unit = {},
     onDeniedAction: () -> Unit = {},
@@ -54,13 +54,13 @@ fun PermissionRequest(
     ) { grantedPermissionsMap ->
         val newState = when {
             grantedPermissionsMap.all { it.value } -> {
-                PermissionRequestState.Granted
+                QwikPermissionRequestState.Granted
             }
             (grantedPermissionsMap.any { !it.value } && canShowRationale()) -> {
-                PermissionRequestState.ShowRationale
+                QwikPermissionRequestState.ShowRationale
             }
             else -> {
-                PermissionRequestState.Denied
+                QwikPermissionRequestState.Denied
             }
         }
         onPermissionRequestStateChange(newState)
@@ -68,16 +68,16 @@ fun PermissionRequest(
 
    LaunchedEffect(permissionRequestState) {
        when(permissionRequestState) {
-           PermissionRequestState.Requesting -> {
+           QwikPermissionRequestState.Requesting -> {
                getPermission.launch(permissionList)
            }
-           PermissionRequestState.Granted -> {
+           QwikPermissionRequestState.Granted -> {
                onGrantAction()
            }
-           PermissionRequestState.ShowRationale -> {
+           QwikPermissionRequestState.ShowRationale -> {
                onShowRationale()
            }
-           PermissionRequestState.Denied -> {
+           QwikPermissionRequestState.Denied -> {
                onDeniedAction()
            }
        }
@@ -85,11 +85,11 @@ fun PermissionRequest(
 
 }
 
-sealed class PermissionRequestState {
-    data object Requesting: PermissionRequestState()
-    data object Granted: PermissionRequestState()
-    data object ShowRationale: PermissionRequestState()
-    data object Denied: PermissionRequestState()
+sealed class QwikPermissionRequestState {
+    data object Requesting: QwikPermissionRequestState()
+    data object Granted: QwikPermissionRequestState()
+    data object ShowRationale: QwikPermissionRequestState()
+    data object Denied: QwikPermissionRequestState()
 }
 
 fun Context.showInstalledAppDetails(appPackageName: String) {

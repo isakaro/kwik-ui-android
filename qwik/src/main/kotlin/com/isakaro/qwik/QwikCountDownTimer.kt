@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import java.time.Duration
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun IsakaroCountDownTimer(
+fun QwikCountDownTimer(
     time: Duration,
     onTimeUpdate: (String) -> Unit,
     onTimerFinished: () -> Unit

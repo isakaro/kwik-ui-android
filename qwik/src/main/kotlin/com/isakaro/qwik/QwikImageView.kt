@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.R
 
 @Composable
 fun QwikImageView(
@@ -34,7 +33,7 @@ fun QwikImageView(
         }
 
         is String -> {
-            IsakaroImageLoader(
+            QwikImageLoader(
                 modifier = modifier,
                 url = url
             )

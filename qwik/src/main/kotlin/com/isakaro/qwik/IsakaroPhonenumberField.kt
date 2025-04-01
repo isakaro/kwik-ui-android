@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,7 +59,7 @@ val allowedChars = Regex("^[0-9]*$")
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun IsakaroPhoneNumberField(
+fun QwikPhoneNumberField(
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
@@ -200,7 +200,7 @@ fun IsakaroPhoneNumberField(
 
 @Preview
 @Composable
-fun IsakaroPhoneNumberFieldPreview() {
+fun QwikPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
     IsakaroPhoneNumberField(

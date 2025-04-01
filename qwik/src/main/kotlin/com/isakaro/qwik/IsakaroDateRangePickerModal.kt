@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,14 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.ColorPrimaryAccent
-import com.isakaro.qwik.theme.ColorPrimaryAccentLight
-import com.isakaro.qwik.utils.toLocalDate
 import java.time.LocalDate
 import java.time.ZoneOffset
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IsakaroDateRangePickerModal(
+fun QwikDateRangePickerModal(
     title: String = "Select date range",
     onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
     onDismiss: () -> Unit

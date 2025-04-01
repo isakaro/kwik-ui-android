@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -29,11 +29,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroButton(
+fun QwikButton(
     modifier: Modifier = Modifier,
     text: Any,
     isLoading: Boolean = false,

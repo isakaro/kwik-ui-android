@@ -73,7 +73,7 @@ data class QwikToggleGroupOption<T>(
 
 @Preview
 @Composable
-fun IsakaroToggleGroupPreview() {
+fun QwikToggleGroupPreview() {
     ToggleGroup(
         options = listOf(
             QwikToggleGroupOption("Option 1", 1),

@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import android.view.KeyEvent.KEYCODE_DEL
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -47,7 +48,7 @@ import androidx.compose.ui.unit.sp
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroOTPField(
+fun QwikOTP(
     onValidOtp: (TextFieldValue) -> Unit,
     size: Int = 6,
     isError: Boolean = false,
@@ -81,7 +82,7 @@ fun IsakaroOTPField(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             (0 until size).forEach { index ->
-                OtpDigit(
+                OTPDigit(
                     value = otpFields[index],
                     isLastField = index == 5,
                     isError = isError,
@@ -153,7 +154,7 @@ fun String.lastChar(): String {
 }
 
 @Composable
-fun OtpDigit(
+fun OTPDigit(
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
@@ -197,8 +198,8 @@ fun OtpDigit(
                 cursorColor = Color.Transparent,
                 errorCursorColor = Color.Transparent,
                 focusedContainerColor = Color.White,
-                focusedBorderColor = if(value.value.text.isEmpty()) Color.Black else ColorPrimaryAccent,
-                unfocusedBorderColor = if(value.value.text.isEmpty()) Color.Black else ColorPrimaryAccent,
+                focusedBorderColor = if(value.value.text.isEmpty()) Color.Black else MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = if(value.value.text.isEmpty()) Color.Black else MaterialTheme.colorScheme.primary,
                 unfocusedContainerColor = Color.White
             ),
             singleLine = true,

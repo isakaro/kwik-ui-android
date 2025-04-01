@@ -1,6 +1,5 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +19,9 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -57,20 +56,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+
 import com.isakaro.qwik.theme.ErrorColor
 import com.isakaro.qwik.theme.HintColor
 import com.isakaro.qwik.theme.SuccessColor
 
-object AllowedChars {
-    val ALPHANUMERIC = Regex("[^A-Za-z0-9 ]")
-    val NUMBERS = Regex("[^0-9]")
-    val ALL = null
-}
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun IsakaroTextField(
+fun QwikTextField(
     modifier: Modifier = Modifier,
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
@@ -79,10 +72,10 @@ fun IsakaroTextField(
     onFocusChanged: (Boolean) -> Unit = {  },
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEditable: Boolean = true,
-    @StringRes placeholder: Int,
+    placeholder: String,
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
-    error: String = stringResource(id = R.string.empty_field_notice),
+    error: String = "Field is required",
     isSingleLine: Boolean = true,
     maxLength: Int = 35,
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -100,7 +93,6 @@ fun IsakaroTextField(
     isBigTextField: Boolean = false,
     isEnabled: Boolean = true,
 ) {
-
     val autofillTypes = mutableListOf<AutofillType>()
 
     if(keyboardType == KeyboardType.Password){
@@ -134,10 +126,10 @@ fun IsakaroTextField(
     LocalAutofillTree.current += autofillNode
 
     Column {
-        OutlinedTextField(
+        TextField(
             value = value.value,
             onValueChange = {
-                if(!isEnabled) return@OutlinedTextField
+                if(!isEnabled) return@TextField
                 if(it.text.length <= maxLength){
                     if(allowedChars != null) {
                         onValueChange(it.copy(allowedChars.replace(it.text, "")))
@@ -146,7 +138,7 @@ fun IsakaroTextField(
             },
             label = {
                 Text(
-                    text = stringResource(id = placeholder),
+                    text = placeholder,
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -377,32 +369,12 @@ fun IsakaroTextField(
 }
 
 @Composable
-fun PasswordToggle(passwordVisible: Boolean, onClick: () -> Unit) {
-    val image = if (passwordVisible) {
-        ImageVector.vectorResource(id = R.drawable.baseline_visibility_off_24)
-    } else {
-        ImageVector.vectorResource(id = R.drawable.baseline_visibility_24)
-    }
-
-    Icon(
-        imageVector = image,
-        contentDescription = if (passwordVisible) "Hide password" else "Show password",
-        tint = Color.Black,
-        modifier = Modifier
-            .size(25.dp)
-            .clickable { onClick() }
-    )
-}
-
-@Composable
 @Preview(showBackground = true)
-fun IsakaroTextFieldPreview() {
-    IsakaroTextField(
-        value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(
-            TextFieldValue("")
-        ) },
+fun QwikTextFieldPreview() {
+    QwikTextField(
+        value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
-        placeholder = R.string.username,
+        placeholder = "Jack Sparrow",
         keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,
         imeAction = ImeAction.Done,

@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import android.Manifest
 import android.os.Build
@@ -31,13 +31,13 @@ import com.isakaro.qwik.PermissionDto
 import com.isakaro.qwik.PermissionRequest
 import com.isakaro.qwik.PermissionRequestState
 import com.isakaro.qwik.showInstalledAppDetails
-import com.isakaro.R
+
 import com.isakaro.qwik.theme.RatingOrange
 import com.isakaro.qwik.utils.ComposableLifeCycle
 import com.isakaro.qwik.utils.isPermissionGranted
 
 @Composable
-fun IsakaroPermissionsRequest(
+fun QwikPermissionsRequest(
     permissions: List<PermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",

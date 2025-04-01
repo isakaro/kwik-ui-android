@@ -12,11 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.components.IsakaroCard
-import com.isakaro.qwik.components.IsakaroText
+import com.isakaro.qwik.IsakaroCard
+import com.isakaro.qwik.IsakaroText
 
 @Composable
-fun IsakaroWidget(
+fun QwikWidget(
     modifier: Modifier = Modifier,
     isakaroGridItem: IsakaroGridItem,
     onClick: () -> Unit
@@ -64,7 +64,7 @@ fun IsakaroWidget(
 }
 
 @Composable
-fun IsakaroWidget(
+fun QwikWidget(
     isakaroWidgetItem: IsakaroWidgetItem,
     onClick: () -> Unit
 ) {

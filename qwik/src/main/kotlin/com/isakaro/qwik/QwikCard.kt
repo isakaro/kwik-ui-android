@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IsakaroCard(
+fun QwikCard(
     modifier: Modifier = Modifier,
     containerColor: Color = Color.White,
     roundedCornerShape: RoundedCornerShape = RoundedCornerShape(12.dp),

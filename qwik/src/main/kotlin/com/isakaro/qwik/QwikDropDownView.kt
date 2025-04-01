@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
@@ -23,10 +23,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
 
 @Composable
-fun IsakaroDropDownView(
+fun QwikDropDownView(
     modifier: Modifier = Modifier,
     label: String = "",
     text: String,
@@ -92,10 +91,10 @@ fun IsakaroDropDownView(
 
 @Preview
 @Composable
-fun IsakaroDropDownViewPreview() {
-    IsakaroDropDownView(
+fun QwikDropDownViewPreview() {
+    QwikDropDownView(
         label = "Language",
-        leadingIcon = R.drawable.translate,
+        leadingIcon = R.drawable.shield,
         text = "Kinyarwanda",
         onClick = {}
     )

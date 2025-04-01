@@ -27,10 +27,10 @@ import com.isakaro.qwik.theme.ErrorColor
 import com.isakaro.qwik.theme.SuccessColor
 
 @Composable
-fun PasswordRequirementsView(
-    requirements: Map<PasswordRequirementType, PasswordRequirement>,
+fun QwikPasswordRequirementsView(
+    modifier: Modifier = Modifier,
+    requirements: Map<QwikPasswordRequirementType, PasswordRequirement>,
     formSubmitAttempted: Boolean,
-    modifier: Modifier = Modifier
 ) {
     val allRequirementsMet = requirements.all { it.value.requirementMet }
 
@@ -82,7 +82,7 @@ fun RequirementRow(
     }
 }
 
-enum class PasswordRequirementType {
+enum class QwikPasswordRequirementType {
     LENGTH, NUMBER, CHAR
 }
 
@@ -93,15 +93,15 @@ data class PasswordRequirement(
 )
 
 val PasswordRequirements = mapOf(
-    PasswordRequirementType.LENGTH to PasswordRequirement("At least 8 characters", false),
-    PasswordRequirementType.NUMBER to PasswordRequirement("Contains a number", false),
-    PasswordRequirementType.CHAR to PasswordRequirement("Contains a letter", false)
+    QwikPasswordRequirementType.LENGTH to PasswordRequirement("At least 8 characters", false),
+    QwikPasswordRequirementType.NUMBER to PasswordRequirement("Contains a number", false),
+    QwikPasswordRequirementType.CHAR to PasswordRequirement("Contains a letter", false)
 )
 
 @Preview
 @Composable
-fun PasswordRequirementsViewPreview() {
-    PasswordRequirementsView(
+fun QwikPasswordRequirementsViewPreview() {
+    QwikPasswordRequirementsView(
         requirements = PasswordRequirements,
         formSubmitAttempted = false
     )

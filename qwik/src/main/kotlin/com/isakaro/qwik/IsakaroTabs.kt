@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +27,7 @@ import com.isakaro.qwik.theme.ColorPrimaryAccent
 import kotlinx.coroutines.launch
 
 @Composable
-fun IsakaroTabs(
+fun QwikTabs(
     tabs: List<IsakaroTabItem>, pagerState: PagerState
 ) {
     val scope = rememberCoroutineScope()
@@ -84,7 +84,7 @@ data class IsakaroTabItem(
 
 @Preview
 @Composable
-fun IsakaroTabsPreview() {
+fun QwikTabsPreview() {
     val list = listOf(
         IsakaroTabItem(title = "Bite"),
         IsakaroTabItem(title = "Hello"),

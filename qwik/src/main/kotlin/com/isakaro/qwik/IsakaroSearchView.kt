@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,7 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
-import com.isakaro.R
+
 import com.isakaro.qwik.theme.ColorSecondaryAccent
 import com.isakaro.qwik.theme.ErrorColor
 import kotlinx.coroutines.Job
@@ -55,7 +55,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun IsakaroSearchView(
+fun QwikSearchView(
     modifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
     suggestions: List<String> = listOf(),
@@ -217,7 +217,7 @@ fun IsakaroSearchView(
 
 @Preview
 @Composable
-fun IsakaroSearchViewPreview() {
+fun QwikSearchViewPreview() {
     IsakaroSearchView(
         state = remember { mutableStateOf(TextFieldValue("")) },
         onTextChange = {},
@@ -227,7 +227,7 @@ fun IsakaroSearchViewPreview() {
 
 @Preview
 @Composable
-fun IsakaroSearchViewWithErrorPreview() {
+fun QwikSearchViewWithErrorPreview() {
     IsakaroSearchView(
         state = remember { mutableStateOf(TextFieldValue("")) },
         onTextChange = {},

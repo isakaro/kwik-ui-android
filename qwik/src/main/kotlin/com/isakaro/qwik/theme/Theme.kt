@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 object Theme {
     @Composable
-    fun IsakaroTheme(
+    fun QwikTheme(
         darkTheme: Boolean = isSystemInDarkTheme(),
         dynamicColor: Boolean = false,
         content: @Composable () -> Unit

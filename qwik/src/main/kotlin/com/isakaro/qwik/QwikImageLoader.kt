@@ -15,10 +15,9 @@ import coil.request.ImageRequest
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
-import com.isakaro.qwik.R
 
 @Composable
-fun IsakaroImageLoader(
+fun QwikImageLoader(
     modifier: Modifier = Modifier,
     url: Any,
     @DrawableRes placeholder: Int = R.drawable.ic_placeholder,

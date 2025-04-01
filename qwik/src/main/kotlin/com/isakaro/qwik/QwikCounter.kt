@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.R
 
 @Composable
-fun IsakaroCounter(
+fun QwikCounter(
     modifier: Modifier = Modifier,
     label: String = "",
     initialValue: Int = 0,
@@ -118,7 +118,7 @@ fun IsakaroCounter(
 
 @Preview
 @Composable
-fun IsakaroCounterPreview() {
+fun QwikCounterPreview() {
     IsakaroCounter(
         label = "Counter",
         initialValue = 2,

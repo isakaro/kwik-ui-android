@@ -15,13 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.R
-import com.isakaro.qwik.components.IsakaroText
 import kotlin.math.ceil
 import kotlin.math.floor
 
 @Composable
-fun IsakaroRatingBar(
+fun QwikRatingBar(
     modifier: Modifier = Modifier,
     rating: Double = 0.0,
     stars: Int = 5,
@@ -77,11 +75,11 @@ private fun determineRatingColor(rating: Double): Color {
 @Preview
 @Composable
 fun FiveStarsRatingPreview() {
-    IsakaroRatingBar(stars = 5, rating = 5.0)
+    QwikRatingBar(stars = 5, rating = 5.0)
 }
 
 @Preview
 @Composable
 fun TwoPoint5iveRatingPreview() {
-    IsakaroRatingBar(rating = 2.5)
+    QwikRatingBar(rating = 2.5)
 }

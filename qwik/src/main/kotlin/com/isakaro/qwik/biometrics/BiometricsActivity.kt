@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components.biometrics
+package com.isakaro.qwik.biometrics
 
 import android.app.Activity
 import android.content.Context
@@ -25,8 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.isakaro.R
-import com.isakaro.qwik.components.IsakaroText
+
+import com.isakaro.qwik.IsakaroText
 
 class BiometricAuthActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

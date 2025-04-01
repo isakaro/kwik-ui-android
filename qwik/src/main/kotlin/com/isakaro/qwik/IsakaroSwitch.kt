@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroSwitch(
+fun QwikSwitch(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit
 ){

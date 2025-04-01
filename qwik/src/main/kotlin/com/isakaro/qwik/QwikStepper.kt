@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
@@ -25,14 +25,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroStepper(
+fun QwikStepper(
     modifier: Modifier = Modifier,
     steps: List<String>,
     currentStepIndex: Int,
-    activeStepColor: Color = ColorPrimaryAccent,
+    activeStepColor: Color = MaterialTheme.colorScheme.primary,
     completed: Boolean = false
 ) {
     Row(
@@ -40,7 +39,7 @@ fun IsakaroStepper(
         verticalAlignment = Alignment.CenterVertically
     ) {
         steps.forEachIndexed { index, step ->
-            StepperItem(
+            QwikStepperItem(
                 modifier = Modifier.weight(1F),
                 stepsCount = steps.size,
                 stepIndex = index,
@@ -56,7 +55,7 @@ fun IsakaroStepper(
 }
 
 @Composable
-private fun StepperItem(
+private fun QwikStepperItem(
     modifier: Modifier = Modifier,
     stepsCount: Int,
     stepIndex: Int,
@@ -144,21 +143,10 @@ private fun StepperItem(
     }
 }
 
-object Steps {
-    const val STEP_1 = 0
-    const val STEP_2 = 1
-    const val STEP_3 = 2
-    const val STEP_4 = 3
-    const val STEP_5 = 4
-    const val STEP_6 = 5
-    const val STEP_7 = 6
-    const val STEP_8 = 7
-}
-
 @Preview
 @Composable
-fun IsakaroStepperPreview() {
-    IsakaroStepper(
+fun QwikStepperPreview() {
+    QwikStepper(
         steps = listOf("Step 1", "Step 2", "Step 3", "Step 4"),
         currentStepIndex = 2
     )

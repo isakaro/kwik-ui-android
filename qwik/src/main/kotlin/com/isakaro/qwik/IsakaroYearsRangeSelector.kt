@@ -34,7 +34,7 @@ import com.isakaro.qwik.theme.ColorSecondaryAccent
 import java.time.Year
 
 @Composable
-fun IsakaroYearsRangeSelector(
+fun QwikYearsRangeSelector(
     viewModel: VehiclesSearchViewModel = hiltViewModel(),
     onYearRangeChanged: (Int, Int) -> Unit
 ) {

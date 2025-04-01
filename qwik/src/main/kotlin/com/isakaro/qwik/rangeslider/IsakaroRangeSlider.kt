@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import kotlin.math.roundToInt
 
 @Composable
-fun IsakaroRangeSlider(
+fun QwikRangeSlider(
     minimum: Int = 0,
     maximum: Int = 100,
     maximumRange: Int = 100,
@@ -93,6 +93,6 @@ internal fun calculatePrice(
 
 @Preview
 @Composable
-fun IsakaroRangeSliderPreview() {
+fun QwikRangeSliderPreview() {
     IsakaroRangeSlider()
 }

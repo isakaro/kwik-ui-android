@@ -36,9 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.isakaro.qwik.theme.ColorPrimaryAccent
-import com.isakaro.qwik.R
-import com.isakaro.qwik.components.IsakaroButton
-import com.isakaro.qwik.components.IsakaroText
+import com.isakaro.qwik.IsakaroButton
+import com.isakaro.qwik.IsakaroText
 
 object QwikDialog {
     @Composable

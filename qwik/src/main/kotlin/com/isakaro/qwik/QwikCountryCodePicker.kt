@@ -45,7 +45,7 @@ import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
 import com.isakaro.qwik.utils.text
-import com.isakaro.qwik.components.IsakaroSearchView
+import com.isakaro.qwik.IsakaroSearchView
 
 @Composable
 fun QwikCountryCodePicker(

@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import android.view.ViewTreeObserver
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
  * and notifies the caller when the visibility changes.
  * */
 @Composable
-fun IsakaroVisibleView(
+fun QwikVisibleView(
     modifier: Modifier = Modifier,
     tolerance: Int = 0,
     positionOnScreen: Rect? = null,

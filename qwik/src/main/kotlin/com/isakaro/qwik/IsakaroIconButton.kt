@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,7 +25,7 @@ import com.isakaro.qwik.theme.ColorPrimaryAccentLight2
 import com.isakaro.qwik.theme.ColorSecondaryAccent
 
 @Composable
-fun IsakaroIconTextButton(
+fun QwikIconTextButton(
     text: Int,
     icon: Any,
     color: Color = ColorSecondaryAccent,
@@ -69,7 +69,7 @@ fun IsakaroIconTextButton(
 }
 
 @Composable
-fun IsakaroIconButton(
+fun QwikIconButton(
     modifier: Modifier = Modifier,
     icon: Any,
     tint: Color = ColorPrimaryAccent,

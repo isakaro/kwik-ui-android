@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IsakaroLoadingView(
+fun QwikLoadingView(
     text: String
 ) {
     Column(
@@ -35,7 +35,7 @@ fun IsakaroLoadingView(
 }
 
 @Composable
-fun IsakaroCircularLoading(
+fun QwikCircularLoading(
     modifier: Modifier = Modifier
 ) {
     CircularProgressIndicator(
@@ -47,7 +47,7 @@ fun IsakaroCircularLoading(
 
 @Composable
 @Preview(showBackground = true)
-fun IsakaroLoadingViewPreview() {
+fun QwikLoadingViewPreview() {
     IsakaroLoadingView(
         text = "Loading... Please Wait..."
     )
@@ -55,6 +55,6 @@ fun IsakaroLoadingViewPreview() {
 
 @Composable
 @Preview(showBackground = true)
-fun IsakaroLoadingPreview() {
+fun QwikLoadingPreview() {
     IsakaroCircularLoading()
 }

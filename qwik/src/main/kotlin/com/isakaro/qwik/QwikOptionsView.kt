@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun <T> ColumnScope.IsakaroOptionsView(
-    options: List<IsakaroRadioItem<T>>,
+fun <T> ColumnScope.QwikOptionsView(
+    options: List<QwikRadioItem<T>>,
     initialSelectedValue: T? = null,
     onOptionSelected: (T) -> Unit
 ) {
@@ -79,7 +79,7 @@ fun <T> ColumnScope.IsakaroOptionsView(
     }
 }
 
-data class IsakaroRadioItem<T>(
+data class QwikRadioItem<T>(
     val label: String,
     val value: T
 )
@@ -88,13 +88,13 @@ data class IsakaroRadioItem<T>(
 @Composable
 fun RadioButtonExample() {
     val colorOptions = listOf(
-        IsakaroRadioItem("Option 1", 123),
-        IsakaroRadioItem("Option 2", 101),
-        IsakaroRadioItem("Option 3", 455)
+        QwikRadioItem("Option 1", 123),
+        QwikRadioItem("Option 2", 101),
+        QwikRadioItem("Option 3", 455)
     )
 
     Column {
-        IsakaroOptionsView(
+        QwikOptionsView(
             options = colorOptions,
             initialSelectedValue = 123,
             onOptionSelected = {

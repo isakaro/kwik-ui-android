@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.size
@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroFilterChip(
+fun QwikFilterChip(
     text: String,
     isSelected: Boolean,
     onClick: (Boolean) -> Unit,
@@ -59,7 +59,7 @@ fun IsakaroFilterChip(
 }
 
 @Composable
-fun IsakaroChip(
+fun QwikChip(
     text: String,
     onClick: () -> Unit
 ) {

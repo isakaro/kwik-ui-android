@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.isakaro.R
+
 import com.isakaro.logging.IsakaroEvents
 import com.isakaro.networking.ApiClient
 import com.isakaro.qwik.firebaseAnalytics
@@ -39,7 +39,7 @@ import com.isakaro.qwik.theme.ColorPrimaryAccent
 import com.isakaro.qwik.utils.openURL
 
 @Composable
-fun IsakaroSocialButton(
+fun QwikSocialButton(
     icon: Int,
     text: String,
     contentColor: Color = Color.Black,
@@ -86,7 +86,7 @@ fun IsakaroSocialButton(
 }
 
 @Composable
-fun IsakaroSocialButtonGroup(
+fun QwikSocialButtonGroup(
     firebaseAnalytics: FirebaseAnalytics = firebaseAnalytics(),
 ){
 
@@ -152,7 +152,7 @@ fun IsakaroSocialButtonGroup(
 }
 
 @Composable
-fun IsakaroEmailButton(
+fun QwikEmailButton(
     text: String,
     onClick: () -> Unit = {}
 ) {
@@ -198,7 +198,7 @@ fun IsakaroEmailButton(
 
 @Preview
 @Composable
-fun IsakaroSocialButtonPreview() {
+fun QwikSocialButtonPreview() {
     IsakaroSocialButton(
         icon = R.drawable.google_logo,
         text = "Google"
@@ -207,7 +207,7 @@ fun IsakaroSocialButtonPreview() {
 
 @Preview
 @Composable
-fun IsakaroEmailButtonPreview() {
+fun QwikEmailButtonPreview() {
     IsakaroEmailButton(
         text = "E-Mail"
     )
@@ -215,6 +215,6 @@ fun IsakaroEmailButtonPreview() {
 
 @Preview
 @Composable
-fun IsakaroSocialButtonGroupPreview() {
+fun QwikSocialButtonGroupPreview() {
     IsakaroSocialButtonGroup()
 }

@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,15 +18,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.qwik.IsakaroCircularLoading
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroTextButton(
+fun QwikTextButton(
+    modifier: Modifier = Modifier,
     text: Any,
     color: Color = Color.Transparent,
     textColor: Color = ColorPrimaryAccent,
-    modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onClick: () -> Unit = {}
 ) {
@@ -43,7 +42,7 @@ fun IsakaroTextButton(
     ) {
         Row {
             if(isLoading){
-                IsakaroCircularLoading(modifier = Modifier.size(20.dp))
+                QwikCircularLoading(modifier = Modifier.size(20.dp))
             }
             when (text) {
                 is String -> {

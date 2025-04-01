@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

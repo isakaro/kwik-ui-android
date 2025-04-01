@@ -1,4 +1,4 @@
-package com.isakaro.qwik.components
+package com.isakaro.qwik
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
@@ -21,11 +21,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 
 @Composable
-fun IsakaroSimpleButton(
+fun QwikSimpleButton(
     text: String,
     isLoading: Boolean = false,
     loadingText: String = stringResource(id = R.string.generic_data_updating_message),
@@ -73,6 +73,6 @@ fun IsakaroSimpleButton(
 
 @Preview
 @Composable
-fun IsakaroSimpleButtonPreview() {
+fun QwikSimpleButtonPreview() {
     IsakaroSimpleButton(text = "Click me", isLoading = true) {}
 }

@@ -32,13 +32,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.isakaro.qwik.IsakaroCircularLoading
-import com.isakaro.qwik.components.IsakaroToast
+import com.isakaro.qwik.IsakaroToast
 import com.isakaro.qwik.rememberIsakaroToastState
 import timber.log.Timber
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun IsakaroWebView(
+fun QwikWebView(
     modifier: Modifier = Modifier,
     url: String,
     hideProgressAfterLoading: Boolean = true,
@@ -225,6 +225,6 @@ data class QwikCookie(
 
 @Preview
 @Composable
-fun IsakaroWebViewPreview() {
+fun QwikWebViewPreview() {
     IsakaroWebView(url = "https://www.google.com")
 }
