@@ -48,7 +48,7 @@ fun QwikWidget(
                     .background(brush = Brush.verticalGradient(0F to Color.Transparent, 0F to Color.Transparent, 3F to Color.Black))
                     .align(Alignment.BottomCenter)
             ) {
-                IsakaroText.TitleText(
+                QwikText.TitleText(
                     modifier = Modifier
                         .padding(8.dp)
                         .align(Alignment.BottomStart),

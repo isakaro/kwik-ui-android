@@ -107,13 +107,13 @@ fun QwikPermissionsRequest(
                 )
             }
 
-            IsakaroText.TitleText(
+            QwikText.TitleText(
                 text = title,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
             )
 
-            IsakaroText.TitleText(
+            QwikText.TitleText(
                 text = permissions.firstOrNull()?.rationaleMessage ?: "Grant required permissions",
                 textAlign = TextAlign.Center
             )
@@ -144,7 +144,7 @@ fun QwikPermissionsRequest(
                     modifier = Modifier.padding(12.dp),
                     containerColor = QwikColorWarning
                 ) {
-                    IsakaroText.TitleText(
+                    QwikText.TitleText(
                         modifier = Modifier.padding(12.dp),
                         text = deniedPermanentlyMessage,
                         textAlign = TextAlign.Center,

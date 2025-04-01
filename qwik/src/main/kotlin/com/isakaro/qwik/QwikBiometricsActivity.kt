@@ -75,7 +75,7 @@ class QwikBiometricActivity : FragmentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                IsakaroText.TitleText(
+                QwikText.TitleText(
                     modifier = Modifier.padding(bottom = 4.dp),
                     text = "Verify your identity",
                     textAlign = TextAlign.Center,

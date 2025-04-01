@@ -72,7 +72,7 @@ fun QwikDropDownView(
                     )
                 }
 
-                IsakaroText.BodyText(
+                QwikText.BodyText(
                     modifier = Modifier.align(Alignment.Center),
                     text = text,
                     style = MaterialTheme.typography.titleSmall,

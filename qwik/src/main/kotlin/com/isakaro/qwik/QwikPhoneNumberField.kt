@@ -40,7 +40,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.QwikColorSuccess
+import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.text
@@ -61,7 +61,7 @@ fun QwikPhoneNumberField(
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
-    placeholder: Int,
+    placeholder: String,
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
     error: String = "",
@@ -92,7 +92,7 @@ fun QwikPhoneNumberField(
 
     Column {
         Text(
-            text = stringResource(id = placeholder),
+            text = placeholder,
             color = Color.DarkGray,
             textAlign = TextAlign.Start,
             modifier = Modifier
@@ -202,11 +202,13 @@ fun QwikPhoneNumberField(
 fun QwikPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
-    QwikPhoneNumberField(
-        value = value,
-        onValueChange = {},
-        onKeyboardDone = {},
-        placeholder = 0,
-        selectedCountryInfo = countryList.random()
-    )
+    QwikTheme {
+        QwikPhoneNumberField(
+            value = value,
+            onValueChange = {},
+            onKeyboardDone = {},
+            placeholder = "Phone number",
+            selectedCountryInfo = countryList.random()
+        )
+    }
 }

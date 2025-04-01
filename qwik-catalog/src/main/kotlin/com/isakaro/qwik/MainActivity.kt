@@ -3,15 +3,14 @@ package com.isakaro.qwik
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.isakaro.appcatalog.StartScreen
 import com.isakaro.qwik.catalog.accordion.QwikAccordionScreen
-import com.isakaro.qwik.catalog.appbar.AppBarScreen
+import com.isakaro.qwik.catalog.appbar.QwikAppBarScreen
 import com.isakaro.qwik.catalog.bottomsheet.BottomSheetScreen
-import com.isakaro.qwik.catalog.button.ButtonScreen
+import com.isakaro.qwik.catalog.button.QwikButtonScreen
 import com.isakaro.qwik.catalog.card.CardScreen
 import com.isakaro.qwik.catalog.checkbox.CheckBoxScreen
 import com.isakaro.qwik.catalog.dialog.DialogScreen
@@ -25,6 +24,7 @@ import com.isakaro.qwik.catalog.slider.SliderScreen
 import com.isakaro.qwik.catalog.switch.SwitchScreen
 import com.isakaro.qwik.catalog.tabs.TabScreen
 import com.isakaro.qwik.catalog.textfield.TextFieldScreen
+import com.isakaro.qwik.catalog.toast.QwikToastScreen
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
 class MainActivity: ComponentActivity() {
@@ -41,10 +41,10 @@ class MainActivity: ComponentActivity() {
                         )
                     }
                     composable(NavigationRoute.AppBarScreen.route) {
-                        AppBarScreen()
+                        QwikAppBarScreen()
                     }
                     composable(NavigationRoute.ButtonScreen.route) {
-                        ButtonScreen()
+                        QwikButtonScreen()
                     }
                     composable(NavigationRoute.BottomNavScreen.route) {
                         BottomNavScreen()
@@ -77,7 +77,7 @@ class MainActivity: ComponentActivity() {
                         SliderScreen()
                     }
                     composable(NavigationRoute.SnackBarScreen.route) {
-                        SnackBarScreen()
+                        QwikToastScreen()
                     }
                     composable(NavigationRoute.SwitchScreen.route) {
                         SwitchScreen()
@@ -91,21 +91,8 @@ class MainActivity: ComponentActivity() {
                     composable(NavigationRoute.PermissionScreen.route) {
                         PermissionsScreen()
                     }
-                    themeNavigation()
                 }
             }
-        }
-    }
-
-    private fun NavGraphBuilder.themeNavigation() {
-        composable(NavigationRoute.ColorScreen.route) {
-            ColorScreen()
-        }
-        composable(NavigationRoute.TypographyScreen.route) {
-            TypographyScreen()
-        }
-        composable(NavigationRoute.ShapeScreen.route) {
-            ShapeScreen()
         }
     }
 }

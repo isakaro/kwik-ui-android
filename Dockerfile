@@ -52,14 +52,13 @@ RUN rm -rf ~/.bash_login
 RUN apt-get update
 
 RUN mkdir /opt/android-sdk
-#dummy gradle file since a gradle config file is required starting with 7.* Gradle version
 RUN mkdir /opt/gradlew
 RUN touch /opt/gradlew/build.gradle.kts
 
 #variable component versions and paths to component home
-ARG GRADLE_VERSION=8.4
-ARG ANDROID_API_LEVEL=34
-ARG ANDROID_BUILD_TOOLS_LEVEL=34.0.0
+ARG GRADLE_VERSION=8.11.1
+ARG ANDROID_API_LEVEL=35
+ARG ANDROID_BUILD_TOOLS_LEVEL=35.0.0
 ARG CMDLINE_TOOLS_VERSION=11076708
 ENV GRADLE_HOME=/opt/gradle/gradle-$GRADLE_VERSION
 ENV ANDROID_HOME=/opt/android-sdk

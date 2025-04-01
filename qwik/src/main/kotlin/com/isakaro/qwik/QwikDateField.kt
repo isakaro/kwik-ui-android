@@ -22,8 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.R
-import com.isakaro.qwik.IsakaroText
 
 @Composable
 fun QwikDateField(
@@ -68,7 +66,7 @@ fun QwikDateField(
                     contentDescription = null,
                 )
 
-                IsakaroText.BodyText(
+                QwikText.BodyText(
                     modifier = Modifier.align(Alignment.Center),
                     text = date,
                     style = MaterialTheme.typography.bodyMedium,

@@ -1,4 +1,4 @@
-package com.Qwik.qwik
+package com.isakaro.qwik
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -47,6 +46,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
+import com.isakaro.qwik.theme.Theme.QwikTheme
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -149,7 +149,7 @@ fun QwikSearchView(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = Color.LightGray,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
@@ -159,6 +159,7 @@ fun QwikSearchView(
             shape = RoundedCornerShape(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
                 cursorColor = Color.Black,
                 focusedContainerColor = Color.White,
                 focusedBorderColor = Color.Black,
@@ -215,22 +216,26 @@ fun QwikSearchView(
 @Preview
 @Composable
 fun QwikSearchViewPreview() {
-    QwikSearchView(
-        state = remember { mutableStateOf(TextFieldValue("")) },
-        onTextChange = {},
-        onTextCleared = {}
-    )
+    QwikTheme {
+        QwikSearchView(
+            state = remember { mutableStateOf(TextFieldValue("")) },
+            onTextChange = {},
+            onTextCleared = {}
+        )
+    }
 }
 
 @Preview
 @Composable
 fun QwikSearchViewWithErrorPreview() {
-    QwikSearchView(
-        state = remember { mutableStateOf(TextFieldValue("")) },
-        onTextChange = {},
-        isError = true,
-        error = "This field is required",
-        onTextCleared = {}
-    )
+    QwikTheme {
+        QwikSearchView(
+            state = remember { mutableStateOf(TextFieldValue("")) },
+            onTextChange = {},
+            isError = true,
+            error = "This field is required",
+            onTextCleared = {}
+        )
+    }
 }
 

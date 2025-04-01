@@ -244,7 +244,7 @@ object QwikDialog {
                         .fillMaxSize()
                         .background(Color.Black)
                 ) {
-                    IsakaroText.TitleText(
+                    QwikText.TitleText(
                         text = title ?: "",
                         color = Color.White,
                         modifier = Modifier

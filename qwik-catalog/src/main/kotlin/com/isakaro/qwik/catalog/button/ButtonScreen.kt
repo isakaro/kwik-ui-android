@@ -17,7 +17,7 @@ import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
-internal fun ButtonScreen() {
+internal fun QwikButtonScreen() {
     ScrollableShowCaseContainer {
         NormalButton()
         OutlinedButton()
@@ -104,8 +104,8 @@ private fun ExtendedButton() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+fun PreviewQwikButtonScreen() {
     QwikTheme {
-        ButtonScreen()
+        QwikButtonScreen()
     }
 }

@@ -247,9 +247,19 @@ val countryList = listOf(
     CountryInfo("Zimbabwe", "ZW", "+263", flag = R.drawable.zw)
 )
 
-fun resolveCountries(omit: List<String> = listOf()): List<CountryInfo> {
-    if(omit.isEmpty()) return countryList
-    return countryList.filter { country -> !omit.contains(country.code) }
+/**
+ * Allows you to filter the list of countries by including only the countries you want
+ * Note that includeOnly takes precedence over omit
+ * @param includeOnly a list of country codes to include. Country codes must be in ISO 3166-1 alpha-2 format. ex: ["RW", "KE"]
+ * @param omit a list of country codes to omit Country codes must be  in ISO 3166-1 alpha-2 format
+ * */
+fun resolveCountries(
+    includeOnly: List<String> = listOf(),
+    omit: List<String> = listOf(),
+): List<CountryInfo> {
+    if(includeOnly.isNotEmpty()) return countryList.filter { country -> includeOnly.contains(country.code) }
+    if(omit.isNotEmpty()) countryList.filter { country -> !omit.contains(country.code) }
+    return countryList
 }
 
 /*

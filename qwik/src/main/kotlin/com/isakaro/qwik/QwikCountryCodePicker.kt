@@ -40,21 +40,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.Qwik.qwik.QwikSearchView
+import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.CountryInfo
-import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
 import com.isakaro.qwik.utils.text
 
 @Composable
 fun QwikCountryCodePicker(
     state: LazyListState,
+    includeOnlyCountries: List<String> = emptyList(),
     omitCountries: List<String> = emptyList(),
+    enableSearch: Boolean = true,
     showFlags: Boolean = true,
     noCountryFoundMessage: String = "No country found",
     onSelect: (CountryInfo) -> Unit
 ){
-    val countries = remember { resolveCountries(omitCountries) }
+    val countries = remember { resolveCountries(includeOnly = includeOnlyCountries, omit = omitCountries) }
     val searchResults = remember { mutableStateOf(countries) }
     val searchQuery = remember { mutableStateOf(TextFieldValue("")) }
 
@@ -66,22 +67,24 @@ fun QwikCountryCodePicker(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        QwikSearchView(
-            state = searchQuery,
-            onTextChange = { query ->
-                if (query.isBlank()) {
-                    searchResults.value = countryList
+        if(enableSearch && countries.isNotEmpty()){
+            QwikSearchView(
+                state = searchQuery,
+                onTextChange = { query ->
+                    if (query.isBlank()) {
+                        searchResults.value = countries
+                    }
+                    searchResults.value = countries.filter { country ->
+                        val searchTerm = query.trim().lowercase()
+                        val tags = country.tags.joinToString(" ") { it.lowercase() }
+                        country.name.lowercase().contains(searchTerm) || country.dialingCode.contains(searchTerm) || tags.contains(searchTerm)
+                    }
+                },
+                onTextCleared = {
+                    searchResults.value = countries
                 }
-                searchResults.value = countries.filter { country ->
-                    val searchTerm = query.trim().lowercase()
-                    val tags = country.tags.joinToString(" ") { it.lowercase() }
-                    country.name.lowercase().contains(searchTerm) || country.dialingCode.contains(searchTerm) || tags.contains(searchTerm)
-                }
-            },
-            onTextCleared = {
-                searchResults.value = countryList
-            }
-        )
+            )
+        }
 
         if (searchResults.value.isEmpty() && searchQuery.text.isNotEmpty()) {
             Text(
@@ -211,8 +214,10 @@ fun CountryCodeItem(
 @Preview
 @Composable
 fun QwikCountryCodePickerPreview(){
-    QwikCountryCodePicker(
-        state = rememberLazyListState(),
-        onSelect = {},
-    )
+    QwikTheme {
+        QwikCountryCodePicker(
+            state = rememberLazyListState(),
+            onSelect = {},
+        )
+    }
 }

@@ -58,7 +58,7 @@ fun QwikRatingBar(
             Badge(
                 containerColor = determineRatingColor(rating),
             ) {
-                IsakaroText.TitleText(
+                QwikText.TitleText(
                     text = rating.toString(),
                     color = badgeTextColor,
                     style = MaterialTheme.typography.titleSmall

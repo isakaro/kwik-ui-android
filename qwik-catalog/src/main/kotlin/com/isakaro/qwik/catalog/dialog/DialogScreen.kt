@@ -24,11 +24,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikButton
+import com.isakaro.qwik.QwikCheckBox
+import com.isakaro.qwik.QwikDialog
+import com.isakaro.qwik.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.ShowCaseContainer
-import com.isakaro.qwik.QwikPhoneNumberField.QwikPhoneNumberField
-import com.isakaro.qwik.QwikTextField.QwikTextField
 import com.isakaro.qwik.R
+import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.isakaro.qwik.utils.countryList
 
 @Composable
 internal fun DialogScreen() {
@@ -59,7 +63,7 @@ internal fun DialogScreen() {
         }
 
         if(openDialog){
-            QwikDialog.QwikContentDialog(
+            QwikDialog.ContentDialog(
                 modifier = Modifier.padding(16.dp),
                 open = openDialog,
                 dismiss = {
@@ -81,17 +85,20 @@ internal fun DialogScreen() {
                         ) {
                             Text(text = "Enter your phone number and name", style = MaterialTheme.typography.titleSmall, color = Color.Black)
                             QwikPhoneNumberField(
+                                selectedCountryInfo = countryList.random(),
                                 value = text,
-                                onValueChange = { value, countryCode -> text.value = value },
-                                placeholder = R.string.phone_number,
+                                placeholder = "Phone number",
+                                onValueChange = {
+
+                                },
                             )
                             QwikTextField(
                                 value = text1,
                                 onValueChange = { text1.value = it },
-                                placeholder = R.string.field
+                                placeholder = "Name",
                             )
                             QwikCheckBox(
-                                text = R.string.agree_to_terms,
+                                text = "Agree to terms",
                                 checked = false,
                                 onCheckedChange = { }
                             )
@@ -99,8 +106,8 @@ internal fun DialogScreen() {
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                QwikButton(text = "Cancel", buttonStyle = QwikButton.ButtonStyle.TEXT, onClick = { openDialog = false })
-                                QwikButton(text = "Confirm", buttonStyle = QwikButton.ButtonStyle.TEXT, onClick = { openDialog = false })
+                                QwikButton(text = "Cancel", onClick = { openDialog = false })
+                                QwikButton(text = "Confirm", onClick = { openDialog = false })
                             }
                         }
                     }
@@ -109,7 +116,7 @@ internal fun DialogScreen() {
         }
 
         if(openConfirmDialog){
-            QwikDialog.QwikConfirmDialog(
+            QwikDialog.ConfirmDialog(
                 open = openConfirmDialog,
                 onConfirm = {
                     Toast.makeText(context, "Confirmed ;)", Toast.LENGTH_SHORT).show()
@@ -131,7 +138,7 @@ internal fun DialogScreen() {
         }
 
         if(openNonCancellableDialog){
-            QwikDialog.QwikConfirmDialog(
+            QwikDialog.ConfirmDialog(
                 modifier = Modifier.padding(16.dp),
                 title = "Terms and Conditions",
                 open = openNonCancellableDialog,

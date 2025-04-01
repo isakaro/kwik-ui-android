@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun QwikIsakaroAccordion(
+fun QwikAccordion(
     title: String,
     headerIcon: Int? = null,
     elevation: Int = 8,
