@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 * A tab component that displays a list of tabs with icons and counters as optional features
  * The contents must be passed as a separate composable because they are defined by the user depending on the use case
 * */
-object AmpersandTabs {
+object QwikTabs {
 
     /**
      * @param title The title of the tab
@@ -53,7 +53,7 @@ object AmpersandTabs {
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
-    fun AmpersandTabs(tabs: List<TabItem>, pagerState: PagerState, withIcons: Boolean = true) {
+    fun QwikTabs(tabs: List<TabItem>, pagerState: PagerState, withIcons: Boolean = true) {
         val scope = rememberCoroutineScope()
 
         TabRow(
@@ -84,7 +84,7 @@ object AmpersandTabs {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TabsContent(tabs: List<AmpersandTabs.TabItem>, pagerState: PagerState) {
+fun TabsContent(tabs: List<QwikTabs.TabItem>, pagerState: PagerState) {
     HorizontalPager(
         modifier = Modifier,
         state = pagerState,
@@ -109,7 +109,7 @@ fun TabsContent(tabs: List<AmpersandTabs.TabItem>, pagerState: PagerState) {
 }
 
 @Composable
-fun TabItem(selected: Boolean, item: AmpersandTabs.TabItem, withIcons: Boolean, onClick: () -> Unit){
+fun TabItem(selected: Boolean, item: QwikTabs.TabItem, withIcons: Boolean, onClick: () -> Unit){
     Box(
         modifier = Modifier
     ) {

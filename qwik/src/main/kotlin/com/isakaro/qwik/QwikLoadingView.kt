@@ -36,12 +36,13 @@ fun QwikLoadingView(
 
 @Composable
 fun QwikCircularLoading(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    trackColor: Color = Color.LightGray
 ) {
     CircularProgressIndicator(
         modifier = modifier,
         color = MaterialTheme.colorScheme.primary,
-        trackColor = Color.LightGray
+        trackColor = trackColor
     )
 }
 

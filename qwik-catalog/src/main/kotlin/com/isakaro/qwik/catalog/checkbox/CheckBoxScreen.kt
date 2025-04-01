@@ -2,6 +2,7 @@ package com.isakaro.qwik.catalog.checkbox
 
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,9 +12,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.PrimaryColor
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun CheckBoxScreen() {
@@ -22,7 +23,7 @@ internal fun CheckBoxScreen() {
             var checked by remember { mutableStateOf(true) }
             Checkbox(
                 colors = CheckboxDefaults.colors(
-                    checkedColor = PrimaryColor,
+                    checkedColor = MaterialTheme.colorScheme.primary,
                     uncheckedColor = Color.Gray,
                     checkmarkColor = Color.Black
                 ),
@@ -42,7 +43,7 @@ internal fun CheckBoxScreen() {
             TriStateCheckbox(
                 state = triState,
                 colors = CheckboxDefaults.colors(
-                    checkedColor = PrimaryColor,
+                    checkedColor = MaterialTheme.colorScheme.primary,
                     uncheckedColor = Color.Gray,
                     checkmarkColor = Color.Black
                 ),
@@ -55,5 +56,7 @@ internal fun CheckBoxScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    CheckBoxScreen()
+    QwikTheme {
+        CheckBoxScreen()
+    }
 }

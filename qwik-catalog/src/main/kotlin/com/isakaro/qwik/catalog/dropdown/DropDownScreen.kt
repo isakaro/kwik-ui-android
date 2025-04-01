@@ -21,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
 
 @Composable
 internal fun DropDownScreen() {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">Qwik Catalog</string>
+    <string name="field">This is a field</string>
 </resources>

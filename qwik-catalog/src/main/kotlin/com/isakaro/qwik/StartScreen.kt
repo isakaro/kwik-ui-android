@@ -38,7 +38,6 @@ import com.isakaro.qwik.catalog.navigator.NavigationRoute.TextFieldScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.TypographyScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.TabScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomSheetScreen
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
 
 @Composable
 internal fun StartScreen(
@@ -104,7 +103,5 @@ fun ColumnShowcase(title: String, click: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
-        StartScreen()
-    }
+    StartScreen()
 }

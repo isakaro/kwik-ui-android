@@ -24,11 +24,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.appcatalog.R
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.AmpersandPhoneNumberField.AmpersandPhoneNumberField
-import com.isakaro.qwik.AmpersandTextField.AmpersandTextField
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.QwikPhoneNumberField.QwikPhoneNumberField
+import com.isakaro.qwik.QwikTextField.QwikTextField
+import com.isakaro.qwik.R
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun DialogScreen() {
@@ -42,9 +42,9 @@ internal fun DialogScreen() {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically),
         ) {
-            AmpersandButton(text = "Open Content Dialog", onClick = { openDialog = true })
-            AmpersandButton(text = "Open Confirm Dialog", onClick = { openConfirmDialog = true })
-            AmpersandButton(text = "Open Non Cancellable Dialog", onClick = { openNonCancellableDialog = true })
+            QwikButton(text = "Open Content Dialog", onClick = { openDialog = true })
+            QwikButton(text = "Open Confirm Dialog", onClick = { openConfirmDialog = true })
+            QwikButton(text = "Open Non Cancellable Dialog", onClick = { openNonCancellableDialog = true })
         }
 
         val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
@@ -59,7 +59,7 @@ internal fun DialogScreen() {
         }
 
         if(openDialog){
-            AmpersandDialog.AmpersandContentDialog(
+            QwikDialog.QwikContentDialog(
                 modifier = Modifier.padding(16.dp),
                 open = openDialog,
                 dismiss = {
@@ -80,17 +80,17 @@ internal fun DialogScreen() {
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             Text(text = "Enter your phone number and name", style = MaterialTheme.typography.titleSmall, color = Color.Black)
-                            AmpersandPhoneNumberField(
+                            QwikPhoneNumberField(
                                 value = text,
                                 onValueChange = { value, countryCode -> text.value = value },
                                 placeholder = R.string.phone_number,
                             )
-                            AmpersandTextField(
+                            QwikTextField(
                                 value = text1,
                                 onValueChange = { text1.value = it },
                                 placeholder = R.string.field
                             )
-                            AmpersandCheckBox(
+                            QwikCheckBox(
                                 text = R.string.agree_to_terms,
                                 checked = false,
                                 onCheckedChange = { }
@@ -99,8 +99,8 @@ internal fun DialogScreen() {
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                AmpersandButton(text = "Cancel", buttonStyle = AmpersandButton.ButtonStyle.TEXT, onClick = { openDialog = false })
-                                AmpersandButton(text = "Confirm", buttonStyle = AmpersandButton.ButtonStyle.TEXT, onClick = { openDialog = false })
+                                QwikButton(text = "Cancel", buttonStyle = QwikButton.ButtonStyle.TEXT, onClick = { openDialog = false })
+                                QwikButton(text = "Confirm", buttonStyle = QwikButton.ButtonStyle.TEXT, onClick = { openDialog = false })
                             }
                         }
                     }
@@ -109,7 +109,7 @@ internal fun DialogScreen() {
         }
 
         if(openConfirmDialog){
-            AmpersandDialog.AmpersandConfirmDialog(
+            QwikDialog.QwikConfirmDialog(
                 open = openConfirmDialog,
                 onConfirm = {
                     Toast.makeText(context, "Confirmed ;)", Toast.LENGTH_SHORT).show()
@@ -131,7 +131,7 @@ internal fun DialogScreen() {
         }
 
         if(openNonCancellableDialog){
-            AmpersandDialog.AmpersandConfirmDialog(
+            QwikDialog.QwikConfirmDialog(
                 modifier = Modifier.padding(16.dp),
                 title = "Terms and Conditions",
                 open = openNonCancellableDialog,
@@ -149,7 +149,7 @@ internal fun DialogScreen() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(id = com.isakaro.qwik.R.drawable.baseline_visibility_24),
+                        painter = painterResource(id = R.drawable.baseline_visibility_24),
                         tint = Color.Black,
                         contentDescription = "The eye",
                         modifier = Modifier.size(100.dp)
@@ -168,7 +168,7 @@ internal fun DialogScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         DialogScreen()
     }
 }

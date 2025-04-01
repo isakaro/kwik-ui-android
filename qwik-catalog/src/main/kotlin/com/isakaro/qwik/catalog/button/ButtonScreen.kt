@@ -10,11 +10,11 @@ import androidx.compose.material.icons.sharp.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.appcatalog.R
-import com.isakaro.qwik.catalog.common.ScrollableShowCaseContainer
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.theme.PrimaryColor
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.QwikButton
+import com.isakaro.qwik.R
+import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun ButtonScreen() {
@@ -33,32 +33,31 @@ internal fun ButtonScreen() {
 @Composable
 private fun NormalButton() {
     ShowCase("Button") {
-        AmpersandButton(onClick = {}, text = "action", buttonStyle = AmpersandButton.ButtonStyle.NORMAL)
+        QwikButton(onClick = {}, text = "action")
     }
 }
 
 @Composable
 private fun OutlinedButton() {
     ShowCase("Outlined Button") {
-        AmpersandButton(onClick = {}, text = "action", buttonStyle = AmpersandButton.ButtonStyle.OUTLINED)
+        QwikButton(onClick = {}, text = "action", outlined = true)
     }
 }
 
 @Composable
 private fun ButtonWithIcon() {
     ShowCase("Icon Button") {
-        AmpersandButton(onClick = {}, text = "action", icon = R.drawable.qr_code_scanner)
+        QwikButton(onClick = {}, text = "action", leadingIcon = R.drawable.shield)
     }
 }
 
 @Composable
 private fun DisabledButton() {
     ShowCase("Disabled Button") {
-        AmpersandButton(
+        QwikButton(
             onClick = {},
             text = "action",
-            buttonStyle = AmpersandButton.ButtonStyle.NORMAL,
-            disabled = true
+            enabled = false
         )
     }
 }
@@ -66,10 +65,11 @@ private fun DisabledButton() {
 @Composable
 private fun LoadingButton() {
     ShowCase("Loading Button") {
-        AmpersandButton(
+        QwikButton(
             onClick = {},
             text = "action",
-            loadingState = AmpersandButton.LoadingState(true, "loading..."),
+            isLoading = true,
+            loadingText = "In Progress"
         )
     }
 }
@@ -77,14 +77,14 @@ private fun LoadingButton() {
 @Composable
 private fun TextButton() {
     ShowCase("Text Button") {
-        AmpersandButton(onClick = {}, text = "action", buttonStyle = AmpersandButton.ButtonStyle.TEXT)
+        QwikButton(onClick = {}, text = "action")
     }
 }
 
 @Composable
 private fun FabButton() {
     ShowCase("Icon Floating Action") {
-        FloatingActionButton(onClick = {}, containerColor = PrimaryColor, contentColor = Color.Black) {
+        FloatingActionButton(onClick = {}, containerColor = MaterialTheme.colorScheme.primary, contentColor = Color.Black) {
             Icon(Icons.Sharp.Share, "share")
         }
     }
@@ -96,7 +96,7 @@ private fun ExtendedButton() {
         ExtendedFloatingActionButton(
             text = { Text(text = "Action", color = Color.Black, style = MaterialTheme.typography.titleSmall) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.Black, contentDescription = "share") },
-            containerColor = PrimaryColor,
+            containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
         )
     }
@@ -105,7 +105,7 @@ private fun ExtendedButton() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         ButtonScreen()
     }
 }

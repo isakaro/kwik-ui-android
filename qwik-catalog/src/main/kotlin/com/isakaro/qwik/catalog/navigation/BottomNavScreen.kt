@@ -41,10 +41,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.theme.PrimaryColor
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.theme.Theme.QwikTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -176,7 +176,7 @@ val navItems = listOf(
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         BottomNavScreen()
     }
 }

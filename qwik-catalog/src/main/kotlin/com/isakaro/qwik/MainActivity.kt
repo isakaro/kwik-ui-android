@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.isakaro.appcatalog.StartScreen
-import com.isakaro.qwik.catalog.accordion.AmpersandAccordionScreen
+import com.isakaro.qwik.catalog.accordion.QwikAccordionScreen
 import com.isakaro.qwik.catalog.appbar.AppBarScreen
 import com.isakaro.qwik.catalog.bottomsheet.BottomSheetScreen
 import com.isakaro.qwik.catalog.button.ButtonScreen
@@ -22,7 +22,7 @@ import com.isakaro.qwik.catalog.permission.PermissionsScreen
 import com.isakaro.qwik.catalog.progress.ProgressIndicatorScreen
 import com.isakaro.qwik.catalog.radio.RadioButtonScreen
 import com.isakaro.qwik.catalog.slider.SliderScreen
-import com.isakaro.qwik.catalog.snackbar.SnackBarScreen
+import com.isakaro.qwik.catalog.toast.SnackBarScreen
 import com.isakaro.qwik.catalog.switch.SwitchScreen
 import com.isakaro.qwik.catalog.tabs.TabScreen
 import com.isakaro.qwik.catalog.textfield.TextFieldScreen
@@ -90,7 +90,7 @@ class MainActivity: ComponentActivity() {
                         TextFieldScreen()
                     }
                     composable(NavigationRoute.AccordionScreen.route) {
-                        AmpersandAccordionScreen()
+                        QwikAccordionScreen()
                     }
                     composable(NavigationRoute.PermissionScreen.route) {
                         PermissionsScreen()

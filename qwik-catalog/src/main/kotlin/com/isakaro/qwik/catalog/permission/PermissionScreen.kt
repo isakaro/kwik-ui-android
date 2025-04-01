@@ -15,8 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.R
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun PermissionsScreen() {
@@ -43,7 +44,7 @@ internal fun PermissionsScreen() {
             ) {
                 Icon(
                     modifier = Modifier.size(48.dp),
-                    painter = painterResource(id = com.isakaro.qwik.R.drawable.shield),
+                    painter = painterResource(id = R.drawable.shield),
                     contentDescription = "Permission granted",
                     tint = Color.Black
                 )
@@ -60,7 +61,7 @@ internal fun PermissionsScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         PermissionsScreen()
     }
 }

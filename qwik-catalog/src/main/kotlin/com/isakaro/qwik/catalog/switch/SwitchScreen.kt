@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun SwitchScreen() {
@@ -30,7 +30,7 @@ internal fun SwitchScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         SwitchScreen()
     }
 }

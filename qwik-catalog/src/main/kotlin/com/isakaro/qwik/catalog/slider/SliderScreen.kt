@@ -8,9 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun SliderScreen() {
@@ -26,7 +26,7 @@ internal fun SliderScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         SliderScreen()
     }
 }

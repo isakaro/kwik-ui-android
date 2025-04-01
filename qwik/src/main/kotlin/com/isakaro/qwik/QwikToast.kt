@@ -46,7 +46,7 @@ enum class QwikToastType {
     ERROR
 }
 
-data class MessageState(
+data class QwikToastState(
     val id: UUID = UUID.randomUUID(),
     val message: String = "",
     val type: QwikToastType = QwikToastType.NEUTRAL,
@@ -55,13 +55,13 @@ data class MessageState(
 )
 
 @Composable
-fun rememberIsakaroToastState(): MutableState<MessageState> {
-    return remember { mutableStateOf(MessageState()) }
+fun rememberQwikToastState(): MutableState<QwikToastState> {
+    return remember { mutableStateOf(QwikToastState()) }
 }
 
 @Composable
 fun QwikToast(
-    state: MutableState<MessageState>,
+    state: MutableState<QwikToastState>,
     modifier: Modifier = Modifier
 ) {
     val scope = rememberCoroutineScope()
@@ -168,12 +168,12 @@ fun QwikToast(
     }
 }
 
-fun MutableState<MessageState>.showToast(
+fun MutableState<QwikToastState>.showToast(
     message: String,
-    duration: Long = 4000L,
-    type: QwikToastType = QwikToastType.NEUTRAL
+    type: QwikToastType = QwikToastType.NEUTRAL,
+    duration: Long = 4000L
 ) {
-    this.value = MessageState(
+    this.value = QwikToastState(
         message = message,
         duration = duration,
         type = type,

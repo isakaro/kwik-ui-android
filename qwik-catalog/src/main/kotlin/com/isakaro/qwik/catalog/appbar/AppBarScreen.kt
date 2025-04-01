@@ -15,21 +15,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.QwikAppBar
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-internal fun AppBarScreen() {
+internal fun QwikAppBarScreen() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     ShowCaseContainer {
         ShowCase(title = "BottomAppBar") {
             Scaffold(
                 topBar = {
-                    AmpersandAppBar(
+                    QwikAppBar(
                         title = "This is a title",
                         subtitle = "Subtitle",
                         navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
@@ -52,7 +53,7 @@ internal fun AppBarScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
-        AppBarScreen()
+    QwikTheme {
+        QwikAppBarScreen()
     }
 }

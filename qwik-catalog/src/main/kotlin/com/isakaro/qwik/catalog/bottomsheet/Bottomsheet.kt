@@ -24,9 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.catalog.common.ShowCaseContainer
-import com.isakaro.qwik.theme.PrimaryColor
+import com.isakaro.qwik.QwikButton
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -44,7 +44,7 @@ internal fun BottomSheetScreen() {
                     ExtendedFloatingActionButton(
                         text = { Text("Show bottom sheet", style = MaterialTheme.typography.titleMedium, color = Color.Black) },
                         icon = { Icon(Icons.Filled.Add, tint = Color.Black, contentDescription = "") },
-                        containerColor = PrimaryColor,
+                        containerColor = MaterialTheme.colorScheme.primary,
                         onClick = {
                             showBottomSheet = true
                         }
@@ -68,7 +68,7 @@ internal fun BottomSheetScreen() {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(color = Color.Black, text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
-                            AmpersandButton(
+                            QwikButton(
                                 text = "Hide bottom sheet",
                                 onClick = {
                                     scope.launch { sheetState.hide() }.invokeOnCompletion {

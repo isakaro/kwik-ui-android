@@ -7,17 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.appcatalog.R
-import com.isakaro.qwik.catalog.common.ScrollableShowCaseContainer
-import com.isakaro.qwik.catalog.common.ShowCase
-import com.isakaro.qwik.AmpersandPhoneNumberField.AmpersandPhoneNumberField
-import com.isakaro.qwik.AmpersandTextField.AmpersandTextField
-import com.isakaro.qwik.theme.Theme.AmpersandTheme
+import com.isakaro.qwik.QwikOTP
+import com.isakaro.qwik.QwikPhoneNumberField
+import com.isakaro.qwik.catalog.R
+import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.lifecycle.textfield.QwikTextField
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 internal fun TextFieldScreen() {
@@ -32,12 +34,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = "Field",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -53,12 +55,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password,
@@ -75,7 +77,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandPhoneNumberField(
+            QwikPhoneNumberField(
                 value = text,
                 onValueChange = { value, countryCode ->
                     text.value = value
@@ -83,7 +85,6 @@ internal fun TextFieldScreen() {
                 onKeyboardDone = {
 
                 },
-                isTextCounterShown = true,
                 error = R.string.error,
                 placeholder = R.string.phone_number,
                 imeAction = ImeAction.Done,
@@ -97,13 +98,13 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 isError = true,
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -119,12 +120,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -135,7 +136,7 @@ internal fun TextFieldScreen() {
             )
         }
         ShowCase(title = "OTP field") {
-            OtpField(
+            QwikOTP(
                 onComplete = {
                     otp.value = it
                     Toast.makeText(context, "Valid OTP: ${it.text}", Toast.LENGTH_SHORT).show()
@@ -149,7 +150,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -171,12 +172,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 hint = R.string.hint,
                 imeAction = ImeAction.Done,
@@ -193,12 +194,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -216,12 +217,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -240,12 +241,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 trailingIcon = R.drawable.qr_code_scanner,
@@ -266,12 +267,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 isValid = true,
@@ -291,12 +292,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            AmpersandTextField(
+            QwikTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = stringResource(R.string.field),
                 maxLength = 200,
                 imeAction = ImeAction.Default,
                 keyboardType = KeyboardType.Text,
@@ -314,9 +315,7 @@ internal fun TextFieldScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    AmpersandTheme {
+    QwikTheme {
         TextFieldScreen()
     }
 }
-
-private const val MAX_CHARACTERS = 5

@@ -15,14 +15,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ampersand"
+        android:theme="@style/Theme.Qwik"
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="s">
         <activity
             android:name="com.isakaro.qwik.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.Ampersand">
+            android:theme="@style/Theme.Qwik">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

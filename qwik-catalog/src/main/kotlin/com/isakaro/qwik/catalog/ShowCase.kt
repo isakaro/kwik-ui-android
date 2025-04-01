@@ -1,4 +1,4 @@
-package com.isakaro.qwik.catalog.common
+package com.isakaro.qwik.catalog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
