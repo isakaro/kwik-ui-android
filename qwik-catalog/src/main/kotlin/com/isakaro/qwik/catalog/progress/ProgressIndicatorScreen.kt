@@ -14,7 +14,7 @@ internal fun ProgressIndicatorScreen() {
     ShowCaseContainer {
         ShowCase(title = "Progress Indicator Linear") {
             LinearProgressIndicator(
-                trackColor = Color.Gray
+                trackColor = Color.White
             )
         }
         ShowCase(title = "Progress Indicator Circular") {

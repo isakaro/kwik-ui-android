@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -19,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikLazyList
+import com.isakaro.qwik.QwikListItemAction
+import com.isakaro.qwik.QwikListItemActionState
 import com.isakaro.qwik.catalog.navigator.NavigationRoute
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.AppBarScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomNavScreen
@@ -43,34 +47,136 @@ import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomSheetScreen
 internal fun StartScreen(
     navClick: (NavigationRoute) -> Unit = {}
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ColumnShowcase(title = "Colors") { navClick(ColorScreen) }
-        ColumnShowcase(title = "Typography") { navClick(TypographyScreen) }
-        ColumnShowcase(title = "Shape") { navClick(ShapeScreen) }
-        ColumnShowcase(title = "AppBar") { navClick(AppBarScreen) }
-        ColumnShowcase(title = "Permissions") { navClick(NavigationRoute.PermissionScreen) }
-        ColumnShowcase(title = "Buttons") { navClick(ButtonScreen) }
-        ColumnShowcase(title = "Tabs") { navClick(TabScreen) }
-        ColumnShowcase(title = "BottomSheet") { navClick(BottomSheetScreen) }
-        ColumnShowcase(title = "Bottom Navigation") { navClick(BottomNavScreen) }
-        ColumnShowcase(title = "Card") { navClick(CardScreen) }
-        ColumnShowcase(title = "CheckBox") { navClick(CheckBoxScreen) }
-        ColumnShowcase(title = "Dialog") { navClick(DialogScreen) }
-        ColumnShowcase(title = "DropDown") { navClick(DropDownScreen) }
-        ColumnShowcase(title = "Progress Indicator") { navClick(ProgressIndicatorScreen) }
-        ColumnShowcase(title = "Radio Button") { navClick(RadioButtonScreen) }
-        ColumnShowcase(title = "Slider") { navClick(SliderScreen) }
-        ColumnShowcase(title = "SnackBar") { navClick(SnackBarScreen) }
-        ColumnShowcase(title = "Switch") { navClick(SwitchScreen) }
-        ColumnShowcase(title = "TextField") { navClick(TextFieldScreen) }
-        ColumnShowcase(title = "Accordion") { navClick(NavigationRoute.AccordionScreen) }
-    }
+
+    val components = listOf(
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Colors",
+                action = { navClick(ColorScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Typography",
+                action = { navClick(TypographyScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Shape",
+                action = { navClick(ShapeScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "AppBar",
+                action = { navClick(AppBarScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Permissions",
+                action = { navClick(NavigationRoute.PermissionScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Buttons",
+                action = { navClick(ButtonScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Tabs",
+                action = { navClick(TabScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "BottomSheet",
+                action = { navClick(BottomSheetScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Bottom Navigation",
+                action = { navClick(BottomNavScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Card",
+                action = { navClick(CardScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "CheckBox",
+                action = { navClick(CheckBoxScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Dialog",
+                action = { navClick(DialogScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "DropDown",
+                action = { navClick(DropDownScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Progress Indicator",
+                action = { navClick(ProgressIndicatorScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Radio Button",
+                action = { navClick(RadioButtonScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Slider",
+                action = { navClick(SliderScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "SnackBar",
+                action = { navClick(SnackBarScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Switch",
+                action = { navClick(SwitchScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "TextField",
+                action = { navClick(TextFieldScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Accordion",
+                action = { navClick(NavigationRoute.AccordionScreen) }
+            )
+        )
+    ).sortedBy { it.action.title }
+
+    val listState = rememberLazyListState()
+
+    QwikLazyList(
+        state = listState,
+        components = components
+    )
 }
 
 @Composable

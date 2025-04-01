@@ -1,14 +1,12 @@
 package com.isakaro.qwik.catalog.tabs
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import com.isakaro.appcatalog.R
+import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.catalog.tabs.QwikTabs.QwikTabs
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun TabScreen() {
     val tabs = listOf(

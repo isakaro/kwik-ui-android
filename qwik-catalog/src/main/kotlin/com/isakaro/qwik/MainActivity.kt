@@ -3,6 +3,10 @@ package com.isakaro.qwik
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -34,6 +38,7 @@ class MainActivity: ComponentActivity() {
         setContent {
             QwikTheme {
                 val navHostController = rememberNavController()
+
                 NavHost(navController = navHostController, startDestination = NavigationRoute.StartScreen.route) {
                     composable(NavigationRoute.StartScreen.route) {
                         StartScreen(

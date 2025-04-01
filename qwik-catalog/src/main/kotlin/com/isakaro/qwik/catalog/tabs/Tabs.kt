@@ -51,7 +51,6 @@ object QwikTabs {
      * */
     data class TabItem(@StringRes val title: Int, val counter: Int = 0, @DrawableRes val icon: Int? = null)
 
-    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun QwikTabs(tabs: List<TabItem>, pagerState: PagerState, withIcons: Boolean = true) {
         val scope = rememberCoroutineScope()
@@ -82,7 +81,6 @@ object QwikTabs {
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabsContent(tabs: List<QwikTabs.TabItem>, pagerState: PagerState) {
     HorizontalPager(
@@ -92,7 +90,6 @@ fun TabsContent(tabs: List<QwikTabs.TabItem>, pagerState: PagerState) {
         userScrollEnabled = true,
         reverseLayout = false,
         contentPadding = PaddingValues(0.dp),
-        beyondBoundsPageCount = 0,
         pageSize = PageSize.Fill,
         flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
         key = null,
