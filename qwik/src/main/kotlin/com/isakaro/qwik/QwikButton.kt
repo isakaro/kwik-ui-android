@@ -74,11 +74,13 @@ fun QwikButton(
         if(isLoading){
             CircularProgressIndicator(color = Color.DarkGray, modifier = Modifier.size(30.dp))
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = loadingText.ifBlank { stringResource(id = R.string.generic_loading_message) },
-                modifier = Modifier.fillMaxWidth(),
-                style = fontStyle
-            )
+            if(loadingText.isNotBlank()){
+                Text(
+                    text = loadingText,
+                    modifier = Modifier.fillMaxWidth(),
+                    style = fontStyle
+                )
+            }
         } else {
             if(leadingIcon is Int){
                 if (tintIcon){

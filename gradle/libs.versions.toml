@@ -1,6 +1,7 @@
 [versions]
 sdk-min = "23"
 sdk-target = "35"
+build-tools-version = "35.0.0"
 androidx-core = "1.15.0"
 androidx-arch-core-testing = "2.2.0"
 androidx-junit = "1.2.1"
@@ -97,3 +98,4 @@ android-library = { id = "com.android.library", version.ref = "plugin-agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "plugin-kotlinter" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "plugin-ksp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
