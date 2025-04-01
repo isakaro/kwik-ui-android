@@ -12,6 +12,7 @@ import com.isakaro.qwik.catalog.bottomsheet.BottomSheetScreen
 import com.isakaro.qwik.catalog.button.QwikButtonScreen
 import com.isakaro.qwik.catalog.card.CardScreen
 import com.isakaro.qwik.catalog.checkbox.CheckBoxScreen
+import com.isakaro.qwik.catalog.daterangepicker.QwikDateRangePickerScreen
 import com.isakaro.qwik.catalog.dialog.DialogScreen
 import com.isakaro.qwik.catalog.dropdown.DropDownScreen
 import com.isakaro.qwik.catalog.navigation.BottomNavScreen
@@ -42,6 +43,9 @@ class MainActivity: ComponentActivity() {
                     }
                     composable(NavigationRoute.AppBarScreen.route) {
                         QwikAppBarScreen()
+                    }
+                    composable(NavigationRoute.DateRangePicker.route) {
+                        QwikDateRangePickerScreen()
                     }
                     composable(NavigationRoute.ButtonScreen.route) {
                         QwikButtonScreen()

@@ -44,4 +44,6 @@ sealed class NavigationRoute(
     data object AccordionScreen : NavigationRoute("accordion")
 
     data object PermissionScreen : NavigationRoute("permissions")
+
+    data object DateRangePicker : NavigationRoute("daterangepicker")
 }

@@ -20,21 +20,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikText
 
 @Composable
 fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
-    Text(
-        style = MaterialTheme.typography.bodyMedium,
+    QwikText.TitleText(
+        style = MaterialTheme.typography.titleMedium,
         text = title,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp),
-        color = Color.Black,
-        textAlign = TextAlign.Center
+        color = Color.Black
     )
+
     Box(modifier = Modifier.padding(16.dp)) {
         content()
     }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()

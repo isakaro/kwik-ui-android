@@ -177,6 +177,13 @@ internal fun StartScreen(
                 description = "Accordion component for expandable content",
                 action = { navClick(NavigationRoute.AccordionScreen) }
             )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "Date range picker",
+                description = "Date range picker component using Material3 DatePicker underneath",
+                action = { navClick(NavigationRoute.DateRangePicker) }
+            )
         )
     ).sortedBy { it.action.title }
 
