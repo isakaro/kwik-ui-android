@@ -72,9 +72,7 @@ fun QwikSearchView(
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
 
-    Column(
-        modifier = Modifier.padding(12.dp)
-    ) {
+    Column {
         OutlinedTextField(
             value = state.value,
             onValueChange = { query ->

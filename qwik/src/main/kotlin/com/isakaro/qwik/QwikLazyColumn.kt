@@ -24,11 +24,13 @@ import java.util.UUID
 @Composable
 fun QwikLazyList(
     state: LazyListState,
-    items: List<QwikListItemActionState>
+    items: List<QwikListItemActionState>,
+    showDivider: Boolean = true
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
-        state = state
+        state = state,
+        verticalArrangement = Arrangement.spacedBy(12.dp, alignment = Alignment.CenterVertically)
     ) {
         itemsIndexed(
             items = items,
@@ -41,14 +43,14 @@ fun QwikLazyList(
                 is QwikListItemActionState.Header -> {
                     Text(
                         text = item.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(16.dp)
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
                 is QwikListItemActionState.Data -> {
                     QwikListActionItem(
                         item = item.action,
                         isLastItem = index == items.size - 1,
+                        showDivider = showDivider,
                         onClick = {
                             item.action.action()
                         }
@@ -63,13 +65,13 @@ fun QwikLazyList(
 fun QwikListActionItem(
     item: QwikListItemAction,
     isLastItem: Boolean = false,
+    showDivider: Boolean = true,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .clickable(onClick = onClick)
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
@@ -96,10 +98,15 @@ fun QwikListActionItem(
             }
         }
     }
-    if(!isLastItem) Spacer(modifier = Modifier
-        .background(Color.LightGray)
-        .fillMaxWidth()
-        .height(1.dp))
+
+    QwikVSpacer(12)
+
+    if(!isLastItem && showDivider) {
+        Spacer(modifier = Modifier
+            .background(Color.LightGray)
+            .fillMaxWidth()
+            .height(1.dp))
+    }
 }
 
 data class QwikListItemAction(

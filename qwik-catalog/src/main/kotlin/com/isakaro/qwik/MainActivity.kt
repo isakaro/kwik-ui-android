@@ -3,14 +3,9 @@ package com.isakaro.qwik
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.isakaro.appcatalog.StartScreen
 import com.isakaro.qwik.catalog.accordion.QwikAccordionScreen
 import com.isakaro.qwik.catalog.appbar.QwikAppBarScreen
 import com.isakaro.qwik.catalog.bottomsheet.BottomSheetScreen
