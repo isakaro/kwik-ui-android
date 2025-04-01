@@ -192,6 +192,8 @@ internal fun StartScreen(
             style = MaterialTheme.typography.headlineSmall
         )
 
+        QwikVSpacer(24)
+
         QwikSearchView(
             state = searchQuery,
             placeholder = "Search components...",
@@ -209,7 +211,7 @@ internal fun StartScreen(
             }
         )
 
-        QwikVSpacer(12)
+        QwikVSpacer(24)
 
         QwikLazyList(
             state = listState,
