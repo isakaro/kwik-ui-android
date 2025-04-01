@@ -48,6 +48,26 @@ import androidx.compose.ui.unit.sp
 import com.isakaro.qwik.textfield.AllowedChars
 import com.isakaro.qwik.textfield.PasswordToggle
 
+/**
+ * OTP input. The OTP field will automatically move focus to the next field when a digit is entered.
+ * @param onValidOTP: Callback that is called when a valid OTP is entered. The TextFieldValue contains the OTP.
+ * @param size: The number of fields in the OTP. Default is 6.
+ * @param isError: If true, the error message will be displayed.
+ * @param error: The error message to display.
+ * @param visualTransformation: The visual transformation to apply to the OTP fields. Default is VisualTransformation.None. Pass in [PasswordVisualTransformation] for password masking.
+ * @param clearAll: If true, all OTP fields will be cleared.
+ * @param onKeyboardDone: Callback that is called when the user presses the done key on the keyboard.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikOTP(
+ *    onValidOTP = { otp ->
+ *    // handle valid OTP
+ *    },
+ *    error = "Invalid OTP"
+ * )
+ * */
 @Composable
 fun QwikOTP(
     onValidOTP: (TextFieldValue) -> Unit,
