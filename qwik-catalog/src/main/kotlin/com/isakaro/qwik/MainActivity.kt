@@ -22,13 +22,9 @@ import com.isakaro.qwik.catalog.permission.PermissionsScreen
 import com.isakaro.qwik.catalog.progress.ProgressIndicatorScreen
 import com.isakaro.qwik.catalog.radio.RadioButtonScreen
 import com.isakaro.qwik.catalog.slider.SliderScreen
-import com.isakaro.qwik.catalog.toast.SnackBarScreen
 import com.isakaro.qwik.catalog.switch.SwitchScreen
 import com.isakaro.qwik.catalog.tabs.TabScreen
 import com.isakaro.qwik.catalog.textfield.TextFieldScreen
-import com.isakaro.qwik.catalog.theme.ColorScreen
-import com.isakaro.qwik.catalog.theme.ShapeScreen
-import com.isakaro.qwik.catalog.theme.TypographyScreen
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
 class MainActivity: ComponentActivity() {

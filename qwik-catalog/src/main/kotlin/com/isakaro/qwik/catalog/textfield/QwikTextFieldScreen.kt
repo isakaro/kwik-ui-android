@@ -18,7 +18,7 @@ import com.isakaro.qwik.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
-import com.isakaro.qwik.lifecycle.textfield.QwikTextField
+import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
@@ -135,6 +135,7 @@ internal fun TextFieldScreen() {
                 }
             )
         }
+
         ShowCase(title = "OTP field") {
             QwikOTP(
                 onComplete = {
@@ -143,6 +144,7 @@ internal fun TextFieldScreen() {
                 }
             )
         }
+
         ShowCase(title = "Field with Counter") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(

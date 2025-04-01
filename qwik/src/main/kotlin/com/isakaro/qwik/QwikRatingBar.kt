@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.theme.QwikColorYellow
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -24,6 +25,8 @@ fun QwikRatingBar(
     rating: Double = 0.0,
     stars: Int = 5,
     starsColor: Color = Color.Yellow,
+    showBadge: Boolean = true,
+    badgeTextColor: Color = Color.DarkGray
 ) {
     val filledStars = floor(rating).toInt()
     val unfilledStars = (stars - ceil(rating)).toInt()
@@ -51,14 +54,16 @@ fun QwikRatingBar(
             )
         }
         Spacer(modifier = Modifier.width(2.dp))
-        Badge(
-            containerColor = determineRatingColor(rating),
-        ) {
-            IsakaroText.TitleText(
-                text = rating.toString(),
-                color = Color.White,
-                style = MaterialTheme.typography.titleSmall
-            )
+        if(showBadge){
+            Badge(
+                containerColor = determineRatingColor(rating),
+            ) {
+                IsakaroText.TitleText(
+                    text = rating.toString(),
+                    color = badgeTextColor,
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
         }
     }
 }
@@ -66,7 +71,7 @@ fun QwikRatingBar(
 private fun determineRatingColor(rating: Double): Color {
     return when(rating) {
         in 0.0..1.9 -> Color.Red
-        in 2.0..2.9 -> Color.Yellow
+        in 2.0..2.9 -> QwikColorYellow
         in 3.0..5.0 -> Color.Green
         else -> Color.Green
     }
@@ -75,11 +80,16 @@ private fun determineRatingColor(rating: Double): Color {
 @Preview
 @Composable
 fun FiveStarsRatingPreview() {
-    QwikRatingBar(stars = 5, rating = 5.0)
+    QwikRatingBar(
+        stars = 5,
+        rating = 5.0
+    )
 }
 
 @Preview
 @Composable
 fun TwoPoint5iveRatingPreview() {
-    QwikRatingBar(rating = 2.5)
+    QwikRatingBar(
+        rating = 2.5
+    )
 }

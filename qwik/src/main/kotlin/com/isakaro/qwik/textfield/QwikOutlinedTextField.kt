@@ -1,4 +1,4 @@
-package com.isakaro.qwik.lifecycle.textfield
+package com.isakaro.qwik.textfield
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

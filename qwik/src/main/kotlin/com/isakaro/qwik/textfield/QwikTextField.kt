@@ -1,4 +1,4 @@
-package com.isakaro.qwik.lifecycle.textfield
+package com.isakaro.qwik.textfield
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -89,15 +89,15 @@ fun QwikTextField(
     isClearTextBtnShown: Boolean = false,
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
-    isEnabled: Boolean = true,
+    enabled: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
         focusedTextColor = Color.Black,
         cursorColor = Color.Black,
         focusedContainerColor = Color.White,
         focusedLabelColor = Color.Gray,
-        focusedPlaceholderColor = Color.Black,
         focusedBorderColor = Color.Gray,
-        unfocusedBorderColor = Color.Gray,
+        unfocusedBorderColor = Color.Transparent,
+        unfocusedContainerColor = Color.LightGray,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
@@ -143,10 +143,17 @@ fun QwikTextField(
     LocalAutofillTree.current += autofillNode
 
     Column {
+        Text(
+            text = placeholder,
+            color = Color.Gray,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.titleMedium
+        )
+
         TextField(
             value = value.value,
             onValueChange = {
-                if(!isEnabled) return@TextField
+                if(!enabled) return@TextField
                 if(it.text.length <= maxLength){
                     if(allowedChars != null) {
                         onValueChange(it.copy(allowedChars.replace(it.text, "")))
@@ -161,7 +168,7 @@ fun QwikTextField(
                 )
             },
             isError = isError,
-            enabled = isEnabled && isEditable,
+            enabled = enabled && isEditable,
             textStyle = MaterialTheme.typography.bodyLarge,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
@@ -170,7 +177,7 @@ fun QwikTextField(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
                 .height(if (isBigTextField) 150.dp else 68.dp)
-                .alpha(if (isEnabled) 1.0f else 0.5f)
+                .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
                     autofillNode.boundingBox = it.boundsInWindow()
