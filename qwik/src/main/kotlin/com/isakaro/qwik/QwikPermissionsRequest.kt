@@ -2,6 +2,7 @@ package com.isakaro.qwik
 
 import android.Manifest
 import android.os.Build
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -26,21 +27,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.IsakaroDialog
-import com.isakaro.qwik.PermissionDto
-import com.isakaro.qwik.PermissionRequest
-import com.isakaro.qwik.PermissionRequestState
-
-import com.isakaro.qwik.theme.RatingOrange
-import com.isakaro.qwik.utils.ComposableLifeCycle
-import com.isakaro.qwik.utils.isPermissionGranted
+import com.isakaro.qwik.lifecycle.QwikComposableLifeCycle
+import com.isakaro.qwik.theme.QwikColorOrange
 
 @Composable
 fun QwikPermissionsRequest(
-    permissions: List<PermissionDto>,
+    permissions: List<QwikPermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",
-    icon: Int = R.drawable.security,
+    @DrawableRes logo: Int? = null,
+    @DrawableRes icon: Int = R.drawable.shield,
     iconTint: Color? = null,
     onGrantAction: () -> Unit = {},
     onDeniedAction: () -> Unit = {},
@@ -52,10 +48,10 @@ fun QwikPermissionsRequest(
     var arePermissionsGranted by remember { mutableStateOf(context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())) }
     var permissionsExplanationDialogVisible by remember { mutableStateOf(!arePermissionsGranted) }
     val appPackageName = LocalContext.current.packageName
-    var permissionRequestState by remember { mutableStateOf<PermissionRequestState>(
-        PermissionRequestState.Requesting) }
+    var permissionRequestState by remember { mutableStateOf<QwikPermissionRequestState>(
+        QwikPermissionRequestState.Requesting) }
 
-    ComposableLifeCycle(
+    QwikComposableLifeCycle(
         onResume = {
             arePermissionsGranted = context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())
             if(arePermissionsGranted){
@@ -64,20 +60,20 @@ fun QwikPermissionsRequest(
             } else {
                 permissionsExplanationDialogVisible = true
             }
-            if(permissionRequestState == PermissionRequestState.ShowRationale){
-                permissionRequestState = PermissionRequestState.Requesting
+            if(permissionRequestState == QwikPermissionRequestState.ShowRationale){
+                permissionRequestState = QwikPermissionRequestState.Requesting
             }
         }
     )
 
-    IsakaroDialog.ContentDialog(
+    QwikDialog.ContentDialog(
         open = permissionsExplanationDialogVisible,
         cancellable = false,
         dismiss = {
             permissionsExplanationDialogVisible = false
         }
     ) {
-        PermissionRequest(
+        QwikPermissionRequest(
             permissions = permissions,
             permissionRequestState = permissionRequestState,
             onPermissionRequestStateChange = { newState ->
@@ -100,13 +96,15 @@ fun QwikPermissionsRequest(
                 alignment = Alignment.CenterVertically
             )
         ) {
-            Image(
-                modifier = Modifier
-                    .size(120.dp)
-                    .padding(bottom = 15.dp),
-                painter = painterResource(id = R.drawable.isakaro_logo_text),
-                contentDescription = "Permission security icon"
-            )
+            if(logo != null){
+                Image(
+                    modifier = Modifier
+                        .size(120.dp)
+                        .padding(bottom = 15.dp),
+                    painter = painterResource(id = logo),
+                    contentDescription = "Permission security icon"
+                )
+            }
 
             IsakaroText.TitleText(
                 text = title,
@@ -140,10 +138,10 @@ fun QwikPermissionsRequest(
                 )
             }
 
-            if(permissionRequestState == PermissionRequestState.Denied){
-                IsakaroCard(
+            if(permissionRequestState == QwikPermissionRequestState.Denied){
+                QwikCard(
                     modifier = Modifier.padding(12.dp),
-                    containerColor = RatingOrange
+                    containerColor = QwikColorOrange
                 ) {
                     IsakaroText.TitleText(
                         modifier = Modifier.padding(12.dp),
@@ -158,7 +156,7 @@ fun QwikPermissionsRequest(
 
             Row {
                 if(mandatory){
-                    IsakaroTextButton(
+                    QwikTextButton(
                         text = "Cancel",
                         onClick = {
                             permissionsExplanationDialogVisible = false
@@ -166,7 +164,7 @@ fun QwikPermissionsRequest(
                         }
                     )
                 } else {
-                    IsakaroTextButton(
+                    QwikTextButton(
                         text = "Later",
                         onClick = {
                             permissionsExplanationDialogVisible = false
@@ -177,13 +175,13 @@ fun QwikPermissionsRequest(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                IsakaroSimpleButton(
+                QwikSimpleButton(
                     text = "Enable",
                     onClick = {
-                        if(permissionRequestState == PermissionRequestState.Denied){
+                        if(permissionRequestState == QwikPermissionRequestState.Denied){
                             context.showInstalledAppDetails(appPackageName)
                         } else {
-                            permissionRequestState = PermissionRequestState.Requesting
+                            permissionRequestState = QwikPermissionRequestState.Requesting
                         }
                     }
                 )
@@ -195,9 +193,9 @@ fun QwikPermissionsRequest(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview
 @Composable
-fun PreviewPermissionRequestView() {
-    IsakaroPermissionsRequest(
-        permissions = listOf(PermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
+fun QwikPermissionRequestPreview() {
+    QwikPermissionsRequest(
+        permissions = listOf(QwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
         title = "Notifications"
     )
 }

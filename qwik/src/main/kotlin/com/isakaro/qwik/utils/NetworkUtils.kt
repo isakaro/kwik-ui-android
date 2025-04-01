@@ -1,9 +1,12 @@
 package com.isakaro.qwik.utils
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,9 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class NetworkUtils @Inject constructor(
+@SuppressLint("MissingPermission")
+class NetworkUtils(
     private val context: Context,
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
@@ -35,6 +38,7 @@ class NetworkUtils @Inject constructor(
         onActive()
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     private fun onActive() {
         val currentConnectivity = isConnected
         _networkState.value = if (currentConnectivity) NetworkState.Available else NetworkState.Unavailable

@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
 @Composable
-fun ComposableLifeCycle(
+fun QwikComposableLifeCycle(
     onResume: () -> Unit,
     onPause: () -> Unit = {},
 ) {

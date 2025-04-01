@@ -10,14 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 
-data class IsakaroWidgetItem(
-    val image: String? = null,
-    val title: String,
-    val onClickAction: () -> Unit
-)
-
-data class IsakaroGridItem(
-    val image: String? = null,
+data class QwikDiv(
+    val background: String? = null,
     val color: Brush? = null,
     val colSpan: Int = 1,
     val rowSpan: Int = 1,
@@ -28,10 +22,11 @@ data class IsakaroGridItem(
 )
 
 @Composable
-fun BoxWithConstraintsScope.QwikGridBuilder(
+fun BoxWithConstraintsScope.QwikGrid(
     cols: Int = 1,
     rows: Int = 1,
-    items: List<IsakaroGridItem>
+    padding: Int = 4,
+    items: List<QwikDiv>
 ) {
     val cellWidth = this.maxWidth / cols
     val cellHeight = this.maxHeight / rows
@@ -47,11 +42,11 @@ fun BoxWithConstraintsScope.QwikGridBuilder(
             )
             .width(columnSpan.dp)
             .height(rowSpan.dp)
-            .padding(4.dp)
+            .padding(padding.dp)
 
-        IsakaroWidget(
+        QwikWidget(
             modifier = modifier,
-            isakaroGridItem = gridItem
+            item = gridItem
         ) {
             gridItem.onClickAction()
         }

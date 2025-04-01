@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.ColorPrimaryAccent
 import java.time.LocalDate
 import java.time.ZoneOffset
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +33,7 @@ fun QwikDateRangePickerModal(
     onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val today = LocalDate.now()
+    val today = Calendar.getInstance().get(Calendar.DATE)
     val sixMonthsLater = today.plusMonths(6)
 
     val todayMillis = today.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
@@ -94,10 +95,10 @@ fun QwikDateRangePickerModal(
             },
             colors = DatePickerDefaults.colors().copy(
                 containerColor = Color.White,
-                selectedDayContainerColor = ColorPrimaryAccent,
-                dayInSelectionRangeContainerColor = ColorPrimaryAccentLight,
+                selectedDayContainerColor = MaterialTheme.colorScheme.primary,
+                dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 dayInSelectionRangeContentColor = Color.White,
-                selectedYearContainerColor = ColorPrimaryAccent,
+                selectedYearContainerColor = MaterialTheme.colorScheme.primary,
                 disabledDayContentColor = Color.Gray
             ),
             showModeToggle = false,

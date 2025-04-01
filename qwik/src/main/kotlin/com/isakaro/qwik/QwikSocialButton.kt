@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,6 +92,48 @@ fun QwikSocialButtonGroup(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+            QwikSocialButton(
+                icon = R.drawable.google_logo,
+                text = "Google",
+                onClick = {
+                    onClick(QwikSocialPlatform.GOOGLE)
+                }
+            )
+        }
+
+        if(enabled.contains(QwikSocialPlatform.APPLE)) {
+            QwikSocialButton(
+                icon = R.drawable.apple_logo,
+                text = "Apple",
+                onClick = {
+                    onClick(QwikSocialPlatform.APPLE)
+                }
+            )
+        }
+
+        if(enabled.contains(QwikSocialPlatform.FACEBOOK)) {
+            QwikSocialButton(
+                icon = R.drawable.facebook_logo,
+                text = "Facebook",
+                onClick = {
+                    onClick(QwikSocialPlatform.FACEBOOK)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun QwikSimpleSocialButtonGroup(
+    enabled: List<QwikSocialPlatform> = listOf(QwikSocialPlatform.GOOGLE, QwikSocialPlatform.APPLE, QwikSocialPlatform.FACEBOOK),
+    onClick: (QwikSocialPlatform) -> Unit
+){
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
             Button(
                 modifier = Modifier.weight(1f),
                 border = BorderStroke(1.dp, Color.LightGray),
@@ -113,7 +154,7 @@ fun QwikSocialButtonGroup(
             }
         }
 
-        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+        if(enabled.contains(QwikSocialPlatform.APPLE)) {
             Button(
                 modifier = Modifier.weight(1f),
                 border = BorderStroke(1.dp, Color.LightGray),
@@ -134,7 +175,7 @@ fun QwikSocialButtonGroup(
             }
         }
 
-        if(enabled.contains(QwikSocialPlatform.GOOGLE)) {
+        if(enabled.contains(QwikSocialPlatform.FACEBOOK)) {
             Button(
                 modifier = Modifier.weight(1f),
                 border = BorderStroke(1.dp, Color.LightGray),
@@ -165,8 +206,15 @@ fun QwikSocialButtonPreview() {
         text = "Google"
     )
 }
+
 @Preview
 @Composable
 fun QwikSocialButtonGroupPreview() {
-    QwikSocialButtonGroup()
+    QwikSocialButtonGroup(onClick = {})
+}
+
+@Preview
+@Composable
+fun QwikSimpleSocialButtonGroupPreview() {
+    QwikSimpleSocialButtonGroup(onClick = {})
 }
