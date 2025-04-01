@@ -119,7 +119,7 @@ fun QwikCounter(
 @Preview
 @Composable
 fun QwikCounterPreview() {
-    IsakaroCounter(
+    QwikCounter(
         label = "Counter",
         initialValue = 2,
         onValueChange = {}

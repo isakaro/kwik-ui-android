@@ -1,11 +1,3 @@
 <resources>
-    <string name="app_name">AppCatalog</string>
-    <string name="email_hint">Email</string>
-    <string name="password_hint">Password</string>
-    <string name="field">Input</string>
-    <string name="hint">This is a hint</string>
-    <string name="phone_number">Phone number</string>
-    <string name="agree_to_terms">I agree to the terms and conditions</string>
-    <string name="error">This is an error</string>
-    <string name="title">This is a title</string>
+    <string name="app_name" translatable="false">Qwik Catalog</string>
 </resources>

@@ -29,14 +29,14 @@ import com.isakaro.qwik.catalog.textfield.TextFieldScreen
 import com.isakaro.qwik.catalog.theme.ColorScreen
 import com.isakaro.qwik.catalog.theme.ShapeScreen
 import com.isakaro.qwik.catalog.theme.TypographyScreen
-import com.isakaro.qwik.theme.Theme.IsakaroTheme
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            IsakaroTheme {
+            QwikTheme {
                 val navHostController = rememberNavController()
                 NavHost(navController = navHostController, startDestination = NavigationRoute.StartScreen.route) {
                     composable(NavigationRoute.StartScreen.route) {
