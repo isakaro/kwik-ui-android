@@ -26,7 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorSecondaryAccent
+
 import java.util.Calendar
 
 data class QwikYearsData(
@@ -94,7 +94,7 @@ fun QwikYearsRangeSelector(
                     )
                     Icon(
                         Icons.Filled.KeyboardArrowDown,
-                        tint = ColorSecondaryAccent,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(25.dp),
                         contentDescription = null
                     )
@@ -142,7 +142,7 @@ fun QwikYearsRangeSelector(
                    )
                     Icon(
                         Icons.Filled.KeyboardArrowDown,
-                        tint = ColorSecondaryAccent,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(25.dp),
                         contentDescription = null
                     )

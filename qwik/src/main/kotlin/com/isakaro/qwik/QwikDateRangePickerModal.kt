@@ -21,7 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Calendar
@@ -69,7 +69,7 @@ fun QwikDateRangePickerModal(
                     onDismiss()
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = ColorPrimaryAccent
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(

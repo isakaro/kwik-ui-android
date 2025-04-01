@@ -40,7 +40,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorSecondaryAccent
 import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
@@ -147,18 +146,18 @@ fun QwikCountryCodeButton(
         ) {
             Text(
                 text = country.code,
-                color = ColorSecondaryAccent,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier,
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = country.dialingCode,
-                color = ColorSecondaryAccent,
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.headlineSmall
             )
             Icon(
                 Icons.Filled.KeyboardArrowDown,
-                tint = ColorSecondaryAccent,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(35.dp),
                 contentDescription = null
             )

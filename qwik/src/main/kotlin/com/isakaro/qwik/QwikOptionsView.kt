@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 @Composable
 fun <T> ColumnScope.QwikOptionsView(
@@ -60,7 +60,7 @@ fun <T> ColumnScope.QwikOptionsView(
                 RadioButton(
                     selected = selectedIndex == index,
                     colors = RadioButtonDefaults.colors(
-                        selectedColor = ColorPrimaryAccent,
+                        selectedColor = MaterialTheme.colorScheme.primary,
                         unselectedColor = Color.Gray
                     ),
                     onClick = {
@@ -72,7 +72,7 @@ fun <T> ColumnScope.QwikOptionsView(
                 Text(
                     text = item.label,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if(selectedIndex == index) ColorPrimaryAccent else Color.Gray
+                    color = if(selectedIndex == index) MaterialTheme.colorScheme.primary else Color.Gray
                 )
             }
         }

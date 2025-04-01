@@ -18,14 +18,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 @Composable
 fun QwikTextButton(
     modifier: Modifier = Modifier,
     text: Any,
     color: Color = Color.Transparent,
-    textColor: Color = ColorPrimaryAccent,
+    textColor: Color = MaterialTheme.colorScheme.primary,
     isLoading: Boolean = false,
     onClick: () -> Unit = {}
 ) {

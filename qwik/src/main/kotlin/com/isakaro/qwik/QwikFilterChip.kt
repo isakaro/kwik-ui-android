@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 @Composable
 fun QwikFilterChip(
@@ -42,7 +42,7 @@ fun QwikFilterChip(
             )
         },
         colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = ColorPrimaryAccent,
+            selectedContainerColor = MaterialTheme.colorScheme.primary,
             containerColor = Color.White
         ),
         leadingIcon = if (isSelected) {
@@ -76,7 +76,7 @@ fun QwikChip(
             )
         },
         colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = ColorPrimaryAccent,
+            selectedContainerColor = MaterialTheme.colorScheme.primary,
             containerColor = Color.White
         )
     )

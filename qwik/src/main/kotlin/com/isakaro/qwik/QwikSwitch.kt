@@ -4,7 +4,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 @Composable
 fun QwikSwitch(
@@ -17,7 +17,7 @@ fun QwikSwitch(
             onCheckedChange(enabled)
         },
         colors = SwitchDefaults.colors(
-            checkedTrackColor = ColorPrimaryAccent,
+            checkedTrackColor = MaterialTheme.colorScheme.primary,
             checkedThumbColor = Color.White,
             uncheckedThumbColor = Color.Gray,
             uncheckedTrackColor = Color.LightGray

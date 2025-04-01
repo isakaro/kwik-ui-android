@@ -20,15 +20,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
-import com.isakaro.qwik.theme.ColorPrimaryAccentLight2
-import com.isakaro.qwik.theme.ColorSecondaryAccent
+
+Light2
+
 
 @Composable
 fun QwikIconTextButton(
     text: Int,
     icon: Any,
-    color: Color = ColorSecondaryAccent,
+    color: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -39,21 +39,21 @@ fun QwikIconTextButton(
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.textButtonColors(
             contentColor = Color.White,
-            containerColor = ColorPrimaryAccentLight2
+            containerColor = MaterialTheme.colorScheme.primaryLight2
         ),
         interactionSource = remember { MutableInteractionSource() }
     ) {
         if(icon is Int){
             Icon(
                 painter = painterResource(id = icon),
-                tint = ColorSecondaryAccent,
+                tint = MaterialTheme.colorScheme.primary,
                 contentDescription = null,
                 modifier = Modifier.size(35.dp)
             )
         } else if (icon is ImageVector) {
             Icon(
                 imageVector = icon,
-                tint = ColorSecondaryAccent,
+                tint = MaterialTheme.colorScheme.primary,
                 contentDescription = null,
                 modifier = Modifier.size(35.dp)
             )
@@ -72,7 +72,7 @@ fun QwikIconTextButton(
 fun QwikIconButton(
     modifier: Modifier = Modifier,
     icon: Any,
-    tint: Color = ColorPrimaryAccent,
+    tint: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit = {}
 ) {
     TextButton(

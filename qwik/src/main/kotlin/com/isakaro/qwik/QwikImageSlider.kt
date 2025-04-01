@@ -34,7 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 import com.isakaro.qwik.fadingEdge
 import kotlinx.coroutines.launch
 
@@ -111,7 +111,7 @@ fun ListingImageSlider(
                             .size(7.dp)
                             .background(
                                 color = if (pagerState.currentPage == index)
-                                    ColorPrimaryAccent
+                                    MaterialTheme.colorScheme.primary
                                 else Color.White
                             )
                             .clickable {

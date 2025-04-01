@@ -30,8 +30,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
-import com.isakaro.qwik.theme.ColorPrimaryAccent
-
 @Composable
 fun QwikButton(
     modifier: Modifier = Modifier,
@@ -42,7 +40,7 @@ fun QwikButton(
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
     height: Int = 50,
-    containerColor: Color = ColorPrimaryAccent,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Boolean = true,
     allCaps: Boolean = true,
     enabled: Boolean = true,
@@ -51,7 +49,7 @@ fun QwikButton(
 ) {
     Button(
         onClick = { onClick() },
-        border = if (outlined) BorderStroke(1.dp, ColorPrimaryAccent) else null,
+        border = if (outlined) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else null,
         modifier = Modifier
             .fillMaxWidth()
             .height(height.dp)
@@ -86,7 +84,7 @@ fun QwikButton(
                 if (tintIcon){
                     Icon(
                         painter = painterResource(id = leadingIcon),
-                        tint = if(outlined) ColorPrimaryAccent else Color.White,
+                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
                         contentDescription = null,
                         modifier = Modifier.size(25.dp)
                     )
@@ -101,7 +99,7 @@ fun QwikButton(
                 if (tintIcon){
                     Icon(
                         imageVector = leadingIcon,
-                        tint = if(outlined) ColorPrimaryAccent else Color.White,
+                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
                         contentDescription = null,
                         modifier = Modifier.size(25.dp)
                     )
@@ -119,21 +117,21 @@ fun QwikButton(
                     Text(
                         text = if(allCaps) text.toString().uppercase() else text,
                         style = fontStyle,
-                        color = if(outlined) ColorPrimaryAccent else Color.White
+                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
                     )
                 }
                 is AnnotatedString -> {
                     Text(
                         text = text,
                         style = fontStyle,
-                        color = if(outlined) ColorPrimaryAccent else Color.White
+                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
                     )
                 }
                 is Int -> {
                     Text(
                         text = if(allCaps) stringResource(id = text).uppercase() else stringResource(id = text),
                         style = fontStyle,
-                        color = if(outlined) ColorPrimaryAccent else Color.White
+                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
                     )
                 }
             }
@@ -146,7 +144,7 @@ fun QwikButton(
                 if (tintIcon){
                     Icon(
                         painter = painterResource(id = trailingIcon),
-                        tint = if(outlined) ColorPrimaryAccent else Color.White,
+                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
                         contentDescription = null,
                         modifier = Modifier.size(25.dp)
                     )
@@ -161,7 +159,7 @@ fun QwikButton(
                 if (tintIcon){
                     Icon(
                         imageVector = trailingIcon,
-                        tint = if(outlined) ColorPrimaryAccent else Color.White,
+                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
                         contentDescription = null,
                         modifier = Modifier.size(25.dp)
                     )

@@ -48,8 +48,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
 
-import com.isakaro.qwik.theme.ColorSecondaryAccent
-import com.isakaro.qwik.theme.ErrorColor
+
+
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -144,7 +144,7 @@ fun QwikSearchView(
                     if(isError) {
                         Icon(
                             imageVector = Icons.Filled.Info, "field error",
-                            tint = ErrorColor
+                            tint = MaterialTheme.colorScheme.error
                         )
                     }
                 }
@@ -152,7 +152,7 @@ fun QwikSearchView(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = ColorSecondaryAccent,
+                    color = MaterialTheme.colorScheme.primary,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
@@ -181,7 +181,7 @@ fun QwikSearchView(
             if(isError && error != null){
                 Text(
                     text = error,
-                    color = ErrorColor,
+                    color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()

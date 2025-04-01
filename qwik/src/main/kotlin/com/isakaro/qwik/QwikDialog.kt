@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 object QwikDialog {
     @Composable
@@ -165,7 +165,7 @@ object QwikDialog {
         dismiss: () -> Unit,
         isLoading: Boolean = false,
         confirmButtonVisible: Boolean = true,
-        confirmColor: Color = ColorPrimaryAccent,
+        confirmColor: Color = MaterialTheme.colorScheme.primary,
         confirmText: String? = null,
         cancelText: String? = null,
         content: @Composable () -> Unit

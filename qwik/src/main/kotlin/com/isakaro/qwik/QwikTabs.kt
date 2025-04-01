@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 import kotlinx.coroutines.launch
 
 @Composable
@@ -44,14 +44,14 @@ fun QwikTabs(
                     .height(4.dp)
                     .padding(horizontal = 28.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = ColorPrimaryAccent)
+                    .background(color = MaterialTheme.colorScheme.primary)
             )
         }
     ) {
         tabs.forEachIndexed { index, tab ->
             Tab(
                 selected = pagerState.currentPage == index,
-                selectedContentColor = ColorPrimaryAccent,
+                selectedContentColor = MaterialTheme.colorScheme.primary,
                 unselectedContentColor = Color.LightGray,
                 text = {
                     Row(

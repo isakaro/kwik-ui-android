@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-import com.isakaro.qwik.theme.ColorPrimaryAccent
+
 
 @Composable
 fun QwikSimpleButton(
@@ -30,7 +30,7 @@ fun QwikSimpleButton(
     isLoading: Boolean = false,
     loadingText: String = stringResource(id = R.string.generic_data_updating_message),
     enabled: Boolean = true,
-    containerColor: Color = ColorPrimaryAccent,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
 ) {
     Button(

@@ -30,17 +30,17 @@ internal fun ColorScreen() {
         SecondaryVariantColor()
         BackgroundColor()
         SurfaceColor()
-        ErrorColor()
+        MaterialTheme.colorScheme.error()
         OnPrimaryColor()
         OnSecondaryColor()
         OnBackgroundColor()
         OnSurfaceColor()
-        OnErrorColor()
+        OnMaterialTheme.colorScheme.error()
     }
 }
 
 @Composable
-private fun OnErrorColor() {
+private fun OnMaterialTheme.colorScheme.error() {
     MaterialColor(
         name = "OnError Color",
         color = MaterialTheme.colorScheme.onError
@@ -80,7 +80,7 @@ private fun OnPrimaryColor() {
 }
 
 @Composable
-private fun ErrorColor() {
+private fun MaterialTheme.colorScheme.error() {
     MaterialColor(
         name = "Error Color",
         color = MaterialTheme.colorScheme.error
