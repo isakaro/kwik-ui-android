@@ -25,6 +25,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+/**
+ * Accordion component that can be expanded or collapsed.
+ * @param title: The title of the accordion.
+ * @param headerIcon: The icon to display on the left side of the title.
+ * @param elevation: The elevation of the accordion.
+ * @param expanded: The state of the accordion. If true, the content will be visible.
+ * @param headerTextColor: The color of the title.
+ * @param isError: If true, the accordion will display an error icon.
+ * @param errorIcon: The icon to display when isError is true.
+ * @param onExpandedChange: The callback that will be called when the accordion is expanded or collapsed.
+ * @param content: The content of the accordion.
+ *
+ * Example usage:
+ * ```
+ * QwikAccordion(
+ *    title = "Accordion",
+ *    headerIcon = R.drawable.icon,
+ *    expanded = true,
+ *    headerTextColor = Color.Black,
+ *  ){
+ *      Text("Accordion content")
+ *  }
+ *  ```
+ * */
 @Composable
 fun QwikAccordion(
     title: String,
