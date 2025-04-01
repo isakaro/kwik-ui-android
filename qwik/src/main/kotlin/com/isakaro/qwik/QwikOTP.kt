@@ -50,7 +50,7 @@ import com.isakaro.qwik.textfield.PasswordToggle
 
 @Composable
 fun QwikOTP(
-    onValidOtp: (TextFieldValue) -> Unit,
+    onValidOTP: (TextFieldValue) -> Unit,
     size: Int = 6,
     isError: Boolean = false,
     error: String,
@@ -64,7 +64,7 @@ fun QwikOTP(
 
     fun validOtp(): Boolean {
         return if(otpFields.none { it.value.text.isEmpty() }){
-            onValidOtp(TextFieldValue(
+            onValidOTP(TextFieldValue(
                 text = otpFields.joinToString("") { it.value.text },
             ))
             true

@@ -30,6 +30,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,11 +44,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
-import com.isakaro.qwik.theme.PrimaryColor
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 internal fun BottomNavScreen() {
@@ -62,7 +61,7 @@ internal fun BottomNavScreen() {
 
     ShowCaseContainer {
         ShowCase(title = "Bottom Navigation") {
-            var selectedDrawerItem by remember { mutableStateOf(0) }
+            var selectedDrawerItem by remember { mutableIntStateOf(0) }
             val items = listOf("Songs", "Artists", "Playlists")
 
             Scaffold(
@@ -72,7 +71,7 @@ internal fun BottomNavScreen() {
                             .fillMaxWidth()
                             .height(70.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = PrimaryColor
+                            containerColor = MaterialTheme.colorScheme.primary
                         ),
                         elevation = CardDefaults.cardElevation(
                             defaultElevation = 20.dp

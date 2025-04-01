@@ -20,6 +20,7 @@ import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.isakaro.qwik.utils.countryList
 
 @Composable
 internal fun TextFieldScreen() {
@@ -78,16 +79,12 @@ internal fun TextFieldScreen() {
             }
 
             QwikPhoneNumberField(
+                selectedCountryInfo = countryList.random(),
                 value = text,
-                onValueChange = { value, countryCode ->
-                    text.value = value
-                },
-                onKeyboardDone = {
+                placeholder = "Phone number",
+                onValueChange = {
 
                 },
-                error = R.string.error,
-                placeholder = R.string.phone_number,
-                imeAction = ImeAction.Done,
             )
         }
 
@@ -129,7 +126,7 @@ internal fun TextFieldScreen() {
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
-                isEnabled = false,
+                enabled = false,
                 onKeyboardDone = {
 
                 }
@@ -138,10 +135,11 @@ internal fun TextFieldScreen() {
 
         ShowCase(title = "OTP field") {
             QwikOTP(
-                onComplete = {
+                onValidOTP = {
                     otp.value = it
                     Toast.makeText(context, "Valid OTP: ${it.text}", Toast.LENGTH_SHORT).show()
-                }
+                },
+                error = "Invalid OTP",
             )
         }
 
@@ -157,7 +155,7 @@ internal fun TextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = R.string.field,
+                placeholder = "This is a field",
                 maxLength = 35,
                 isTextCounterShown = true,
                 imeAction = ImeAction.Done,
@@ -181,7 +179,7 @@ internal fun TextFieldScreen() {
                 },
                 placeholder = stringResource(R.string.field),
                 maxLength = 35,
-                hint = R.string.hint,
+                hint = "This is a hint",
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
