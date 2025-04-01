@@ -151,7 +151,7 @@ fun QwikOTP(
     }
 }
 
-object EmptyTextToolbar: TextToolbar {
+private object EmptyTextToolbar: TextToolbar {
     override val status: TextToolbarStatus = TextToolbarStatus.Hidden
 
     override fun hide() {  }
@@ -166,7 +166,7 @@ object EmptyTextToolbar: TextToolbar {
     }
 }
 
-fun String.lastChar(): String {
+private fun String.lastChar(): String {
     return try {
         this.last().toString()
     } catch (e: Exception){
@@ -175,7 +175,7 @@ fun String.lastChar(): String {
 }
 
 @Composable
-fun OTPDigit(
+private fun OTPDigit(
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
