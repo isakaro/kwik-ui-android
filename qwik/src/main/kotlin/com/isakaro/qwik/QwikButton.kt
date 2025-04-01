@@ -175,5 +175,3 @@ fun QwikButton(
         }
     }
 }
-
-data class LoadingState(val isLoading: Boolean, val loadingText: String = "")

@@ -54,6 +54,7 @@ splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "spla
 google-play-auth-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "google-play-auth-phone" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 coil = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
+biometrics = { module = "androidx.biometric:biometric", version = "1.4.0-alpha03" }
 
 [bundles]
 app = [
@@ -69,7 +70,8 @@ app = [
     "accompanist-placeholder",
     "accompanist-system-ui-controller",
     "google-play-auth-phone",
-    "coil"
+    "coil",
+    "biometrics"
 ]
 
 app-theming = [

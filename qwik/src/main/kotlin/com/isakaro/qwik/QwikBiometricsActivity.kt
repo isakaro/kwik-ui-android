@@ -1,12 +1,12 @@
-package com.isakaro.qwik.biometrics
+package com.isakaro.qwik
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.biometric.BiometricPrompt
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,34 +26,45 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
-import com.isakaro.qwik.IsakaroText
+object QwikBiometrics {
+    const val TITLE = "title"
+    const val SUBTITLE = "subtitle"
+    const val CANCEL = "cancel"
+}
 
-class BiometricAuthActivity : FragmentActivity() {
+class QwikBiometricActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val title = intent.getStringExtra(QwikBiometrics.TITLE) as String
+        val subtitle = intent.getStringExtra(QwikBiometrics.SUBTITLE) as String
+        val cancel = intent.getStringExtra(QwikBiometrics.CANCEL) as String
+
         val executor = ContextCompat.getMainExecutor(this)
-        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
-            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                setResult(Activity.RESULT_OK)
-                finish()
-            }
+        val biometricPrompt = BiometricPrompt(
+            this,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    setResult(RESULT_OK)
+                    finish()
+                }
 
-            override fun onAuthenticationFailed() {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
-            }
+                override fun onAuthenticationFailed() {
+                    setResult(RESULT_CANCELED)
+                    finish()
+                }
 
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
-            }
-        })
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    setResult(RESULT_CANCELED)
+                    finish()
+                }
+            })
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Isakaro Biometrics Authentication")
-            .setSubtitle("Verify your identity to delete your account")
-            .setNegativeButtonText("Cancel")
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setNegativeButtonText(cancel)
             .build()
 
         biometricPrompt.authenticate(promptInfo)
@@ -66,7 +77,7 @@ class BiometricAuthActivity : FragmentActivity() {
             ) {
                 IsakaroText.TitleText(
                     modifier = Modifier.padding(bottom = 4.dp),
-                    text = "Verify your identity to proceed",
+                    text = "Verify your identity",
                     textAlign = TextAlign.Center,
                     color = Color.DarkGray,
                     style = MaterialTheme.typography.titleMedium
@@ -92,9 +103,9 @@ class BiometricAuthActivity : FragmentActivity() {
     }
 }
 
-class BiometricPromptAuthenticationContract : ActivityResultContract<Unit, Boolean>() {
+class QwikBiometricsAuthenticationContract: ActivityResultContract<Unit, Boolean>() {
     override fun createIntent(context: Context, input: Unit): Intent {
-        return Intent(context, BiometricAuthActivity::class.java)
+        return Intent(context, QwikBiometricActivity::class.java)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Boolean {

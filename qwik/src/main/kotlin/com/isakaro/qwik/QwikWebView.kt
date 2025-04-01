@@ -1,4 +1,4 @@
-package com.isakaro.qwik.webview
+package com.isakaro.qwik
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
-import com.isakaro.qwik.QwikCircularLoading
 
 data class QwikWebViewSettings(
     val userAgent: String = "Qwik-Android-WebView",

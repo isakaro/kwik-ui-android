@@ -8,16 +8,15 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.delay
-import java.time.Duration
 
 @SuppressLint("DefaultLocale")
 @Composable
 fun QwikCountDownTimer(
-    time: Duration,
+    timeMillis: Long,
     onTimeUpdate: (String) -> Unit,
     onTimerFinished: () -> Unit
 ) {
-    var timer by remember { mutableLongStateOf(time.toMillis()) }
+    var timer by remember { mutableLongStateOf(timeMillis) }
 
     LaunchedEffect(timer) {
         val minutes = (timer / 1000) / 60
@@ -33,4 +32,15 @@ fun QwikCountDownTimer(
         }
         onTimerFinished()
     }
+}
+
+@Composable
+fun QwikCountDownTimer(
+    minutes: Int,
+    seconds: Int,
+    onTimeUpdate: (String) -> Unit,
+    onTimerFinished: () -> Unit
+) {
+    val totalMillis = ((minutes * 60) + seconds) * 1000L
+    QwikCountDownTimer(totalMillis, onTimeUpdate, onTimerFinished)
 }
