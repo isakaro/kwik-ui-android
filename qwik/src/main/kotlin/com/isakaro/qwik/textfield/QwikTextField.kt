@@ -122,6 +122,7 @@ fun QwikTextField(
     onFocusChanged: (Boolean) -> Unit = {  },
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEditable: Boolean = true,
+    label: String? = null,
     placeholder: String,
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
@@ -195,13 +196,15 @@ fun QwikTextField(
     LocalAutofillTree.current += autofillNode
 
     Column {
-        Text(
-            modifier = Modifier.padding(bottom = 4.dp),
-            text = placeholder,
-            color = Color.DarkGray,
-            textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.titleMedium
-        )
+        if(!label.isNullOrBlank()){
+            Text(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = Color.DarkGray,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
 
         TextField(
             value = value.value,

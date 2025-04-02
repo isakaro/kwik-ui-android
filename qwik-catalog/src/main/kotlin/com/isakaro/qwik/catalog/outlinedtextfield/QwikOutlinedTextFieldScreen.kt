@@ -4,8 +4,11 @@ import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -30,6 +33,7 @@ internal fun OutlinedTextFieldScreen() {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val qwikToastState = rememberQwikToastState()
+    var isPhoneNumberValid by remember { mutableStateOf(false) }
 
     QwikToast(state = qwikToastState)
 
@@ -89,8 +93,11 @@ internal fun OutlinedTextFieldScreen() {
                 initialCountryInfo = countryList.random(),
                 value = text,
                 placeholder = "Phone number",
+                isValid = isPhoneNumberValid,
                 onValueChange = {
                     text.value = it
+                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
+                    isPhoneNumberValid = it.text.length >= 8
                 },
                 onCountrySelected = { country ->
                     qwikToastState.showToast("Selected country: ${country.name}")
@@ -111,7 +118,7 @@ internal fun OutlinedTextFieldScreen() {
                     text.value = it
                 },
                 isError = true,
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -133,7 +140,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -166,7 +173,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = "I'm counting on you",
+                placeholder = "Address",
                 maxLength = 35,
                 isTextCounterShown = true,
                 imeAction = ImeAction.Done,
@@ -188,7 +195,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 hint = "This is a hint",
                 imeAction = ImeAction.Done,
@@ -210,7 +217,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -233,7 +240,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -257,7 +264,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 trailingIcon = R.drawable.qr_code_scanner,
@@ -283,7 +290,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Address",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 isValid = true,
@@ -308,7 +315,7 @@ internal fun OutlinedTextFieldScreen() {
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Description",
                 maxLength = 200,
                 imeAction = ImeAction.Default,
                 keyboardType = KeyboardType.Text,
