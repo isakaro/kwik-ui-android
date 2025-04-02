@@ -141,7 +141,14 @@ internal fun StartScreen(
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
-                title = "TextField",
+                title = "TextField (Outlined)",
+                description = "Powerful OutlinedTextField component that handles most use cases",
+                action = { navClick(NavigationRoute.OutlinedTextFieldScreen) }
+            )
+        ),
+        QwikListItemActionState.Data(
+            QwikListItemAction(
+                title = "TextField (Filled)",
                 description = "Powerful TextField component that handles most use cases",
                 action = { navClick(TextFieldScreen) }
             )

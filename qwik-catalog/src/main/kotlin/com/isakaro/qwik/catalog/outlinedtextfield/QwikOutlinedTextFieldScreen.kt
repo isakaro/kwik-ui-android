@@ -1,4 +1,4 @@
-package com.isakaro.qwik.catalog.textfield
+package com.isakaro.qwik.catalog.outlinedtextfield
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
@@ -21,12 +21,13 @@ import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.rememberQwikToastState
 import com.isakaro.qwik.showToast
-import com.isakaro.qwik.textfield.QwikTextField
+import com.isakaro.qwik.textfield.QwikOutlinedPhoneNumberField
+import com.isakaro.qwik.textfield.QwikOutlinedTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
 
 @Composable
-internal fun TextFieldScreen() {
+internal fun OutlinedTextFieldScreen() {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val qwikToastState = rememberQwikToastState()
@@ -41,12 +42,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = "Field",
+                placeholder = "Username",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -62,12 +63,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = stringResource(R.string.field),
+                placeholder = "Password",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password,
@@ -84,7 +85,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikPhoneNumberField(
+            QwikOutlinedPhoneNumberField(
                 initialCountryInfo = countryList.random(),
                 value = text,
                 placeholder = "Phone number",
@@ -92,7 +93,7 @@ internal fun TextFieldScreen() {
                     qwikToastState.showToast("keyboard done")
                 },
                 onCountrySelected = { country ->
-                    qwikToastState.showToast("Country selected: ${country.name}")
+                    qwikToastState.showToast("Selected country: ${country.name}")
                 }
             )
         }
@@ -104,7 +105,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -119,6 +120,7 @@ internal fun TextFieldScreen() {
                 }
             )
         }
+
         ShowCase(title = "Disabled field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
@@ -126,7 +128,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -159,12 +161,12 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = "This is a field",
+                placeholder = "I'm counting on you",
                 maxLength = 35,
                 isTextCounterShown = true,
                 imeAction = ImeAction.Done,
@@ -181,7 +183,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -203,7 +205,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -226,7 +228,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -250,7 +252,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -276,7 +278,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -301,7 +303,7 @@ internal fun TextFieldScreen() {
                 )
             }
 
-            QwikTextField(
+            QwikOutlinedTextField(
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -323,8 +325,8 @@ internal fun TextFieldScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
-        TextFieldScreen()
+        OutlinedTextFieldScreen()
     }
 }

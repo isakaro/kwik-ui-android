@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikButton
 import com.isakaro.qwik.QwikCheckBox
 import com.isakaro.qwik.QwikDialog
-import com.isakaro.qwik.QwikPhoneNumberField
+import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.R
 import com.isakaro.qwik.textfield.QwikTextField
@@ -85,7 +85,7 @@ internal fun DialogScreen() {
                         ) {
                             Text(text = "Enter your phone number and name", style = MaterialTheme.typography.titleSmall, color = Color.Black)
                             QwikPhoneNumberField(
-                                selectedCountryInfo = countryList.random(),
+                                initialCountryInfo = countryList.random(),
                                 value = text,
                                 placeholder = "Phone number",
                                 onValueChange = {

@@ -1,4 +1,4 @@
-package com.isakaro.qwik
+package com.isakaro.qwik.textfield
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -47,13 +49,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikCountryCodeButton
+import com.isakaro.qwik.QwikCountryPickerDialog
 import com.isakaro.qwik.theme.QwikColorSuccess
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.CountryInfo
 import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.text
-
-val allowedChars = Regex("^[0-9]*$")
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -68,7 +70,7 @@ fun QwikPhoneNumberField(
     isSingleLine: Boolean = true,
     maxLines: Int = 1,
     imeAction: ImeAction = ImeAction.Done,
-    selectedCountryInfo: CountryInfo,
+    initialCountryInfo: CountryInfo,
     isValid: Boolean = false,
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
@@ -84,11 +86,27 @@ fun QwikPhoneNumberField(
         errorBorderColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
     ),
-    onShowCountryList: () -> Unit = {}
+    onCountrySelected: (CountryInfo) -> Unit = {}
 ) {
 
     var countryCodePickerWidth by remember { mutableStateOf(0.dp) }
+    var showCountryPicker by remember { mutableStateOf(false) }
     val density = LocalDensity.current
+    val countryListState = rememberLazyListState()
+    var selectedCountryInfo by remember { mutableStateOf(initialCountryInfo) }
+
+    QwikCountryPickerDialog(
+        open = showCountryPicker,
+        countryListState = countryListState,
+        onDismiss = {
+            showCountryPicker = false
+        },
+        onSelect = { country ->
+            showCountryPicker = false
+            selectedCountryInfo = country
+            onCountrySelected(country)
+        }
+    )
 
     Column {
         Text(
@@ -101,7 +119,7 @@ fun QwikPhoneNumberField(
             style = MaterialTheme.typography.titleMedium
         )
 
-        Spacer(modifier = Modifier.weight(1f).width(10.dp))
+        Spacer(modifier = Modifier.width(10.dp))
 
         val autofill = LocalAutofill.current
         val autofillNode = AutofillNode(
@@ -120,7 +138,7 @@ fun QwikPhoneNumberField(
                 .fillMaxWidth()
                 .height(60.dp)
         ) {
-            OutlinedTextField(
+            TextField(
                 value = value.value,
                 onValueChange = {
                     if (it.text.matches(allowedChars) && it.text.length <= 12) {
@@ -179,7 +197,7 @@ fun QwikPhoneNumberField(
                 country = selectedCountryInfo,
                 enabled = countrySelectable
             ){
-                onShowCountryList()
+                showCountryPicker = true
             }
         }
         Spacer(modifier = Modifier.height(4.dp))
@@ -208,7 +226,7 @@ fun QwikPhoneNumberFieldPreview() {
             onValueChange = {},
             onKeyboardDone = {},
             placeholder = "Phone number",
-            selectedCountryInfo = countryList.random()
+            initialCountryInfo = countryList.random()
         )
     }
 }

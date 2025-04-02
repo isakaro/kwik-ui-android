@@ -147,7 +147,7 @@ fun QwikOutlinedTextField(
     isClearTextBtnShown: Boolean = false,
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
-    isEnabled: Boolean = true,
+    enabled: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
         focusedTextColor = Color.Black,
         cursorColor = Color.Black,
@@ -205,7 +205,7 @@ fun QwikOutlinedTextField(
         OutlinedTextField(
             value = value.value,
             onValueChange = {
-                if(!isEnabled) return@OutlinedTextField
+                if(!enabled) return@OutlinedTextField
                 if(it.text.length <= maxLength){
                     if(allowedChars != null) {
                         onValueChange(it.copy(allowedChars.replace(it.text, "")))
@@ -220,7 +220,7 @@ fun QwikOutlinedTextField(
                 )
             },
             isError = isError,
-            enabled = isEnabled && isEditable,
+            enabled = enabled && isEditable,
             textStyle = MaterialTheme.typography.bodyLarge,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
@@ -229,7 +229,7 @@ fun QwikOutlinedTextField(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
                 .height(if (isBigTextField) 150.dp else 68.dp)
-                .alpha(if (isEnabled) 1.0f else 0.5f)
+                .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
                     autofillNode.boundingBox = it.boundsInWindow()

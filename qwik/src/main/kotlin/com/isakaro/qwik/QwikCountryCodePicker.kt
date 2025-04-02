@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.CountryInfo
+import com.isakaro.qwik.utils.countryList
 import com.isakaro.qwik.utils.resolveCountries
 import com.isakaro.qwik.utils.text
 
@@ -109,7 +110,7 @@ fun QwikCountryCodePicker(
 }
 
 @Composable
-fun QwikCountryCodePickerDialog(
+fun QwikCountryPickerDialog(
     open: Boolean,
     title: String = "Where are you from?",
     countryListState: LazyListState,
@@ -150,18 +151,18 @@ fun QwikCountryCodeButton(
         ) {
             Text(
                 text = country.code,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier,
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = country.dialingCode,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.headlineSmall
             )
             Icon(
                 Icons.Filled.KeyboardArrowDown,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.size(35.dp),
                 contentDescription = null
             )
@@ -213,11 +214,22 @@ fun CountryCodeItem(
 
 @Preview
 @Composable
-fun QwikCountryCodePickerPreview(){
+private fun QwikCountryCodePickerPreview(){
     QwikTheme {
         QwikCountryCodePicker(
             state = rememberLazyListState(),
             onSelect = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun QwikCountryCodeButtonPreview(){
+    QwikTheme {
+        QwikCountryCodeButton(
+            country = countryList.random(),
+            onClick = {}
         )
     }
 }

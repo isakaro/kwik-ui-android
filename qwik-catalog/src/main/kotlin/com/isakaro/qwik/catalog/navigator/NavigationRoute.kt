@@ -33,6 +33,8 @@ sealed class NavigationRoute(
 
     data object SwitchScreen : NavigationRoute("switch")
 
+    data object OutlinedTextFieldScreen : NavigationRoute("outlinedtextField")
+
     data object TextFieldScreen : NavigationRoute("textField")
 
     data object AccordionScreen : NavigationRoute("accordion")

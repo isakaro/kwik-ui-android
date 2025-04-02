@@ -17,6 +17,7 @@ import com.isakaro.qwik.catalog.dialog.DialogScreen
 import com.isakaro.qwik.catalog.dropdown.DropDownScreen
 import com.isakaro.qwik.catalog.navigation.BottomNavScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute
+import com.isakaro.qwik.catalog.outlinedtextfield.OutlinedTextFieldScreen
 import com.isakaro.qwik.catalog.permission.PermissionsScreen
 import com.isakaro.qwik.catalog.progress.ProgressIndicatorScreen
 import com.isakaro.qwik.catalog.radio.RadioButtonScreen
@@ -85,6 +86,9 @@ class MainActivity: ComponentActivity() {
                     }
                     composable(NavigationRoute.SwitchScreen.route) {
                         SwitchScreen()
+                    }
+                    composable(NavigationRoute.OutlinedTextFieldScreen.route) {
+                        OutlinedTextFieldScreen()
                     }
                     composable(NavigationRoute.TextFieldScreen.route) {
                         TextFieldScreen()

@@ -56,6 +56,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.theme.QwikColorFilledTextField
+import com.isakaro.qwik.theme.QwikColorFilledTextFieldFocused
 import com.isakaro.qwik.theme.QwikColorHint
 import com.isakaro.qwik.theme.QwikColorSuccess
 
@@ -143,11 +145,11 @@ fun QwikTextField(
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
         focusedTextColor = Color.Black,
         cursorColor = Color.Black,
-        focusedContainerColor = Color.LightGray,
+        focusedContainerColor = QwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
-        focusedBorderColor = Color.Transparent,
+        focusedBorderColor = QwikColorFilledTextField,
         unfocusedBorderColor = Color.Transparent,
-        unfocusedContainerColor = Color.LightGray,
+        unfocusedContainerColor = QwikColorFilledTextFieldFocused,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
@@ -194,8 +196,9 @@ fun QwikTextField(
 
     Column {
         Text(
+            modifier = Modifier.padding(bottom = 4.dp),
             text = placeholder,
-            color = Color.Gray,
+            color = Color.DarkGray,
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.titleMedium
         )
@@ -210,15 +213,16 @@ fun QwikTextField(
                     } else onValueChange(it)
                 }
             },
-            label = {
+            isError = isError,
+            enabled = enabled && isEditable,
+            placeholder = {
                 Text(
                     text = placeholder,
+                    color = Color.Gray,
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium
                 )
             },
-            isError = isError,
-            enabled = enabled && isEditable,
             textStyle = MaterialTheme.typography.bodyLarge,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
@@ -430,7 +434,7 @@ private fun QwikTextFieldPreview() {
     QwikTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
-        placeholder = "Jack Sparrow",
+        placeholder = "Pirate name",
         keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,
         imeAction = ImeAction.Done,
