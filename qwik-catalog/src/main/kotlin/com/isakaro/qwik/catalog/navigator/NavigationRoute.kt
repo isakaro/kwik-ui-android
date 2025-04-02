@@ -29,17 +29,11 @@ sealed class NavigationRoute(
 
     data object SliderScreen : NavigationRoute("slider")
 
-    data object SnackBarScreen : NavigationRoute("snackBar")
+    data object ToastScreen : NavigationRoute("toast")
 
     data object SwitchScreen : NavigationRoute("switch")
 
     data object TextFieldScreen : NavigationRoute("textField")
-
-    data object ColorScreen : NavigationRoute("color")
-
-    data object TypographyScreen : NavigationRoute("typography")
-
-    data object ShapeScreen : NavigationRoute("shape")
 
     data object AccordionScreen : NavigationRoute("accordion")
 

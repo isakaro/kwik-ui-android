@@ -60,6 +60,37 @@ fun rememberQwikToastState(): MutableState<QwikToastState> {
     return remember { mutableStateOf(QwikToastState()) }
 }
 
+/**
+ * A modern toast component that can be used to display messages to the user.
+ * @param state: [QwikToastState] The state of the toast.
+ * @param modifier: The modifier for the toast.
+ *
+ * Example usage:
+ *
+ * ```
+ * val toastState = rememberQwikToastState()
+ *
+ * QwikToast(state = toastState)
+ *
+ * // Show a toast
+ * toastState.showToast("This is a toast message")
+ * ```
+ *
+ * ```
+ * // show success toast
+ * toastState.showToast("This is a success toast", QwikToastType.SUCCESS)
+ * ```
+ *
+ * ```
+ * // show warning toast
+ * toastState.showToast("This is a warning toast", QwikToastType.WARNING)
+ * ```
+ *
+ * ```
+ * // show with duration
+ * toastState.showToast("This is a 6 seconds toast", 6000L) // 6 seconds
+ * ```
+ **/
 @Composable
 fun QwikToast(
     state: MutableState<QwikToastState>,
@@ -169,6 +200,12 @@ fun QwikToast(
     }
 }
 
+/**
+ * Function to show a toast message.
+ * @param message: The message to display.
+ * @param type: The type of toast to display. Can be [QwikToastType.NEUTRAL], [QwikToastType.WARNING], [QwikToastType.SUCCESS], [QwikToastType.ERROR]. Default is [QwikToastType.NEUTRAL], which uses the primary color from [MaterialTheme.colorScheme].
+ * @param duration: The duration to display the toast. Default is 4 seconds.
+ * */
 fun MutableState<QwikToastState>.showToast(
     message: String,
     type: QwikToastType = QwikToastType.NEUTRAL,

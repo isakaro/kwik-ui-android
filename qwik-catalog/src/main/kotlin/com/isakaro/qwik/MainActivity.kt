@@ -80,7 +80,7 @@ class MainActivity: ComponentActivity() {
                     composable(NavigationRoute.SliderScreen.route) {
                         SliderScreen()
                     }
-                    composable(NavigationRoute.SnackBarScreen.route) {
+                    composable(NavigationRoute.ToastScreen.route) {
                         QwikToastScreen()
                     }
                     composable(NavigationRoute.SwitchScreen.route) {

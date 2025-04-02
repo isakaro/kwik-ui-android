@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 fun Date.toMMdd(): String {
-    val formatter = SimpleDateFormat("MM dd")
+    val formatter = SimpleDateFormat("MMM dd")
     val formattedDate: String = formatter.format(this)
     return formattedDate
 }

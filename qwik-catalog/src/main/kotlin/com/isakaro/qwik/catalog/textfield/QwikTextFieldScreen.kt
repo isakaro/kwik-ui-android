@@ -15,9 +15,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.QwikOTP
 import com.isakaro.qwik.QwikPhoneNumberField
+import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.rememberQwikToastState
+import com.isakaro.qwik.showToast
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
@@ -26,6 +29,9 @@ import com.isakaro.qwik.utils.countryList
 internal fun TextFieldScreen() {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+    val qwikToastState = rememberQwikToastState()
+
+    QwikToast(state = qwikToastState)
 
     ScrollableShowCaseContainer {
         ShowCase(title = "Standard field") {
@@ -45,7 +51,7 @@ internal fun TextFieldScreen() {
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -67,7 +73,7 @@ internal fun TextFieldScreen() {
                 keyboardType = KeyboardType.Password,
                 visualTransformation = PasswordVisualTransformation(),
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -83,7 +89,7 @@ internal fun TextFieldScreen() {
                 value = text,
                 placeholder = "Phone number",
                 onValueChange = {
-
+                    qwikToastState.showToast("keyboard done")
                 },
             )
         }
@@ -106,7 +112,7 @@ internal fun TextFieldScreen() {
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -128,7 +134,7 @@ internal fun TextFieldScreen() {
                 keyboardType = KeyboardType.Text,
                 enabled = false,
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -161,7 +167,7 @@ internal fun TextFieldScreen() {
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -183,7 +189,7 @@ internal fun TextFieldScreen() {
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-
+                    qwikToastState.showToast("keyboard done")
                 }
             )
         }

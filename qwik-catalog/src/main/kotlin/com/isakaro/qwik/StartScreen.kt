@@ -19,18 +19,14 @@ import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomSheetScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.ButtonScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.CardScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.CheckBoxScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.ColorScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.DialogScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.DropDownScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.ProgressIndicatorScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.RadioButtonScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.ShapeScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.SliderScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.SnackBarScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.SwitchScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.TabScreen
 import com.isakaro.qwik.catalog.navigator.NavigationRoute.TextFieldScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.TypographyScreen
 
 @Composable
 internal fun StartScreen(
@@ -38,27 +34,6 @@ internal fun StartScreen(
 ) {
 
     val components = listOf(
-        QwikListItemActionState.Data(
-            QwikListItemAction(
-                title = "Colors",
-                description = "Color palette",
-                action = { navClick(ColorScreen) }
-            )
-        ),
-        QwikListItemActionState.Data(
-            QwikListItemAction(
-                title = "Typography",
-                description = "Text styles",
-                action = { navClick(TypographyScreen) }
-            )
-        ),
-        QwikListItemActionState.Data(
-            QwikListItemAction(
-                title = "Shape",
-                description = "Shape styles",
-                action = { navClick(ShapeScreen) }
-            )
-        ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "AppBar",
@@ -152,9 +127,9 @@ internal fun StartScreen(
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
-                title = "SnackBar",
-                description = "SnackBar component",
-                action = { navClick(SnackBarScreen) }
+                title = "Toast",
+                description = "Modern toast component",
+                action = { navClick(NavigationRoute.ToastScreen) }
             )
         ),
         QwikListItemActionState.Data(

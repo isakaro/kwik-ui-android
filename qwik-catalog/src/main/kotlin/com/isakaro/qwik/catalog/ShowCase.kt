@@ -21,9 +21,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikText
+import com.isakaro.qwik.QwikVSpacer
 
 @Composable
 fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
+    QwikVSpacer(16)
+
     QwikText.TitleText(
         style = MaterialTheme.typography.titleMedium,
         text = title,
@@ -38,7 +41,7 @@ fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(Color.DarkGray)
+            .background(Color.LightGray)
     )
 }
 

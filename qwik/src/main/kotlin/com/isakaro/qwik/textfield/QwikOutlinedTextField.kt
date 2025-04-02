@@ -67,6 +67,56 @@ object AllowedChars {
     val ALL = null
 }
 
+/**
+ * A versatile filled text field component that can be used to take user input.
+ * @param modifier: The modifier for the text field.
+ * @param value: The value of the text field.
+ * @param onValueChange: The callback that will be called when the value of the text field changes.
+ * @param onKeyboardDone: The callback that will be called when the keyboard action is done.
+ * @param onActionClick: The callback that will be called when the action icon is clicked.
+ * @param onFocusChanged: The callback that will be called when the focus of the text field changes.
+ * @param visualTransformation: The visual transformation of the text field. Refer to [VisualTransformation].
+ * @param isEditable: If true, the text field is editable. Default is true.
+ * @param placeholder: The placeholder text of the text field.
+ * @param shape: The shape of the text field. Default is [RoundedCornerShape].
+ * @param isError: If true, the text field will display an error state.
+ * @param error: The error message to display when isError is true.
+ * @param isSingleLine: If true, the text field will be single line. Default is true.
+ * @param maxLength: The maximum length of the text field. Default is 35.
+ * @param keyboardType: The keyboard type of the text field. Default is [KeyboardType.Text].
+ * @param maxLines: The maximum number of lines of the text field. Default is 1.
+ * @param allowedChars: The allowed characters in the text field. Default is [AllowedChars.ALL].
+ * @param imeAction: The IME action of the text field. Default is [ImeAction.Done].
+ * @param isValid: If true, the text field will display a valid state.
+ * @param isTextCounterShown: If true, the text counter will be shown.
+ * @param hint: The hint text of the text field.
+ * @param hintVisibleOnError: If true, the hint will be visible only when there is an error.
+ * @param leadingIcon: The leading icon of the text field.
+ * @param trailingIcon: The trailing icon of the text field.
+ * @param isClearTextBtnShown: If true, the clear text button will be shown.
+ * @param isLoading: If true, the loading indicator will be shown.
+ * @param isBigTextField: If true, the text field will be big.
+ * @param enabled: If true, the text field will be enabled. Default is true.
+ * @param colors: The colors of the text field. Default is [OutlinedTextFieldDefaults.colors].
+ *
+ * Example usage:
+ *
+ * ```
+ * val pirateName = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+ *    mutableStateOf(TextFieldValue(""))
+ * }
+ *
+ * QwikOutlinedTextField(
+ *    value = pirateName,
+ *    onValueChange = {
+ *      pirateName.value = it
+ *    },
+ *    placeholder = "Jack Sparrow",
+ *    keyboardType = KeyboardType.Phone,
+ *    visualTransformation = VisualTransformation.None,
+ *    imeAction = ImeAction.Done,
+ * )
+ * */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun QwikOutlinedTextField(
