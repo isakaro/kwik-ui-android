@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikPermissionDto
-import com.isakaro.qwik.QwikPermissionRequest
 import com.isakaro.qwik.QwikPermissionsRequest
 import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.QwikToastType
