@@ -58,6 +58,45 @@ import com.isakaro.qwik.utils.text
 
 val allowedChars = Regex("^[0-9]*$")
 
+/**
+ * A powerful phone number field that allows the user to select a country code from a list of countries.
+ * The field is outlined and has a leading icon that shows the selected country code.
+ * The field also has a trailing icon that shows a check mark if the phone number is valid.
+ *
+ * @param value The current value of the field
+ * @param onValueChange The callback that is called when the value of the field changes
+ * @param onKeyboardDone The callback that is called when the keyboard done button is clicked
+ * @param placeholder The placeholder text of the field
+ * @param shape The shape of the field
+ * @param isError Whether the field is in an error state
+ * @param error The error message to show when the field is in an error state
+ * @param isSingleLine Whether the field should be single line
+ * @param maxLines The maximum number of lines the field can have
+ * @param imeAction The action that should be performed when the keyboard done button is clicked
+ * @param initialCountryInfo The initial country info to show in the field
+ * @param isValid Whether the phone number is valid
+ * @param enabled Whether the field is enabled
+ * @param countrySelectable Whether the country code is selectable
+ * @param colors The colors of the field
+ * @param onCountrySelected The callback that is called when a country is selected
+ *
+ * Example usage:
+ *
+ * ```
+ * val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
+ *
+ * QwikOutlinedPhoneNumberField(
+ *    value = value,
+ *    onValueChange = {
+ *      value.value = it
+ *    },
+ *    onKeyboardDone = {},
+ *    placeholder = "Phone number",
+ *    initialCountryInfo = countryList.random()
+ *    onCountrySelected = {},
+ *    isValid = true
+ *)
+ * */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun QwikOutlinedPhoneNumberField(

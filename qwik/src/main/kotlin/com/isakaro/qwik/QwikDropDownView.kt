@@ -24,6 +24,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/**
+ * A component that displays a dropdown view with a label and a text.
+ *
+ * @param modifier: Modifier applies to the dropdown view
+ * @param label: shows the label of the dropdown
+ * @param text: displays the text of the dropdown
+ * @param leadingIcon: the icon to display at the start of the dropdown
+ * @param onClick: the action to perform when the dropdown is clicked
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikDropDownView(
+ *         label = "Language",
+ *         leadingIcon = R.drawable.shield,
+ *         text = "Kinyarwanda",
+ *         onClick = {}
+ *     )
+ * ```
+ * */
 @Composable
 fun QwikDropDownView(
     modifier: Modifier = Modifier,
@@ -91,7 +111,7 @@ fun QwikDropDownView(
 
 @Preview
 @Composable
-fun QwikDropDownViewPreview() {
+private fun QwikDropDownViewPreview() {
     QwikDropDownView(
         label = "Language",
         leadingIcon = R.drawable.shield,

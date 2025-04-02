@@ -36,8 +36,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
-
+/**
+ * This object contains functions that can be used to display dialogs in a Qwik way.
+ * [BaseDialog] is the base dialog that is used by the other dialog functions.
+ * [ContentDialog] is a modular dialog that can be used to display content or confirm actions.
+ * [ConfirmDialog] is a confirm dialog that can be used to confirm actions.
+ * [GalleryDialog] is a dialog that can be used to display a gallery of images or other content that require a full screen view.
+ * */
 object QwikDialog {
+
+    /**
+     * Base dialog that is used by the other dialog functions.
+     *
+     * @param modifier Modifier to be applied to the dialog.
+     * @param title The title of the dialog.
+     * @param cancellable Whether the dialog can be dismissed by clicking outside of it.
+     * @param withCloseIcon Whether the dialog should have a close icon.
+     * @param onDismiss The function to be called when the dialog is dismissed.
+     * @param content The content of the dialog.
+     *
+     * */
     @Composable
     private fun BaseDialog(
         modifier: Modifier = Modifier,
@@ -129,6 +147,17 @@ object QwikDialog {
         }
     }
 
+    /**
+     * A modular dialog that can be used to display content or confirm actions.
+     *
+     * @param modifier Modifier to be applied to the dialog.
+     * @param open Whether the dialog should be displayed.
+     * @param title The title of the dialog.
+     * @param cancellable Whether the dialog can be dismissed by clicking outside of it.
+     * @param withCloseIcon Whether the dialog should have a close icon.
+     * @param dismiss The function to be called when the dialog is dismissed.
+     * @param content The content of the dialog.
+     * */
     @Composable
     fun ContentDialog(
         modifier: Modifier = Modifier,
@@ -154,6 +183,43 @@ object QwikDialog {
         }
     }
 
+    /**
+     * A confirm dialog that can be used to confirm actions.
+     *
+     * @param modifier Modifier to be applied to the dialog.
+     * @param open Whether the dialog should be displayed.
+     * @param title The title of the dialog.
+     * @param cancellable Whether the dialog can be dismissed by clicking outside of it.
+     * @param onConfirm The function to be called when the confirm button is clicked.
+     * @param onCancel The function to be called when the cancel button is clicked.
+     * @param dismiss The function to be called when the dialog is dismissed.
+     * @param isLoading Whether the confirm button should display a loading indicator.
+     * @param confirmButtonVisible Whether the confirm button should be visible.
+     * @param confirmColor The color of the confirm button.
+     * @param confirmText The text of the confirm button.
+     * @param cancelText The text of the cancel button.
+     * @param content The content of the dialog.
+     *
+     * Example usage:
+     *
+     * ```
+     * ConfirmDialog(
+     *    open = open,
+     *    title = "Are you sure?",
+     *    confirmText = "Yes I'm sure, cancel",
+     *    cancelText = "No, stay",
+     *    onConfirm = {
+     *    // Confirm action
+     *    },
+     *    dismiss = {
+     *    // Dismiss action
+     *    }
+     * ) {
+     *    // Your content
+     *  }
+     *  ```
+     * @see ContentDialog for including your own content in a dialog without confirm buttons.
+     */
     @Composable
     fun ConfirmDialog(
         modifier: Modifier = Modifier,
@@ -219,6 +285,29 @@ object QwikDialog {
         }
     }
 
+    /**
+     * A dialog that can be used to display a gallery of images or other content that require a full screen view.
+     *
+     * @param open Whether the dialog should be displayed.
+     * @param title The title of the dialog.
+     * @param cancellable Whether the dialog can be dismissed by clicking outside of it.
+     * @param dismiss The function to be called when the dialog is dismissed.
+     * @param content The content of the dialog.
+     *
+     * Example usage:
+     *
+     * ```
+     * GalleryDialog(
+     *   open = open,
+     *   title = "Gallery",
+     *   dismiss = {
+     *   // Dismiss action
+     *   },
+     *   content = {
+     *   // Your content
+     *   }
+     * )
+     * */
     @Composable
     fun GalleryDialog(
         open: Boolean,
