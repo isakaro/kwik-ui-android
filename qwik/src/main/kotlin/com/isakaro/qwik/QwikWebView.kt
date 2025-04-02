@@ -39,8 +39,8 @@ data class QwikWebViewSettings(
     val domStorageEnabled: Boolean = true,
     val allowFileAccess: Boolean = true,
     val allowContentAccess: Boolean = true,
-    val allowFileAccessFromFileURLs: Boolean = true,
-    val allowUniversalAccessFromFileURLs: Boolean = true,
+    val allowFileAccessFromFileURLs: Boolean = false,
+    val allowUniversalAccessFromFileURLs: Boolean = false,
     val javaScriptCanOpenWindowsAutomatically: Boolean = true,
     val supportMultipleWindows: Boolean = true
 )

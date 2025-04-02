@@ -28,6 +28,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.R
 
+/**
+ * A counter component that allows the user to increment or decrement a value.
+ *
+ * @param label: The label of the counter.
+ * @param initialValue: The initial value of the counter. Default is 0.
+ * @param minValue: The minimum value of the counter. Default is 0.
+ * @param maxValue: The maximum value of the counter. Default is 99.
+ * @param disabled: If true, the counter will be disabled.
+ * @param borderColor: The color of the border.
+ * @param borderStroke: The width of the border.
+ * @param onValueChange: The callback that will be called when the value of the counter changes.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikCounter(
+ *    label = "Counter",
+ *    initialValue = 2,
+ *    minValue = 0,
+ *    maxValue = 10,
+ *    onValueChange = {
+ *      // handle value change
+ *    }
+ *)
+ *```
+ * */
 @Composable
 fun QwikCounter(
     modifier: Modifier = Modifier,
@@ -36,7 +62,8 @@ fun QwikCounter(
     minValue: Int = 0,
     maxValue: Int = 99,
     disabled: Boolean = false,
-    withBorder: Boolean = false,
+    borderColor: Color = Color.Gray,
+    borderStroke: Int = 0,
     onValueChange: (Int) -> Unit
 ) {
     var value by remember { mutableIntStateOf(initialValue) }
@@ -67,8 +94,8 @@ fun QwikCounter(
                     color = Color.White,
                     shape = MaterialTheme.shapes.small
                 ).border(
-                    width = if(withBorder) 2.dp else 0.dp,
-                    color = Color.Gray,
+                    width = borderStroke.dp,
+                    color = borderColor,
                     shape = RoundedCornerShape(6.dp)
                 ),
             verticalAlignment = Alignment.CenterVertically,
@@ -118,7 +145,7 @@ fun QwikCounter(
 
 @Preview
 @Composable
-fun QwikCounterPreview() {
+private fun QwikCounterPreview() {
     QwikCounter(
         label = "Counter",
         initialValue = 2,

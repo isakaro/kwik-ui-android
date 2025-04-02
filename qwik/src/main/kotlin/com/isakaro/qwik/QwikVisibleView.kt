@@ -19,17 +19,34 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 /**
  * This component tracks the visibility of the content inside it.
  * and notifies the caller when the visibility changes.
+ * The caller can provide a tolerance value to adjust the visibility.
+ * For example, if the caller wants to know when the content is 50% visible on the screen,
+ *
+ * @param modifier: Modifier - The modifier for the component
+ * @param tolerance: Int - The tolerance value to adjust the visibility
+ * @param onVisibilityChanged: (isVisible: Boolean) -> Unit - The callback to notify the caller when the visibility changes
+ * @param content: @Composable () -> Unit - The content to display and track visibility
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikVisibleView(
+ *    tolerance = 0,
+ *    onVisibilityChanged = { isVisible ->
+ *    // Do something when the content is visible
+ *    }
+ * ){
+ *     // Content to track visibility for
+ * }
  * */
 @Composable
 fun QwikVisibleView(
     modifier: Modifier = Modifier,
     tolerance: Int = 0,
-    positionOnScreen: Rect? = null,
     onVisibilityChanged: (isVisible: Boolean) -> Unit,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
-    val context = LocalContext.current
     val isVisible = remember { mutableStateOf(false) }
 
     var componentBounds by remember { mutableStateOf<Rect?>(null) }

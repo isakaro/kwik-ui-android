@@ -6,7 +6,6 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-
 @Composable
 fun QwikSwitch(
     checked: Boolean,

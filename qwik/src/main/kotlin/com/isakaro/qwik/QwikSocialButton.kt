@@ -35,6 +35,15 @@ enum class QwikSocialPlatform {
     FACEBOOK
 }
 
+/**
+ * Social button for Google, Apple and Facebook
+ *
+ * @param icon: Int - The icon resource
+ * @param text: String - The text to display
+ * @param contentColor: Color - The color of the text
+ * @param containerColor: Color - The color of the container
+ * @param onClick: () -> Unit - The click listener
+ * */
 @Composable
 fun QwikSocialButton(
     icon: Int,

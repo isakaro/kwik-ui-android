@@ -34,6 +34,15 @@ data class QwikYearsData(
     val maxYear: Int = Calendar.getInstance().get(Calendar.YEAR)
 )
 
+/**
+ * A composable that displays a year range selector.
+ *
+ * @param title The title of the year range selector.
+ * @param fromYearText The text to display for the "From Year" label.
+ * @param toYearText The text to display for the "To Year" label.
+ * @param qwikYearsData [QwikYearsData] The data to use for the year range selector.
+ * @param onYearRangeChanged A callback that is called when the year range is changed.
+ * */
 @Composable
 fun QwikYearsRangeSelector(
     title: String = "Year Range",

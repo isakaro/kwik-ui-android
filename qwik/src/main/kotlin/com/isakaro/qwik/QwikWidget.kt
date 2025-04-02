@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -58,5 +59,20 @@ fun QwikWidget(
             }
         }
     }
+}
 
+@Preview
+@Composable
+private fun QwikWidgetPreview() {
+    QwikWidget(
+        item = QwikDiv(
+            title = "Title",
+            colSpan = 2,
+            rowSpan = 2,
+            colPosition = 0,
+            rowPosition = 0,
+            onClickAction = {}
+        ),
+        onClick = {}
+    )
 }

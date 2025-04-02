@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
 fun QwikLoadingView(
@@ -49,13 +50,17 @@ fun QwikCircularLoading(
 @Composable
 @Preview(showBackground = true)
 fun QwikLoadingViewPreview() {
-    QwikLoadingView(
-        text = "Loading... Please Wait..."
-    )
+    QwikTheme {
+        QwikLoadingView(
+            text = "Loading... Please Wait..."
+        )
+    }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun QwikLoadingPreview() {
-    QwikCircularLoading()
+    QwikTheme {
+        QwikCircularLoading()
+    }
 }

@@ -19,6 +19,24 @@ import com.isakaro.qwik.theme.QwikColorYellow
 import kotlin.math.ceil
 import kotlin.math.floor
 
+/**
+ * A rating bar that displays a rating out of 5 stars.
+ *
+ * @param modifier The modifier to apply to this layout.
+ * @param rating The rating to display.
+ * @param stars The number of stars to display.
+ * @param starsColor The color of the stars.
+ * @param showBadge Whether to show a badge with the rating.
+ * @param badgeTextColor The color of the badge text.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikRatingBar(
+ *      stars = 5,
+ *      rating = 5.0
+ * )
+ * */
 @Composable
 fun QwikRatingBar(
     modifier: Modifier = Modifier,

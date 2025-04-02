@@ -9,6 +9,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.delay
 
+/**
+ * A countdown timer that displays the time remaining in the format "mm:ss".
+ *
+ * @param timeMillis The total time in milliseconds to count down from.
+ * @param onTimeUpdate The callback that will be called every second with the current time remaining.
+ * @param onTimerFinished The callback that will be called when the timer reaches 0.
+ *
+ * <p>
+ * You can use it to display a countdown timer in your Composable.
+ * For example, you can use it to display a countdown timer in a quiz app. Or to wait for an OTP to be sent before allowing the user to resend it.
+ * </p>
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikCountDownTimer(
+ *    timeMillis = 60000L,
+ *    onTimeUpdate = { time ->
+ *      Text(time)
+ *    },
+ *    onTimerFinished = {
+ *      Text("Timer finished")
+ *    }
+ * )
+ *    ```
+ * */
 @SuppressLint("DefaultLocale")
 @Composable
 fun QwikCountDownTimer(
