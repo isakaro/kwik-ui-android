@@ -228,7 +228,7 @@ fun QwikOutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
-                .height(if (isBigTextField) 150.dp else 68.dp)
+                .height(if (isBigTextField) 150.dp else 60.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {

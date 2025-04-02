@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.QwikButton
+import com.isakaro.qwik.QwikButtonLoadingStyle
 import com.isakaro.qwik.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
@@ -26,7 +27,8 @@ internal fun QwikButtonScreen() {
         FabButton()
         ExtendedButton()
         ButtonWithIcon()
-        LoadingButton()
+        LoadingButtonLinear()
+        LoadingButtonCircular()
     }
 }
 
@@ -63,13 +65,26 @@ private fun DisabledButton() {
 }
 
 @Composable
-private fun LoadingButton() {
-    ShowCase("Loading Button") {
+private fun LoadingButtonLinear() {
+    ShowCase("Linear loading style Button") {
         QwikButton(
             onClick = {},
             text = "action",
             isLoading = true,
-            loadingText = "In Progress"
+            qwikButtonLoadingStyle = QwikButtonLoadingStyle.LINEAR,
+            loadingText = "Loading. Please wait..."
+        )
+    }
+}
+
+@Composable
+private fun LoadingButtonCircular() {
+    ShowCase("Circular loading style Button") {
+        QwikButton(
+            onClick = {},
+            text = "action",
+            isLoading = true,
+            loadingText = "Loading. Please wait..."
         )
     }
 }
@@ -85,7 +100,7 @@ private fun TextButton() {
 private fun FabButton() {
     ShowCase("Icon Floating Action") {
         FloatingActionButton(onClick = {}, containerColor = MaterialTheme.colorScheme.primary, contentColor = Color.Black) {
-            Icon(Icons.Sharp.Share, "share")
+            Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
         }
     }
 }
@@ -94,8 +109,8 @@ private fun FabButton() {
 private fun ExtendedButton() {
     ShowCase("Extended Floating Action") {
         ExtendedFloatingActionButton(
-            text = { Text(text = "Action", color = Color.Black, style = MaterialTheme.typography.titleSmall) },
-            icon = { Icon(Icons.Sharp.Share, tint = Color.Black, contentDescription = "share") },
+            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+            icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
         )

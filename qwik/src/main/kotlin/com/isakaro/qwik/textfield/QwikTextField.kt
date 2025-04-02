@@ -57,6 +57,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.QwikColorFilledTextField
+import com.isakaro.qwik.theme.QwikColorFilledTextFieldDisabled
+import com.isakaro.qwik.theme.QwikColorFilledTextFieldError
 import com.isakaro.qwik.theme.QwikColorFilledTextFieldFocused
 import com.isakaro.qwik.theme.QwikColorHint
 import com.isakaro.qwik.theme.QwikColorSuccess
@@ -154,9 +156,11 @@ fun QwikTextField(
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
-        disabledBorderColor = if(isEditable) Color.Unspecified else Color.Gray,
+        disabledBorderColor = Color.Transparent,
+        disabledContainerColor = Color.LightGray,
         disabledTextColor = if(isEditable) Color.Unspecified else Color.Gray,
-        errorBorderColor = MaterialTheme.colorScheme.error,
+        errorContainerColor = QwikColorFilledTextFieldError,
+        errorBorderColor = Color.Transparent,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
         errorTextColor = Color.Black,
@@ -195,7 +199,9 @@ fun QwikTextField(
 
     LocalAutofillTree.current += autofillNode
 
-    Column {
+    Column(
+        modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
+    ) {
         if(!label.isNullOrBlank()){
             Text(
                 modifier = Modifier.padding(bottom = 4.dp),
@@ -221,7 +227,7 @@ fun QwikTextField(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = Color.Gray,
+                    color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -233,7 +239,7 @@ fun QwikTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
-                .height(if (isBigTextField) 150.dp else 68.dp)
+                .height(if (isBigTextField) 150.dp else 60.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
