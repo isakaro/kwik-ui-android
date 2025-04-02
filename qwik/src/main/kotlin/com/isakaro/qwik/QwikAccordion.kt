@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
  * Accordion component that can be expanded or collapsed.
  * @param title: The title of the accordion.
  * @param headerIcon: The icon to display on the left side of the title.
+ * @param containerColor: The color of the accordion container.
  * @param elevation: The elevation of the accordion.
  * @param expanded: The state of the accordion. If true, the content will be visible.
  * @param headerTextColor: The color of the title.
@@ -53,6 +54,7 @@ import androidx.compose.ui.unit.dp
 fun QwikAccordion(
     title: String,
     headerIcon: Int? = null,
+    containerColor: Color = Color.White,
     elevation: Int = 8,
     expanded: Boolean,
     headerTextColor: Color = Color.Black,
@@ -63,7 +65,7 @@ fun QwikAccordion(
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = containerColor
         ),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(
@@ -119,7 +121,7 @@ private fun QwikAccordionHeader(
                 Icon(
                     modifier = Modifier.padding(end = 3.dp),
                     painter = painterResource(id = headerIcon),
-                    tint = Color.Black,
+                    tint = headerTextColor,
                     contentDescription = if(isExpanded) "collapse" else "expand",
                 )
             }
@@ -128,12 +130,12 @@ private fun QwikAccordionHeader(
                 text = title,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium,
-                color = headerTextColor
+                color = if(isError) MaterialTheme.colorScheme.error else headerTextColor
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 painter = painterResource(id = R.drawable.arrow_down),
-                tint = Color.Black,
+                tint = headerTextColor,
                 contentDescription = if(isExpanded) "collapse" else "expand",
                 modifier = Modifier.rotate(rotation),
             )
