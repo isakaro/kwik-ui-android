@@ -8,6 +8,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 
+/**
+* An image view that can load images from resources, urls or vectors
+ *
+ * @param modifier Modifier
+ * @param url Any
+* */
 @Composable
 fun QwikImageView(
     modifier: Modifier = Modifier,

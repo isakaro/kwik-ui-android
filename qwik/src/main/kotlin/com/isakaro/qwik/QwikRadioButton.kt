@@ -13,6 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
+/**
+* RadioButton composable that uses QwikText.BodyText for the text
+ *
+ * @param text The text to display next to the radio button
+ * @param selected Whether the radio button is selected
+ * @param onClick The callback to be called when the radio button is clicked
+* */
 @Composable
 fun QwikRadioButton(
     text: String,

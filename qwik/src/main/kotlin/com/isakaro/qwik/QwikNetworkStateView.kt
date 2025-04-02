@@ -26,6 +26,12 @@ import com.isakaro.qwik.theme.QwikColorSuccess
 import com.isakaro.qwik.utils.QwikNetworkUtils
 import kotlinx.coroutines.delay
 
+/**
+ * Useful for displaying the current network state of the app.
+ *
+ * @param networkState [QwikNetworkUtils.NetworkState] The current network state of the app.
+ * @param modifier The modifier for the view.
+ * */
 @Composable
 fun QwikNetworkStateView(
     networkState: QwikNetworkUtils.NetworkState,

@@ -23,10 +23,12 @@ data class QwikPermissionDto(
 
 /**
  * allows to request permissions from the user and handle every possible scenario in one place
- * @param @[List] [permissions] the permissions to be requested and their rationale
- * @param @[String] [appPackageName] action to launch intent to the settings screen. Must be handled in the calling screen
- * @param @[Unit] [onGrantAction] optional action that can be performed when the user grants the permission
- * @param @[Composable] [content] optional content that can be displayed when the user grants the permission
+ * @param permissions the permissions to be requested and their rationale
+ * @param permissionRequestState the current state of the permission request
+ * @param onPermissionRequestStateChange callback to handle the state change of the permission request
+ * @param onGrantAction optional action that can be performed when the user grants the permission
+ * @param onShowRationale optional action that can be performed when the user denies the permission but can still show rationale
+ * @param onDeniedAction optional action that can be performed when the user denies the permission and can't show rationale
  * */
 @Composable
 internal fun QwikPermissionRequest(

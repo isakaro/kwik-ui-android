@@ -16,6 +16,18 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 
+/**
+ * An image loader that uses Coil to load images.
+ *
+ * @param modifier The modifier to apply to the image.
+ * @param url The URL of the image to load.
+ * @param placeholder The placeholder to show while the image is loading.
+ * @param contentDescription The content description of the image.
+ * @param contentScale The scale of the image.
+ * @param loading The action to perform when the image is loading.
+ * @param success The action to perform when the image has loaded successfully.
+ * @param error The action to perform when the image has failed to load.
+ * */
 @Composable
 fun QwikImageLoader(
     modifier: Modifier = Modifier,

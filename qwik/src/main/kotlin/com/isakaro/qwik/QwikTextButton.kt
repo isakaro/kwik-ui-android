@@ -22,11 +22,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.isakaro.qwik.theme.Theme.QwikTheme
 
+/**
+* Simple text button
+ *
+ * @param modifier Modifier
+ * @param text can be a string, int or AnnotatedString
+ * @param containerColor Color sets the background color
+ * @param textColor Color sets the text color
+ * @param isLoading Boolean indicates if button is loading
+ * @param onClick () -> Unit called when button is clicked
+* */
 @Composable
 fun QwikTextButton(
     modifier: Modifier = Modifier,
     text: Any,
-    color: Color = Color.Transparent,
+    containerColor: Color = Color.Transparent,
     textColor: Color = MaterialTheme.colorScheme.primary,
     isLoading: Boolean = false,
     onClick: () -> Unit = {}
@@ -35,8 +45,8 @@ fun QwikTextButton(
         onClick = { onClick() },
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            containerColor = color,
-            disabledContentColor = color.copy(alpha = 0.5f),
+            containerColor = containerColor,
+            disabledContentColor = containerColor.copy(alpha = 0.5f),
         ),
         contentPadding = PaddingValues(12.dp),
         shape = RoundedCornerShape(8.dp),

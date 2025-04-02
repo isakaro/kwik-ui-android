@@ -29,18 +29,41 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.theme.Theme.QwikTheme
 import kotlinx.coroutines.launch
 
+/**
+ * A image carousel that displays a list of images in a horizontal scrollable view.
+ *
+ * @param images List of images to display in the carousel.
+ * @param initialIndex The index of the image to display first.
+ * @param galleryMode Whether to display the images in gallery mode. A.K.A. full screen mode.
+ * @param showCounter Whether to show the current image index counter.
+ * @param showIndicators Whether to show the page indicators.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikImageCarousel(
+ *      images = listOf(
+ *              image1,
+ *              image2,
+ *              ...
+ *      )
+ *  )
+ * ```
+ * */
 @Composable
-fun ListingImageSlider(
+fun QwikImageCarousel(
     images: List<Any>,
     initialIndex: Int = 0,
-    galleryMode: Boolean = false
+    galleryMode: Boolean = false,
+    showCounter: Boolean = true,
+    showIndicators: Boolean = true
 ) {
     val pagerState = rememberPagerState(
         initialPage = initialIndex,
@@ -77,74 +100,78 @@ fun ListingImageSlider(
             }
         )
 
-        val leftRightFade = Brush.horizontalGradient(0f to Color.Transparent, 0.1f to Color.Black, 0.9f to Color.Black, 1f to Color.Transparent)
-
-        BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 4.dp)
-        ) {
-            LazyRow(
-                state = listState,
+        if(showIndicators){
+            BoxWithConstraints(
                 modifier = Modifier
-                    .widthIn(max = this.maxWidth * 3/5)
-                    .wrapContentWidth()
-                    .background(
-                        color = Color.Black.copy(alpha = 0.5f),
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .padding(vertical = 6.dp)
-                    .align(Alignment.Center),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                userScrollEnabled = false,
-                contentPadding = PaddingValues(horizontal = 12.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 4.dp)
             ) {
-                items(images.size) { index ->
-                    Box(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(7.dp)
-                            .background(
-                                color = if (pagerState.currentPage == index)
-                                    MaterialTheme.colorScheme.primary
-                                else Color.White
-                            )
-                            .clickable {
-                                scope.launch {
-                                    pagerState.animateScrollToPage(index)
+                LazyRow(
+                    state = listState,
+                    modifier = Modifier
+                        .widthIn(max = this.maxWidth * 3/5)
+                        .wrapContentWidth()
+                        .background(
+                            color = Color.Black.copy(alpha = 0.5f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(vertical = 6.dp)
+                        .align(Alignment.Center),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    userScrollEnabled = false,
+                    contentPadding = PaddingValues(horizontal = 12.dp)
+                ) {
+                    items(images.size) { index ->
+                        Box(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .size(7.dp)
+                                .background(
+                                    color = if (pagerState.currentPage == index)
+                                        MaterialTheme.colorScheme.primary
+                                    else Color.White
+                                )
+                                .clickable {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(index)
+                                    }
                                 }
-                            }
-                    )
+                        )
+                    }
                 }
             }
         }
 
-        Row(
-            modifier = Modifier
-                .padding(4.dp)
-                .background(
-                    color = Color.Black.copy(alpha = 0.3f),
-                    shape = RoundedCornerShape(12.dp)
-                ).align(Alignment.BottomEnd)
-        ) {
-            Text(
-                text = "${pagerState.currentPage + 1}/${images.size}",
-                color = Color.White,
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(4.dp)
-            )
+        if(showCounter){
+            Row(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .background(
+                        color = Color.Black.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(12.dp)
+                    ).align(Alignment.BottomEnd)
+            ) {
+                Text(
+                    text = "${pagerState.currentPage + 1}/${images.size}",
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewListingImageSlider() {
-    ListingImageSlider(
-        images = listOf(
-            R.drawable.baseline_visibility_24,
-            R.drawable.baseline_visibility_24
+private fun QwikImageCarouselPreview() {
+    QwikTheme {
+        QwikImageCarousel(
+            images = listOf(
+                R.drawable.baseline_visibility_24,
+                R.drawable.baseline_visibility_24
+            )
         )
-    )
+    }
 }

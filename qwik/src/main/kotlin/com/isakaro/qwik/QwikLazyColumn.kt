@@ -21,6 +21,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.util.UUID
 
+/**
+ * A handy composable that displays a list of items with actions.
+ *
+ * @param state The state of the lazy list.
+ * @param items The list of items to display.
+ * @param showDivider Whether to show a divider between items.
+ *
+ * Example usage:
+ *
+ * ```
+ * val state = rememberLazyListState()
+ *
+ * QwikLazyList(
+ *    state = state,
+ *    items = listOf(
+ *      QwikListItemActionState.Header("Header"),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 1", description = "Description 1")),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 2", description = "Description 2")),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 3", description = "Description 3")),
+ *      QwikListItemActionState.Space(),
+ *      QwikListItemActionState.Header("Header 2"),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 4", description = "Description 4")),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 5", description = "Description 5")),
+ *      QwikListItemActionState.Data(QwikListItemAction(title = "Item 6", description = "Description 6")),
+ *    )
+ *)
+ * ```
+ *
+ * @see QwikListItemAction
+ * @see QwikListItemActionState
+ * */
 @Composable
 fun QwikLazyList(
     state: LazyListState,
@@ -109,6 +140,9 @@ fun QwikListActionItem(
     }
 }
 
+/**
+ * The data class representing a list item action.
+ * */
 data class QwikListItemAction(
     val id: UUID = UUID.randomUUID(),
     val title: String,
@@ -118,6 +152,9 @@ data class QwikListItemAction(
     val action: () -> Unit = {}
 )
 
+/**
+ * The state of a list item action.
+ * */
 sealed class QwikListItemActionState {
     data class Header(val title: String) : QwikListItemActionState()
     data class Space(val id: UUID = UUID.randomUUID()) : QwikListItemActionState()

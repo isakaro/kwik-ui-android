@@ -26,6 +26,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.isakaro.qwik.theme.QwikColorSuccess
 
+/**
+ * A view that displays password requirements.
+ *
+ * @param requirements a map of [QwikPasswordRequirementType] to [PasswordRequirement] objects
+ * @param formSubmitAttempted whether the form has been submitted. When true, the view will display errors if requirements are not met.
+ *
+ * Example usage:
+ *
+ * ```
+ * val PasswordRequirements = mapOf(
+ *     QwikPasswordRequirementType.LENGTH to PasswordRequirement("At least 8 characters", false),
+ *     QwikPasswordRequirementType.NUMBER to PasswordRequirement("Contains a number", false),
+ *     QwikPasswordRequirementType.CHAR to PasswordRequirement("Contains a letter", false)
+ * )
+ *
+ * QwikPasswordRequirementsView(
+ *         requirements = PasswordRequirements,
+ *         formSubmitAttempted = false
+ * )
+ * ```
+ *
+ * @sample com.isakaro.qwik.QwikPasswordRequirementsViewPreview
+ * */
 @Composable
 fun QwikPasswordRequirementsView(
     modifier: Modifier = Modifier,
@@ -100,7 +123,7 @@ val PasswordRequirements = mapOf(
 
 @Preview
 @Composable
-fun QwikPasswordRequirementsViewPreview() {
+private fun QwikPasswordRequirementsViewPreview() {
     QwikPasswordRequirementsView(
         requirements = PasswordRequirements,
         formSubmitAttempted = false
