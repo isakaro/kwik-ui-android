@@ -59,7 +59,24 @@ enum class QwikButtonLoadingStyle {
  * @param qwikButtonLoadingStyle The style of the loading indicator. Can be [QwikButtonLoadingStyle.CIRCULAR] or [QwikButtonLoadingStyle.LINEAR].
  * @param onClick The action to be performed when the button is clicked.
  *
- * @sample com.isakaro.qwik.catalog.button
+ * Example usage:
+ *
+ * ```
+ * QwikButton(
+ *    text = "Click me",
+ *    onClick = { /* Do something */ }
+ * )
+ *```
+ *
+ * ```
+ * QwikButton(
+ *   text = stringResource(id = R.string.click_me),
+ *   onClick = { /* Do something */ },
+ *   outlined = true,
+ *   leadingIcon = Icons.Default.Add,
+ *   loadingText = "Loading...",
+ *   isLoading = true,
+ *)
  * */
 @Composable
 fun QwikButton(
@@ -83,7 +100,6 @@ fun QwikButton(
         onClick = { onClick() },
         border = if (outlined) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else null,
         modifier = Modifier
-            .fillMaxWidth()
             .height(height.dp)
             .alpha(if (isLoading) 0.5f else 1.0f)
             .clickable(

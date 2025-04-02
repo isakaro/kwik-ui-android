@@ -1,5 +1,6 @@
 package com.isakaro.qwik.catalog.button
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -8,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.QwikButton
@@ -21,7 +23,9 @@ import com.isakaro.qwik.theme.Theme.QwikTheme
 internal fun QwikButtonScreen() {
     ScrollableShowCaseContainer {
         NormalButton()
+        NormalMaxWidthButton()
         OutlinedButton()
+        NormalMaxWidthOutlinedButton()
         TextButton()
         DisabledButton()
         FabButton()
@@ -40,9 +44,32 @@ private fun NormalButton() {
 }
 
 @Composable
+private fun NormalMaxWidthButton() {
+    ShowCase("Max width button") {
+        QwikButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {},
+            text = "action"
+        )
+    }
+}
+
+@Composable
 private fun OutlinedButton() {
     ShowCase("Outlined Button") {
         QwikButton(onClick = {}, text = "action", outlined = true)
+    }
+}
+
+@Composable
+private fun NormalMaxWidthOutlinedButton() {
+    ShowCase("Max width outlined button") {
+        QwikButton(
+            modifier = Modifier.fillMaxWidth(),
+            outlined = true,
+            onClick = {},
+            text = "action"
+        )
     }
 }
 

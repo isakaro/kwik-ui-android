@@ -25,6 +25,7 @@ internal fun QwikAccordionScreen() {
     var expanded2 by remember { mutableStateOf(false) }
     var expanded3 by remember { mutableStateOf(false) }
     var expanded4 by remember { mutableStateOf(false) }
+    var expanded5 by remember { mutableStateOf(false) }
 
     ScrollableShowCaseContainer {
         ShowCase(title = "Qwik Accordion") {
@@ -50,9 +51,9 @@ internal fun QwikAccordionScreen() {
                 title = "This is a title",
                 containerColor = Color.Black,
                 headerTextColor = Color.White,
-                expanded = expanded,
+                expanded = expanded2,
                 onExpandedChange = {
-                    expanded = it
+                    expanded2 = it
                 }
             ) {
                 Column(
@@ -68,9 +69,9 @@ internal fun QwikAccordionScreen() {
         ShowCase(title = "Qwik Accordion with 1.dp elevation") {
             QwikAccordion(
                 title = "This is a title",
-                expanded = expanded2,
+                expanded = expanded3,
                 onExpandedChange = {
-                    expanded2 = it
+                    expanded3 = it
                 },
                 elevation = 1
             ) {
@@ -87,9 +88,9 @@ internal fun QwikAccordionScreen() {
         ShowCase(title = "Qwik Accordion with custom header icon") {
             QwikAccordion(
                 title = "This is a title",
-                expanded = expanded3,
+                expanded = expanded4,
                 onExpandedChange = {
-                    expanded3 = it
+                    expanded4 = it
                 },
                 headerIcon = com.isakaro.qwik.R.drawable.shield,
                 elevation = 1
@@ -107,9 +108,9 @@ internal fun QwikAccordionScreen() {
         ShowCase(title = "Qwik Accordion with error") {
             QwikAccordion(
                 title = "This is a title",
-                expanded = expanded4,
+                expanded = expanded5,
                 onExpandedChange = {
-                    expanded4 = it
+                    expanded5 = it
                 },
                 isError = true,
                 errorIcon = com.isakaro.qwik.R.drawable.shield,

@@ -51,6 +51,42 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * A search view that allows users to search for items.
+ * @param modifier Modifier to be applied to the view.
+ * @param state The state of the search view.
+ * @param suggestions The list of suggestions to be displayed.
+ * @param placeholder The placeholder text to be displayed.
+ * @param delay Whether to delay the search or not.
+ * @param maxChars The maximum number of characters allowed in the search field.
+ * @param isError Whether the search field has an error or not.
+ * @param error The error message to be displayed.
+ * @param onTextChange The callback to be called when the text changes.
+ * @param onTextCleared The callback to be called when the text is cleared.
+ * @param onFocusChanged The callback to be called when the focus changes.
+ * @param onKeyboardDone The callback to be called when the keyboard is done.
+ * @param onSuggestionSelected The callback to be called when a suggestion is selected.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikSearchView(
+ *    state = searchQueryState,
+ *    onTextChange = {
+ *      // handle text change
+ *    },
+ *    onFocusChanged = { isFocused ->
+ *      // handle focus change
+ *    },
+ *    onKeyboardDone = {
+ *      // validate search query and perform search
+ *    },
+ *    onSuggestionSelected = { suggestion ->
+ *      // handle suggestion selection
+ *    }
+ *)
+ * ```
+ * */
 @Composable
 fun QwikSearchView(
     modifier: Modifier = Modifier,
@@ -62,7 +98,7 @@ fun QwikSearchView(
     isError: Boolean = false,
     error: String? = null,
     onTextChange: (String) -> Unit,
-    onTextCleared: () -> Unit,
+    onTextCleared: () -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
     onKeyboardDone: () -> Unit = {},
     onSuggestionSelected: (String) -> Unit = {}

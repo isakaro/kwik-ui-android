@@ -52,7 +52,8 @@ fun ShowCaseContainer(content: @Composable ColumnScope.() -> Unit) = Surface(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         content()
@@ -67,6 +68,7 @@ fun ScrollableShowCaseContainer(content: @Composable ColumnScope.() -> Unit) = S
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(horizontal = 8.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

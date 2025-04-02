@@ -1,25 +1,14 @@
 package com.isakaro.qwik.catalog.radio
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikRadioButtonGroup
+import com.isakaro.qwik.QwikRadioItem
+import com.isakaro.qwik.QwikText
+import com.isakaro.qwik.QwikVSpacer
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.theme.Theme.QwikTheme
@@ -27,37 +16,57 @@ import com.isakaro.qwik.theme.Theme.QwikTheme
 @Composable
 internal fun RadioButtonScreen() {
     ShowCaseContainer {
-        ShowCase(title = "Radio Button") {
-            val radioOptions = listOf("Calls", "Missed", "Friends")
-            val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+        ShowCase(title = "Radio Button with preselected option") {
+            val options = listOf(
+                QwikRadioItem("Tortuga", 141),
+                QwikRadioItem("Isla de Muerta", 141),
+                QwikRadioItem("Davy Jones' Locker", 141),
+                QwikRadioItem("Shipwreck Cove", 141),
+            )
 
-            Column(Modifier.selectableGroup()) {
-                radioOptions.forEach { text ->
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(56.dp)
-                            .selectable(
-                                selected = text == selectedOption,
-                                onClick = { onOptionSelected(text) },
-                                role = Role.RadioButton
-                            ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color.Black
-                            ),
-                            selected = text == selectedOption,
-                            onClick = null
-                        )
-                        Text(
-                            text = text,
-                            color = Color.Black,
-                            style = MaterialTheme.typography.bodyMedium.merge(),
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
+            val (selectedOption, onOptionSelected) = remember { mutableStateOf(options[0]) }
+
+            Column {
+                QwikRadioButtonGroup(
+                    options = options,
+                    initialSelectedValue = selectedOption.value,
+                    onOptionSelected = {
+                        onOptionSelected(it)
                     }
+                )
+
+                QwikVSpacer(12)
+
+                QwikText.TitleText(
+                    text = "Selected option: ${selectedOption.label}"
+                )
+            }
+        }
+
+        ShowCase(title = "Radio Button") {
+            val options = listOf(
+                QwikRadioItem("Captain Jack Sparrow", 141),
+                QwikRadioItem("Captain Hector Barbossa", 141),
+                QwikRadioItem("Calypso", 141),
+                QwikRadioItem("Davy Jones", 141),
+            )
+
+            val (selectedOption, onOptionSelected) = remember { mutableStateOf<QwikRadioItem<Int>?>(null) }
+
+            Column {
+                QwikRadioButtonGroup(
+                    options = options,
+                    onOptionSelected = {
+                        onOptionSelected(it)
+                    }
+                )
+
+                QwikVSpacer(12)
+
+                if(selectedOption != null){
+                    QwikText.TitleText(
+                        text = "Selected option: ${selectedOption.label}"
+                    )
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.isakaro.qwik
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +12,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,16 +24,24 @@ fun QwikCheckBox(
     onCheckedChange: (Boolean) -> Unit,
     text: String
 ) {
-    Checkbox(
-        checked = checked,
-        onCheckedChange = { isChecked ->
-            onCheckedChange(isChecked)
-        }
-    )
-    QwikText.BodyText(
-        text = text,
-        style = MaterialTheme.typography.titleSmall
-    )
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = { isChecked ->
+                onCheckedChange(isChecked)
+            }
+        )
+        QwikText.BodyText(
+            modifier = Modifier.clickable {
+                onCheckedChange(!checked)
+            },
+            text = text,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleSmall
+        )
+    }
 }
 
 @Composable

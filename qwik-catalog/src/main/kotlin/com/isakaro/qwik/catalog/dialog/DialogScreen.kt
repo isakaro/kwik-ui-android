@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikButton
 import com.isakaro.qwik.QwikCheckBox
 import com.isakaro.qwik.QwikDialog
+import com.isakaro.qwik.QwikTextButton
 import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.R
@@ -42,6 +43,7 @@ internal fun DialogScreen() {
         var openDialog by remember { mutableStateOf(false) }
         var openConfirmDialog by remember { mutableStateOf(false) }
         var openNonCancellableDialog by remember { mutableStateOf(false) }
+        var checked by remember { mutableStateOf(false) }
 
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically),
@@ -89,24 +91,25 @@ internal fun DialogScreen() {
                                 value = text,
                                 placeholder = "Phone number",
                                 onValueChange = {
-
+                                    text.value = it
                                 },
                             )
                             QwikTextField(
                                 value = text1,
                                 onValueChange = { text1.value = it },
-                                placeholder = "Name",
+                                label = "Name",
+                                placeholder = "Enter your name",
                             )
                             QwikCheckBox(
                                 text = "Agree to terms",
-                                checked = false,
-                                onCheckedChange = { }
+                                checked = checked,
+                                onCheckedChange = { checked = it }
                             )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                QwikButton(text = "Cancel", onClick = { openDialog = false })
+                                QwikTextButton(text = "Cancel", onClick = { openDialog = false })
                                 QwikButton(text = "Confirm", onClick = { openDialog = false })
                             }
                         }

@@ -192,18 +192,15 @@ object QwikDialog {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if(cancellable){
-                        TextButton(
+                        QwikTextButton(
                             modifier = Modifier.weight(0.4f),
+                            text = cancelText ?: "Cancel",
+                            color = Color.Black,
                             onClick = {
                                 onCancel()
                                 dismiss()
                             }
-                        ) {
-                            Text(
-                                text = cancelText ?: "Cancel",
-                                color = Color.Black
-                            )
-                        }
+                        )
                     }
 
                     if(confirmButtonVisible){

@@ -29,7 +29,7 @@ data class QwikPermissionDto(
  * @param @[Composable] [content] optional content that can be displayed when the user grants the permission
  * */
 @Composable
-fun QwikPermissionRequest(
+internal fun QwikPermissionRequest(
     permissions: List<QwikPermissionDto>,
     permissionRequestState: QwikPermissionRequestState,
     onPermissionRequestStateChange: (QwikPermissionRequestState) -> Unit,
@@ -85,14 +85,14 @@ fun QwikPermissionRequest(
 
 }
 
-sealed class QwikPermissionRequestState {
+internal sealed class QwikPermissionRequestState {
     data object Requesting: QwikPermissionRequestState()
     data object Granted: QwikPermissionRequestState()
     data object ShowRationale: QwikPermissionRequestState()
     data object Denied: QwikPermissionRequestState()
 }
 
-fun Context.showInstalledAppDetails(appPackageName: String) {
+internal fun Context.showInstalledAppDetails(appPackageName: String) {
     val intent = Intent()
     intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
     val uri = Uri.fromParts("package", appPackageName, null)

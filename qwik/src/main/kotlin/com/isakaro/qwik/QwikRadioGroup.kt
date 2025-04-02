@@ -24,16 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.theme.Theme.QwikTheme
 
 @Composable
-fun <T> ColumnScope.QwikOptionsView(
+fun <T> ColumnScope.QwikRadioButtonGroup(
     options: List<QwikRadioItem<T>>,
     initialSelectedValue: T? = null,
-    onOptionSelected: (T) -> Unit
+    onOptionSelected: (QwikRadioItem<T>) -> Unit
 ) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(-1) }
 
-    // Set initial selected index based on provided initial value
     LaunchedEffect(initialSelectedValue) {
         initialSelectedValue?.let { initialValue ->
             val index = options.indexOfFirst { it.value == initialValue }
@@ -52,7 +52,7 @@ fun <T> ColumnScope.QwikOptionsView(
                     .fillMaxWidth()
                     .clickable {
                         selectedIndex = index
-                        onOptionSelected(item.value)
+                        onOptionSelected(item)
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -64,7 +64,7 @@ fun <T> ColumnScope.QwikOptionsView(
                     ),
                     onClick = {
                         selectedIndex = index
-                        onOptionSelected(item.value)
+                        onOptionSelected(item)
                     }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -85,20 +85,22 @@ data class QwikRadioItem<T>(
 
 @Preview
 @Composable
-fun RadioButtonExample() {
+private fun QwikRadioButtonGroupPreview() {
     val colorOptions = listOf(
-        QwikRadioItem("Option 1", 123),
-        QwikRadioItem("Option 2", 101),
-        QwikRadioItem("Option 3", 455)
+        QwikRadioItem("Tortuga", 404),
+        QwikRadioItem("Isla de Muerta", 300),
+        QwikRadioItem("Shipwreck Cove", 141)
     )
 
-    Column {
-        QwikOptionsView(
-            options = colorOptions,
-            initialSelectedValue = 123,
-            onOptionSelected = {
+    QwikTheme {
+        Column {
+            QwikRadioButtonGroup(
+                options = colorOptions,
+                initialSelectedValue = 123,
+                onOptionSelected = {
 
-            }
-        )
+                }
+            )
+        }
     }
 }
