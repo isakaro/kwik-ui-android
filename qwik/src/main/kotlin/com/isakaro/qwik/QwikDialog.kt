@@ -261,7 +261,7 @@ object QwikDialog {
                         QwikTextButton(
                             modifier = Modifier.weight(0.4f),
                             text = cancelText ?: "Cancel",
-                            color = Color.Black,
+                            containerColor = Color.Black,
                             onClick = {
                                 onCancel()
                                 dismiss()

@@ -211,7 +211,7 @@ fun QwikPermissionsRequest(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                QwikSimpleButton(
+                QwikButton(
                     text = "Enable",
                     onClick = {
                         if(permissionRequestState == QwikPermissionRequestState.Denied){
