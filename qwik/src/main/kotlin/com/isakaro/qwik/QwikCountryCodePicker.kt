@@ -178,12 +178,12 @@ fun CountryCodeItem(
 ) {
     Box(
         modifier = Modifier
-        .height(80.dp)
-        .fillMaxWidth()
-        .padding(10.dp)
-        .clickable {
-            onClick()
-        }) {
+            .height(80.dp)
+            .fillMaxWidth()
+            .padding(10.dp)
+            .clickable {
+                onClick()
+            }) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.align(Alignment.Center)) {
             if(showFlags){
                 Image(
@@ -200,13 +200,15 @@ fun CountryCodeItem(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 text = country.name,
+                color = Color.Black
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 text = country.dialingCode,
-                modifier = Modifier.padding(end = 10.dp)
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.Black
             )
         }
     }

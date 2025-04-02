@@ -1,4 +1,4 @@
-package com.isakaro.qwik
+package com.isakaro.qwik.textfield
 
 import android.view.KeyEvent.KEYCODE_DEL
 import androidx.compose.foundation.layout.Arrangement
@@ -69,7 +69,7 @@ import com.isakaro.qwik.textfield.PasswordToggle
  * )
  * */
 @Composable
-fun QwikOTP(
+fun QwikOutlinedOTP(
     onValidOTP: (TextFieldValue) -> Unit,
     size: Int = 6,
     isError: Boolean = false,
@@ -151,21 +151,6 @@ fun QwikOTP(
     }
 }
 
-private object EmptyTextToolbar: TextToolbar {
-    override val status: TextToolbarStatus = TextToolbarStatus.Hidden
-
-    override fun hide() {  }
-
-    override fun showMenu(
-        rect: Rect,
-        onCopyRequested: (() -> Unit)?,
-        onPasteRequested: (() -> Unit)?,
-        onCutRequested: (() -> Unit)?,
-        onSelectAllRequested: (() -> Unit)?,
-    ) {
-    }
-}
-
 private fun String.lastChar(): String {
     return try {
         this.last().toString()
@@ -215,13 +200,20 @@ private fun OTPDigit(
             isError = isError,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-                cursorColor = Color.Transparent,
-                errorCursorColor = Color.Transparent,
+                cursorColor = Color.Black,
                 focusedContainerColor = Color.White,
-                focusedBorderColor = if(value.value.text.isEmpty()) Color.Black else MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = if(value.value.text.isEmpty()) Color.Black else MaterialTheme.colorScheme.primary,
-                unfocusedContainerColor = Color.White
+                focusedLabelColor = Color.Gray,
+                focusedPlaceholderColor = Color.Black,
+                focusedBorderColor = Color.Gray,
+                unfocusedBorderColor = Color.Gray,
+                unfocusedLabelColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray,
+                unfocusedTextColor = Color.Black,
+                errorBorderColor = MaterialTheme.colorScheme.error,
+                errorLabelColor = MaterialTheme.colorScheme.error,
+                errorPlaceholderColor = MaterialTheme.colorScheme.error,
+                errorTextColor = Color.Black,
+                errorCursorColor = MaterialTheme.colorScheme.error
             ),
             singleLine = true,
             maxLines = 1,

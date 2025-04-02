@@ -51,6 +51,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikCountryCodeButton
 import com.isakaro.qwik.QwikCountryPickerDialog
+import com.isakaro.qwik.theme.QwikColorFilledTextField
+import com.isakaro.qwik.theme.QwikColorFilledTextFieldFocused
 import com.isakaro.qwik.theme.QwikColorSuccess
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.CountryInfo
@@ -76,14 +78,21 @@ fun QwikPhoneNumberField(
     countrySelectable: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
         focusedTextColor = Color.Black,
-        unfocusedTextColor = Color.Black,
         cursorColor = Color.Black,
-        focusedContainerColor = Color.White,
-        focusedBorderColor = Color.Black,
-        unfocusedBorderColor = Color.Black,
-        disabledBorderColor = Color.Gray,
-        unfocusedContainerColor = Color.White,
+        focusedContainerColor = QwikColorFilledTextFieldFocused,
+        focusedLabelColor = Color.Gray,
+        focusedBorderColor = QwikColorFilledTextField,
+        unfocusedBorderColor = Color.Transparent,
+        unfocusedContainerColor = QwikColorFilledTextFieldFocused,
+        unfocusedLabelColor = Color.Gray,
+        unfocusedPlaceholderColor = Color.Gray,
+        unfocusedTextColor = Color.Black,
+        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
+        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
         errorBorderColor = MaterialTheme.colorScheme.error,
+        errorLabelColor = MaterialTheme.colorScheme.error,
+        errorPlaceholderColor = MaterialTheme.colorScheme.error,
+        errorTextColor = Color.Black,
         errorCursorColor = MaterialTheme.colorScheme.error
     ),
     onCountrySelected: (CountryInfo) -> Unit = {}

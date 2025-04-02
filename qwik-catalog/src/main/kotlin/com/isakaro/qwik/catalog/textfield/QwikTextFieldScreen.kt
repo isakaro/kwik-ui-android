@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.qwik.QwikOTP
+import com.isakaro.qwik.textfield.QwikOTP
 import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.catalog.R
@@ -89,7 +89,7 @@ internal fun TextFieldScreen() {
                 value = text,
                 placeholder = "Phone number",
                 onValueChange = {
-                    qwikToastState.showToast("keyboard done")
+                    text.value = it
                 },
                 onCountrySelected = { country ->
                     qwikToastState.showToast("Country selected: ${country.name}")
