@@ -1,0 +1,10 @@
+package com.isakaro.qwik.utils
+
+import java.text.SimpleDateFormat
+import java.util.Date
+
+fun Date.toMMdd(): String {
+    val formatter = SimpleDateFormat("MM dd")
+    val formattedDate: String = formatter.format(this)
+    return formattedDate
+}

@@ -11,6 +11,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +36,7 @@ import com.isakaro.qwik.theme.Theme.QwikTheme
 internal fun PermissionsScreen() {
 
     val qwikToastState = rememberQwikToastState()
+    var granted by remember { mutableStateOf(false) }
 
     if (qwikToastState.value.isVisible) {
         QwikToast(state = qwikToastState)
@@ -56,6 +61,9 @@ internal fun PermissionsScreen() {
             title = "Media access required",
             icon = R.drawable.shield,
             iconTint = Color.Black,
+            onGrantAction = {
+                granted = true
+            },
             onDeniedAction = {
                 qwikToastState.showToast(message = "These permissions are necessary for the feature to function", type = QwikToastType.WARNING)
             },
@@ -64,22 +72,24 @@ internal fun PermissionsScreen() {
             }
         )
 
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                modifier = Modifier.size(48.dp),
-                painter = painterResource(id = R.drawable.shield),
-                contentDescription = "Permission granted",
-                tint = Color.Black
-            )
-            Text(
-                text = "Permission granted",
-                color = Color.Black,
-                style = MaterialTheme.typography.titleMedium
-            )
+        if(granted){
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    modifier = Modifier.size(48.dp),
+                    painter = painterResource(id = R.drawable.shield),
+                    contentDescription = "Permission granted",
+                    tint = Color.Black
+                )
+                Text(
+                    text = "Permission granted",
+                    color = Color.Black,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
         }
     }
 }

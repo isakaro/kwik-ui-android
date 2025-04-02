@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import com.isakaro.qwik.theme.QwikColorWarning
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -70,8 +71,8 @@ fun QwikToast(
     val progress = remember { Animatable(1f) }
 
     val backgroundColor = when (state.value.type) {
-        QwikToastType.NEUTRAL -> Color.White
-        QwikToastType.WARNING -> Color.Yellow
+        QwikToastType.NEUTRAL -> MaterialTheme.colorScheme.primary
+        QwikToastType.WARNING -> QwikColorWarning
         QwikToastType.SUCCESS -> Color.Green
         QwikToastType.ERROR -> MaterialTheme.colorScheme.error
     }

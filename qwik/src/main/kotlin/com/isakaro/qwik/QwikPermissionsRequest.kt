@@ -31,6 +31,41 @@ import com.isakaro.qwik.lifecycle.QwikComposableLifeCycle
 import com.isakaro.qwik.theme.QwikColorWarning
 import com.isakaro.qwik.utils.isPermissionGranted
 
+/**
+ * A permission request dialog that can be used to request permissions from the user.
+ * @param permissions: The list of permissions to request.
+ * @param title: The title of the dialog.
+ * @param deniedPermanentlyMessage: The message to display when the user denies the permission permanently.
+ * @param logo: The logo to display at the top of the dialog.
+ * @param icon: The icon to display in the center of the dialog.
+ * @param iconTint: The tint color of the icon.
+ * @param onGrantAction: The action to perform when the user grants the permission.
+ * @param onDeniedAction: The action to perform when the user denies the permission.
+ * @param onCancel: The action to perform when the user cancels the dialog.
+ * @param mandatory: If true, the dialog will not have a cancel button.
+ *
+ * Example usage:
+ * ```
+ * QwikPermissionsRequest(
+ *    permissions = listOf(QwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")),
+ *    title = "Permissions",
+ *    deniedPermanentlyMessage = "Permission required. Go to settings to enable",
+ *    logo = R.drawable.logo,
+ *    icon = R.drawable.shield,
+ *    iconTint = Color.Black,
+ *    onGrantAction = {
+ *      // Handle permission granted
+ *    },
+ *    onDeniedAction = {
+ *      // Handle permission denied
+ *    },
+ *    onCancel = {
+ *      // Handle dialog cancel
+ *    },
+ *    mandatory = true
+ * )
+ * ```
+ * */
 @Composable
 fun QwikPermissionsRequest(
     permissions: List<QwikPermissionDto>,
@@ -194,7 +229,7 @@ fun QwikPermissionsRequest(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview
 @Composable
-fun QwikPermissionRequestPreview() {
+private fun QwikPermissionRequestPreview() {
     QwikPermissionsRequest(
         permissions = listOf(QwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
         title = "Notifications"
