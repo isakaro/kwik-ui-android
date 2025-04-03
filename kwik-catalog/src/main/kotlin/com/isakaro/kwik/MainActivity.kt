@@ -9,22 +9,12 @@ import androidx.compose.ui.Alignment
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
-import com.isakaro.kwik.catalog.card.CardScreen
-import com.isakaro.kwik.catalog.checkbox.CheckBoxScreen
-import com.isakaro.kwik.catalog.dropdown.DropDownScreen
-import com.isakaro.kwik.catalog.outlinedtextfield.OutlinedTextFieldScreen
-import com.isakaro.kwik.catalog.permission.PermissionsScreen
-import com.isakaro.kwik.catalog.progress.ProgressIndicatorScreen
-import com.isakaro.kwik.catalog.radio.RadioButtonScreen
-import com.isakaro.kwik.catalog.slider.SliderScreen
-import com.isakaro.kwik.catalog.switch.SwitchScreen
-import com.isakaro.kwik.catalog.tabs.TabScreen
-import com.isakaro.kwik.catalog.textfield.TextFieldScreen
-import com.isakaro.kwik.catalog.toast.KwikToastScreen
+import com.isakaro.kwik.catalog.tabs.KwikTabScreen
 import com.isakaro.kwik.destinations.ComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
@@ -70,7 +60,7 @@ class MainActivity: ComponentActivity() {
                         composable(KwikButtonScreenDestination) {
                             KwikButtonScreen()
                         }
-                        composable(NavigationRoute.BottomNavScreen.route) {
+                        /*composable(NavigationRoute.BottomNavScreen.route) {
                             BottomNavScreen()
                         }
                         composable(NavigationRoute.CardScreen.route) {
@@ -87,11 +77,11 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(NavigationRoute.BottomSheetScreen.route) {
                             BottomSheetScreen()
+                        }*/
+                        composable(KwikTabScreenDestination) {
+                            KwikTabScreen()
                         }
-                        composable(NavigationRoute.TabScreen.route) {
-                            TabScreen()
-                        }
-                        composable(NavigationRoute.ProgressIndicatorScreen.route) {
+                        /*composable(NavigationRoute.ProgressIndicatorScreen.route) {
                             ProgressIndicatorScreen()
                         }
                         composable(NavigationRoute.RadioButtonScreen.route) {
@@ -117,7 +107,7 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(NavigationRoute.PermissionScreen.route) {
                             PermissionsScreen()
-                        }
+                        }*/
                     }
                 }
             }

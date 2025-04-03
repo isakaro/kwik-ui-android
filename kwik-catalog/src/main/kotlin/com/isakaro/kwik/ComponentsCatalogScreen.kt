@@ -13,6 +13,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -45,14 +47,18 @@ internal fun ComponentsCatalogScreen(
             KwikListItemAction(
                 title = "Buttons",
                 description = "Versatile button component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikButtonScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Tabs",
+                title = "Tabs (Horizontal)",
                 description = "Modern tab layout with support for counts and more",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikTabScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(

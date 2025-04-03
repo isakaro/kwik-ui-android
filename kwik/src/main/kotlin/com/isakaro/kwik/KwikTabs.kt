@@ -74,7 +74,6 @@ data class KwikIndicatorProps(
  * @param pagerState The state of the pager
  * @param kwikIndicatorProps The properties of the indicator. Refer to [KwikIndicatorProps] for more details.
  * @param containerColor The background color of the tab row
- * @param contentColor The content color of the tab row
  * @param indicatorColor The color of the indicator
  * @param divider The divider to display between tabs
  * @param selectedContentColor The color of the selected tab
@@ -189,7 +188,7 @@ fun KwikTabItemView(
                     color = if(selected) selectedContentColor else unselectedContentColor,
                 )
                 if(item.counter > 0){
-                    KwikHSpacer(4)
+                    KwikHSpacer(6)
                     Box(modifier = Modifier
                         .size(if (item.counter > 9) 30.dp else 25.dp)
                         .clip(RoundedCornerShape(20.dp))
@@ -234,6 +233,47 @@ private fun KwikTabsPreview() {
         ),
         KwikTabItem(
             title = "Jambo",
+            content = {
+                Text(text = "Jambo")
+            }
+        )
+    )
+
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        list.size
+    }
+
+    KwikTheme {
+        KwikHorizontalTab(
+            tabs = list,
+            pagerState = pagerState
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun KwikTabsWithCounterPreview() {
+    val list = listOf(
+        KwikTabItem(
+            title = "Muraho",
+            counter = 3,
+            content = {
+                Text(text = "Muraho")
+            }
+        ),
+        KwikTabItem(
+            title = "Hello",
+            content = {
+                Text(text = "Hello")
+            }
+        ),
+        KwikTabItem(
+            title = "Jambo",
+            counter = 1,
             content = {
                 Text(text = "Jambo")
             }

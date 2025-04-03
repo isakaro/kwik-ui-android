@@ -2,7 +2,6 @@ package com.isakaro.kwik.catalog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,25 +24,27 @@ import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikVSpacer
 
 @Composable
-fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
-    KwikVSpacer(16)
+fun ShowCase(title: String, content: @Composable () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        KwikVSpacer(16)
 
-    KwikText.TitleText(
-        style = MaterialTheme.typography.titleMedium,
-        text = title,
-        color = Color.Black
-    )
+        KwikText.TitleText(
+            style = MaterialTheme.typography.titleMedium,
+            text = title,
+            color = Color.Black
+        )
 
-    Box(modifier = Modifier.padding(16.dp)) {
         content()
-    }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(Color.LightGray)
-    )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(Color.LightGray)
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
