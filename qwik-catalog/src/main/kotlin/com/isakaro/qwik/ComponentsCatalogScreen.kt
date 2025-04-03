@@ -12,25 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.qwik.catalog.navigator.NavigationRoute
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.AppBarScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomNavScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.BottomSheetScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.ButtonScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.CardScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.CheckBoxScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.DialogScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.DropDownScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.ProgressIndicatorScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.RadioButtonScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.SliderScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.SwitchScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.TabScreen
-import com.isakaro.qwik.catalog.navigator.NavigationRoute.TextFieldScreen
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun StartScreen(
-    navClick: (NavigationRoute) -> Unit = {}
+@Destination(start = true)
+internal fun ComponentsCatalogScreen(
+    navigator: DestinationsNavigator = navigator()
 ) {
 
     val components = listOf(
@@ -38,133 +26,133 @@ internal fun StartScreen(
             QwikListItemAction(
                 title = "AppBar",
                 description = "Top app bar",
-                action = { navClick(AppBarScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Permissions",
                 description = "Easy-to-use Permission handler",
-                action = { navClick(NavigationRoute.PermissionScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Buttons",
                 description = "Versatile button component",
-                action = { navClick(ButtonScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Tabs",
                 description = "Modern tab layout with support for counts and more",
-                action = { navClick(TabScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "BottomSheet",
                 description = "Bottom sheet with support for multiple states",
-                action = { navClick(BottomSheetScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Bottom Navigation",
                 description = "Bottom navigation bar for modern apps",
-                action = { navClick(BottomNavScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Card",
                 description = "Card component",
-                action = { navClick(CardScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "CheckBox",
                 description = "Checkbox component which includes tri-state ability",
-                action = { navClick(CheckBoxScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Dialog",
                 description = "Dialog component for handling various scenarios",
-                action = { navClick(DialogScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "DropDown",
                 description = "Dropdown component",
-                action = { navClick(DropDownScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Progress Indicator",
                 description = "Linear and circular progress indicators",
-                action = { navClick(ProgressIndicatorScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Radio Button",
                 description = "Radio button component",
-                action = { navClick(RadioButtonScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Slider",
                 description = "Slider component",
-                action = { navClick(SliderScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Toast",
                 description = "Modern toast component",
-                action = { navClick(NavigationRoute.ToastScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Switch",
                 description = "Switch component",
-                action = { navClick(SwitchScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "TextField (Outlined)",
                 description = "Powerful OutlinedTextField component that handles most use cases",
-                action = { navClick(NavigationRoute.OutlinedTextFieldScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "TextField (Filled)",
                 description = "Powerful TextField component that handles most use cases",
-                action = { navClick(TextFieldScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Accordion",
                 description = "Accordion component for expandable content",
-                action = { navClick(NavigationRoute.AccordionScreen) }
+                action = {  }
             )
         ),
         QwikListItemActionState.Data(
             QwikListItemAction(
                 title = "Date range picker",
                 description = "Date range picker component using Material3 DatePicker underneath",
-                action = { navClick(NavigationRoute.DateRangePicker) }
+                action = {  }
             )
         )
     ).sortedBy { it.action.title }
@@ -212,5 +200,5 @@ internal fun StartScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewStartScreen() {
-    StartScreen()
+    ComponentsCatalogScreen()
 }
