@@ -1,5 +1,6 @@
 package com.isakaro.qwik.catalog.button
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -14,14 +15,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.QwikButton
 import com.isakaro.qwik.QwikButtonLoadingStyle
+import com.isakaro.qwik.QwikExtendedFloatingActionButton
+import com.isakaro.qwik.QwikFloatingActionButton
 import com.isakaro.qwik.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun QwikButtonScreen() {
-    ScrollableShowCaseContainer {
+@Destination
+internal fun QwikButtonScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
+    ScrollableShowCaseContainer(
+        title = "Accordion",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         NormalButton()
         NormalMaxWidthButton()
         OutlinedButton()
@@ -29,7 +43,10 @@ internal fun QwikButtonScreen() {
         TextButton()
         DisabledButton()
         FabButton()
+        LoadingExtendedFloatingActionButton()
         ExtendedButton()
+        LoadingFloatingActionButton()
+        DisabledExtendedButton()
         ButtonWithIcon()
         LoadingButtonLinear()
         LoadingButtonCircular()
@@ -135,12 +152,60 @@ private fun FabButton() {
 @Composable
 private fun ExtendedButton() {
     ShowCase("Extended Floating Action") {
-        ExtendedFloatingActionButton(
+        QwikExtendedFloatingActionButton(
             text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
         )
+    }
+}
+
+@Composable
+private fun LoadingExtendedFloatingActionButton() {
+    ShowCase("Loading Extended Floating Action Button") {
+        QwikExtendedFloatingActionButton(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White,
+            text = {
+                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
+            },
+            icon = {
+                Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
+            },
+            loading = true,
+            loadingText = "Loading...",
+            onClick = { }
+        )
+    }
+}
+
+@Composable
+private fun DisabledExtendedButton() {
+    ShowCase("Disabled Extended Floating Action") {
+        QwikExtendedFloatingActionButton(
+            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+            icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
+            containerColor = MaterialTheme.colorScheme.primary,
+            onClick = { }
+        )
+    }
+}
+
+@Composable
+private fun LoadingFloatingActionButton() {
+    ShowCase("Loading Floating Action Button") {
+        QwikFloatingActionButton(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White,
+            loading = true,
+            onClick = { }
+        ){
+            Row {
+                Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
+                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
+            }
+        }
     }
 }
 

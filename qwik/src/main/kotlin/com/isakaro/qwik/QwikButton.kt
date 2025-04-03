@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,9 +16,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -103,11 +112,12 @@ fun QwikButton(
             .height(height.dp)
             .alpha(if (isLoading) 0.5f else 1.0f)
             .clickable(
-                indication = if(isLoading) null else LocalIndication.current,
+                indication = if (isLoading) null else LocalIndication.current,
                 interactionSource = remember { MutableInteractionSource() }
-            ){
+            ) {
 
-            }.then(modifier),
+            }
+            .then(modifier),
         colors = if(outlined) ButtonDefaults.outlinedButtonColors(contentColor = Color.White) else ButtonDefaults.buttonColors(
             containerColor = containerColor,
         ),
@@ -213,11 +223,11 @@ fun QwikButton(
                     )
                 }
             }
-            
+
             if(trailingIcon != null) {
                 Spacer(modifier = Modifier.width(8.dp))
             }
-            
+
             if(trailingIcon is Int){
                 if (tintIcon){
                     Icon(
@@ -250,6 +260,161 @@ fun QwikButton(
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
+        }
+    }
+}
+
+/**
+ * An extended floating action button that can be customized to suit different use cases.
+ *
+ * @param modifier Modifier to be applied to the button.
+ * @param text The text to be displayed on the button.
+ * @param containerColor The color of the button.
+ * @param icon The icon to be displayed on the button.
+ * @param contentColor The color of the icon.
+ * @param shape The shape of the button.
+ * @param expanded Whether the button is expanded.
+ * @param elevation The elevation of the button.
+ * @param interactionSource The interaction source of the button.
+ * @param onClick The action to be performed when the button is clicked.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikExtendedFloatingActionButton(
+ *    text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+ *    icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
+ *    containerColor = MaterialTheme.colorScheme.primary,
+ *    onClick = { /* Do something */ }
+ * )
+ * ```
+ * */
+@Composable
+fun QwikExtendedFloatingActionButton(
+    modifier: Modifier = Modifier,
+    text: @Composable () -> Unit,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    disabledContainerColor: Color = containerColor.copy(alpha = 0.5f),
+    disabledContentColor: Color = contentColor.copy(alpha = 0.5f),
+    shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    interactionSource: MutableInteractionSource? = null,
+    icon: @Composable () -> Unit = {},
+    loading: Boolean = false,
+    loadingText: String? = null,
+    expanded: Boolean = true,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    ExtendedFloatingActionButton(
+        modifier = modifier.alpha(if(loading) 0.5f else 1f),
+        text = {
+            if(loading){
+                QwikCircularLoading(
+                    trackColor = contentColor,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                if(loadingText != null){
+                    Text(
+                        text = loadingText,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = contentColor
+                    )
+                }
+            } else {
+                text()
+            }
+        },
+        icon = {
+            if(!loading){
+              icon()
+            }
+        },
+        shape = shape,
+        contentColor = if (enabled) disabledContentColor else contentColor,
+        containerColor = if (enabled) disabledContainerColor else containerColor,
+        elevation = elevation,
+        interactionSource = interactionSource,
+        expanded = expanded,
+        onClick = {
+            if(enabled && !loading) onClick()
+        }
+    )
+}
+
+/**
+ * A floating action button that can be customized to suit different use cases.
+ *
+ * @param modifier Modifier to be applied to the button.
+ * @param containerColor The color of the button.
+ * @param contentColor The color of the icon.
+ * @param shape The shape of the button.
+ * @param loading Whether the button is in a loading state.
+ * @param loadingText The text to be displayed when the button is in a loading state.
+ * @param enabled Whether the button is enabled.
+ * @param elevation The elevation of the button.
+ * @param interactionSource The interaction source of the button.
+ * @param onClick The action to be performed when the button is clicked.
+ * @param content The content of the button.
+ *
+ * Example usage:
+ *
+ * ```
+ * QwikExtendedFloatingActionButton(
+ *    text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+ *    icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
+ *    containerColor = MaterialTheme.colorScheme.primary,
+ *    onClick = { /* Do something */ }
+ * )
+ * ```
+ * */
+@Composable
+fun QwikFloatingActionButton(
+    modifier: Modifier = Modifier,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    disabledContainerColor: Color = containerColor.copy(alpha = 0.5f),
+    disabledContentColor: Color = contentColor.copy(alpha = 0.5f),
+    shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    loading: Boolean = false,
+    loadingText: String? = null,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    FloatingActionButton(
+        modifier = modifier,
+        contentColor = if (enabled) disabledContentColor else contentColor,
+        containerColor = if (enabled) disabledContainerColor else containerColor,
+        shape = shape,
+        elevation = elevation,
+        interactionSource = interactionSource,
+        onClick = { if (enabled && !loading) onClick() },
+    ) {
+        if (loading) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                QwikCircularLoading(
+                    trackColor = contentColor,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                if(loadingText != null){
+                    Text(
+                        text = loadingText,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = contentColor
+                    )
+                }
+            }
+        } else {
+            content()
         }
     }
 }

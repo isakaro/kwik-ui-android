@@ -17,9 +17,16 @@ import com.isakaro.qwik.QwikButton
 import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun QwikAccordionScreen() {
+@Destination
+internal fun QwikAccordionScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
 
     var expanded by remember { mutableStateOf(false) }
     var expanded2 by remember { mutableStateOf(false) }
@@ -27,7 +34,12 @@ internal fun QwikAccordionScreen() {
     var expanded4 by remember { mutableStateOf(false) }
     var expanded5 by remember { mutableStateOf(false) }
 
-    ScrollableShowCaseContainer {
+    ScrollableShowCaseContainer(
+        title = "Accordion",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Qwik Accordion") {
             QwikAccordion(
                 title = "This is a title",
