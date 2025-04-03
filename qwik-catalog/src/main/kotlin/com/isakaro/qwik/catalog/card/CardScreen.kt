@@ -16,10 +16,21 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikCard
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun CardScreen() {
-    ShowCaseContainer {
+@Destination
+internal fun CardScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
+    ShowCaseContainer(
+        title = "Card",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Card") {
             QwikCard(
                 modifier = Modifier

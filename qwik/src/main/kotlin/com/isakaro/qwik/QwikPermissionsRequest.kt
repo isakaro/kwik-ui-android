@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -84,8 +85,7 @@ fun QwikPermissionsRequest(
     var arePermissionsGranted by remember { mutableStateOf(context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())) }
     var permissionsExplanationDialogVisible by remember { mutableStateOf(!arePermissionsGranted) }
     val appPackageName = LocalContext.current.packageName
-    var permissionRequestState by remember { mutableStateOf<QwikPermissionRequestState>(
-        QwikPermissionRequestState.Requesting) }
+    var permissionRequestState by remember { mutableStateOf<QwikPermissionRequestState>(QwikPermissionRequestState.Requesting) }
 
     QwikComposableLifeCycle(
         onResume = {
@@ -224,6 +224,11 @@ fun QwikPermissionsRequest(
             }
         }
     }
+}
+
+@Composable
+fun rememberQwikPermissionState(): MutableState<QwikPermissionRequestState> {
+    return remember { mutableStateOf(QwikPermissionRequestState.Requesting) }
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

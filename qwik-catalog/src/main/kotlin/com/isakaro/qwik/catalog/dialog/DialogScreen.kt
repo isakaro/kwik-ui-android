@@ -31,22 +31,24 @@ import com.isakaro.qwik.QwikTextButton
 import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.R
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
 internal fun DialogScreen(
-
+    navigator: DestinationsNavigator = navigator()
 ) {
     val context = LocalContext.current
 
     ShowCaseContainer(
         title = "Dialogs",
         onBackClick = {
-
+            navigator.navigateUp()
         }
     ) {
         var openDialog by remember { mutableStateOf(false) }

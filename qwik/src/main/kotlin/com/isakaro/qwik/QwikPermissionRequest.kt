@@ -87,7 +87,7 @@ internal fun QwikPermissionRequest(
 
 }
 
-internal sealed class QwikPermissionRequestState {
+sealed class QwikPermissionRequestState {
     data object Requesting: QwikPermissionRequestState()
     data object Granted: QwikPermissionRequestState()
     data object ShowRationale: QwikPermissionRequestState()

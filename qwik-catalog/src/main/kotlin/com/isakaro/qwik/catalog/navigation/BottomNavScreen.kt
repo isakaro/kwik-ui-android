@@ -44,12 +44,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Composable
+@Destination
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-internal fun BottomNavScreen() {
+internal fun BottomNavScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
     var selectedScreenRoute by remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
@@ -59,7 +65,12 @@ internal fun BottomNavScreen() {
         navItems.size
     }
 
-    ShowCaseContainer {
+    ShowCaseContainer(
+        title = "Bottom Sheet",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Bottom Navigation") {
             var selectedDrawerItem by remember { mutableIntStateOf(0) }
             val items = listOf("Songs", "Artists", "Playlists")

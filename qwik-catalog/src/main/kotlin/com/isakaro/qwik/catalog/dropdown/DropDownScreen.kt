@@ -23,10 +23,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun DropDownScreen() {
-    ShowCaseContainer {
+@Destination
+internal fun DropDownScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
+    ShowCaseContainer(
+        title = "Dropdown",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "DropDown") {
             var expanded by remember { mutableStateOf(false) }
 

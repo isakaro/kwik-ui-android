@@ -14,11 +14,22 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun CheckBoxScreen() {
-    ShowCaseContainer {
+@Destination
+internal fun CheckBoxScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
+    ShowCaseContainer(
+        title = "Checkbox",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "CheckBox") {
             var checked by remember { mutableStateOf(true) }
             Checkbox(

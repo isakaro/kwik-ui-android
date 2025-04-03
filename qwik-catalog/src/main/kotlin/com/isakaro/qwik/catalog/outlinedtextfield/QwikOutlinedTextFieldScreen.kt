@@ -20,6 +20,7 @@ import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.rememberQwikToastState
 import com.isakaro.qwik.showToast
 import com.isakaro.qwik.textfield.QwikOutlinedOTP
@@ -27,9 +28,14 @@ import com.isakaro.qwik.textfield.QwikOutlinedPhoneNumberField
 import com.isakaro.qwik.textfield.QwikOutlinedTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun OutlinedTextFieldScreen() {
+@Destination
+internal fun OutlinedTextFieldScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val qwikToastState = rememberQwikToastState()
@@ -37,7 +43,12 @@ internal fun OutlinedTextFieldScreen() {
 
     QwikToast(state = qwikToastState)
 
-    ScrollableShowCaseContainer {
+    ScrollableShowCaseContainer(
+        title = "Outlined Text field",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Standard field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(

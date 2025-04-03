@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -22,14 +21,20 @@ import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.rememberQwikToastState
 import com.isakaro.qwik.showToast
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun TextFieldScreen() {
+@Destination
+internal fun TextFieldScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val qwikToastState = rememberQwikToastState()
@@ -37,7 +42,12 @@ internal fun TextFieldScreen() {
 
     QwikToast(state = qwikToastState)
 
-    ScrollableShowCaseContainer {
+    ScrollableShowCaseContainer(
+        title = "Filled Text field",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Standard field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
