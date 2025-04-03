@@ -34,7 +34,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -64,5 +63,4 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     androidTestImplementation(libs.bundles.test)
     testImplementation(libs.bundles.test)
-    coreLibraryDesugaring(libs.desugaring)
 }

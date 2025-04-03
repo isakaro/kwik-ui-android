@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.compose.LocalLifecycleOwner
 
 /**
  * Helper component to observe the lifecycle of the current [LifecycleOwner] and call the provided
@@ -23,23 +23,18 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
  * */
 @Composable
 fun KwikComposableLifeCycle(
-    onResume: () -> Unit = {},
+    onResume: () -> Unit,
     onPause: () -> Unit = {},
-    onStarted: () -> Unit = {},
 ) {
 
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 
     val currentOnResume by rememberUpdatedState(onResume)
     val currentOnPause by rememberUpdatedState(onPause)
-    val currentOnStarted by rememberUpdatedState(onStarted)
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_START -> {
-                    currentOnStarted()
-                }
                 Lifecycle.Event.ON_RESUME -> {
                     currentOnResume()
                 }

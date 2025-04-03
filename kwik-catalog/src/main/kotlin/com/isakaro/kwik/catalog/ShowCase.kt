@@ -1,10 +1,13 @@
 package com.isakaro.kwik.catalog
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,45 +20,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.appbar.KwikAppBar
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.KwikAppBar
+import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikVSpacer
 
 @Composable
-internal fun ShowCase(
-    title: String? = null,
-    content: @Composable () -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        KwikVSpacer(16)
+fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
+    KwikVSpacer(16)
 
-        if(title != null){
-            KwikText.TitleMedium(
-                text = title,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
+    KwikText.TitleText(
+        style = MaterialTheme.typography.titleMedium,
+        text = title,
+        color = Color.Black
+    )
 
-        KwikVSpacer(4)
-
+    Box(modifier = Modifier.padding(16.dp)) {
         content()
-
-        KwikVSpacer(16)
     }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(1.dp)
+            .background(Color.LightGray)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ShowCaseContainer(
+fun ShowCaseContainer(
     title: String,
     onBackClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit
 ) = Surface(
-    modifier = Modifier.fillMaxSize()
+    modifier = Modifier.fillMaxSize(),
+    color = Color.White
 ) {
     Scaffold(
         topBar = {
@@ -81,7 +80,7 @@ internal fun ShowCaseContainer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ScrollableShowCaseContainer(
+fun ScrollableShowCaseContainer(
     title: String,
     onBackClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit

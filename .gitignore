@@ -11,8 +11,8 @@
 .DS_Store
 /build
 /**/build
-qwik-catalog/build/
-qwik/build/
+Kwik-catalog/build/
+Kwik/build/
 /captures
 /**/google-services.json
 .externalNativeBuild

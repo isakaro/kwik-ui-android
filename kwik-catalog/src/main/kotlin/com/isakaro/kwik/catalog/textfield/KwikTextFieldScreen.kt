@@ -1,9 +1,8 @@
-package com.isakaro.kwik.catalog.textfield
+package com.isakaro.Kwik.catalog.textfield
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,32 +15,32 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.isakaro.Kwik.textfield.KwikOTP
+import com.isakaro.Kwik.textfield.KwikPhoneNumberField
+import com.isakaro.Kwik.KwikToast
 import com.isakaro.Kwik.catalog.R
-import com.isakaro.kwik.toast.KwikToast
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.kwik.catalog.ShowCase
-import com.isakaro.kwik.navigator
-import com.isakaro.kwik.toast.rememberKwikToastState
-import com.isakaro.kwik.toast.showToast
-import com.isakaro.kwik.inputfields.KwikOTP
-import com.isakaro.kwik.inputfields.KwikPhoneNumberField
-import com.isakaro.kwik.inputfields.KwikTextField
-import com.isakaro.kwik.theme.KwikTheme
-import com.isakaro.kwik.utils.countryList
+import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.Kwik.catalog.ShowCase
+import com.isakaro.Kwik.navigator
+import com.isakaro.Kwik.rememberKwikToastState
+import com.isakaro.Kwik.showToast
+import com.isakaro.Kwik.textfield.KwikTextField
+import com.isakaro.Kwik.theme.Theme.KwikTheme
+import com.isakaro.Kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
-internal fun KwikTextFieldScreen(
+@Destination
+internal fun TextFieldScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-    val kwikToastState = rememberKwikToastState()
+    val KwikToastState = rememberKwikToastState()
+    var isPhoneNumberValid by remember { mutableStateOf(false) }
 
-    KwikToast(state = kwikToastState)
+    KwikToast(state = KwikToastState)
 
     ScrollableShowCaseContainer(
         title = "Filled Text field",
@@ -67,7 +66,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
+                    KwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -90,7 +89,7 @@ internal fun KwikTextFieldScreen(
                 keyboardType = KeyboardType.Password,
                 visualTransformation = PasswordVisualTransformation(),
                 onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
+                    KwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -100,12 +99,11 @@ internal fun KwikTextFieldScreen(
                     TextFieldValue("")
                 )
             }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikPhoneNumberField(
                 initialCountryInfo = countryList.random(),
                 value = text,
-                label = "Phone number",
+                placeholder = "Phone number",
                 isValid = isPhoneNumberValid,
                 onValueChange = {
                     text.value = it
@@ -113,79 +111,8 @@ internal fun KwikTextFieldScreen(
                     isPhoneNumberValid = it.text.length >= 8
                 },
                 onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
+                    KwikToastState.showToast("Country selected: ${country.name}")
                 }
-            )
-        }
-
-        ShowCase(title = "With flags") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
-
-            KwikPhoneNumberField(
-                initialCountryInfo = countryList.random(),
-                value = text,
-                showFlags = true,
-                label = "Phone number",
-                isValid = isPhoneNumberValid,
-                onValueChange = {
-                    text.value = it
-                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
-                    isPhoneNumberValid = it.text.length >= 8
-                },
-                onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
-                }
-            )
-        }
-
-        ShowCase(title = "With flag and country code") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
-
-            KwikPhoneNumberField(
-                initialCountryInfo = countryList.random(),
-                value = text,
-                showFlags = true,
-                showCountryCode = true,
-                label = "Phone number",
-                isValid = isPhoneNumberValid,
-                onValueChange = {
-                    text.value = it
-                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
-                    isPhoneNumberValid = it.text.length >= 8
-                },
-                onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
-                }
-            )
-        }
-
-        ShowCase(title = "Field with suggestions") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-
-            KwikTextField(
-                value = text,
-                onValueChange = {
-                    text.value = it
-                },
-                label = "Address",
-                showClearTextButton = true,
-                placeholder = "Enter address",
-                suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
-                error = "Incorrect address",
             )
         }
 
@@ -209,11 +136,10 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
+                    KwikToastState.showToast("keyboard done")
                 }
             )
         }
-
         ShowCase(title = "Disabled field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
@@ -231,26 +157,10 @@ internal fun KwikTextFieldScreen(
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
-                enabled = false
-            )
-        }
-
-        ShowCase(title = "Field with custom shape") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-
-            KwikTextField(
-                value = text,
-                onValueChange = {
-                    text.value = it
-                },
-                label = "Address",
-                placeholder = "Enter address",
-                maxLength = 35,
-                shape = MaterialTheme.shapes.extraLarge
+                enabled = false,
+                onKeyboardDone = {
+                    KwikToastState.showToast("keyboard done")
+                }
             )
         }
 
@@ -279,7 +189,12 @@ internal fun KwikTextFieldScreen(
                 label = "Address",
                 placeholder = "Enter address",
                 maxLength = 35,
-                isTextCounterShown = true
+                isTextCounterShown = true,
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text,
+                onKeyboardDone = {
+                    KwikToastState.showToast("keyboard done")
+                }
             )
         }
         ShowCase(title = "Field with Hint") {
@@ -301,7 +216,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
+                    KwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -323,7 +238,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 leadingIcon = Icons.Default.Search,
-                showClearTextButton = true,
+                isClearTextBtnShown = true,
                 onKeyboardDone = {
 
                 }
@@ -347,7 +262,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 isValid = true,
-                showClearTextButton = true,
+                isClearTextBtnShown = true,
                 onKeyboardDone = {
 
                 }
@@ -373,7 +288,7 @@ internal fun KwikTextFieldScreen(
                 trailingIcon = R.drawable.qr_code_scanner,
                 keyboardType = KeyboardType.Text,
                 onActionClick = {
-                    kwikToastState.showToast("I've been clicked!")
+                    KwikToastState.showToast("I've been clicked!")
                 },
                 onKeyboardDone = {
 
@@ -400,7 +315,7 @@ internal fun KwikTextFieldScreen(
                 isValid = true,
                 isLoading = true,
                 keyboardType = KeyboardType.Text,
-                showClearTextButton = true,
+                isClearTextBtnShown = true,
                 onKeyboardDone = {
 
                 }
@@ -424,7 +339,7 @@ internal fun KwikTextFieldScreen(
                 maxLength = 200,
                 imeAction = ImeAction.Default,
                 keyboardType = KeyboardType.Text,
-                showClearTextButton = true,
+                isClearTextBtnShown = true,
                 isBigTextField = true,
                 onKeyboardDone = {
 
@@ -437,8 +352,8 @@ internal fun KwikTextFieldScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewKwikTextFieldScreen() {
+private fun PreviewStartScreen() {
     KwikTheme {
-        KwikTextFieldScreen()
+        TextFieldScreen()
     }
 }

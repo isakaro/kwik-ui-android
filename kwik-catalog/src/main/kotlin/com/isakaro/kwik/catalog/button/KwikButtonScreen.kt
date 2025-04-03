@@ -1,36 +1,31 @@
 package com.isakaro.kwik.catalog.button
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Share
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.button.KwikButton
-import com.isakaro.kwik.button.KwikButtonLoadingStyle
-import com.isakaro.kwik.button.KwikExtendedFloatingActionButton
-import com.isakaro.kwik.button.KwikFloatingActionButton
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.button.KwikTextButton
+import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikButtonLoadingStyle
+import com.isakaro.kwik.KwikExtendedFloatingActionButton
+import com.isakaro.kwik.KwikFloatingActionButton
 import com.isakaro.kwik.R
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination
 internal fun KwikButtonScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -41,59 +36,26 @@ internal fun KwikButtonScreen(
         }
     ) {
         NormalButton()
-        ButtonWithLeadingIcon()
-        ButtonWithTrailingIcon()
         NormalMaxWidthButton()
         OutlinedButton()
         NormalMaxWidthOutlinedButton()
-        DisabledButton()
-        ButtonWithCustomShape()
         TextButton()
-        TextButtonWithCustomContent()
-        LoadingButtonLinear()
-        LoadingButtonCircular()
+        DisabledButton()
         FabButton()
-        DisabledFabButton()
         LoadingExtendedFloatingActionButton()
         ExtendedButton()
+        LoadingFloatingActionButton()
         DisabledExtendedButton()
         ButtonWithIcon()
+        LoadingButtonLinear()
+        LoadingButtonCircular()
     }
 }
 
 @Composable
 private fun NormalButton() {
     ShowCase("Button") {
-        KwikButton(
-            text = "Action",
-            onClick = {}
-        )
-    }
-}
-
-@Composable
-private fun ButtonWithLeadingIcon() {
-    ShowCase("Button with leading icon") {
-        KwikTheme {
-            KwikButton(
-                text = "Action",
-                leadingIcon = Icons.Default.Settings,
-                onClick = {  }
-            )
-        }
-    }
-}
-
-@Composable
-private fun ButtonWithTrailingIcon() {
-    ShowCase("Button with trailing icon") {
-        KwikTheme {
-            KwikButton(
-                text = "Action",
-                trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
-                onClick = {  }
-            )
-        }
+        KwikButton(onClick = {}, text = "action")
     }
 }
 
@@ -103,7 +65,7 @@ private fun NormalMaxWidthButton() {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {},
-            text = "Action"
+            text = "action"
         )
     }
 }
@@ -111,11 +73,7 @@ private fun NormalMaxWidthButton() {
 @Composable
 private fun OutlinedButton() {
     ShowCase("Outlined Button") {
-        KwikButton(
-            text = "Action",
-            outlined = true,
-            onClick = {}
-        )
+        KwikButton(onClick = {}, text = "action", outlined = true)
     }
 }
 
@@ -124,21 +82,9 @@ private fun NormalMaxWidthOutlinedButton() {
     ShowCase("Max width outlined button") {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
-            text = "Action",
             outlined = true,
-            onClick = {}
-        )
-    }
-}
-
-@Composable
-private fun ButtonWithCustomShape() {
-    ShowCase("Button with custom shape") {
-        KwikButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Action",
-            shape = RoundedCornerShape(24.dp),
-            onClick = {}
+            onClick = {},
+            text = "action"
         )
     }
 }
@@ -146,11 +92,7 @@ private fun ButtonWithCustomShape() {
 @Composable
 private fun ButtonWithIcon() {
     ShowCase("Icon Button") {
-        KwikButton(
-            text = "Action",
-            leadingIcon = R.drawable.shield,
-            onClick = {}
-        )
+        KwikButton(onClick = {}, text = "action", leadingIcon = R.drawable.shield)
     }
 }
 
@@ -158,8 +100,8 @@ private fun ButtonWithIcon() {
 private fun DisabledButton() {
     ShowCase("Disabled Button") {
         KwikButton(
-            text = "Action",
             onClick = {},
+            text = "action",
             enabled = false
         )
     }
@@ -169,10 +111,10 @@ private fun DisabledButton() {
 private fun LoadingButtonLinear() {
     ShowCase("Linear loading style Button") {
         KwikButton(
-            text = "Action",
             onClick = {},
+            text = "action",
             isLoading = true,
-            kwikButtonLoadingStyle = KwikButtonLoadingStyle.LINEAR,
+            KwikButtonLoadingStyle = KwikButtonLoadingStyle.LINEAR,
             loadingText = "Loading. Please wait..."
         )
     }
@@ -182,8 +124,8 @@ private fun LoadingButtonLinear() {
 private fun LoadingButtonCircular() {
     ShowCase("Circular loading style Button") {
         KwikButton(
-            text = "Action",
             onClick = {},
+            text = "action",
             isLoading = true,
             loadingText = "Loading. Please wait..."
         )
@@ -193,53 +135,15 @@ private fun LoadingButtonCircular() {
 @Composable
 private fun TextButton() {
     ShowCase("Text Button") {
-        KwikTextButton(
-            text = "Action",
-            onClick = {}
-        )
-    }
-}
-
-@Composable
-private fun TextButtonWithCustomContent() {
-    ShowCase("Text Button with custom content") {
-        KwikTextButton(
-            text = {
-                KwikText.RenderText(
-                    text = "Action",
-                    color = MaterialTheme.colorScheme.primary,
-                    textDecoration = TextDecoration.Underline
-                )
-            },
-            onClick = {}
-        )
+        KwikButton(onClick = {}, text = "action")
     }
 }
 
 @Composable
 private fun FabButton() {
-    ShowCase("Floating Action button") {
-        KwikFloatingActionButton(onClick = {}, contentColor = Color.White) {
-            KwikText.TitleSmall(
-                text = "Action",
-                color = Color.White
-            )
-        }
-    }
-}
-
-@Composable
-private fun DisabledFabButton() {
-    ShowCase("Disabled Floating Action button") {
-        KwikFloatingActionButton(
-            contentColor = Color.White,
-            enabled = false,
-            onClick = {}
-        ) {
-            KwikText.TitleSmall(
-                text = "Action",
-                color = Color.White
-            )
+    ShowCase("Icon Floating Action") {
+        FloatingActionButton(onClick = {}, containerColor = MaterialTheme.colorScheme.primary, contentColor = Color.Black) {
+            Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
         }
     }
 }
@@ -248,7 +152,7 @@ private fun DisabledFabButton() {
 private fun ExtendedButton() {
     ShowCase("Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { KwikText.TitleSmall(text = "Action", color = Color.White) },
+            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
@@ -263,7 +167,7 @@ private fun LoadingExtendedFloatingActionButton() {
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White,
             text = {
-                KwikText.TitleSmall(text = "Action")
+                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
             },
             icon = {
                 Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
@@ -279,12 +183,28 @@ private fun LoadingExtendedFloatingActionButton() {
 private fun DisabledExtendedButton() {
     ShowCase("Disabled Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { KwikText.TitleSmall(text = "Action", color = Color.White) },
+            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
-            enabled = false,
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
         )
+    }
+}
+
+@Composable
+private fun LoadingFloatingActionButton() {
+    ShowCase("Loading Floating Action Button") {
+        KwikFloatingActionButton(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White,
+            loading = true,
+            onClick = { }
+        ){
+            Row {
+                Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
+                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
+            }
+        }
     }
 }
 

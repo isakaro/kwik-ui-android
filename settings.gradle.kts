@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "qwik-qwik"
-include(":qwik")
-include(":qwik-catalog")
+rootProject.name = "kwik-ui"
+include(":kwik")
+include(":kwik-catalog")

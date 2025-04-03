@@ -1,4 +1,4 @@
-package com.isakaro.kwik.catalog.accordion
+package com.isakaro.Kwik.catalog.accordion
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -12,20 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.accordion.KwikAccordion
-import com.isakaro.kwik.accordion.KwikAccordionGroup
-import com.isakaro.kwik.accordion.KwikAccordionItem
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.R
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.kwik.catalog.ShowCase
-import com.isakaro.kwik.navigator
+import com.isakaro.Kwik.KwikAccordion
+import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.Kwik.catalog.ShowCase
+import com.isakaro.Kwik.navigator
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination
 internal fun KwikAccordionScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -54,7 +49,7 @@ internal fun KwikAccordionScreen(
                      modifier = Modifier.padding(8.dp)
                ) {
                     repeat(5) {
-                        KwikText.BodyMedium(text = "Content")
+                        Text("Content", color = Color.Black)
                     }
                }
             }
@@ -74,7 +69,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyMedium(text = "Content", color = Color.White)
+                        Text("Content", color = Color.Black)
                     }
                 }
             }
@@ -93,7 +88,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        Text("Content")
+                        Text("Content", color = Color.Black)
                     }
                 }
             }
@@ -106,14 +101,14 @@ internal fun KwikAccordionScreen(
                 onExpandedChange = {
                     expanded4 = it
                 },
-                headerIcon = R.drawable.shield,
+                headerIcon = com.isakaro.Kwik.R.drawable.shield,
                 elevation = 1
             ) {
                 Column(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyMedium(text = "Content")
+                        Text("Content", color = Color.Black)
                     }
                 }
             }
@@ -127,35 +122,17 @@ internal fun KwikAccordionScreen(
                     expanded5 = it
                 },
                 isError = true,
-                errorIcon = R.drawable.shield,
+                errorIcon = com.isakaro.Kwik.R.drawable.shield,
                 elevation = 1
             ) {
                 Column(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyMedium(text = "Content")
+                        Text("Content", color = Color.Black)
                     }
                 }
             }
-        }
-
-        ShowCase(title = "Accordion group") {
-            val items = listOf(
-                KwikAccordionItem("Tortuga", "A lawless island for pirates to hide and do business"),
-                KwikAccordionItem("Isla de Muerta", "Can only be found by those who already know where it is"),
-                KwikAccordionItem("Davy Jones' Locker", "You don't want to end up there, trust me"),
-            )
-
-            KwikAccordionGroup(
-                items = items,
-                titleProvider = { it.title },
-                elevation = 2,
-                errorProvider = { it.hasError },
-                content = { item ->
-                    KwikText.BodyMedium(text = item.content, modifier = Modifier.padding(16.dp))
-                }
-            )
         }
     }
 }
