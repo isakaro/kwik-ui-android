@@ -49,7 +49,7 @@ fun QwikImageView(
 
 @Preview
 @Composable
-fun QwikImageViewPreview(){
+private fun QwikImageViewPreview(){
     QwikImageView(
         url = painterResource(id = R.drawable.shield)
     )

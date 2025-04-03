@@ -85,7 +85,7 @@ data class IsakaroTabItem(
 
 @Preview
 @Composable
-fun QwikTabsPreview() {
+private fun QwikTabsPreview() {
     val list = listOf(
         IsakaroTabItem(title = "Bite"),
         IsakaroTabItem(title = "Hello"),

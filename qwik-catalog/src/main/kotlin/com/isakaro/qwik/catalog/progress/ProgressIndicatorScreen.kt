@@ -38,7 +38,7 @@ internal fun ProgressIndicatorScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         ProgressIndicatorScreen()
     }

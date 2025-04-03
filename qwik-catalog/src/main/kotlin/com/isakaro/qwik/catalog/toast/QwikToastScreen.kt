@@ -73,7 +73,7 @@ internal fun QwikToastScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         QwikToastScreen()
     }

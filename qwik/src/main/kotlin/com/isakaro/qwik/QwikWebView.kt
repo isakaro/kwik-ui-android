@@ -238,6 +238,6 @@ data class QwikCookie(
 
 @Preview
 @Composable
-fun QwikWebViewPreview() {
+private fun QwikWebViewPreview() {
     QwikWebView(url = "https://www.google.com")
 }

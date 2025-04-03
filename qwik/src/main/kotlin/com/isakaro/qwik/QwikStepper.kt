@@ -145,7 +145,7 @@ private fun QwikStepperItem(
 
 @Preview
 @Composable
-fun QwikStepperPreview() {
+private fun QwikStepperPreview() {
     QwikStepper(
         steps = listOf("Step 1", "Step 2", "Step 3", "Step 4"),
         currentStepIndex = 2

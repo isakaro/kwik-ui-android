@@ -7,6 +7,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
 import androidx.navigation.compose.rememberNavController
+import com.isakaro.qwik.catalog.accordion.PreviewQwikAccordionScreen
 import com.isakaro.qwik.destinations.ComponentsCatalogScreenDestination
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -45,7 +46,7 @@ class MainActivity: ComponentActivity() {
                         composable(ComponentsCatalogScreenDestination) {
                             ComponentsCatalogScreen()
                         }
-                        /*composable(NavigationRoute.AppBarScreen.route) {
+                        composable(PreviewQwikAccordionScreen()) {
                             QwikAppBarScreen()
                         }
                         composable(NavigationRoute.DateRangePicker.route) {
@@ -101,7 +102,7 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(NavigationRoute.PermissionScreen.route) {
                             PermissionsScreen()
-                        }*/
+                        }
                     }
                 }
             }

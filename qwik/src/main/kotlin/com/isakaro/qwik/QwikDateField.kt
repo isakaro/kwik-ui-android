@@ -116,7 +116,7 @@ fun QwikDateField(
 
 @Preview
 @Composable
-fun QwikDateFieldPreview() {
+private fun QwikDateFieldPreview() {
     QwikDateField(
         label = "Check-in",
         onDateRangeSelected = { },

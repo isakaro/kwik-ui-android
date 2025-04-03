@@ -1,7 +1,6 @@
 package com.isakaro.qwik.catalog.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -185,7 +184,7 @@ val navItems = listOf(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         BottomNavScreen()
     }

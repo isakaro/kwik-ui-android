@@ -48,7 +48,7 @@ fun QwikRadioButton(
 
 @Preview
 @Composable
-fun QwikRadioButtonPreview(){
+private fun QwikRadioButtonPreview(){
     QwikTheme {
         QwikRadioButton(
             text = "Tortuga",

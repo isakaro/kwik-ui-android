@@ -2,13 +2,12 @@ package com.isakaro.qwik.catalog.button
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -211,7 +210,7 @@ private fun LoadingFloatingActionButton() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewQwikButtonScreen() {
+private fun PreviewQwikButtonScreen() {
     QwikTheme {
         QwikButtonScreen()
     }

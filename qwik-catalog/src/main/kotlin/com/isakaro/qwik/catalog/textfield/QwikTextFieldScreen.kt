@@ -352,7 +352,7 @@ internal fun TextFieldScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         TextFieldScreen()
     }

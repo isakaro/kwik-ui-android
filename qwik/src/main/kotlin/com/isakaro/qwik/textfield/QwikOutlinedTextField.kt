@@ -446,7 +446,7 @@ fun PasswordToggle(passwordVisible: Boolean, onClick: () -> Unit) {
 
 @Composable
 @Preview(showBackground = true)
-fun QwikOutlinedTextFieldPreview() {
+private fun QwikOutlinedTextFieldPreview() {
     QwikOutlinedTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},

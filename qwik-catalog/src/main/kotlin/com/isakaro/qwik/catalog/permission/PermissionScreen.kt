@@ -133,7 +133,7 @@ internal fun PermissionsScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         PermissionsScreen()
     }

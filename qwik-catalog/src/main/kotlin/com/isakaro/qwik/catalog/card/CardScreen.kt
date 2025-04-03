@@ -56,6 +56,6 @@ internal fun CardScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     CardScreen()
 }

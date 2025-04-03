@@ -86,7 +86,7 @@ internal fun RadioButtonScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         RadioButtonScreen()
     }

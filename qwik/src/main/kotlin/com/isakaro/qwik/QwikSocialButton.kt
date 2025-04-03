@@ -209,7 +209,7 @@ fun QwikSimpleSocialButtonGroup(
 
 @Preview
 @Composable
-fun QwikSocialButtonPreview() {
+private fun QwikSocialButtonPreview() {
     QwikSocialButton(
         icon = R.drawable.google_logo,
         text = "Google"
@@ -218,12 +218,12 @@ fun QwikSocialButtonPreview() {
 
 @Preview
 @Composable
-fun QwikSocialButtonGroupPreview() {
+private fun QwikSocialButtonGroupPreview() {
     QwikSocialButtonGroup(onClick = {})
 }
 
 @Preview
 @Composable
-fun QwikSimpleSocialButtonGroupPreview() {
+private fun QwikSimpleSocialButtonGroupPreview() {
     QwikSimpleSocialButtonGroup(onClick = {})
 }

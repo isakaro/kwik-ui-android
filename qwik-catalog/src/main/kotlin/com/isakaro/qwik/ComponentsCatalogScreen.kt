@@ -199,6 +199,6 @@ internal fun ComponentsCatalogScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     ComponentsCatalogScreen()
 }

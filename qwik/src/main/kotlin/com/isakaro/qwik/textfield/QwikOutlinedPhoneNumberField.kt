@@ -257,7 +257,7 @@ fun QwikOutlinedPhoneNumberField(
 
 @Preview
 @Composable
-fun QwikOutlinedPhoneNumberFieldPreview() {
+private fun QwikOutlinedPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
     QwikTheme {

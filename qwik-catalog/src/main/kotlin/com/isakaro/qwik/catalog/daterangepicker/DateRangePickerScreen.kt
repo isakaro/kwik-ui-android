@@ -34,7 +34,7 @@ internal fun QwikDateRangePickerScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         QwikDateRangePickerScreen()
     }

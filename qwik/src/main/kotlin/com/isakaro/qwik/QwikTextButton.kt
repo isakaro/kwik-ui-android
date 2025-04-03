@@ -88,7 +88,7 @@ fun QwikTextButton(
 
 @Preview
 @Composable
-fun QwikTextButtonPreview() {
+private fun QwikTextButtonPreview() {
     QwikTheme {
         QwikTextButton(text = "Button")
     }

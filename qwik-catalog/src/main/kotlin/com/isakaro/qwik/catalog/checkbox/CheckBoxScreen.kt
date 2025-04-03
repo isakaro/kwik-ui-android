@@ -66,7 +66,7 @@ internal fun CheckBoxScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         CheckBoxScreen()
     }

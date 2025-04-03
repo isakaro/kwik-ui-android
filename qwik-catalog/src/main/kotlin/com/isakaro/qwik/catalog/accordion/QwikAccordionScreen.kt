@@ -13,11 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikAccordion
-import com.isakaro.qwik.QwikButton
-import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
-import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.navigator
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -142,6 +139,6 @@ internal fun QwikAccordionScreen(
 
 @Preview
 @Composable
-fun PreviewQwikAccordionScreen() {
+private fun PreviewQwikAccordionScreen() {
     QwikAccordionScreen()
 }

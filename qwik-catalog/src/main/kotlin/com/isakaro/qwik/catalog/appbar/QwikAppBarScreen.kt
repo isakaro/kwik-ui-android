@@ -16,9 +16,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.qwik.QwikAppBar
-import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
-import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.navigator
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
@@ -57,7 +55,7 @@ internal fun QwikAppBarScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         QwikAppBarScreen()
     }

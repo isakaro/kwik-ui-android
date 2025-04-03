@@ -49,7 +49,7 @@ fun QwikCircularLoading(
 
 @Composable
 @Preview(showBackground = true)
-fun QwikLoadingViewPreview() {
+private fun QwikLoadingViewPreview() {
     QwikTheme {
         QwikLoadingView(
             text = "Loading... Please Wait..."
@@ -59,7 +59,7 @@ fun QwikLoadingViewPreview() {
 
 @Composable
 @Preview(showBackground = true)
-fun QwikLoadingPreview() {
+private fun QwikLoadingPreview() {
     QwikTheme {
         QwikCircularLoading()
     }

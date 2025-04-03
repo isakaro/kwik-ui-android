@@ -225,7 +225,7 @@ fun QwikPhoneNumberField(
 
 @Preview
 @Composable
-fun QwikPhoneNumberFieldPreview() {
+private fun QwikPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
     QwikTheme {

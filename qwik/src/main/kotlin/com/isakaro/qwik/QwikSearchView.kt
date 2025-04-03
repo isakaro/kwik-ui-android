@@ -249,7 +249,7 @@ fun QwikSearchView(
 
 @Preview
 @Composable
-fun QwikSearchViewPreview() {
+private fun QwikSearchViewPreview() {
     QwikTheme {
         QwikSearchView(
             state = remember { mutableStateOf(TextFieldValue("")) },
@@ -261,7 +261,7 @@ fun QwikSearchViewPreview() {
 
 @Preview
 @Composable
-fun QwikSearchViewWithErrorPreview() {
+private fun QwikSearchViewWithErrorPreview() {
     QwikTheme {
         QwikSearchView(
             state = remember { mutableStateOf(TextFieldValue("")) },

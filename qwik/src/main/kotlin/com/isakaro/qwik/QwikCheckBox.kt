@@ -85,7 +85,7 @@ fun QwikTriStateCheckBox(
 
 @Preview
 @Composable
-fun QwikCheckboxPreview() {
+private fun QwikCheckboxPreview() {
     QwikCheckBox(
         checked = true,
         onCheckedChange = {},
@@ -95,7 +95,7 @@ fun QwikCheckboxPreview() {
 
 @Preview
 @Composable
-fun QwikTriStateCheckboxPreview() {
+private fun QwikTriStateCheckboxPreview() {
     val (state, onStateChange) = remember { mutableStateOf(true) }
     val parentState = remember(state) { if (state) ToggleableState. On else if (!state) ToggleableState. Off else ToggleableState. Indeterminate }
 

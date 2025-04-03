@@ -36,7 +36,7 @@ internal fun SliderScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewStartScreen() {
+private fun PreviewStartScreen() {
     QwikTheme {
         SliderScreen()
     }
