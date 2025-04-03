@@ -25,9 +25,7 @@ import com.isakaro.kwik.KwikVSpacer
 
 @Composable
 fun ShowCase(title: String, content: @Composable () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Column {
         KwikVSpacer(16)
 
         KwikText.TitleText(

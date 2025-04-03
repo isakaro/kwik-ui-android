@@ -20,20 +20,20 @@ internal fun KwikTabScreen(
 ) {
     val tabsWithIcons = listOf(
         KwikTabItem(
-            "Muraho",
-            R.drawable.qr_code_scanner
+            title = "Muraho",
+            icon = R.drawable.qr_code_scanner
         ){
             Text(text = "Muraho")
         },
         KwikTabItem(
-            "Hello",
-            R.drawable.qr_code_scanner
+            title = "Hello",
+            icon = R.drawable.qr_code_scanner
         ){
             Text(text = "Hello")
         },
         KwikTabItem(
-            "Jambo",
-            R.drawable.qr_code_scanner
+            title = "Jambo",
+            icon = R.drawable.qr_code_scanner
         ){
             Text(text = "Jambo")
         }
@@ -71,26 +71,23 @@ internal fun KwikTabScreen(
         initialPage = 0,
         initialPageOffsetFraction = 0f
     ) {
-        tabsWithIcons.size
+        tabsWithoutIcons.size
     }
 
     val tabsWithCounters = listOf(
         KwikTabItem(
             title = "Muraho",
-            icon = R.drawable.qr_code_scanner,
             counter = 3
         ){
             Text(text = "Muraho")
         },
         KwikTabItem(
             title = "Hello",
-            icon = R.drawable.qr_code_scanner
         ){
             Text(text = "Hello")
         },
         KwikTabItem(
             title = "Jambo",
-            icon = R.drawable.qr_code_scanner,
             counter = 1
         ){
             Text(text = "Jambo")
