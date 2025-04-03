@@ -34,12 +34,21 @@ import com.isakaro.qwik.R
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
+import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
-internal fun DialogScreen() {
+@Destination
+internal fun DialogScreen(
+
+) {
     val context = LocalContext.current
 
-    ShowCaseContainer {
+    ShowCaseContainer(
+        title = "Dialogs",
+        onBackClick = {
+
+        }
+    ) {
         var openDialog by remember { mutableStateOf(false) }
         var openConfirmDialog by remember { mutableStateOf(false) }
         var openNonCancellableDialog by remember { mutableStateOf(false) }

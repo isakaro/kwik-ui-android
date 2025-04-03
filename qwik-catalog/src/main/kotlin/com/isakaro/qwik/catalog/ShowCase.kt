@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.isakaro.qwik.QwikAppBar
 import com.isakaro.qwik.QwikText
 import com.isakaro.qwik.QwikVSpacer
 
@@ -45,33 +48,68 @@ fun ShowCase(title: String, content: @Composable BoxScope.() -> Unit) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowCaseContainer(content: @Composable ColumnScope.() -> Unit) = Surface(
+fun ShowCaseContainer(
+    title: String,
+    onBackClick: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit
+) = Surface(
     modifier = Modifier.fillMaxSize(),
     color = Color.White
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        content()
+    Scaffold(
+        topBar = {
+            QwikAppBar(
+                title = title,
+                navigationClick = {
+                    onBackClick()
+                }
+            )
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(horizontal = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            content()
+        }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScrollableShowCaseContainer(content: @Composable ColumnScope.() -> Unit) = Surface(
+fun ScrollableShowCaseContainer(
+    title: String,
+    onBackClick: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit
+) = Surface(
     modifier = Modifier.fillMaxSize(),
     color = Color.White
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        content()
+
+    Scaffold(
+        topBar = {
+            QwikAppBar(
+                title = title,
+                navigationClick = {
+                    onBackClick()
+                }
+            )
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(horizontal = 8.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            content()
+        }
     }
 }
