@@ -19,6 +19,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,7 @@ import com.isakaro.qwik.utils.isPermissionGranted
 
 /**
  * A permission request dialog that can be used to request permissions from the user.
+ * @param state: The state of the permisison request. Can be [QwikPermissionRequestState.Requesting], [QwikPermissionRequestState.Granted], [QwikPermissionRequestState.ShowRationale], or [QwikPermissionRequestState.Denied].
  * @param permissions: The list of permissions to request.
  * @param title: The title of the dialog.
  * @param deniedPermanentlyMessage: The message to display when the user denies the permission permanently.
@@ -43,11 +45,14 @@ import com.isakaro.qwik.utils.isPermissionGranted
  * @param onGrantAction: The action to perform when the user grants the permission.
  * @param onDeniedAction: The action to perform when the user denies the permission.
  * @param onCancel: The action to perform when the user cancels the dialog.
- * @param mandatory: If true, the dialog will not have a cancel button.
+ * @param mandatory: If true, the dialog will not be cancellable. Defaults to false.
  *
  * Example usage:
  * ```
+ * val state = remember { mutableStateOf(QwikPermissionRequestState.Requesting) }
+ *
  * QwikPermissionsRequest(
+ *    state = state,
  *    permissions = listOf(QwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")),
  *    title = "Permissions",
  *    deniedPermanentlyMessage = "Permission required. Go to settings to enable",
@@ -69,6 +74,7 @@ import com.isakaro.qwik.utils.isPermissionGranted
  * */
 @Composable
 fun QwikPermissionsRequest(
+    state: MutableState<QwikPermissionRequestState>,
     permissions: List<QwikPermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",
@@ -78,14 +84,14 @@ fun QwikPermissionsRequest(
     onGrantAction: () -> Unit = {},
     onDeniedAction: () -> Unit = {},
     onCancel: () -> Unit = {},
-    mandatory: Boolean = true
+    mandatory: Boolean = false
 ) {
 
     val context = LocalContext.current
     var arePermissionsGranted by remember { mutableStateOf(context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())) }
     var permissionsExplanationDialogVisible by remember { mutableStateOf(!arePermissionsGranted) }
     val appPackageName = LocalContext.current.packageName
-    var permissionRequestState by remember { mutableStateOf<QwikPermissionRequestState>(QwikPermissionRequestState.Requesting) }
+    var permissionRequestState by remember { mutableStateOf(state.value) }
 
     QwikComposableLifeCycle(
         onResume = {
@@ -111,7 +117,7 @@ fun QwikPermissionsRequest(
     ) {
         QwikPermissionRequest(
             permissions = permissions,
-            permissionRequestState = permissionRequestState,
+            permissionRequestState = state,
             onPermissionRequestStateChange = { newState ->
                 permissionRequestState = newState
             },
@@ -226,16 +232,23 @@ fun QwikPermissionsRequest(
     }
 }
 
+fun MutableState<QwikPermissionRequestState>.requestPermissions() {
+    this.value = QwikPermissionRequestState.Requesting
+}
+
 @Composable
 fun rememberQwikPermissionState(): MutableState<QwikPermissionRequestState> {
-    return remember { mutableStateOf(QwikPermissionRequestState.Requesting) }
+    return rememberSaveable { mutableStateOf(QwikPermissionRequestState.Requesting) }
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview
 @Composable
 private fun QwikPermissionRequestPreview() {
+    val state = rememberQwikPermissionState()
+
     QwikPermissionsRequest(
+        state = state,
         permissions = listOf(QwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
         title = "Notifications"
     )

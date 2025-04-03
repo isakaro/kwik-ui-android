@@ -8,21 +8,32 @@ import com.isakaro.qwik.QwikToast
 import com.isakaro.qwik.QwikToastType
 import com.isakaro.qwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.qwik.catalog.ShowCase
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.rememberQwikToastState
 import com.isakaro.qwik.showToast
 import com.isakaro.qwik.theme.QwikColorError
 import com.isakaro.qwik.theme.QwikColorWarning
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun QwikToastScreen() {
+@Destination
+internal fun QwikToastScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
     val scope = rememberCoroutineScope()
     val qwikToastState = rememberQwikToastState()
 
     QwikToast(state = qwikToastState)
 
-    ScrollableShowCaseContainer {
+    ScrollableShowCaseContainer(
+        title = "Toast",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "QwikToast") {
             QwikButton(text = "Show toast") {
                 scope.launch {

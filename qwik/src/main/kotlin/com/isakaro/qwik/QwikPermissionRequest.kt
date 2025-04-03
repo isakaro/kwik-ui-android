@@ -8,6 +8,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import com.isakaro.qwik.utils.activity
@@ -33,7 +34,7 @@ data class QwikPermissionDto(
 @Composable
 internal fun QwikPermissionRequest(
     permissions: List<QwikPermissionDto>,
-    permissionRequestState: QwikPermissionRequestState,
+    permissionRequestState: MutableState<QwikPermissionRequestState>,
     onPermissionRequestStateChange: (QwikPermissionRequestState) -> Unit,
     onGrantAction: () -> Unit = {},
     onShowRationale: () -> Unit = {},
@@ -68,8 +69,8 @@ internal fun QwikPermissionRequest(
         onPermissionRequestStateChange(newState)
     }
 
-   LaunchedEffect(permissionRequestState) {
-       when(permissionRequestState) {
+   LaunchedEffect(permissionRequestState.value) {
+       when(permissionRequestState.value) {
            QwikPermissionRequestState.Requesting -> {
                getPermission.launch(permissionList)
            }

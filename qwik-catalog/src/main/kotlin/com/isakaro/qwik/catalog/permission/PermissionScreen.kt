@@ -2,7 +2,6 @@ package com.isakaro.qwik.catalog.permission
 
 import android.Manifest
 import android.os.Build
-import android.webkit.PermissionRequest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +28,9 @@ import com.isakaro.qwik.QwikToastType
 import com.isakaro.qwik.R
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.navigator
+import com.isakaro.qwik.rememberQwikPermissionState
 import com.isakaro.qwik.rememberQwikToastState
+import com.isakaro.qwik.requestPermissions
 import com.isakaro.qwik.showToast
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -41,7 +41,7 @@ internal fun PermissionsScreen(
 ) {
 
     val qwikToastState = rememberQwikToastState()
-    var requestPermission by rememberSaveable { mutableStateOf(true) }
+    val permissionState = rememberQwikPermissionState()
     var granted by remember { mutableStateOf(false) }
 
     if (qwikToastState.value.isVisible) {
@@ -54,38 +54,35 @@ internal fun PermissionsScreen(
             navigator.navigateUp()
         }
     ) {
-        if(requestPermission && !granted){
-            QwikPermissionsRequest(
-                mandatory = true,
-                permissions = when {
-                    Build.VERSION.SDK_INT >= 33 -> {
-                        listOf(
-                            QwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
-                            QwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
-                        )
-                    }
-                    else -> {
-                        listOf(
-                            QwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")
-                        )
-                    }
-                },
-                title = "Media access required",
-                icon = R.drawable.shield,
-                iconTint = Color.Black,
-                onGrantAction = {
-                    granted = true
-                },
-                onDeniedAction = {
-                    qwikToastState.showToast(message = "These permissions are necessary for the feature to function", type = QwikToastType.WARNING)
-                    requestPermission = false
-                },
-                onCancel = {
-                    qwikToastState.showToast(message = "These permissions are necessary for the feature to function", type = QwikToastType.WARNING)
-                    requestPermission = false
+        QwikPermissionsRequest(
+            state = permissionState,
+            mandatory = true,
+            permissions = when {
+                Build.VERSION.SDK_INT >= 33 -> {
+                    listOf(
+                        QwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
+                        QwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
+                    )
                 }
-            )
-        }
+                else -> {
+                    listOf(
+                        QwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")
+                    )
+                }
+            },
+            title = "Media access required",
+            icon = R.drawable.shield,
+            iconTint = Color.Black,
+            onGrantAction = {
+                granted = true
+            },
+            onDeniedAction = {
+                qwikToastState.showToast(message = "These permissions are necessary for the feature to function", type = QwikToastType.WARNING)
+            },
+            onCancel = {
+                qwikToastState.showToast(message = "These permissions are necessary for the feature to function", type = QwikToastType.WARNING)
+            }
+        )
 
         if(granted){
             Column(
@@ -125,7 +122,7 @@ internal fun PermissionsScreen(
                 QwikButton(
                     text = "Request permission",
                     onClick = {
-                        requestPermission = true
+                        permissionState.requestPermissions()
                     }
                 )
             }
