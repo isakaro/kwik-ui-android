@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.catalog.toast
+package com.isakaro.kwik.catalog.toast
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope

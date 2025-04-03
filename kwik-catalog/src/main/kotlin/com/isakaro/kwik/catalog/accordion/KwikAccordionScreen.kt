@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.catalog.accordion
+package com.isakaro.kwik.catalog.accordion
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.KwikAccordion
+import com.isakaro.kwik.KwikAccordion
 import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.Kwik.catalog.ShowCase
 import com.isakaro.Kwik.navigator

@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing

@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.textfield
+package com.isakaro.kwik.textfield
 
 import com.isakaro.Kwik.KwikCountryCodeButton
 import com.isakaro.Kwik.KwikCountryPickerDialog

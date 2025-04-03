@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.catalog.textfield
+package com.isakaro.kwik.catalog.textfield
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons

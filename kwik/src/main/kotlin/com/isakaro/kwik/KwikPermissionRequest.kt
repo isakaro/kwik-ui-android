@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import android.content.Context
 import android.content.Intent

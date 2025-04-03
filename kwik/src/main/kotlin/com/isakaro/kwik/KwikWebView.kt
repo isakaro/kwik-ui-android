@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import android.annotation.SuppressLint
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import android.view.ViewTreeObserver
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

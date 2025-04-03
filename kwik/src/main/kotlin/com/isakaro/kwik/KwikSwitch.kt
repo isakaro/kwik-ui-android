@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch

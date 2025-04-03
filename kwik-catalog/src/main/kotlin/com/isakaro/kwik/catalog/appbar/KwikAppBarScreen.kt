@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.catalog.appbar
+package com.isakaro.kwik.catalog.appbar
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

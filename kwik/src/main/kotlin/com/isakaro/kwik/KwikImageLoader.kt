@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxSize

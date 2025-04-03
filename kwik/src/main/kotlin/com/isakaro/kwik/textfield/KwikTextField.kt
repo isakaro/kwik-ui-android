@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.textfield
+package com.isakaro.kwik.textfield
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

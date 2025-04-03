@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.textfield
+package com.isakaro.kwik.textfield
 
 import android.view.KeyEvent.KEYCODE_DEL
 import androidx.compose.foundation.layout.Arrangement

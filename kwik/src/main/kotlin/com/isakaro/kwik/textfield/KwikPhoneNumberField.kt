@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.textfield
+package com.isakaro.kwik.textfield
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

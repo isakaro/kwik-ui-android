@@ -1,4 +1,4 @@
-package com.isakaro.Kwik.catalog.outlinedtextfield
+package com.isakaro.kwik.catalog.outlinedtextfield
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons

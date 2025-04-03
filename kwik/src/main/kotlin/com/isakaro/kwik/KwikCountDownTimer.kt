@@ -1,4 +1,4 @@
-package com.isakaro.Kwik
+package com.isakaro.kwik
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
