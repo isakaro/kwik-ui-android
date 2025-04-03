@@ -190,6 +190,6 @@ internal fun KwikDialogScreen(
 @Composable
 private fun PreviewStartScreen() {
     KwikTheme {
-        DialogScreen()
+        KwikDialogScreen()
     }
 }

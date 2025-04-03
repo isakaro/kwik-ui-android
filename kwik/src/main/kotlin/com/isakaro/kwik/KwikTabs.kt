@@ -1,7 +1,5 @@
 package com.isakaro.kwik
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -11,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,9 +20,7 @@ import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
@@ -32,140 +29,105 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import kotlinx.coroutines.launch
 
+/**
+ * The properties of a tab item.
+ * 
+ * @param title The title of the tab
+ * @param counter The counter to display on the tab
+ * @param icon The icon to display on the tab. Can be a drawable resource, a vector resource or a url
+ * @param content The content to display when the tab is selected
+ * */
+data class KwikTabItem(
+    val title: String,
+    val counter: Int = 0,
+    val icon: Any? = null,
+    val content: @Composable () -> Unit
+)
+
+/**
+* Properties for the indicator.
+ * @param height The height of the indicator
+ * @param width The width of the indicator. It's a percentage of the screen width. For example, if the width is 0.8, the indicator will be 80% of the screen width.
+ * @param horizontalPadding The horizontal padding of the indicator
+ * @param verticalPadding The vertical padding of the indicator
+ * @param borderRadius The border radius of the indicator
+ * @param color The color of the indicator
+* */
+data class KwikIndicatorProps(
+    val height: Float = 4f,
+    val width: Float = 0.8f,
+    val horizontalPadding: Float = 0f,
+    val verticalPadding: Float = 0f,
+    val borderRadius: Float = 4f
+)
+
+/**
+ * A versatile horizontal tab pager capable of displaying any content.
+ *
+ * @param tabs List of tabs to display
+ * @param pagerState The state of the pager
+ * @param kwikIndicatorProps The properties of the indicator. Refer to [KwikIndicatorProps] for more details.
+ * @param containerColor The background color of the tab row
+ * @param contentColor The content color of the tab row
+ * @param indicatorColor The color of the indicator
+ * @param divider The divider to display between tabs
+ * @param selectedContentColor The color of the selected tab
+ * */
 @Composable
-fun KwikTabs(
-    tabs: List<KwikTabItem>, pagerState: PagerState
+fun KwikHorizontalTab(
+    tabs: List<KwikTabItem>, pagerState: PagerState,
+    containerColor: Color = Color.White,
+    indicatorColor: Color = MaterialTheme.colorScheme.primary,
+    kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
+    divider: @Composable () -> Unit = {},
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContentColor: Color = Color.Gray,
 ) {
     val scope = rememberCoroutineScope()
 
     TabRow(
         selectedTabIndex = pagerState.currentPage,
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        divider = { },
+        containerColor = containerColor,
+        divider = divider,
         indicator = { tabPositions ->
             Box(
                 modifier = Modifier
                     .tabIndicatorOffset(tabPositions[pagerState.currentPage])
-                    .height(4.dp)
-                    .padding(horizontal = 28.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(color = MaterialTheme.colorScheme.primary)
+                    .height(kwikIndicatorProps.height.dp)
+                    .padding(vertical = kwikIndicatorProps.verticalPadding.dp)
+                    .padding(horizontal = kwikIndicatorProps.horizontalPadding.dp)
+                    .clip(RoundedCornerShape(kwikIndicatorProps.borderRadius.dp))
+                    .background(color = indicatorColor)
             )
         }
     ) {
         tabs.forEachIndexed { index, tab ->
-            Tab(
+            KwikTabItemView(
                 selected = pagerState.currentPage == index,
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = Color.LightGray,
-                text = {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        if(tab.icon != null) {
-                            Icon(
-                                painter = painterResource(id = tab.icon),
-                                contentDescription = null,
-                                tint = Color.Black,
-                                modifier = Modifier.size(25.dp).padding(end = 8.dp)
-                            )
-                        }
-                        Text(text = tab.title)
-                    }
-                },
+                item = tab,
+                containerColor = containerColor,
+                selectedContentColor = selectedContentColor,
+                unselectedContentColor = unselectedContentColor,
                 onClick = {
                     scope.launch {
                         pagerState.animateScrollToPage(index)
                     }
-                })
-        }
-    }
-}
-
-data class KwikTabItem(
-    val title: String,
-    val icon: Int? = null
-)
-
-@Preview
-@Composable
-private fun KwikTabsPreview() {
-    val list = listOf(
-        KwikTabItem(title = "Bite"),
-        KwikTabItem(title = "Hello"),
-        KwikTabItem(title = "Bonjour"),
-    )
-
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        initialPageOffsetFraction = 0f
-    ) {
-        list.size
-    }
-
-    KwikTabs(
-        tabs = list,
-        pagerState = pagerState
-    )
-}
-
-/**
- * A tab component that displays a list of tabs with icons and counters as optional features
- * The contents must be passed as a separate composable because they are defined by the user depending on the use case
- * */
-object KwikTabs {
-
-    /**
-     * @param title The title of the tab
-     * @param counter The counter to be displayed on the tab
-     * @param icon The icon to be displayed on the tab
-     * */
-    data class KwikTabItem(@StringRes val title: Int, val counter: Int = 0, @DrawableRes val icon: Int? = null)
-
-    @Composable
-    fun KwikTabs(tabs: List<KwikTabItem>, pagerState: PagerState, withIcons: Boolean = true) {
-        val scope = rememberCoroutineScope()
-
-        TabRow(
-            selectedTabIndex = pagerState.currentPage,
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.Black,
-            indicator = { tabPositions ->
-                Box(
-                    modifier = Modifier
-                        .tabIndicatorOffset(tabPositions[pagerState.currentPage])
-                        .height(4.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(color = Color.Black)
-                )
-            }
-        ) {
-            tabs.forEachIndexed { index, tab ->
-                KwikTabItem(selected = pagerState.currentPage == index, item = tab, withIcons){
-                    scope.launch {
-                        pagerState.animateScrollToPage(index)
-                    }
                 }
-            }
+            )
         }
     }
-
 }
 
 @Composable
 fun KwikTabsContent(
-    tabs: List<KwikTabs.KwikTabItem>,
-    pagerState: PagerState
+    tabs: List<KwikTabItem>,
+    pagerState: PagerState,
 ) {
     HorizontalPager(
         modifier = Modifier,
@@ -182,17 +144,22 @@ fun KwikTabsContent(
             Orientation.Horizontal
         ),
         pageContent = { page ->
-            when (page) {
-
-            }
+            tabs[page].content()
         }
     )
 }
 
 @Composable
-fun KwikTabItem(selected: Boolean, item: KwikTabs.KwikTabItem, withIcons: Boolean, onClick: () -> Unit){
+fun KwikTabItemView(
+    selected: Boolean,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContentColor: Color = Color.Gray,
+    item: KwikTabItem,
+    onClick: () -> Unit
+){
     Box(
-        modifier = Modifier
+        modifier = Modifier.fillMaxSize().background(containerColor)
     ) {
         Column(modifier = Modifier
             .align(Alignment.TopCenter)
@@ -202,14 +169,13 @@ fun KwikTabItem(selected: Boolean, item: KwikTabs.KwikTabItem, withIcons: Boolea
                 onClick = { onClick() },
             ),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            if(item.icon != null && withIcons){
-                Icon(
-                    painter = painterResource(id = item.icon),
-                    contentDescription = stringResource(id = item.title),
-                    tint = if(selected) Color.Black else Color.Gray,
-                    modifier = Modifier
-                        .size(30.dp)
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if(item.icon != null){
+                KwikImageView(
+                    modifier = Modifier.size(30.dp),
+                    url = item.icon,
+                    tint = if(selected) selectedContentColor else unselectedContentColor
                 )
             }
             Row(
@@ -218,18 +184,18 @@ fun KwikTabItem(selected: Boolean, item: KwikTabs.KwikTabItem, withIcons: Boolea
                 modifier = Modifier.padding(bottom = 6.dp)
             ) {
                 Text(
-                    text = stringResource(id = item.title),
+                    text = item.title,
                     style = MaterialTheme.typography.titleSmall,
-                    color = if(selected) Color.Black else Color.Gray,
+                    color = if(selected) selectedContentColor else unselectedContentColor,
                 )
                 if(item.counter > 0){
-                    Spacer(modifier = Modifier.width(4.dp))
+                    KwikHSpacer(4)
                     Box(modifier = Modifier
                         .size(if (item.counter > 9) 30.dp else 25.dp)
                         .clip(RoundedCornerShape(20.dp))
-                        .background(if (selected) Color.Black else Color.Gray)
+                        .background(if (selected) selectedContentColor else unselectedContentColor)
                         .padding(4.dp),
-                        contentAlignment = Alignment.Center,
+                        contentAlignment = Alignment.Center
                     ){
                         Text(
                             text = if(item.counter > 99) "99+" else item.counter.toString(),
@@ -240,18 +206,51 @@ fun KwikTabItem(selected: Boolean, item: KwikTabs.KwikTabItem, withIcons: Boolea
                 }
             }
         }
-        Spacer(modifier = Modifier
+        Spacer(
+            modifier = Modifier
             .align(Alignment.BottomCenter)
             .width(80.dp)
             .height(4.dp)
-            .background(
-                brush = Brush.radialGradient(
-                    colors = if (selected) listOf(
-                        Color.Black,
-                        Color.Black
-                    ) else listOf(Color.Transparent, Color.Transparent),
-                )
-            ))
+        )
     }
 
+}
+
+@Preview
+@Composable
+private fun KwikTabsPreview() {
+    val list = listOf(
+        KwikTabItem(
+            title = "Muraho",
+            content = {
+                Text(text = "Muraho")
+            }
+        ),
+        KwikTabItem(
+            title = "Hello",
+            content = {
+                Text(text = "Hello")
+            }
+        ),
+        KwikTabItem(
+            title = "Jambo",
+            content = {
+                Text(text = "Jambo")
+            }
+        )
+    )
+
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        list.size
+    }
+
+    KwikTheme {
+        KwikHorizontalTab(
+            tabs = list,
+            pagerState = pagerState
+        )
+    }
 }

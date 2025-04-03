@@ -12,19 +12,21 @@ import androidx.compose.ui.tooling.preview.Preview
 * An image view that can load images from resources, urls or vectors
  *
  * @param modifier Modifier
- * @param url Any
+ * @param url Any type of url or resource. Can be a string, a drawable resource or a vector resource
+ * @param tint Color to apply as tint
 * */
 @Composable
 fun KwikImageView(
     modifier: Modifier = Modifier,
-    url: Any
+    url: Any,
+    tint: Color = Color.Unspecified
 ){
     when (url) {
         is Int -> {
             Icon(
                 modifier = modifier,
                 painter = painterResource(id = url),
-                tint = Color.Gray,
+                tint = tint,
                 contentDescription = null
             )
         }
@@ -33,7 +35,7 @@ fun KwikImageView(
             Icon(
                 modifier = modifier,
                 imageVector = url,
-                tint = Color.Gray,
+                tint = tint,
                 contentDescription = null
             )
         }

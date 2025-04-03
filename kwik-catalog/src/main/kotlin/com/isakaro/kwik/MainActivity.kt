@@ -9,6 +9,18 @@ import androidx.compose.ui.Alignment
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
+import com.isakaro.kwik.catalog.card.CardScreen
+import com.isakaro.kwik.catalog.checkbox.CheckBoxScreen
+import com.isakaro.kwik.catalog.dropdown.DropDownScreen
+import com.isakaro.kwik.catalog.outlinedtextfield.OutlinedTextFieldScreen
+import com.isakaro.kwik.catalog.permission.PermissionsScreen
+import com.isakaro.kwik.catalog.progress.ProgressIndicatorScreen
+import com.isakaro.kwik.catalog.radio.RadioButtonScreen
+import com.isakaro.kwik.catalog.slider.SliderScreen
+import com.isakaro.kwik.catalog.switch.SwitchScreen
+import com.isakaro.kwik.catalog.tabs.TabScreen
+import com.isakaro.kwik.catalog.textfield.TextFieldScreen
+import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.destinations.ComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
@@ -58,7 +70,7 @@ class MainActivity: ComponentActivity() {
                         composable(KwikButtonScreenDestination) {
                             KwikButtonScreen()
                         }
-                        /*composable(NavigationRoute.BottomNavScreen.route) {
+                        composable(NavigationRoute.BottomNavScreen.route) {
                             BottomNavScreen()
                         }
                         composable(NavigationRoute.CardScreen.route) {
@@ -105,7 +117,7 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(NavigationRoute.PermissionScreen.route) {
                             PermissionsScreen()
-                        }*/
+                        }
                     }
                 }
             }

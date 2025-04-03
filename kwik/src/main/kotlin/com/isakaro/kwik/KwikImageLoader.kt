@@ -1,7 +1,6 @@
 package com.isakaro.kwik
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
@@ -47,7 +46,7 @@ fun KwikImageLoader(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
             .build(),
-        modifier = Modifier.fillMaxSize().then(modifier)
+        modifier = modifier
             .placeholder(
                 visible = loadingState[url] == ImageLoaderState.LOADING,
                 highlight = PlaceholderHighlight.shimmer(),
