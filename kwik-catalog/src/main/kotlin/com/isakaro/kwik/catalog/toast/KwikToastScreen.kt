@@ -3,17 +3,17 @@ package com.isakaro.kwik.catalog.toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.Kwik.KwikButton
-import com.isakaro.Kwik.KwikToast
-import com.isakaro.Kwik.KwikToastType
-import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.Kwik.catalog.ShowCase
-import com.isakaro.Kwik.navigator
-import com.isakaro.Kwik.rememberKwikToastState
-import com.isakaro.Kwik.showToast
-import com.isakaro.Kwik.theme.KwikColorError
-import com.isakaro.Kwik.theme.KwikColorWarning
-import com.isakaro.Kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikToast
+import com.isakaro.kwik.KwikToastType
+import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.navigator
+import com.isakaro.kwik.rememberKwikToastState
+import com.isakaro.kwik.showToast
+import com.isakaro.kwik.theme.KwikColorError
+import com.isakaro.kwik.theme.KwikColorWarning
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
@@ -24,9 +24,9 @@ internal fun KwikToastScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     val scope = rememberCoroutineScope()
-    val KwikToastState = rememberKwikToastState()
+    val kwikToastState = rememberKwikToastState()
 
-    KwikToast(state = KwikToastState)
+    KwikToast(state = kwikToastState)
 
     ScrollableShowCaseContainer(
         title = "Toast",
@@ -37,7 +37,7 @@ internal fun KwikToastScreen(
         ShowCase(title = "KwikToast") {
             KwikButton(text = "Show toast") {
                 scope.launch {
-                    KwikToastState.showToast("This is a Kwik toast!")
+                    kwikToastState.showToast("This is a Kwik toast!")
                 }
             }
         }
@@ -47,7 +47,7 @@ internal fun KwikToastScreen(
                 containerColor = KwikColorWarning
             ) {
                 scope.launch {
-                    KwikToastState.showToast(
+                    kwikToastState.showToast(
                         message = "This is a warning Kwik toast!",
                         type = KwikToastType.WARNING
                     )
@@ -60,7 +60,7 @@ internal fun KwikToastScreen(
                 containerColor = KwikColorError
             ) {
                 scope.launch {
-                    KwikToastState.showToast(
+                    kwikToastState.showToast(
                         message = "This is a Kwik toast with duration",
                         type = KwikToastType.ERROR,
                         duration = 6000L // 6 seconds

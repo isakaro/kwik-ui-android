@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import com.isakaro.Kwik.utils.activity
+import com.isakaro.kwik.utils.activity
 
 /**
  * @param @[String] [permission] the permission to be requested

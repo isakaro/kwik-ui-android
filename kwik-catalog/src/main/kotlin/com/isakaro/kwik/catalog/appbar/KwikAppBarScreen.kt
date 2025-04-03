@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.KwikAppBar
-import com.isakaro.Kwik.catalog.ShowCase
-import com.isakaro.Kwik.navigator
-import com.isakaro.Kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.KwikAppBar
+import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.navigator
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

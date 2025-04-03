@@ -36,7 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.isakaro.Kwik.theme.KwikColorWarning
+import com.isakaro.kwik.theme.KwikColorWarning
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.UUID

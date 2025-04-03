@@ -15,18 +15,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.Kwik.textfield.KwikOTP
-import com.isakaro.Kwik.textfield.KwikPhoneNumberField
-import com.isakaro.Kwik.KwikToast
 import com.isakaro.Kwik.catalog.R
-import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.Kwik.catalog.ShowCase
-import com.isakaro.Kwik.navigator
-import com.isakaro.Kwik.rememberKwikToastState
-import com.isakaro.Kwik.showToast
-import com.isakaro.Kwik.textfield.KwikTextField
-import com.isakaro.Kwik.theme.Theme.KwikTheme
-import com.isakaro.Kwik.utils.countryList
+import com.isakaro.kwik.KwikToast
+import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.navigator
+import com.isakaro.kwik.rememberKwikToastState
+import com.isakaro.kwik.showToast
+import com.isakaro.kwik.textfield.KwikOTP
+import com.isakaro.kwik.textfield.KwikPhoneNumberField
+import com.isakaro.kwik.textfield.KwikTextField
+import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -37,10 +37,10 @@ internal fun TextFieldScreen(
 ) {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-    val KwikToastState = rememberKwikToastState()
+    val kwikToastState = rememberKwikToastState()
     var isPhoneNumberValid by remember { mutableStateOf(false) }
 
-    KwikToast(state = KwikToastState)
+    KwikToast(state = kwikToastState)
 
     ScrollableShowCaseContainer(
         title = "Filled Text field",
@@ -66,7 +66,7 @@ internal fun TextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -89,7 +89,7 @@ internal fun TextFieldScreen(
                 keyboardType = KeyboardType.Password,
                 visualTransformation = PasswordVisualTransformation(),
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -111,7 +111,7 @@ internal fun TextFieldScreen(
                     isPhoneNumberValid = it.text.length >= 8
                 },
                 onCountrySelected = { country ->
-                    KwikToastState.showToast("Country selected: ${country.name}")
+                    kwikToastState.showToast("Country selected: ${country.name}")
                 }
             )
         }
@@ -136,7 +136,7 @@ internal fun TextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -159,7 +159,7 @@ internal fun TextFieldScreen(
                 keyboardType = KeyboardType.Text,
                 enabled = false,
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -193,7 +193,7 @@ internal fun TextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -216,7 +216,7 @@ internal fun TextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 onKeyboardDone = {
-                    KwikToastState.showToast("keyboard done")
+                    kwikToastState.showToast("keyboard done")
                 }
             )
         }
@@ -288,7 +288,7 @@ internal fun TextFieldScreen(
                 trailingIcon = R.drawable.qr_code_scanner,
                 keyboardType = KeyboardType.Text,
                 onActionClick = {
-                    KwikToastState.showToast("I've been clicked!")
+                    kwikToastState.showToast("I've been clicked!")
                 },
                 onKeyboardDone = {
 

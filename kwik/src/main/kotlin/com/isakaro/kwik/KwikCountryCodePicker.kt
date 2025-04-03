@@ -40,11 +40,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.theme.Theme.KwikTheme
-import com.isakaro.Kwik.utils.CountryInfo
-import com.isakaro.Kwik.utils.countryList
-import com.isakaro.Kwik.utils.resolveCountries
-import com.isakaro.Kwik.utils.text
+import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.utils.CountryInfo
+import com.isakaro.kwik.utils.countryList
+import com.isakaro.kwik.utils.resolveCountries
+import com.isakaro.kwik.utils.text
 
 @Composable
 fun KwikCountryCodePicker(

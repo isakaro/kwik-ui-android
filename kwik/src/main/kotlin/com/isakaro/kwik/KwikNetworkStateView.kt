@@ -21,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.theme.KwikColorWarning
-import com.isakaro.Kwik.theme.KwikColorSuccess
-import com.isakaro.Kwik.utils.KwikNetworkUtils
+import com.isakaro.kwik.theme.KwikColorWarning
+import com.isakaro.kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.utils.KwikNetworkUtils
 import kotlinx.coroutines.delay
 
 /**

@@ -114,7 +114,7 @@ private fun LoadingButtonLinear() {
             onClick = {},
             text = "action",
             isLoading = true,
-            KwikButtonLoadingStyle = KwikButtonLoadingStyle.LINEAR,
+            kwikButtonLoadingStyle = KwikButtonLoadingStyle.LINEAR,
             loadingText = "Loading. Please wait..."
         )
     }

@@ -45,8 +45,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.Kwik.textfield.AllowedChars
-import com.isakaro.Kwik.textfield.PasswordToggle
+import com.isakaro.kwik.textfield.AllowedChars
+import com.isakaro.kwik.textfield.PasswordToggle
 
 /**
  * OTP input. The OTP field will automatically move focus to the next field when a digit is entered.

@@ -16,9 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -102,7 +99,7 @@ fun KwikButton(
     allCaps: Boolean = true,
     enabled: Boolean = true,
     fontStyle: TextStyle = MaterialTheme.typography.titleSmall,
-    KwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
+    kwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
     onClick: () -> Unit = {}
 ) {
     Button(
@@ -128,7 +125,7 @@ fun KwikButton(
     ) {
         Spacer(modifier = Modifier.width(4.dp))
         if(isLoading){
-            if(KwikButtonLoadingStyle == KwikButtonLoadingStyle.CIRCULAR){
+            if(kwikButtonLoadingStyle == KwikButtonLoadingStyle.CIRCULAR){
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {

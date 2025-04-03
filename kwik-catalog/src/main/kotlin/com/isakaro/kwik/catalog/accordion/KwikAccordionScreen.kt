@@ -13,9 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikAccordion
-import com.isakaro.Kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.Kwik.catalog.ShowCase
-import com.isakaro.Kwik.navigator
+import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.navigator
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -101,7 +101,7 @@ internal fun KwikAccordionScreen(
                 onExpandedChange = {
                     expanded4 = it
                 },
-                headerIcon = com.isakaro.Kwik.R.drawable.shield,
+                headerIcon = com.isakaro.kwik.R.drawable.shield,
                 elevation = 1
             ) {
                 Column(
@@ -122,7 +122,7 @@ internal fun KwikAccordionScreen(
                     expanded5 = it
                 },
                 isError = true,
-                errorIcon = com.isakaro.Kwik.R.drawable.shield,
+                errorIcon = com.isakaro.kwik.R.drawable.shield,
                 elevation = 1
             ) {
                 Column(

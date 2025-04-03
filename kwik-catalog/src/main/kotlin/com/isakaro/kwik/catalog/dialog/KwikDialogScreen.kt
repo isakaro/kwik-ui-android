@@ -1,11 +1,15 @@
 package com.isakaro.kwik.catalog.dialog
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,30 +18,28 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.Kwik.catalog.R
-import com.isakaro.kwik.checkbox.KwikCheckBox
-import com.isakaro.kwik.dialog.KwikDialog
-import com.isakaro.kwik.image.KwikImageView
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.button.KwikTextButton
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.button.KwikButton
+import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikCheckBox
+import com.isakaro.kwik.KwikDialog
+import com.isakaro.kwik.KwikTextButton
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.inputfields.KwikPhoneNumberField
-import com.isakaro.kwik.inputfields.KwikTextField
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.textfield.KwikPhoneNumberField
+import com.isakaro.kwik.textfield.KwikTextField
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination
 internal fun KwikDialogScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -53,8 +55,6 @@ internal fun KwikDialogScreen(
         var openConfirmDialog by remember { mutableStateOf(false) }
         var openNonCancellableDialog by remember { mutableStateOf(false) }
         var checked by remember { mutableStateOf(false) }
-
-        KwikVSpacer(12)
 
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically),
@@ -89,24 +89,18 @@ internal fun KwikDialogScreen(
                     Column(
                         modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp, bottom = 15.dp),
                     ) {
-                        KwikText.HeadlineMedium(
-                            text = "I am a dialog with custom content"
-                        )
-
+                        Text(text = "I am a dialog with custom content", color = Color.Black, style = MaterialTheme.typography.headlineMedium)
                         Column(
                             modifier = Modifier
                                 .padding(top = 30.dp)
                                 .fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            KwikText.TitleSmall(
-                                text = "Enter your phone number and name"
-                            )
-
+                            Text(text = "Enter your phone number and name", style = MaterialTheme.typography.titleSmall, color = Color.Black)
                             KwikPhoneNumberField(
                                 initialCountryInfo = countryList.random(),
                                 value = text,
-                                label = "Phone number",
+                                placeholder = "Phone number",
                                 onValueChange = {
                                     text.value = it
                                 },
@@ -124,7 +118,7 @@ internal fun KwikDialogScreen(
                             )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End)
+                                horizontalArrangement = Arrangement.End
                             ) {
                                 KwikTextButton(text = "Cancel", onClick = { openDialog = false })
                                 KwikButton(text = "Confirm", onClick = { openDialog = false })
@@ -139,7 +133,7 @@ internal fun KwikDialogScreen(
             KwikDialog.ConfirmDialog(
                 open = openConfirmDialog,
                 onConfirm = {
-                    openConfirmDialog = false
+                    Toast.makeText(context, "Confirmed ;)", Toast.LENGTH_SHORT).show()
                 },
                 dismiss = {
                     openConfirmDialog = false
@@ -148,8 +142,10 @@ internal fun KwikDialogScreen(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    KwikText.TitleSmall(
-                        text = "The only rules that really matter are these: what a man can do and what a man can’t do.",
+                    Text(
+                        text = "A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Color.Black
                     )
                 }
             }
@@ -173,12 +169,16 @@ internal fun KwikDialogScreen(
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    KwikImageView(
-                        url = R.drawable.kwikui_logo,
-                        modifier = Modifier.size(100.dp).padding(bottom = 4.dp)
+                    Icon(
+                        painter = painterResource(id = R.mipmap.ic_launcher),
+                        tint = Color.Black,
+                        contentDescription = "The eye",
+                        modifier = Modifier.size(100.dp)
                     )
-                    KwikText.TitleSmall(
-                        text = "Sorry mate, you must accept the terms and conditions to continue, savvy?",
+                    Text(
+                        text = "Accept the terms and conditions to proceed",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Color.Black
                     )
                 }
             }
@@ -188,8 +188,8 @@ internal fun KwikDialogScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewKwikDialogScreen() {
+private fun PreviewStartScreen() {
     KwikTheme {
-        KwikDialogScreen()
+        DialogScreen()
     }
 }

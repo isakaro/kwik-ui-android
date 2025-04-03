@@ -1,14 +1,17 @@
 package com.isakaro.kwik.catalog.dropdown
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,14 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.dropdown.KwikDropdown
-import com.isakaro.kwik.dropdown.KwikDropdownItem
-import com.isakaro.kwik.dropdown.KwikDropdownItemActionState
-import com.isakaro.kwik.button.KwikIconButton
-import com.isakaro.kwik.image.KwikImageView
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -31,8 +28,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
-internal fun KwikDropDownScreen(
+@Destination
+internal fun DropDownScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -42,103 +39,26 @@ internal fun KwikDropDownScreen(
         }
     ) {
         ShowCase(title = "DropDown") {
-            var state by remember { mutableStateOf(false) }
-            val items = listOf(
-                KwikDropdownItemActionState.Header("Account"),
-                KwikDropdownItemActionState.Data(
-                    KwikDropdownItem(
-                        text = {
-                            KwikText.BodyMedium(text = "Profile")
-                        },
-                        leadingIcon = {
-                            KwikImageView(
-                                url = Icons.Default.AccountCircle
-                            )
-                        },
-                        onClick = {
-
-                        }
-                    )
-                ),
-                KwikDropdownItemActionState.Data(
-                    KwikDropdownItem(
-                        text = {
-                            KwikText.BodyMedium(text = "Settings")
-                        },
-                        leadingIcon = {
-                            KwikImageView(
-                                url = Icons.Default.Settings
-                            )
-                        },
-                        onClick = {
-
-                        }
-                    )
-                ),
-                KwikDropdownItemActionState.Data(
-                    KwikDropdownItem(
-                        text = {
-                            KwikText.BodyMedium(text = "Logout")
-                        },
-                        leadingIcon = {
-                            KwikImageView(
-                                url = Icons.AutoMirrored.Filled.ExitToApp
-                            )
-                        },
-                        onClick = {
-
-                        }
-                    )
-                ),
-                KwikDropdownItemActionState.Header("System"),
-                KwikDropdownItemActionState.Data(
-                    KwikDropdownItem(
-                        text = {
-                            KwikText.BodyMedium(text = "Dark mode")
-                        },
-                        leadingIcon = {
-                            KwikImageView(
-                                url = Icons.Default.Settings
-                            )
-                        },
-                        onClick = {
-
-                        }
-                    )
-                ),
-                KwikDropdownItemActionState.Data(
-                    KwikDropdownItem(
-                        text = {
-                            KwikText.BodyMedium(text = "Feedback")
-                        },
-                        leadingIcon = {
-                            KwikImageView(
-                                url = Icons.AutoMirrored.Filled.Send
-                            )
-                        },
-                        onClick = {
-
-                        }
-                    )
-                )
-            )
+            var expanded by remember { mutableStateOf(false) }
 
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentSize(Alignment.TopStart)
             ) {
-                KwikIconButton(
-                    icon = Icons.Default.MoreVert,
-                    onClick = {
-                        state = true
-                    }
-                )
-                KwikDropdown(
-                    state = state,
-                    onDismissRequest = { state = false },
-                    items = items
-                )
+                IconButton(onClick = { expanded = true }) {
+                    Icon(Icons.Default.MoreVert, tint = Color.Black, contentDescription = "Localized description")
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.background(Color.White)
+                ) {
+                    DropdownMenuItem(text = { Text("Profile", color = Color.Black) }, onClick = { expanded = false })
+                    DropdownMenuItem(text = { Text("Settings", color = Color.Black) }, onClick = { expanded = false })
+                    HorizontalDivider()
+                    DropdownMenuItem(text = { Text("Logout", color = Color.Black) }, onClick = { expanded = false })
+                }
             }
         }
     }
@@ -146,6 +66,6 @@ internal fun KwikDropDownScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewDropDownScreen() {
-    KwikDropDownScreen()
+private fun PreviewStartScreen() {
+    DropDownScreen()
 }

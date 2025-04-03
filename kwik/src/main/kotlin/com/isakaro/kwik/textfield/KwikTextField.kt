@@ -56,12 +56,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.theme.KwikColorFilledTextField
-import com.isakaro.Kwik.theme.KwikColorFilledTextFieldDisabled
-import com.isakaro.Kwik.theme.KwikColorFilledTextFieldError
-import com.isakaro.Kwik.theme.KwikColorFilledTextFieldFocused
-import com.isakaro.Kwik.theme.KwikColorHint
-import com.isakaro.Kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.theme.KwikColorFilledTextField
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldDisabled
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
+import com.isakaro.kwik.theme.KwikColorHint
+import com.isakaro.kwik.theme.KwikColorSuccess
 
 /**
  * A versatile filled text field component that can be used to take user input.

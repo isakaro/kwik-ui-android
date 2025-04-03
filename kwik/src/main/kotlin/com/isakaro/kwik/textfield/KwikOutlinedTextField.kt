@@ -57,9 +57,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.R
-import com.isakaro.Kwik.theme.KwikColorHint
-import com.isakaro.Kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.R
+import com.isakaro.kwik.theme.KwikColorHint
+import com.isakaro.kwik.theme.KwikColorSuccess
 
 object AllowedChars {
     val ALPHANUMERIC = Regex("[^A-Za-z0-9 ]")

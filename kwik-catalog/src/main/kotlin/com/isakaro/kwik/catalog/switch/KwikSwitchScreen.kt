@@ -4,22 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.switch.KwikSwitch
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.KwikSwitch
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.KwikColorError
-import com.isakaro.kwik.theme.KwikColorSuccess
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
-internal fun KwikSwitchScreen(
+@Destination
+internal fun SwitchScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -32,36 +27,17 @@ internal fun KwikSwitchScreen(
             val checkedState = remember { mutableStateOf(true) }
 
             KwikSwitch(
-                text = {
-                    KwikText.BodyMedium(
-                        text = "Control the lights"
-                    )
-                },
                 checked = checkedState.value,
                 onCheckedChange = { checkedState.value = it }
             )
-
-            KwikVSpacer(12)
-
-            if (checkedState.value) {
-                KwikText.BodyMedium(
-                    text = "The lights are on",
-                    color = KwikColorSuccess
-                )
-            } else {
-                KwikText.BodyMedium(
-                    text = "The lights are off",
-                    color = KwikColorError
-                )
-            }
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewKwikScreen() {
+private fun PreviewStartScreen() {
     KwikTheme {
-        KwikSwitchScreen()
+        SwitchScreen()
     }
 }

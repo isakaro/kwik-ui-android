@@ -1,17 +1,10 @@
 package com.isakaro.kwik.catalog.tabs
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.isakaro.kwik.tabs.KwikHorizontalTab
-import com.isakaro.kwik.tabs.KwikTabItem
-import com.isakaro.kwik.tabs.KwikTabsContent
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.Kwik.catalog.R
+import com.isakaro.kwik.KwikTabs
+import com.isakaro.kwik.KwikTabsContent
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -19,101 +12,34 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
-internal fun KwikTabScreen(
+@Destination
+internal fun TabScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-
-    @Composable
-    fun Content(text: String) {
-        Column {
-            repeat(5) {
-                Text(text = text)
-            }
-        }
-    }
-
-    val tabsWithIcons = listOf(
-        KwikTabItem(
-            title = "Muraho",
-            icon = Icons.Default.Call
-        ){
-            Content(text = "Muraho")
-        },
-        KwikTabItem(
-            title = "Hello",
-            icon = Icons.Default.MailOutline
-        ){
-            Content(text = "Hello")
-        },
-        KwikTabItem(
-            title = "Jambo",
-            icon = Icons.Default.Notifications
-        ){
-            Content(text = "Jambo")
-        }
+    val tabs = listOf(
+        KwikTabs.KwikTabItem(R.string.app_name, R.drawable.qr_code_scanner),
+        KwikTabs.KwikTabItem(R.string.app_name, R.drawable.qr_code_scanner),
+        KwikTabs.KwikTabItem(R.string.app_name, R.drawable.qr_code_scanner)
     )
 
-    val pagerStateWithIcons = rememberPagerState(
+    val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
     ) {
-        tabsWithIcons.size
+        tabs.size
     }
 
-    val tabsWithoutIcons = listOf(
-        KwikTabItem(
-            title = "Muraho",
-            content = {
-                Content(text = "Muraho")
-            }
-        ),
-        KwikTabItem(
-            title = "Hello",
-            content = {
-                Content(text = "Hello")
-            }
-        ),
-        KwikTabItem(
-            title = "Jambo",
-            content = {
-                Content(text = "Jambo")
-            }
-        )
+    val tabsWithCounter = listOf(
+        KwikTabs.KwikTabItem(R.string.app_name, 3),
+        KwikTabs.KwikTabItem(R.string.app_name, 0),
+        KwikTabs.KwikTabItem(R.string.app_name, 55)
     )
 
-    val pagerStateWithoutIcons = rememberPagerState(
+    val pagerState2 = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
     ) {
-        tabsWithoutIcons.size
-    }
-
-    val tabsWithCounters = listOf(
-        KwikTabItem(
-            title = "Muraho",
-            counter = 3
-        ){
-            Content(text = "Muraho")
-        },
-        KwikTabItem(
-            title = "Hello",
-        ){
-            Content(text = "Hello")
-        },
-        KwikTabItem(
-            title = "Jambo",
-            counter = 1
-        ){
-            Content(text = "Jambo")
-        }
-    )
-
-    val pagerStateWithCounters = rememberPagerState(
-        initialPage = 0,
-        initialPageOffsetFraction = 0f
-    ) {
-        tabsWithCounters.size
+        tabsWithCounter.size
     }
 
     ShowCaseContainer(
@@ -123,22 +49,16 @@ internal fun KwikTabScreen(
         }
     ) {
         ShowCase(title = "Tabs with icons") {
-            KwikHorizontalTab(
-                tabs = tabsWithIcons,
-                pagerState = pagerStateWithIcons
-            )
+            KwikTabs(tabs = tabs, pagerState = pagerState)
+            KwikTabsContent(tabs = tabs, pagerState = pagerState)
         }
         ShowCase(title = "Tabs without icons") {
-            KwikHorizontalTab(
-                tabs = tabsWithoutIcons,
-                pagerState = pagerStateWithoutIcons
+            KwikTabs(
+                tabs = tabsWithCounter,
+                pagerState = pagerState2,
+                withIcons = false
             )
-        }
-        ShowCase(title = "Tabs with counters") {
-            KwikHorizontalTab(
-                tabs = tabsWithCounters,
-                pagerState = pagerStateWithCounters
-            )
+            KwikTabsContent(tabs = tabsWithCounter, pagerState = pagerState2)
         }
     }
 }

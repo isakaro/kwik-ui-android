@@ -29,9 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.lifecycle.KwikComposableLifeCycle
-import com.isakaro.Kwik.theme.KwikColorWarning
-import com.isakaro.Kwik.utils.isPermissionGranted
+import com.isakaro.kwik.lifecycle.KwikComposableLifeCycle
+import com.isakaro.kwik.theme.KwikColorWarning
+import com.isakaro.kwik.utils.isPermissionGranted
 
 /**
  * A permission request dialog that can be used to request permissions from the user.

@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.theme.Theme.KwikTheme
 
 @Composable
 fun KwikLoadingView(

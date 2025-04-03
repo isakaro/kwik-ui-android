@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.Kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.theme.KwikColorSuccess
 
 /**
  * A view that displays password requirements.

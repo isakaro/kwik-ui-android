@@ -1,7 +1,7 @@
 package com.isakaro.kwik.textfield
 
-import com.isakaro.Kwik.KwikCountryCodeButton
-import com.isakaro.Kwik.KwikCountryPickerDialog
+import com.isakaro.kwik.KwikCountryCodeButton
+import com.isakaro.kwik.KwikCountryPickerDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -50,11 +50,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.Kwik.theme.KwikColorSuccess
-import com.isakaro.Kwik.theme.Theme.KwikTheme
-import com.isakaro.Kwik.utils.CountryInfo
-import com.isakaro.Kwik.utils.countryList
-import com.isakaro.Kwik.utils.text
+import com.isakaro.kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.utils.CountryInfo
+import com.isakaro.kwik.utils.countryList
+import com.isakaro.kwik.utils.text
 
 val allowedChars = Regex("^[0-9]*$")
 
