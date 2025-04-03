@@ -28,10 +28,9 @@ import com.isakaro.qwik.QwikButton
 import com.isakaro.qwik.QwikCheckBox
 import com.isakaro.qwik.QwikDialog
 import com.isakaro.qwik.QwikTextButton
-import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.catalog.ShowCaseContainer
-import com.isakaro.qwik.R
 import com.isakaro.qwik.navigator
+import com.isakaro.qwik.textfield.QwikPhoneNumberField
 import com.isakaro.qwik.textfield.QwikTextField
 import com.isakaro.qwik.theme.Theme.QwikTheme
 import com.isakaro.qwik.utils.countryList
@@ -170,7 +169,7 @@ internal fun DialogScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.baseline_visibility_24),
+                        painter = painterResource(id = com.isakaro.qwik.catalog.R.mipmap.ic_launcher),
                         tint = Color.Black,
                         contentDescription = "The eye",
                         modifier = Modifier.size(100.dp)

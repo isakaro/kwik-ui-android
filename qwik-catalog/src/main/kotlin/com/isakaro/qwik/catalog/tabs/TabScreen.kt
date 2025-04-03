@@ -6,9 +6,15 @@ import com.isakaro.qwik.catalog.R
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
 import com.isakaro.qwik.catalog.tabs.QwikTabs.QwikTabs
+import com.isakaro.qwik.navigator
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun TabScreen() {
+@Destination
+internal fun TabScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
     val tabs = listOf(
         QwikTabs.TabItem(R.string.app_name, R.drawable.qr_code_scanner),
         QwikTabs.TabItem(R.string.app_name, R.drawable.qr_code_scanner),
@@ -35,7 +41,12 @@ internal fun TabScreen() {
         tabsWithCounter.size
     }
 
-    ShowCaseContainer {
+    ShowCaseContainer(
+        title = "Tabs",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Tabs with icons") {
             QwikTabs(tabs = tabs, pagerState = pagerState)
             TabsContent(tabs = tabs, pagerState = pagerState)

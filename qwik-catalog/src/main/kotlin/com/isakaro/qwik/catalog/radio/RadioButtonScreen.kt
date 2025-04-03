@@ -11,11 +11,22 @@ import com.isakaro.qwik.QwikText
 import com.isakaro.qwik.QwikVSpacer
 import com.isakaro.qwik.catalog.ShowCase
 import com.isakaro.qwik.catalog.ShowCaseContainer
+import com.isakaro.qwik.navigator
 import com.isakaro.qwik.theme.Theme.QwikTheme
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun RadioButtonScreen() {
-    ShowCaseContainer {
+@Destination
+internal fun RadioButtonScreen(
+    navigator: DestinationsNavigator = navigator()
+) {
+    ShowCaseContainer(
+        title = "Radio button",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
         ShowCase(title = "Radio Button with preselected option") {
             val options = listOf(
                 QwikRadioItem("Tortuga", 141),

@@ -71,6 +71,7 @@ internal fun PermissionsScreen(
                 }
             },
             title = "Media access required",
+            logo = com.isakaro.qwik.catalog.R.mipmap.ic_launcher,
             icon = R.drawable.shield,
             iconTint = Color.Black,
             onGrantAction = {
