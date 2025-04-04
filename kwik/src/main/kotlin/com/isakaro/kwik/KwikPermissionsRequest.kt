@@ -8,17 +8,13 @@ import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,12 +43,15 @@ import com.isakaro.kwik.utils.isPermissionGranted
  * @param title: The title of the dialog.
  * @param deniedPermanentlyMessage: The message to display when the user denies the permission permanently.
  * @param logo: The logo to display at the top of the dialog.
- * @param icon: The icon to display in the center of the dialog.
- * @param iconTint: The tint color of the icon.
+ * @param image: The image to display in the center of the dialog.
  * @param onGrantAction: The action to perform when the user grants the permission.
  * @param onDeniedAction: The action to perform when the user denies the permission.
  * @param onCancel: The action to perform when the user cancels the dialog.
  * @param mandatory: If true, the dialog will not be cancellable. Defaults to false.
+ * @param unSkippable: If true, there won't be a "Later" button. Meaning the user will only have the option to enable the permission. They won't be able to cancel the dialog. Defaults to false.
+ * @param cancelText: The text to display on the cancel button. Defaults to "Cancel".
+ * @param confirmText: The text to display on the confirm button. Defaults to "Enable".
+ * @param laterText: The text to display on the later button. Defaults to "Later".
  *
  * Example usage:
  * ```
@@ -86,13 +84,16 @@ fun KwikPermissionsRequest(
     permissions: List<KwikPermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",
-    @DrawableRes logo: Int? = null,
-    @DrawableRes icon: Int = R.drawable.shield,
-    iconTint: Color? = null,
+    logo: @Composable () -> Unit = {},
+    image: @Composable () -> Unit = {},
     onGrantAction: () -> Unit = {},
     onDeniedAction: () -> Unit = {},
     onCancel: () -> Unit = {},
-    mandatory: Boolean = false
+    mandatory: Boolean = false,
+    unSkippable: Boolean = false,
+    cancelText: String = "Cancel",
+    confirmText: String = "Enable",
+    laterText: String = "Later",
 ) {
 
     val context = LocalContext.current
@@ -146,15 +147,7 @@ fun KwikPermissionsRequest(
                 alignment = Alignment.CenterVertically
             )
         ) {
-            if(logo != null){
-                Image(
-                    modifier = Modifier
-                        .size(120.dp)
-                        .padding(bottom = 15.dp),
-                    painter = painterResource(id = logo),
-                    contentDescription = "Permission security icon"
-                )
-            }
+            logo()
 
             KwikText.TitleText(
                 text = title,
@@ -169,24 +162,7 @@ fun KwikPermissionsRequest(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            if(iconTint != null){
-                Icon(
-                    modifier = Modifier
-                        .size(300.dp)
-                        .padding(bottom = 15.dp),
-                    painter = painterResource(icon),
-                    contentDescription = "enable permissions",
-                    tint = iconTint
-                )
-            } else {
-                Image(
-                    modifier = Modifier
-                        .size(300.dp)
-                        .padding(bottom = 15.dp),
-                    painter = painterResource(id = icon),
-                    contentDescription = "enable permissions"
-                )
-            }
+            image()
 
             if(permissionRequestState == KwikPermissionRequestState.Denied){
                 KwikCard(
@@ -205,28 +181,30 @@ fun KwikPermissionsRequest(
             Spacer(modifier = Modifier.weight(1f))
 
             Row {
-                if(mandatory){
-                    KwikTextButton(
-                        text = "Cancel",
-                        onClick = {
-                            permissionsExplanationDialogVisible = false
-                            onCancel()
-                        }
-                    )
-                } else {
-                    KwikTextButton(
-                        text = "Later",
-                        onClick = {
-                            permissionsExplanationDialogVisible = false
-                            onDeniedAction()
-                        }
-                    )
+                if(!unSkippable){
+                    if(mandatory){
+                        KwikTextButton(
+                            text = cancelText,
+                            onClick = {
+                                permissionsExplanationDialogVisible = false
+                                onCancel()
+                            }
+                        )
+                    } else {
+                        KwikTextButton(
+                            text = laterText,
+                            onClick = {
+                                permissionsExplanationDialogVisible = false
+                                onDeniedAction()
+                            }
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 KwikButton(
-                    text = "Enable",
+                    text = confirmText,
                     onClick = {
                         if(permissionRequestState == KwikPermissionRequestState.Denied){
                             context.showInstalledAppDetails(appPackageName)

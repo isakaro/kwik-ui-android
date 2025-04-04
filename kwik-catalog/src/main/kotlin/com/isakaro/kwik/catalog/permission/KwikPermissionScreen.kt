@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikPermissionDto
 import com.isakaro.kwik.KwikPermissionsRequest
 import com.isakaro.kwik.KwikToast
@@ -73,9 +76,16 @@ internal fun KwikPermissionsScreen(
                 }
             },
             title = "Media access required",
-            logo = com.isakaro.Kwik.catalog.R.mipmap.ic_launcher,
-            icon = R.drawable.shield,
-            iconTint = Color.Black,
+            logo = {
+                KwikImageView(
+                    url = com.isakaro.Kwik.catalog.R.mipmap.ic_launcher
+                )
+            },
+            image = {
+                KwikImageView(
+                    url = Icons.Default.Build
+                )
+            },
             onGrantAction = {
                 granted = true
             },
@@ -88,6 +98,7 @@ internal fun KwikPermissionsScreen(
         )
 
         if(granted){
+            // perform action when permission is granted
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -106,6 +117,9 @@ internal fun KwikPermissionsScreen(
                 )
             }
         } else {
+            /*
+            * perform action when permission is not granted
+            * */
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
