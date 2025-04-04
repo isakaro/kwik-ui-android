@@ -150,7 +150,7 @@ fun KwikTextField(
         cursorColor = Color.Black,
         focusedContainerColor = KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
-        focusedBorderColor = KwikColorFilledTextField,
+        focusedBorderColor = Color.Transparent,
         unfocusedBorderColor = Color.Transparent,
         unfocusedContainerColor = KwikColorFilledTextFieldFocused,
         unfocusedLabelColor = Color.Gray,

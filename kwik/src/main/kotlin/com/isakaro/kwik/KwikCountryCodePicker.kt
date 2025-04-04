@@ -140,7 +140,7 @@ fun KwikCountryCodeButton(
     Button(
         onClick = { onClick() },
         modifier = modifier.alpha(if (enabled) 1.5f else 0.5f),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
         contentPadding = PaddingValues(12.dp),
         shape = RoundedCornerShape(8.dp),
         interactionSource = remember { MutableInteractionSource() },

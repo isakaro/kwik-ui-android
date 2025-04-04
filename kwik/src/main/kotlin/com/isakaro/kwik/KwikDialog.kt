@@ -97,8 +97,7 @@ object KwikDialog {
                 Surface(
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
-                        .then(modifier),
-                    color = Color.Transparent
+                        .then(modifier)
                 ) {
                     Box {
                         Column(
@@ -137,7 +136,7 @@ object KwikDialog {
                                         .size(30.dp),
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "close",
-                                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black
+                                    tint = if(isSystemInDarkTheme()) Color.Black else Color.White
                                 )
                             }
                         }

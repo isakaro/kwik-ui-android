@@ -31,25 +31,22 @@ internal fun KwikAppBarScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    ShowCase(title = "AppBar") {
-        Scaffold(
-            topBar = {
-                KwikAppBar(
-                    title = "This is a title",
-                    subtitle = "Subtitle",
-                    navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
-                ){
-                    navigator.navigateUp()
-                }
-            },
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(start = 12.dp, end = 12.dp)
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-        ){
+    Scaffold(
+        topBar = {
+            KwikAppBar(
+                title = "This is a title",
+                subtitle = "Subtitle",
+                navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+                elevation = 2.dp
+            ){
+                navigator.navigateUp()
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+    ){
 
-        }
     }
 }
 

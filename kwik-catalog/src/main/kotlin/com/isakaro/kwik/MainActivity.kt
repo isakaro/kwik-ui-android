@@ -8,13 +8,41 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
+import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen
+import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreen
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
+import com.isakaro.kwik.catalog.card.KwikCardScreen
+import com.isakaro.kwik.catalog.checkbox.KwikCheckBoxScreen
+import com.isakaro.kwik.catalog.dialog.KwikDialogScreen
+import com.isakaro.kwik.catalog.dropdown.KwikDropDownScreen
+import com.isakaro.kwik.catalog.permission.KwikPermissionsScreen
+import com.isakaro.kwik.catalog.progress.KwikProgressIndicatorScreen
+import com.isakaro.kwik.catalog.radio.KwikRadioButtonScreen
+import com.isakaro.kwik.catalog.slider.KwikSliderScreen
+import com.isakaro.kwik.catalog.switch.KwikSwitchScreen
 import com.isakaro.kwik.catalog.tabs.KwikTabScreen
+import com.isakaro.kwik.catalog.textfield.KwikOutlinedTextFieldScreen
+import com.isakaro.kwik.catalog.textfield.KwikTextFieldScreen
+import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.destinations.ComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikCardScreenDestination
+import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
+import com.isakaro.kwik.destinations.KwikDialogScreenDestination
+import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
+import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
+import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
+import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikSliderScreenDestination
+import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
+import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
@@ -60,54 +88,54 @@ class MainActivity: ComponentActivity() {
                         composable(KwikButtonScreenDestination) {
                             KwikButtonScreen()
                         }
-                        /*composable(NavigationRoute.BottomNavScreen.route) {
-                            BottomNavScreen()
+                        composable(KwikBottomTabsScreenDestination) {
+                            KwikBottomTabsScreen()
                         }
-                        composable(NavigationRoute.CardScreen.route) {
-                            CardScreen()
+                        composable(KwikCardScreenDestination) {
+                            KwikCardScreen()
                         }
-                        composable(NavigationRoute.CheckBoxScreen.route) {
-                            CheckBoxScreen()
+                        composable(KwikCheckBoxScreenDestination) {
+                            KwikCheckBoxScreen()
                         }
-                        composable(NavigationRoute.DialogScreen.route) {
-                            DialogScreen()
+                        composable(KwikDialogScreenDestination) {
+                            KwikDialogScreen()
                         }
-                        composable(NavigationRoute.DropDownScreen.route) {
-                            DropDownScreen()
+                        composable(KwikDropDownScreenDestination) {
+                            KwikDropDownScreen()
                         }
-                        composable(NavigationRoute.BottomSheetScreen.route) {
-                            BottomSheetScreen()
-                        }*/
+                        composable(KwikBottomSheetScreenDestination) {
+                            KwikBottomSheetScreen()
+                        }
                         composable(KwikTabScreenDestination) {
                             KwikTabScreen()
                         }
-                        /*composable(NavigationRoute.ProgressIndicatorScreen.route) {
-                            ProgressIndicatorScreen()
+                        composable(KwikProgressIndicatorScreenDestination) {
+                            KwikProgressIndicatorScreen()
                         }
-                        composable(NavigationRoute.RadioButtonScreen.route) {
-                            RadioButtonScreen()
+                        composable(KwikRadioButtonScreenDestination) {
+                            KwikRadioButtonScreen()
                         }
-                        composable(NavigationRoute.SliderScreen.route) {
-                            SliderScreen()
+                        composable(KwikSliderScreenDestination) {
+                            KwikSliderScreen()
                         }
-                        composable(NavigationRoute.ToastScreen.route) {
+                        composable(KwikToastScreenDestination) {
                             KwikToastScreen()
                         }
-                        composable(NavigationRoute.SwitchScreen.route) {
-                            SwitchScreen()
+                        composable(KwikSwitchScreenDestination) {
+                            KwikSwitchScreen()
                         }
-                        composable(NavigationRoute.OutlinedTextFieldScreen.route) {
-                            OutlinedTextFieldScreen()
+                        composable(KwikOutlinedTextFieldScreenDestination) {
+                            KwikOutlinedTextFieldScreen()
                         }
-                        composable(NavigationRoute.TextFieldScreen.route) {
-                            TextFieldScreen()
+                        composable(KwikTextFieldScreenDestination) {
+                            KwikTextFieldScreen()
                         }
-                        composable(NavigationRoute.AccordionScreen.route) {
+                        composable(KwikAccordionScreenDestination) {
                             KwikAccordionScreen()
                         }
-                        composable(NavigationRoute.PermissionScreen.route) {
-                            PermissionsScreen()
-                        }*/
+                        composable(KwikPermissionsScreenDestination) {
+                            KwikPermissionsScreen()
+                        }
                     }
                 }
             }

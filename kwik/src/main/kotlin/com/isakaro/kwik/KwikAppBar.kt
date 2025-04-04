@@ -8,10 +8,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -26,19 +27,19 @@ fun KwikAppBar(
     subtitle: String? = null,
     navigationIcon: Any = Icons.AutoMirrored.Filled.ArrowBack,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
-    contentColor: Color = MaterialTheme.colorScheme.background,
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
     elevation: Dp = 0.dp,
     navigationClick: () -> Unit = {}
 ) {
     TopAppBar(
-        colors = TopAppBarColors(
-            actionIconContentColor = Color.Black,
-            navigationIconContentColor = Color.Black,
-            scrolledContainerColor = Color.White,
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = backgroundColor,
-            titleContentColor = Color.Black
+            scrolledContainerColor = Color.White,
+            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            actionIconContentColor = MaterialTheme.colorScheme.onSurface
         ),
+        modifier = Modifier.shadow(elevation),
         title = {
             Column {
                 Text(
@@ -46,14 +47,15 @@ fun KwikAppBar(
                     fontSize = 20.sp,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Start
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 if(subtitle != null){
                     Text(
                         text = subtitle,
                         fontSize = 14.sp,
                         maxLines = 2,
-                        color = Color.Gray,
+                        color = MaterialTheme.colorScheme.onSurface,
                         overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Start
                     )
@@ -66,7 +68,8 @@ fun KwikAppBar(
                 onClick = navigationClick
             ) {
                 KwikImageView(
-                    url = navigationIcon
+                    url = navigationIcon,
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         },

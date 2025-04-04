@@ -38,7 +38,6 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 internal fun ComponentsCatalogScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-
     val components = listOf(
         KwikListItemActionState.Data(
             KwikListItemAction(
