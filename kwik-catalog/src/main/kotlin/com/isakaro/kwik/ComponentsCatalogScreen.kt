@@ -1,15 +1,20 @@
 package com.isakaro.kwik
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -228,10 +233,22 @@ internal fun ComponentsCatalogScreen(
                 .padding(padding)
                 .padding(12.dp)
         ) {
-            KwikText.TitleText(
-                text = "Kwik Components Catalog",
-                style = MaterialTheme.typography.headlineMedium
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                KwikImageView(
+                    modifier = Modifier.size(40.dp),
+                    url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
+                )
+
+                KwikHSpacer(8)
+
+                KwikText.TitleText(
+                    text = "Kwik Components Catalog",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
 
             KwikVSpacer(24)
 

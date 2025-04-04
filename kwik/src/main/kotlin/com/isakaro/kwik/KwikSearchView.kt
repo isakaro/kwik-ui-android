@@ -159,7 +159,7 @@ fun KwikSearchView(
             leadingIcon = {
                 Icon(
                     Icons.Default.Search,
-                    tint = Color.DarkGray,
+                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                     contentDescription = "search",
                     modifier = Modifier.size(26.dp)
                 )
@@ -182,7 +182,7 @@ fun KwikSearchView(
                         ) {
                             Icon(
                                 Icons.Default.Close,
-                                tint = Color.DarkGray,
+                                tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                                 contentDescription = "clear all",
                                 modifier = Modifier.size(26.dp)
                             )

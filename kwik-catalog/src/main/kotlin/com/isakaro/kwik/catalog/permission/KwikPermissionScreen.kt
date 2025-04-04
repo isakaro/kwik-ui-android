@@ -109,11 +109,9 @@ internal fun KwikPermissionsScreen(
         ) {
             if(granted){
                 // perform action when permission is granted
-                Icon(
-                    modifier = Modifier.size(48.dp),
-                    painter = painterResource(id = R.drawable.shield),
-                    contentDescription = "Permission granted",
-                    tint = Color.Black
+                KwikImageView(
+                    modifier = Modifier.size(120.dp),
+                    url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
                 )
                 Text(
                     text = "Permission granted",
@@ -123,11 +121,9 @@ internal fun KwikPermissionsScreen(
                 /*
                 * perform action when permission is not granted
                 * */
-                Icon(
+                KwikImageView(
                     modifier = Modifier.size(120.dp),
-                    painter = painterResource(id = R.drawable.shield),
-                    contentDescription = "Permission not granted",
-                    tint = Color.Black
+                    url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
                 )
                 Text(
                     text = "Permission not granted",
@@ -140,7 +136,7 @@ internal fun KwikPermissionsScreen(
                     }
                 )
             }
-            
+
             KwikCheckBox(
                 text = "Mandatory",
                 checked = mandatory,

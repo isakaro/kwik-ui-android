@@ -20,7 +20,7 @@ object KwikText {
         fontWeight: FontWeight = FontWeight.Bold,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.titleMedium,
-        maxLines: Int = 1,
+        maxLines: Int = Int.MAX_VALUE,
     ) {
         when (text) {
             is String -> Text(
@@ -60,7 +60,7 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.bodyMedium,
-        maxLines: Int = 1
+        maxLines: Int = Int.MAX_VALUE
     ) {
         when (text) {
             is String -> Text(
