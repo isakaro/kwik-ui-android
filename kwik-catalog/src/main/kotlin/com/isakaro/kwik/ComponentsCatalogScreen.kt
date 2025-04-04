@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
@@ -80,7 +81,7 @@ internal fun ComponentsCatalogScreen(
                 title = "BottomSheet",
                 description = "Bottom sheet with support for multiple states",
                 action = {
-                    navigator.navigate(KwikBottomTabsScreenDestination)
+                    navigator.navigate(KwikBottomSheetScreenDestination)
                 }
             )
         ),

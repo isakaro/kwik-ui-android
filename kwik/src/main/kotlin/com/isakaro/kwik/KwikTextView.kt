@@ -53,7 +53,7 @@ object KwikText {
     fun BodyText(
         modifier: Modifier = Modifier,
         text: Any,
-        color: Color = Color.DarkGray,
+        color: Color = MaterialTheme.colorScheme.onSurface,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.bodyMedium,
     ) {

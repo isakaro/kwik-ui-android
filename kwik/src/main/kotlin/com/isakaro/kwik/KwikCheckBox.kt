@@ -77,7 +77,7 @@ fun KwikTriStateCheckBox(
         colors = CheckboxDefaults.colors(
             checkedColor = MaterialTheme.colorScheme.primary,
             uncheckedColor = Color.Gray,
-            checkmarkColor = Color.Black
+            checkmarkColor = Color.White
         ),
         onClick = { counter++ }
     )

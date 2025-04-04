@@ -1,12 +1,9 @@
 package com.isakaro.kwik.catalog
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,25 +21,30 @@ import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikVSpacer
 
 @Composable
-fun ShowCase(title: String, content: @Composable () -> Unit) {
-    Column {
+fun ShowCase(
+    title: String? = null,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         KwikVSpacer(16)
 
-        KwikText.TitleText(
-            style = MaterialTheme.typography.titleMedium,
-            text = title,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
+        if(title != null){
+            KwikText.TitleText(
+                style = MaterialTheme.typography.titleMedium,
+                text = title,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+
+        KwikVSpacer(4)
 
         content()
 
-        Box(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(MaterialTheme.colorScheme.onSurface)
-        )
+        KwikVSpacer(16)
     }
 }
 

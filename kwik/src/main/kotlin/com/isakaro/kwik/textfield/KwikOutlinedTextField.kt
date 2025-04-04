@@ -1,6 +1,7 @@
 package com.isakaro.kwik.textfield
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -149,9 +150,9 @@ fun KwikOutlinedTextField(
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = Color.Black,
-        cursorColor = Color.Black,
-        focusedContainerColor = Color.White,
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        cursorColor = MaterialTheme.colorScheme.primary,
+        focusedContainerColor = Color.Transparent,
         focusedLabelColor = Color.Gray,
         focusedPlaceholderColor = Color.Black,
         focusedBorderColor = Color.Gray,
@@ -164,7 +165,7 @@ fun KwikOutlinedTextField(
         errorBorderColor = MaterialTheme.colorScheme.error,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = Color.Black,
+        errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
     )
 ) {
@@ -257,14 +258,14 @@ fun KwikOutlinedTextField(
                         if(leadingIcon is Int){
                             Icon(
                                 painter = painterResource(id = leadingIcon),
-                                tint = Color.Black,
+                                tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                                 contentDescription = null,
                                 modifier = Modifier.size(25.dp)
                             )
                         } else if(leadingIcon is ImageVector) {
                             Icon(
                                 imageVector = leadingIcon,
-                                tint = Color.Black,
+                                tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                                 contentDescription = null,
                                 modifier = Modifier.size(25.dp)
                             )
@@ -283,7 +284,7 @@ fun KwikOutlinedTextField(
                     if(trailingIcon is Int){
                         Icon(
                             painter = painterResource(id = trailingIcon),
-                            tint = Color.Black,
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(25.dp)
@@ -294,7 +295,7 @@ fun KwikOutlinedTextField(
                     } else if(trailingIcon is ImageVector) {
                         Icon(
                             imageVector = trailingIcon,
-                            tint = Color.Black,
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(25.dp)

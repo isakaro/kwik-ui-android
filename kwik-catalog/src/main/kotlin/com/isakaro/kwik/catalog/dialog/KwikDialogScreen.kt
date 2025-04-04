@@ -170,7 +170,7 @@ internal fun KwikDialogScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(id = R.mipmap.ic_launcher),
+                        painter = painterResource(id = com.isakaro.kwik.R.drawable.shield),
                         tint = Color.Black,
                         contentDescription = "The eye",
                         modifier = Modifier.size(100.dp)

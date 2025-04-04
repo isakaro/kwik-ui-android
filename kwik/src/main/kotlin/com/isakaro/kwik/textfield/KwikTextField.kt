@@ -1,6 +1,7 @@
 package com.isakaro.kwik.textfield
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -146,8 +147,8 @@ fun KwikTextField(
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = Color.Black,
-        cursorColor = Color.Black,
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        cursorColor = MaterialTheme.colorScheme.primary,
         focusedContainerColor = KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
         focusedBorderColor = Color.Transparent,
@@ -155,7 +156,7 @@ fun KwikTextField(
         unfocusedContainerColor = KwikColorFilledTextFieldFocused,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = Color.Black,
+        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
         disabledBorderColor = Color.Transparent,
         disabledContainerColor = Color.LightGray,
         disabledTextColor = if(isEditable) Color.Unspecified else Color.Gray,
@@ -163,7 +164,7 @@ fun KwikTextField(
         errorBorderColor = Color.Transparent,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = Color.Black,
+        errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
     )
 ) {
@@ -206,7 +207,7 @@ fun KwikTextField(
             Text(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
-                color = Color.DarkGray,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.titleMedium
             )
@@ -268,14 +269,14 @@ fun KwikTextField(
                         if(leadingIcon is Int){
                             Icon(
                                 painter = painterResource(id = leadingIcon),
-                                tint = Color.Black,
+                                tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                                 contentDescription = null,
                                 modifier = Modifier.size(25.dp)
                             )
                         } else if(leadingIcon is ImageVector) {
                             Icon(
                                 imageVector = leadingIcon,
-                                tint = Color.Black,
+                                tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                                 contentDescription = null,
                                 modifier = Modifier.size(25.dp)
                             )
@@ -294,7 +295,7 @@ fun KwikTextField(
                     if(trailingIcon is Int){
                         Icon(
                             painter = painterResource(id = trailingIcon),
-                            tint = Color.Black,
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(25.dp)
@@ -305,7 +306,7 @@ fun KwikTextField(
                     } else if(trailingIcon is ImageVector) {
                         Icon(
                             imageVector = trailingIcon,
-                            tint = Color.Black,
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(25.dp)
@@ -329,13 +330,13 @@ fun KwikTextField(
                                     onValueChange(TextFieldValue(""))
                                 },
                             contentDescription = "Clear text",
-                            tint = Color.Black
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                         )
                     }
                     if(isLoading){
                         CircularProgressIndicator(
                             modifier = Modifier.size(30.dp),
-                            color = Color.Black
+                            color = if(isSystemInDarkTheme()) Color.White else Color.Black
                         )
                     }
                     if(isValid){
