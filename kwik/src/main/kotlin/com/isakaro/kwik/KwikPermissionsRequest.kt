@@ -37,6 +37,7 @@ import com.isakaro.kwik.lifecycle.KwikComposableLifeCycle
 import com.isakaro.kwik.theme.KwikColorWarning
 import com.isakaro.kwik.utils.activity
 import com.isakaro.kwik.utils.isPermissionGranted
+import java.util.UUID
 
 /**
  * A permission request dialog that can be used to request permissions from the user.
@@ -109,7 +110,7 @@ import com.isakaro.kwik.utils.isPermissionGranted
  * */
 @Composable
 fun KwikPermissionsRequest(
-    state: KwikPermissionRequestState,
+    state: KwikPermissionRequest,
     permissions: List<KwikPermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",
@@ -128,10 +129,7 @@ fun KwikPermissionsRequest(
     var arePermissionsGranted by remember { mutableStateOf(context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())) }
     var permissionsExplanationDialogVisible by remember { mutableStateOf(!arePermissionsGranted) }
     val appPackageName = LocalContext.current.packageName
-    var permissionRequestState = state
-    val permissionState by remember(permissionRequestState) {
-        derivedStateOf { state }
-    }
+    var permissionRequestState by remember { mutableStateOf(state) }
 
     fun evaluatePermissions(){
         arePermissionsGranted = context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())
@@ -141,10 +139,10 @@ fun KwikPermissionsRequest(
         } else {
             permissionsExplanationDialogVisible = true
         }
-        permissionRequestState = if(permissionRequestState == KwikPermissionRequestState.ShowRationale){
-            KwikPermissionRequestState.Requesting
+        permissionRequestState = if(permissionRequestState.state == KwikPermissionRequestState.ShowRationale){
+            KwikPermissionRequest(KwikPermissionRequestState.Requesting)
         } else {
-            KwikPermissionRequestState.Denied
+            KwikPermissionRequest(KwikPermissionRequestState.Denied)
         }
     }
 
@@ -161,14 +159,16 @@ fun KwikPermissionsRequest(
 
     KwikDialog.ContentDialog(
         open = permissionsExplanationDialogVisible,
-        cancellable = false,
+        cancellable = !mandatory,
         dismiss = {
+            permissionRequestState = KwikPermissionRequest(KwikPermissionRequestState.Denied)
             permissionsExplanationDialogVisible = false
+            onCancel()
         }
     ) {
         KwikPermissionRequest(
             permissions = permissions,
-            permissionRequestState = permissionState,
+            permissionRequestState = permissionRequestState,
             onPermissionRequestStateChange = { newState ->
                 permissionRequestState = newState
             },
@@ -211,7 +211,7 @@ fun KwikPermissionsRequest(
 
                 image()
 
-                if(permissionRequestState == KwikPermissionRequestState.Denied){
+                if(permissionRequestState.state == KwikPermissionRequestState.Denied){
                     KwikCard(
                         modifier = Modifier.padding(12.dp),
                         containerColor = KwikColorWarning
@@ -232,6 +232,7 @@ fun KwikPermissionsRequest(
                         KwikTextButton(
                             text = cancelText,
                             onClick = {
+                                permissionRequestState = KwikPermissionRequest(KwikPermissionRequestState.Denied)
                                 permissionsExplanationDialogVisible = false
                                 onCancel()
                             }
@@ -243,10 +244,10 @@ fun KwikPermissionsRequest(
                     KwikButton(
                         text = acceptText,
                         onClick = {
-                            if(permissionRequestState == KwikPermissionRequestState.Denied){
+                            if(permissionRequestState.state == KwikPermissionRequestState.Denied){
                                 context.showInstalledAppDetails(appPackageName)
                             } else {
-                                permissionRequestState = KwikPermissionRequestState.Requesting
+                                permissionRequestState = KwikPermissionRequest(KwikPermissionRequestState.Requesting)
                             }
                         }
                     )
@@ -256,13 +257,13 @@ fun KwikPermissionsRequest(
     }
 }
 
-fun MutableState<KwikPermissionRequestState>.requestPermissions() {
-    this.value = KwikPermissionRequestState.Requesting
+fun MutableState<KwikPermissionRequest>.requestPermissions() {
+    this.value = KwikPermissionRequest(KwikPermissionRequestState.Requesting)
 }
 
 @Composable
-fun rememberKwikPermissionState(): MutableState<KwikPermissionRequestState> {
-    return remember { mutableStateOf(KwikPermissionRequestState.Requesting) }
+fun rememberKwikPermissionState(): MutableState<KwikPermissionRequest> {
+    return remember { mutableStateOf(KwikPermissionRequest(KwikPermissionRequestState.Requesting)) }
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -299,8 +300,8 @@ data class KwikPermissionDto(
 @Composable
 internal fun KwikPermissionRequest(
     permissions: List<KwikPermissionDto>,
-    permissionRequestState: KwikPermissionRequestState,
-    onPermissionRequestStateChange: (KwikPermissionRequestState) -> Unit,
+    permissionRequestState: KwikPermissionRequest,
+    onPermissionRequestStateChange: (KwikPermissionRequest) -> Unit,
     onGrantAction: () -> Unit = {},
     onShowRationale: () -> Unit = {},
     onDeniedAction: () -> Unit = {},
@@ -331,11 +332,11 @@ internal fun KwikPermissionRequest(
                 KwikPermissionRequestState.Denied
             }
         }
-        onPermissionRequestStateChange(newState)
+        onPermissionRequestStateChange(KwikPermissionRequest(newState))
     }
 
     LaunchedEffect(permissionRequestState) {
-        when(permissionRequestState) {
+        when(permissionRequestState.state) {
             KwikPermissionRequestState.Requesting -> {
                 getPermission.launch(permissionList)
             }
@@ -352,6 +353,11 @@ internal fun KwikPermissionRequest(
     }
 
 }
+
+data class KwikPermissionRequest(
+    val state: KwikPermissionRequestState,
+    val id: UUID = UUID.randomUUID()
+)
 
 sealed class KwikPermissionRequestState {
     data object Requesting: KwikPermissionRequestState()
