@@ -21,7 +21,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun CheckBoxScreen(
+internal fun KwikCheckBoxScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -66,8 +66,8 @@ internal fun CheckBoxScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikCheckBoxScreen() {
     KwikTheme {
-        CheckBoxScreen()
+        KwikCheckBoxScreen()
     }
 }

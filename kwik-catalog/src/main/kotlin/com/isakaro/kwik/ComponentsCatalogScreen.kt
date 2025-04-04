@@ -14,11 +14,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikCardScreenDestination
+import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
 import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
+import com.isakaro.kwik.destinations.KwikDialogScreenDestination
+import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
+import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
+import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikSliderScreenDestination
+import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -43,7 +54,7 @@ internal fun ComponentsCatalogScreen(
                 title = "Permissions",
                 description = "Easy-to-use Permission handler",
                 action = {
-
+                    navigator.navigate(KwikPermissionsScreenDestination)
                 }
             )
         ),
@@ -69,70 +80,90 @@ internal fun ComponentsCatalogScreen(
             KwikListItemAction(
                 title = "BottomSheet",
                 description = "Bottom sheet with support for multiple states",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikBottomTabsScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Bottom Navigation",
+                title = "Bottom Tabs Navigation",
                 description = "Bottom navigation bar for modern apps",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikBottomTabsScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Card",
                 description = "Card component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikCardScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "CheckBox",
                 description = "Checkbox component which includes tri-state ability",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikCheckBoxScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Dialog",
                 description = "Dialog component for handling various scenarios",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikDialogScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "DropDown",
                 description = "Dropdown component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikDropDownScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Progress Indicator",
                 description = "Linear and circular progress indicators",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikProgressIndicatorScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Radio Button",
                 description = "Radio button component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikRadioButtonScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Slider",
                 description = "Slider component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikSliderScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Toast",
                 description = "Modern toast component",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikToastScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
@@ -140,6 +171,7 @@ internal fun ComponentsCatalogScreen(
                 title = "Switch",
                 description = "Switch component",
                 action = {
+                    navigator.navigate(KwikSwitchScreenDestination)
                 }
             )
         ),
