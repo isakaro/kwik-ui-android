@@ -24,7 +24,6 @@ import com.isakaro.kwik.catalog.tabs.KwikTabScreen
 import com.isakaro.kwik.catalog.textfield.KwikOutlinedTextFieldScreen
 import com.isakaro.kwik.catalog.textfield.KwikTextFieldScreen
 import com.isakaro.kwik.catalog.toast.KwikToastScreen
-import com.isakaro.kwik.destinations.ComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
@@ -32,6 +31,7 @@ import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
+import com.isakaro.kwik.destinations.KwikComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
@@ -74,10 +74,10 @@ class MainActivity: ComponentActivity() {
                         engine = engine,
                         navGraph = NavGraphs.root,
                         navController = navController,
-                        startRoute = ComponentsCatalogScreenDestination,
+                        startRoute = KwikComponentsCatalogScreenDestination,
                     ) {
-                        composable(ComponentsCatalogScreenDestination) {
-                            ComponentsCatalogScreen()
+                        composable(KwikComponentsCatalogScreenDestination) {
+                            KwikComponentsCatalogScreen()
                         }
                         composable(KwikAccordionScreenDestination) {
                             KwikAccordionScreen()

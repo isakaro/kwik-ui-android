@@ -69,10 +69,10 @@ fun KwikLazyList(
         ) { index, item ->
             when(item){
                 is KwikListItemActionState.Space -> {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    KwikVSpacer(16)
                 }
                 is KwikListItemActionState.Header -> {
-                    Text(
+                    KwikText.TitleText(
                         text = item.title,
                         style = MaterialTheme.typography.titleMedium
                     )
@@ -102,7 +102,8 @@ fun KwikListActionItem(
     Row(
         modifier = Modifier
             .clickable(onClick = onClick)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
