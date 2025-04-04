@@ -71,7 +71,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        Text("Content", color = Color.Black)
+                        Text("Content", color = Color.White)
                     }
                 }
             }

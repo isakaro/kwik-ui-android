@@ -1,7 +1,13 @@
 package com.isakaro.kwik
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -15,11 +21,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,8 +35,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import com.isakaro.kwik.lifecycle.KwikComposableLifeCycle
 import com.isakaro.kwik.theme.KwikColorWarning
+import com.isakaro.kwik.utils.activity
 import com.isakaro.kwik.utils.isPermissionGranted
 
 /**
@@ -238,7 +246,7 @@ fun MutableState<KwikPermissionRequestState>.requestPermissions() {
 
 @Composable
 fun rememberKwikPermissionState(): MutableState<KwikPermissionRequestState> {
-    return rememberSaveable { mutableStateOf(KwikPermissionRequestState.Requesting) }
+    return remember { mutableStateOf(KwikPermissionRequestState.Requesting) }
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -252,4 +260,94 @@ private fun KwikPermissionRequestPreview() {
         permissions = listOf(KwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
         title = "Notifications"
     )
+}
+
+/**
+ * @param @[String] [permission] the permission to be requested
+ * @param @[String] [rationaleMessage] the message to show when the user denies the permission but can still show rationale
+ * */
+data class KwikPermissionDto(
+    val permission: String,
+    val rationaleMessage: String
+)
+
+/**
+ * allows to request permissions from the user and handle every possible scenario in one place
+ * @param permissions the permissions to be requested and their rationale
+ * @param permissionRequestState the current state of the permission request
+ * @param onPermissionRequestStateChange callback to handle the state change of the permission request
+ * @param onGrantAction optional action that can be performed when the user grants the permission
+ * @param onShowRationale optional action that can be performed when the user denies the permission but can still show rationale
+ * @param onDeniedAction optional action that can be performed when the user denies the permission and can't show rationale
+ * */
+@Composable
+internal fun KwikPermissionRequest(
+    permissions: List<KwikPermissionDto>,
+    permissionRequestState: MutableState<KwikPermissionRequestState>,
+    onPermissionRequestStateChange: (KwikPermissionRequestState) -> Unit,
+    onGrantAction: () -> Unit = {},
+    onShowRationale: () -> Unit = {},
+    onDeniedAction: () -> Unit = {},
+) {
+    val permissionList = permissions.map { it.permission }.toTypedArray()
+    val context = LocalContext.current.activity()
+
+    // since we have a list of permissions, we grab the first one that was denied but can still show rationale
+    fun permissionForRationale(): String? {
+        return permissionList.find { shouldShowRequestPermissionRationale(context, it) }
+    }
+
+    fun canShowRationale(): Boolean {
+        return permissionForRationale() != null
+    }
+
+    val getPermission = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { grantedPermissionsMap ->
+        val newState = when {
+            grantedPermissionsMap.all { it.value } -> {
+                KwikPermissionRequestState.Granted
+            }
+            (grantedPermissionsMap.any { !it.value } && canShowRationale()) -> {
+                KwikPermissionRequestState.ShowRationale
+            }
+            else -> {
+                KwikPermissionRequestState.Denied
+            }
+        }
+        onPermissionRequestStateChange(newState)
+    }
+
+    LaunchedEffect(permissionRequestState.value) {
+        when(permissionRequestState.value) {
+            KwikPermissionRequestState.Requesting -> {
+                getPermission.launch(permissionList)
+            }
+            KwikPermissionRequestState.Granted -> {
+                onGrantAction()
+            }
+            KwikPermissionRequestState.ShowRationale -> {
+                onShowRationale()
+            }
+            KwikPermissionRequestState.Denied -> {
+                onDeniedAction()
+            }
+        }
+    }
+
+}
+
+sealed class KwikPermissionRequestState {
+    data object Requesting: KwikPermissionRequestState()
+    data object Granted: KwikPermissionRequestState()
+    data object ShowRationale: KwikPermissionRequestState()
+    data object Denied: KwikPermissionRequestState()
+}
+
+internal fun Context.showInstalledAppDetails(appPackageName: String) {
+    val intent = Intent()
+    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+    val uri = Uri.fromParts("package", appPackageName, null)
+    intent.data = uri
+    startActivity(intent)
 }

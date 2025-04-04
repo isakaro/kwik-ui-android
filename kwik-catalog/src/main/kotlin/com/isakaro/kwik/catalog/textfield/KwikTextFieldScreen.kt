@@ -93,7 +93,7 @@ internal fun KwikTextFieldScreen(
                 }
             )
         }
-        ShowCase(title = "Phone number field") {
+        ShowCase(title = "") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("")
