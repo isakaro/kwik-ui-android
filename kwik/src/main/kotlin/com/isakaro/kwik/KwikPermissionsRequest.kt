@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -38,7 +39,7 @@ import com.isakaro.kwik.utils.isPermissionGranted
 
 /**
  * A permission request dialog that can be used to request permissions from the user.
- * @param state: The state of the permisison request. Can be [KwikPermissionRequestState.Requesting], [KwikPermissionRequestState.Granted], [KwikPermissionRequestState.ShowRationale], or [KwikPermissionRequestState.Denied].
+ * @param state: The state of the permission request. Can be [KwikPermissionRequestState.Requesting], [KwikPermissionRequestState.Granted], [KwikPermissionRequestState.ShowRationale], or [KwikPermissionRequestState.Denied].
  * @param permissions: The list of permissions to request.
  * @param title: The title of the dialog.
  * @param deniedPermanentlyMessage: The message to display when the user denies the permission permanently.
@@ -46,12 +47,11 @@ import com.isakaro.kwik.utils.isPermissionGranted
  * @param image: The image to display in the center of the dialog.
  * @param onGrantAction: The action to perform when the user grants the permission.
  * @param onDeniedAction: The action to perform when the user denies the permission.
- * @param onCancel: The action to perform when the user cancels the dialog.
- * @param mandatory: If true, the dialog will not be cancellable. Defaults to false.
- * @param unSkippable: If true, there won't be a "Later" button. Meaning the user will only have the option to enable the permission. They won't be able to cancel the dialog. Defaults to false.
- * @param cancelText: The text to display on the cancel button. Defaults to "Cancel".
- * @param confirmText: The text to display on the confirm button. Defaults to "Enable".
- * @param laterText: The text to display on the later button. Defaults to "Later".
+ * @param onCancel: The action to perform when the user cancels the dialog. This isn't available when [mandatory] is true.
+ * @param mandatory: If true, there won't be a "Cancel" button. They won't be able to cancel the dialog. Additionally, the user will only have the option to grant the permission.
+ * Defaults to false. Useful when the permission is mandatory for the app to work and the user will choose to grant the permission or quit the app.
+ * @param acceptText: The text to display on the confirm button. Defaults to "Enable".
+ * @param cancelText: The text to display on the later button. Defaults to "Later".
  *
  * Example usage:
  * ```
@@ -62,9 +62,6 @@ import com.isakaro.kwik.utils.isPermissionGranted
  *    permissions = listOf(KwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")),
  *    title = "Permissions",
  *    deniedPermanentlyMessage = "Permission required. Go to settings to enable",
- *    logo = R.drawable.logo,
- *    icon = R.drawable.shield,
- *    iconTint = Color.Black,
  *    onGrantAction = {
  *      // Handle permission granted
  *    },
@@ -75,7 +72,38 @@ import com.isakaro.kwik.utils.isPermissionGranted
  *      // Handle dialog cancel
  *    },
  *    mandatory = true
- * )
+ * ){
+ *  // you can provide your content here or use the default ones like below
+ * }
+ * ```
+ *
+ * Using the default content:
+ *
+ * ```
+ * KwikPermissionsRequest(
+ *    state = state,
+ *    permissions = listOf(KwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")),
+ *    title = "Permissions",
+ *    deniedPermanentlyMessage = "Permission required. Go to settings to enable",
+ *    onGrantAction = {
+ *    // Handle permission granted
+ *    },
+ *    onDeniedAction = {
+ *    // Handle permission denied
+ *    },
+ *    onCancel = {
+ *    // Handle dialog cancel
+ *    },
+ *    mandatory = true,
+ *    logo = {
+ *    KwikImageView(
+ *      url = yourLogoResource
+ *    ),
+ *    image = {
+ *    KwikImageView(
+ *      url = yourImageResource
+ *    )
+ *)
  * ```
  * */
 @Composable
@@ -90,10 +118,9 @@ fun KwikPermissionsRequest(
     onDeniedAction: () -> Unit = {},
     onCancel: () -> Unit = {},
     mandatory: Boolean = false,
-    unSkippable: Boolean = false,
+    acceptText: String = "Enable",
     cancelText: String = "Cancel",
-    confirmText: String = "Enable",
-    laterText: String = "Later",
+    content: @Composable (() -> Unit)? = null
 ) {
 
     val context = LocalContext.current
@@ -102,18 +129,29 @@ fun KwikPermissionsRequest(
     val appPackageName = LocalContext.current.packageName
     var permissionRequestState by remember { mutableStateOf(state.value) }
 
+    fun evaluatePermissions(){
+        arePermissionsGranted = context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())
+        if(arePermissionsGranted){
+            permissionsExplanationDialogVisible = false
+            onGrantAction()
+        } else {
+            permissionsExplanationDialogVisible = true
+        }
+        if(permissionRequestState == KwikPermissionRequestState.ShowRationale){
+            permissionRequestState = KwikPermissionRequestState.Requesting
+        } else {
+            permissionRequestState = KwikPermissionRequestState.Denied
+        }
+    }
+
+    LaunchedEffect(state.value) {
+        permissionRequestState = state.value
+        evaluatePermissions()
+    }
+
     KwikComposableLifeCycle(
         onResume = {
-            arePermissionsGranted = context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())
-            if(arePermissionsGranted){
-                permissionsExplanationDialogVisible = false
-                onGrantAction()
-            } else {
-                permissionsExplanationDialogVisible = true
-            }
-            if(permissionRequestState == KwikPermissionRequestState.ShowRationale){
-                permissionRequestState = KwikPermissionRequestState.Requesting
-            }
+            evaluatePermissions()
         }
     )
 
@@ -139,50 +177,54 @@ fun KwikPermissionsRequest(
             }
         )
 
-        Column(
-            modifier = Modifier.padding(12.dp).fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(
-                space = 8.dp,
-                alignment = Alignment.CenterVertically
-            )
-        ) {
-            logo()
+        if(content != null){
+            content.invoke()
+        } else {
+            Column(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(
+                    space = 8.dp,
+                    alignment = Alignment.CenterVertically
+                )
+            ) {
+                logo()
 
-            KwikText.TitleText(
-                text = title,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
-            )
+                KwikText.TitleText(
+                    text = title,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-            KwikText.TitleText(
-                text = permissions.firstOrNull()?.rationaleMessage ?: "Grant required permissions",
-                textAlign = TextAlign.Center
-            )
+                KwikText.TitleText(
+                    text = permissions.firstOrNull()?.rationaleMessage ?: "Grant required permissions",
+                    textAlign = TextAlign.Center
+                )
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
-            image()
+                image()
 
-            if(permissionRequestState == KwikPermissionRequestState.Denied){
-                KwikCard(
-                    modifier = Modifier.padding(12.dp),
-                    containerColor = KwikColorWarning
-                ) {
-                    KwikText.TitleText(
+                if(permissionRequestState == KwikPermissionRequestState.Denied){
+                    KwikCard(
                         modifier = Modifier.padding(12.dp),
-                        text = deniedPermanentlyMessage,
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
+                        containerColor = KwikColorWarning
+                    ) {
+                        KwikText.TitleText(
+                            modifier = Modifier.padding(12.dp),
+                            text = deniedPermanentlyMessage,
+                            textAlign = TextAlign.Center,
+                            color = Color.White
+                        )
+                    }
                 }
-            }
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
-            Row {
-                if(!unSkippable){
-                    if(mandatory){
+                Row {
+                    if(!mandatory){
                         KwikTextButton(
                             text = cancelText,
                             onClick = {
@@ -190,29 +232,21 @@ fun KwikPermissionsRequest(
                                 onCancel()
                             }
                         )
-                    } else {
-                        KwikTextButton(
-                            text = laterText,
-                            onClick = {
-                                permissionsExplanationDialogVisible = false
-                                onDeniedAction()
+                    }
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    KwikButton(
+                        text = acceptText,
+                        onClick = {
+                            if(permissionRequestState == KwikPermissionRequestState.Denied){
+                                context.showInstalledAppDetails(appPackageName)
+                            } else {
+                                permissionRequestState = KwikPermissionRequestState.Requesting
                             }
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                KwikButton(
-                    text = confirmText,
-                    onClick = {
-                        if(permissionRequestState == KwikPermissionRequestState.Denied){
-                            context.showInstalledAppDetails(appPackageName)
-                        } else {
-                            permissionRequestState = KwikPermissionRequestState.Requesting
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }

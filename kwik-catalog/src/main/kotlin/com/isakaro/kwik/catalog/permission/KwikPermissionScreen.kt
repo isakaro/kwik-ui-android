@@ -2,6 +2,7 @@ package com.isakaro.kwik.catalog.permission
 
 import android.Manifest
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,7 +62,6 @@ internal fun KwikPermissionsScreen(
     ) {
         KwikPermissionsRequest(
             state = permissionState,
-            mandatory = true,
             permissions = when {
                 Build.VERSION.SDK_INT >= 33 -> {
                     listOf(
@@ -78,11 +78,13 @@ internal fun KwikPermissionsScreen(
             title = "Media access required",
             logo = {
                 KwikImageView(
-                    url = com.isakaro.Kwik.catalog.R.mipmap.ic_launcher
+                    modifier = Modifier.size(50.dp),
+                    url = R.drawable.shield
                 )
             },
             image = {
                 KwikImageView(
+                    modifier = Modifier.size(120.dp),
                     url = Icons.Default.Build
                 )
             },
@@ -123,10 +125,10 @@ internal fun KwikPermissionsScreen(
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.spacedBy(12.dp, alignment = Alignment.CenterVertically)
             ) {
                 Icon(
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(120.dp),
                     painter = painterResource(id = R.drawable.shield),
                     contentDescription = "Permission not granted",
                     tint = Color.Black
