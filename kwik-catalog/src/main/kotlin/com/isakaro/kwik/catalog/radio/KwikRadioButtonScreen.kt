@@ -18,7 +18,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun RadioButtonScreen(
+internal fun KwikRadioButtonScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -86,8 +86,8 @@ internal fun RadioButtonScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikRadioButtonScreen() {
     KwikTheme {
-        RadioButtonScreen()
+        KwikRadioButtonScreen()
     }
 }

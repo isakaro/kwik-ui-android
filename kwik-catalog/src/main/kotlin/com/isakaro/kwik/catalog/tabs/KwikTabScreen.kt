@@ -1,5 +1,6 @@
 package com.isakaro.kwik.catalog.tabs
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,19 +24,31 @@ internal fun KwikTabScreen(
             title = "Muraho",
             icon = R.drawable.qr_code_scanner
         ){
-            Text(text = "Muraho")
+            Column {
+                repeat(5) {
+                    Text(text = "Muraho")
+                }
+            }
         },
         KwikTabItem(
             title = "Hello",
             icon = R.drawable.qr_code_scanner
         ){
-            Text(text = "Hello")
+            Column {
+                repeat(5) {
+                    Text(text = "Hello")
+                }
+            }
         },
         KwikTabItem(
             title = "Jambo",
             icon = R.drawable.qr_code_scanner
         ){
-            Text(text = "Jambo")
+            Column {
+                repeat(5) {
+                    Text(text = "Jambo")
+                }
+            }
         }
     )
 

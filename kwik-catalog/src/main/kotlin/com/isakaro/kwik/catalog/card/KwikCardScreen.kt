@@ -22,7 +22,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun CardScreen(
+internal fun KwikCardScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -57,5 +57,5 @@ internal fun CardScreen(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewStartScreen() {
-    CardScreen()
+    KwikCardScreen()
 }

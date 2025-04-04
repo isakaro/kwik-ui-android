@@ -36,7 +36,7 @@ import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-internal fun PermissionsScreen(
+internal fun KwikPermissionsScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
 
@@ -133,8 +133,8 @@ internal fun PermissionsScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikPermissionsScreen() {
     KwikTheme {
-        PermissionsScreen()
+        KwikPermissionsScreen()
     }
 }

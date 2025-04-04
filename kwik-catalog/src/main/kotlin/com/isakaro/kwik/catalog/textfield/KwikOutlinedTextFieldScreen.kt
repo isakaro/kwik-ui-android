@@ -3,7 +3,6 @@ package com.isakaro.kwik.catalog.textfield
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,29 +16,29 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.Kwik.catalog.R
-import com.isakaro.kwik.toast.KwikToast
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.KwikToast
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.inputfields.KwikOutlinedOTP
-import com.isakaro.kwik.toast.rememberKwikToastState
-import com.isakaro.kwik.toast.showToast
-import com.isakaro.kwik.inputfields.KwikOutlinedPhoneNumberField
-import com.isakaro.kwik.inputfields.KwikOutlinedTextField
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.rememberKwikToastState
+import com.isakaro.kwik.showToast
+import com.isakaro.kwik.textfield.KwikOutlinedOTP
+import com.isakaro.kwik.textfield.KwikOutlinedPhoneNumberField
+import com.isakaro.kwik.textfield.KwikOutlinedTextField
+import com.isakaro.kwik.theme.Theme.KwikTheme
 import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination
 internal fun KwikOutlinedTextFieldScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val kwikToastState = rememberKwikToastState()
+    var isPhoneNumberValid by remember { mutableStateOf(false) }
 
     KwikToast(state = kwikToastState)
 
@@ -57,17 +56,17 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Username",
                 maxLength = 35,
+                imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
         ShowCase(title = "Password field") {
@@ -78,18 +77,18 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                visualTransformation = PasswordVisualTransformation(),
                 placeholder = "Password",
                 maxLength = 35,
+                imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
+                visualTransformation = PasswordVisualTransformation(),
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
 
@@ -99,12 +98,11 @@ internal fun KwikOutlinedTextFieldScreen(
                     TextFieldValue("")
                 )
             }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikOutlinedPhoneNumberField(
                 initialCountryInfo = countryList.random(),
                 value = text,
-                label = "Phone number",
+                placeholder = "Phone number",
                 isValid = isPhoneNumberValid,
                 onValueChange = {
                     text.value = it
@@ -112,78 +110,8 @@ internal fun KwikOutlinedTextFieldScreen(
                     isPhoneNumberValid = it.text.length >= 8
                 },
                 onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
+                    kwikToastState.showToast("Selected country: ${country.name}")
                 }
-            )
-        }
-
-        ShowCase(title = "With flags") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
-
-            KwikOutlinedPhoneNumberField(
-                initialCountryInfo = countryList.random(),
-                value = text,
-                showFlags = true,
-                label = "Phone number",
-                isValid = isPhoneNumberValid,
-                onValueChange = {
-                    text.value = it
-                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
-                    isPhoneNumberValid = it.text.length >= 8
-                },
-                onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
-                }
-            )
-        }
-
-        ShowCase(title = "With flag and country code") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-            var isPhoneNumberValid by remember { mutableStateOf(false) }
-
-            KwikOutlinedPhoneNumberField(
-                initialCountryInfo = countryList.random(),
-                value = text,
-                showFlags = true,
-                showCountryCode = true,
-                label = "Phone number",
-                isValid = isPhoneNumberValid,
-                onValueChange = {
-                    text.value = it
-                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
-                    isPhoneNumberValid = it.text.length >= 8
-                },
-                onCountrySelected = { country ->
-                    kwikToastState.showToast("Country selected: ${country.name}")
-                }
-            )
-        }
-
-        ShowCase(title = "Field with suggestions") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-
-            KwikOutlinedTextField(
-                value = text,
-                onValueChange = {
-                    text.value = it
-                },
-                showClearTextButton = true,
-                placeholder = "Enter address",
-                suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
-                error = "Incorrect address",
             )
         }
 
@@ -195,18 +123,18 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                placeholder = "Address",
                 isError = true,
+                placeholder = "Address",
                 maxLength = 35,
+                imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
 
@@ -218,36 +146,18 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
+                imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 enabled = false,
-                imeAction = ImeAction.Done
-            )
-        }
-
-        ShowCase(title = "Field with custom shape") {
-            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(
-                    TextFieldValue("")
-                )
-            }
-
-            KwikOutlinedTextField(
-                value = text,
-                onValueChange = {
-                    text.value = it
-                },
-                placeholder = "Address",
-                shape = MaterialTheme.shapes.extraLarge,
-                maxLength = 35
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
 
@@ -269,18 +179,18 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
+                isTextCounterShown = true,
                 imeAction = ImeAction.Done,
-                isTextCounterShown = true
+                keyboardType = KeyboardType.Text,
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
         ShowCase(title = "Field with Hint") {
@@ -291,18 +201,18 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
+                hint = "This is a hint",
                 imeAction = ImeAction.Done,
-                hint = "This is a hint"
+                keyboardType = KeyboardType.Text,
+                onKeyboardDone = {
+                    kwikToastState.showToast("keyboard done")
+                }
             )
         }
         ShowCase(title = "Field with leading icon") {
@@ -313,19 +223,19 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text,
                 leadingIcon = Icons.Default.Search,
-                showClearTextButton = true
+                isClearTextBtnShown = true,
+                onKeyboardDone = {
+
+                }
             )
         }
         ShowCase(title = "Field with valid input") {
@@ -336,19 +246,19 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text,
                 isValid = true,
-                showClearTextButton = true
+                isClearTextBtnShown = true,
+                onKeyboardDone = {
+
+                }
             )
         }
 
@@ -360,21 +270,21 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
+                placeholder = "Address",
+                maxLength = 35,
+                imeAction = ImeAction.Done,
+                trailingIcon = R.drawable.qr_code_scanner,
+                keyboardType = KeyboardType.Text,
                 onActionClick = {
                     Toast.makeText(context, "I've been clicked ;)", Toast.LENGTH_SHORT).show()
                 },
-                placeholder = "Address",
-                maxLength = 35,
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done,
-                trailingIcon = R.drawable.qr_code_scanner
+                onKeyboardDone = {
+
+                }
             )
         }
 
@@ -386,20 +296,20 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
                 placeholder = "Address",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
                 isValid = true,
-                showClearTextButton = true,
-                isLoading = true
+                isLoading = true,
+                keyboardType = KeyboardType.Text,
+                isClearTextBtnShown = true,
+                onKeyboardDone = {
+
+                }
             )
         }
 
@@ -411,19 +321,19 @@ internal fun KwikOutlinedTextFieldScreen(
             }
 
             KwikOutlinedTextField(
-                onKeyboardDone = {
-
-                },
                 value = text,
                 onValueChange = {
                     text.value = it
                 },
-                isBigTextField = true,
                 placeholder = "Description",
                 maxLength = 200,
-                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Default,
-                showClearTextButton = true
+                keyboardType = KeyboardType.Text,
+                isClearTextBtnShown = true,
+                isBigTextField = true,
+                onKeyboardDone = {
+
+                }
             )
         }
 

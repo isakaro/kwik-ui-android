@@ -12,9 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
+import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
+import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -135,35 +139,44 @@ internal fun ComponentsCatalogScreen(
             KwikListItemAction(
                 title = "Switch",
                 description = "Switch component",
-                action = {  }
+                action = {
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "TextField (Outlined)",
                 description = "Powerful OutlinedTextField component that handles most use cases",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikOutlinedTextFieldScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "TextField (Filled)",
                 description = "Powerful TextField component that handles most use cases",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikTextFieldScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Accordion",
                 description = "Accordion component for expandable content",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikAccordionScreenDestination)
+                }
             )
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Date range picker",
                 description = "Date range picker component using Material3 DatePicker underneath",
-                action = {  }
+                action = {
+                    navigator.navigate(KwikDateRangePickerScreenDestination)
+                }
             )
         )
     ).sortedBy { it.action.title }

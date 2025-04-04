@@ -14,7 +14,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun SwitchScreen(
+internal fun KwikSwitchScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -36,8 +36,8 @@ internal fun SwitchScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikScreen() {
     KwikTheme {
-        SwitchScreen()
+        KwikSwitchScreen()
     }
 }

@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikAccordion
+import com.isakaro.kwik.KwikAccordionGroup
+import com.isakaro.kwik.KwikAccordionItem
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
@@ -133,6 +135,26 @@ internal fun KwikAccordionScreen(
                     }
                 }
             }
+        }
+
+        ShowCase(title = "According group") {
+            val items = listOf(
+                KwikAccordionItem("Tortuga", "A lawless island for pirates to hide and do business"),
+                KwikAccordionItem("Isla de Muerta", "Can only be found by those who already know where it is"),
+                KwikAccordionItem("Davy Jones' Locker", "You don't want to end up there, trust me"),
+            )
+
+            KwikAccordionGroup(
+                items = items,
+                titleProvider = { it.title },
+                containerColor = Color.White,
+                elevation = 2,
+                headerTextColor = Color.Black,
+                errorProvider = { it.hasError },
+                content = { item ->
+                    Text(text = item.content, modifier = Modifier.padding(16.dp))
+                }
+            )
         }
     }
 }

@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun SliderScreen(
+internal fun KwikSliderScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -36,8 +36,8 @@ internal fun SliderScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikSliderScreen() {
     KwikTheme {
-        SliderScreen()
+        KwikSliderScreen()
     }
 }

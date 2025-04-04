@@ -52,7 +52,7 @@ import kotlinx.coroutines.launch
 @Composable
 @Destination
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-internal fun BottomNavScreen(
+internal fun KwikBottomTabsScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     var selectedScreenRoute by remember { mutableStateOf("") }
@@ -184,8 +184,8 @@ val navItems = listOf(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikBottomTabsScreen() {
     KwikTheme {
-        BottomNavScreen()
+        KwikBottomTabsScreen()
     }
 }

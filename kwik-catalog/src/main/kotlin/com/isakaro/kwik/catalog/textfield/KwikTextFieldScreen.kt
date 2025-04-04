@@ -32,7 +32,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun TextFieldScreen(
+internal fun KwikTextFieldScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     val context = LocalContext.current
@@ -352,8 +352,8 @@ internal fun TextFieldScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikTextFieldScreen() {
     KwikTheme {
-        TextFieldScreen()
+        KwikTextFieldScreen()
     }
 }

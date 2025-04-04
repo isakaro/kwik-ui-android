@@ -29,7 +29,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-internal fun DropDownScreen(
+internal fun KwikDropDownScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     ShowCaseContainer(
@@ -66,6 +66,6 @@ internal fun DropDownScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
-    DropDownScreen()
+private fun PreviewDropDownScreen() {
+    KwikDropDownScreen()
 }

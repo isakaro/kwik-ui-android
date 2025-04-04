@@ -5,9 +5,11 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -17,13 +19,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.util.Collections.addAll
 
 /**
  * Accordion component that can be expanded or collapsed.
@@ -142,3 +149,129 @@ private fun KwikAccordionHeader(
         }
     }
 }
+
+/**
+ * Data class representing an item in the accordion.
+ * Contains a title, content, and an optional error state.
+ *
+ * @param title: The title of the accordion item.
+ * @param content: The content of the accordion item.
+ * @param hasError: If true, the item will display an error state.
+* */
+data class KwikAccordionItem(val title: String, val content: String, val hasError: Boolean = false)
+
+/**
+ * AccordionGroup component that manages a group of accordions.
+ * Can be configured to allow multiple accordions to be expanded at once or only one at a time.
+ *
+ * @param allowMultipleExpanded: If true, multiple accordions can be expanded at once. If false, only one accordion can be expanded at a time.
+ * @param initialExpandedIndices: List of indices that should be expanded initially.
+ * @param items: List of items to create accordions for.
+ * @param titleProvider: Function to extract the title from an item.
+ * @param headerIconProvider: Function to extract the header icon from an item (optional).
+ * @param containerColor: The color of the accordion containers.
+ * @param elevation: The elevation of the accordions.
+ * @param headerTextColor: The color of the titles.
+ * @param errorProvider: Function to determine if an item should display an error (optional).
+ * @param errorIconProvider: Function to extract the error icon from an item (optional).
+ * @param contentProvider: Function to provide the content for each accordion.
+ *
+ * Example usage:
+ * ```
+ * val items = listOf(
+ *    AccordionItem("First Item", "Content for first item"),
+ *    AccordionItem("Second Item", "Content for second item", true),
+ *    AccordionItem("Third Item", "Content for third item")
+ * )
+ *
+ * KwikAccordionGroup(
+ *    allowMultipleExpanded = false,
+ *    initialExpandedIndices = listOf(0),
+ *    items = items,
+ *    titleProvider = { it.title },
+ *    containerColor = Color.White,
+ *    elevation = 8,
+ *    headerTextColor = Color.Black,
+ *    errorProvider = { it.hasError },
+ *    errorIcon = R.drawable.error_icon
+ * ) { item ->
+ *    Text(text = item.content, modifier = Modifier.padding(16.dp))
+ * }
+ * ```
+ */
+@Composable
+fun <T> KwikAccordionGroup(
+    allowMultipleExpanded: Boolean = true,
+    initialExpandedIndices: List<Int> = emptyList(),
+    items: List<T>,
+    titleProvider: (T) -> String,
+    headerIconProvider: ((T) -> Int?)? = null,
+    containerColor: Color = Color.White,
+    elevation: Int = 8,
+    headerTextColor: Color = Color.Black,
+    errorProvider: ((T) -> Boolean)? = null,
+    @DrawableRes errorIcon: Int? = null,
+    content: @Composable (T) -> Unit
+) {
+    val expandedItems = rememberSaveable {
+        mutableStateListOf<Int>().apply {
+            addAll(initialExpandedIndices)
+        }
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items.forEachIndexed { index, item ->
+            val isExpanded = index in expandedItems
+            val isError = errorProvider?.invoke(item) ?: false
+
+            KwikAccordion(
+                title = titleProvider(item),
+                headerIcon = headerIconProvider?.invoke(item),
+                containerColor = containerColor,
+                elevation = elevation,
+                expanded = isExpanded,
+                headerTextColor = headerTextColor,
+                isError = isError,
+                errorIcon = errorIcon,
+                onExpandedChange = { expanded ->
+                    if (expanded) {
+                        if (!allowMultipleExpanded) {
+                            expandedItems.clear()
+                        }
+                        expandedItems.add(index)
+                    } else {
+                        expandedItems.remove(index)
+                    }
+                }
+            ) {
+                content(item)
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewKwikAccordionGroup() {
+    val items = listOf(
+        KwikAccordionItem("First Item", "Content for first item"),
+        KwikAccordionItem("Second Item", "Content for second item", true),
+        KwikAccordionItem("Third Item", "Content for third item")
+    )
+
+    KwikAccordionGroup(
+        items = items,
+        titleProvider = { it.title },
+        containerColor = Color.White,
+        elevation = 2,
+        headerTextColor = Color.Black,
+        errorProvider = { it.hasError },
+        content = { item ->
+            Text(text = item.content, modifier = Modifier.padding(16.dp))
+        }
+    )
+}
+
