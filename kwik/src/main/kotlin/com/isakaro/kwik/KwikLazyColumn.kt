@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.util.UUID
@@ -60,8 +62,7 @@ fun KwikLazyList(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
-        state = state,
-        verticalArrangement = Arrangement.spacedBy(12.dp, alignment = Alignment.CenterVertically)
+        state = state
     ) {
         itemsIndexed(
             items = items,
@@ -99,6 +100,8 @@ fun KwikListActionItem(
     showDivider: Boolean = true,
     onClick: () -> Unit
 ) {
+    KwikVSpacer(8)
+
     Row(
         modifier = Modifier
             .clickable(onClick = onClick)
@@ -129,13 +132,10 @@ fun KwikListActionItem(
         }
     }
 
-    KwikVSpacer(12)
+    KwikVSpacer(8)
 
     if(!isLastItem && showDivider) {
-        Spacer(modifier = Modifier
-            .background(Color.LightGray)
-            .fillMaxWidth()
-            .height(1.dp))
+        HorizontalDivider()
     }
 }
 

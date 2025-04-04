@@ -28,8 +28,10 @@ import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikCheckBox
 import com.isakaro.kwik.KwikDialog
+import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikTextButton
+import com.isakaro.kwik.KwikVSpacer
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.textfield.KwikPhoneNumberField
@@ -56,6 +58,8 @@ internal fun KwikDialogScreen(
         var openConfirmDialog by remember { mutableStateOf(false) }
         var openNonCancellableDialog by remember { mutableStateOf(false) }
         var checked by remember { mutableStateOf(false) }
+
+        KwikVSpacer(12)
 
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically),
@@ -177,10 +181,8 @@ internal fun KwikDialogScreen(
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.kwikui_logo),
-                        tint = Color.Black,
-                        contentDescription = "The eye",
+                    KwikImageView(
+                        url = R.drawable.kwikui_logo,
                         modifier = Modifier.size(100.dp)
                     )
                     KwikText.BodyText(

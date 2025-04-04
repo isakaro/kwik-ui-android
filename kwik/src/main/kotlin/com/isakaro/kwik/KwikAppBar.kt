@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +27,7 @@ fun KwikAppBar(
     navigationIcon: Any = Icons.AutoMirrored.Filled.ArrowBack,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-    elevation: Dp = 0.dp,
+    elevation: Dp = 2.dp,
     navigationClick: () -> Unit = {}
 ) {
     TopAppBar(
@@ -39,21 +38,24 @@ fun KwikAppBar(
             titleContentColor = MaterialTheme.colorScheme.onSurface,
             actionIconContentColor = MaterialTheme.colorScheme.onSurface
         ),
-        modifier = Modifier.shadow(elevation),
+        modifier = Modifier.shadow(
+            elevation,
+            ambientColor = MaterialTheme.colorScheme.onSurface,
+            spotColor = MaterialTheme.colorScheme.onSurface,
+        ),
         title = {
             Column {
-                Text(
+                KwikText.TitleText(
                     text = title,
-                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 if(subtitle != null){
-                    Text(
+                    KwikText.BodyText(
                         text = subtitle,
-                        fontSize = 14.sp,
                         maxLines = 2,
                         color = MaterialTheme.colorScheme.onSurface,
                         overflow = TextOverflow.Ellipsis,

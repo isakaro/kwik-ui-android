@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
+import com.isakaro.kwik.catalog.KwikRatingBarScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen
@@ -38,6 +39,7 @@ import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
 import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
@@ -135,6 +137,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikPermissionsScreenDestination) {
                             KwikPermissionsScreen()
+                        }
+                        composable(KwikRatingBarScreenDestination){
+                            KwikRatingBarScreen()
                         }
                     }
                 }

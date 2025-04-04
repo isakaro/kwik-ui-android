@@ -83,7 +83,7 @@ fun KwikPhoneNumberField(
         cursorColor = MaterialTheme.colorScheme.primary,
         focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
-        focusedBorderColor = KwikColorFilledTextField,
+        focusedBorderColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray,
         unfocusedBorderColor = Color.Transparent,
         unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         unfocusedLabelColor = Color.LightGray,

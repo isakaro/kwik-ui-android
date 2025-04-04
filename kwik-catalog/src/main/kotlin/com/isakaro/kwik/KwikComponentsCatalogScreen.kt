@@ -32,6 +32,7 @@ import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
 import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
@@ -214,6 +215,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Date range picker component using Material3 DatePicker underneath",
                 action = {
                     navigator.navigate(KwikDateRangePickerScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Rating Bar",
+                description = "Rating bar component",
+                action = {
+                    navigator.navigate(KwikRatingBarScreenDestination)
                 }
             )
         )

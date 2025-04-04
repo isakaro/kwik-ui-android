@@ -1,5 +1,6 @@
 package com.isakaro.kwik.textfield
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import com.isakaro.kwik.KwikCountryCodeButton
 import com.isakaro.kwik.KwikCountryPickerDialog
 import androidx.compose.foundation.layout.Box
@@ -50,6 +51,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.CountryInfo
@@ -120,9 +122,9 @@ fun KwikOutlinedPhoneNumberField(
         focusedContainerColor = Color.Transparent,
         focusedLabelColor = Color.Gray,
         focusedPlaceholderColor = Color.Gray,
-        focusedBorderColor = Color.Gray,
-        unfocusedBorderColor = Color.LightGray,
-        unfocusedLabelColor = Color.LightGray,
+        focusedBorderColor = if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray,
+        unfocusedBorderColor = Color.Gray,
+        unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
         disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
@@ -156,9 +158,9 @@ fun KwikOutlinedPhoneNumberField(
     )
 
     Column {
-        Text(
+        KwikText.BodyText(
             text = placeholder,
-            color = Color.LightGray,
+            color = Color.Gray,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .fillMaxWidth()

@@ -28,7 +28,9 @@ internal fun KwikSliderScreen(
     ) {
         ShowCase(title = "Slider") {
             var sliderPosition by remember { mutableFloatStateOf(0f) }
+
             Text(text = sliderPosition.toString())
+
             Slider(value = sliderPosition, onValueChange = { sliderPosition = it })
         }
     }

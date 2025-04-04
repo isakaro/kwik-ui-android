@@ -62,7 +62,7 @@ import kotlinx.coroutines.launch
  * @param state The state of the search view.
  * @param suggestions The list of suggestions to be displayed.
  * @param placeholder The placeholder text to be displayed.
- * @param delay Whether to delay the search or not.
+ * @param delay Whether to delay the search or not. Useful for debouncing.
  * @param maxChars The maximum number of characters allowed in the search field.
  * @param isError Whether the search field has an error or not.
  * @param error The error message to be displayed.
