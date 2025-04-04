@@ -1,10 +1,12 @@
 package com.isakaro.kwik
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -217,39 +219,46 @@ internal fun ComponentsCatalogScreen(
     val searchQuery = remember { mutableStateOf(TextFieldValue("")) }
     val searchResults = remember { mutableStateOf(components) }
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(12.dp)
-    ) {
-        KwikText.TitleText(
-            text = "Kwik Components Catalog",
-            style = MaterialTheme.typography.headlineSmall
-        )
+    Scaffold(
+        modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(12.dp)
+        ) {
+            KwikText.TitleText(
+                text = "Kwik Components Catalog",
+                style = MaterialTheme.typography.headlineMedium
+            )
 
-        KwikVSpacer(24)
+            KwikVSpacer(24)
 
-        KwikSearchView(
-            state = searchQuery,
-            placeholder = "Search components...",
-            onTextChange = { query ->
-                if (query.isBlank()) {
+            KwikSearchView(
+                state = searchQuery,
+                placeholder = "Search components...",
+                onTextChange = { query ->
+                    if (query.isBlank()) {
+                        searchResults.value = components
+                    }
+                    searchResults.value = components.filter { component ->
+                        val searchTerm = query.trim().lowercase()
+                        component.action.title.lowercase().contains(searchTerm) || component.action.description.contains(searchTerm)
+                    }
+                },
+                onTextCleared = {
                     searchResults.value = components
                 }
-                searchResults.value = components.filter { component ->
-                    val searchTerm = query.trim().lowercase()
-                    component.action.title.lowercase().contains(searchTerm) || component.action.description.contains(searchTerm)
-                }
-            },
-            onTextCleared = {
-                searchResults.value = components
-            }
-        )
+            )
 
-        KwikVSpacer(24)
+            KwikVSpacer(24)
 
-        KwikLazyList(
-            state = listState,
-            items = searchResults.value
-        )
+            KwikLazyList(
+                state = listState,
+                items = searchResults.value
+            )
+        }
     }
 }
 

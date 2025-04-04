@@ -114,15 +114,13 @@ fun KwikListActionItem(
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            Text(
+            KwikText.TitleText(
                 text = item.title,
-                style = MaterialTheme.typography.titleMedium,
-                color = item.tint ?: Color.Black,
+                color = item.tint ?: MaterialTheme.colorScheme.onSurface,
             )
             if(item.description.isNotBlank()){
-                Text(
+                KwikText.BodyText(
                     text = item.description,
-                    style = MaterialTheme.typography.titleSmall,
                     maxLines = 2,
                     color = Color.Gray
                 )

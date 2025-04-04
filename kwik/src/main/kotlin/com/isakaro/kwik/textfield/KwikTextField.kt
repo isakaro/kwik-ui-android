@@ -229,7 +229,7 @@ fun KwikTextField(
             isError = isError,
             enabled = enabled && isEditable,
             placeholder = {
-                Text(
+                KwikText.TitleText(
                     text = placeholder,
                     color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
                     textAlign = TextAlign.Start,

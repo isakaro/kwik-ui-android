@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikCheckBox
 import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikPermissionDto
 import com.isakaro.kwik.KwikPermissionsRequest
@@ -49,6 +50,7 @@ internal fun KwikPermissionsScreen(
     val kwikToastState = rememberKwikToastState()
     val permissionState = rememberKwikPermissionState()
     var granted by remember { mutableStateOf(false) }
+    var mandatory by remember { mutableStateOf(false) }
 
     if (kwikToastState.value.isVisible) {
         KwikToast(state = kwikToastState)
@@ -62,6 +64,7 @@ internal fun KwikPermissionsScreen(
     ) {
         KwikPermissionsRequest(
             state = permissionState.value,
+            mandatory = mandatory,
             permissions = when {
                 Build.VERSION.SDK_INT >= 33 -> {
                     listOf(
@@ -99,13 +102,13 @@ internal fun KwikPermissionsScreen(
             }
         )
 
-        if(granted){
-            // perform action when permission is granted
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp, alignment = Alignment.CenterVertically)
+        ) {
+            if(granted){
+                // perform action when permission is granted
                 Icon(
                     modifier = Modifier.size(48.dp),
                     painter = painterResource(id = R.drawable.shield),
@@ -116,16 +119,10 @@ internal fun KwikPermissionsScreen(
                     text = "Permission granted",
                     style = MaterialTheme.typography.titleMedium
                 )
-            }
-        } else {
-            /*
-            * perform action when permission is not granted
-            * */
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp, alignment = Alignment.CenterVertically)
-            ) {
+            } else {
+                /*
+                * perform action when permission is not granted
+                * */
                 Icon(
                     modifier = Modifier.size(120.dp),
                     painter = painterResource(id = R.drawable.shield),
@@ -143,6 +140,14 @@ internal fun KwikPermissionsScreen(
                     }
                 )
             }
+            
+            KwikCheckBox(
+                text = "Mandatory",
+                checked = mandatory,
+                onCheckedChange = {
+                    mandatory = it
+                }
+            )
         }
     }
 }

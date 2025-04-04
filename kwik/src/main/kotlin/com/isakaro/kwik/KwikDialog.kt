@@ -101,10 +101,7 @@ object KwikDialog {
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
                         .then(modifier)
-                        .background(
-                            color = MaterialTheme.colorScheme.surface,
-                            shape = RoundedCornerShape(borderRadius.dp)
-                        )
+                        .clip(RoundedCornerShape(borderRadius.dp))
                 ) {
                     Box {
                         Column(

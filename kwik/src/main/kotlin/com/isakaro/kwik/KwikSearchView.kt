@@ -1,5 +1,6 @@
 package com.isakaro.kwik
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -46,6 +48,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
 import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -93,6 +98,7 @@ fun KwikSearchView(
     state: MutableState<TextFieldValue>,
     suggestions: List<String> = listOf(),
     placeholder: String = "Search",
+    label: String? = null,
     delay: Boolean = false,
     maxChars: Int = 30,
     isError: Boolean = false,
@@ -109,14 +115,24 @@ fun KwikSearchView(
     var debounceJob by remember { mutableStateOf<Job?>(null) }
 
     Column {
-        OutlinedTextField(
+        if(!label.isNullOrBlank()){
+            KwikText.BodyText(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+
+        TextField(
             value = state.value,
             onValueChange = { query ->
                 if (query.text.isBlank()) {
                     state.value = TextFieldValue("")
                     suggestionsVisible.value = false
                     onTextCleared()
-                    return@OutlinedTextField
+                    return@TextField
                 }
                 if (query.text.length <= maxChars) {
                     state.value = query
@@ -139,7 +155,7 @@ fun KwikSearchView(
                 .onFocusChanged { focusState ->
                     onFocusChanged(focusState.isFocused)
                 },
-            textStyle = TextStyle(color = Color.Black, fontSize = 20.sp),
+            textStyle = TextStyle(fontSize = 20.sp),
             leadingIcon = {
                 Icon(
                     Icons.Default.Search,
@@ -181,25 +197,35 @@ fun KwikSearchView(
                 }
             },
             placeholder = {
-                Text(
+                KwikText.TitleText(
                     text = placeholder,
-                    color = Color.LightGray,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
+                    color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.titleMedium
                 )
             },
             singleLine = true,
             isError = isError,
             shape = RoundedCornerShape(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-                cursorColor = Color.Black,
-                focusedContainerColor = Color.White,
-                focusedBorderColor = Color.Black,
-                unfocusedBorderColor = Color.Black,
-                disabledBorderColor = Color.Black,
-                unfocusedContainerColor = Color.White,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+                focusedLabelColor = Color.Gray,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+                unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+                unfocusedLabelColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                disabledBorderColor = Color.Transparent,
+                disabledContainerColor = Color.LightGray,
+                errorContainerColor = KwikColorFilledTextFieldError,
+                errorBorderColor = Color.Transparent,
+                errorLabelColor = MaterialTheme.colorScheme.error,
+                errorPlaceholderColor = MaterialTheme.colorScheme.error,
+                errorTextColor = MaterialTheme.colorScheme.error,
+                errorCursorColor = MaterialTheme.colorScheme.error
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
@@ -211,7 +237,7 @@ fun KwikSearchView(
             modifier = Modifier.fillMaxWidth()
         ) {
             if(isError && error != null){
-                Text(
+                KwikText.BodyText(
                     text = error,
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Start,

@@ -20,6 +20,7 @@ object KwikText {
         fontWeight: FontWeight = FontWeight.Bold,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.titleMedium,
+        maxLines: Int = 1,
     ) {
         when (text) {
             is String -> Text(
@@ -28,7 +29,8 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines
             )
             is Int -> Text(
                 text = text.toString(),
@@ -36,7 +38,8 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines
             )
             is AnnotatedString -> Text(
                 text = text,
@@ -44,7 +47,8 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines
             )
         }
     }
@@ -56,6 +60,7 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.bodyMedium,
+        maxLines: Int = 1
     ) {
         when (text) {
             is String -> Text(
@@ -63,21 +68,24 @@ object KwikText {
                 style = style,
                 color = color,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines
             )
             is Int -> Text(
                 text = text.toString(),
                 style = style,
                 color = color,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines
             )
             is AnnotatedString -> Text(
                 text = text,
                 style = style,
                 color = color,
                 textAlign = textAlign,
-                modifier = modifier
+                modifier = modifier,
+                maxLines = maxLines,
             )
         }
     }

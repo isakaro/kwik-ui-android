@@ -183,10 +183,9 @@ internal fun KwikDialogScreen(
                         contentDescription = "The eye",
                         modifier = Modifier.size(100.dp)
                     )
-                    Text(
+                    KwikText.BodyText(
                         text = "Accept the terms and conditions to proceed",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = Color.Black
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
             }
