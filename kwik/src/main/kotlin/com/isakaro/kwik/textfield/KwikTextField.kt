@@ -63,6 +63,7 @@ import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldDisabled
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess
 
@@ -149,13 +150,13 @@ fun KwikTextField(
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        focusedTextColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
         cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = KwikColorFilledTextFieldFocused,
+        focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
         focusedBorderColor = Color.Transparent,
         unfocusedBorderColor = Color.Transparent,
-        unfocusedContainerColor = KwikColorFilledTextFieldFocused,
+        unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = MaterialTheme.colorScheme.onSurface,

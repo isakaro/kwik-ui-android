@@ -1,6 +1,7 @@
 package com.isakaro.kwik.textfield
 
 import android.view.KeyEvent.KEYCODE_DEL
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,7 +48,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.isakaro.kwik.theme.KwikColorFilledTextField
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
 
 /**
  * OTP input. The OTP field will automatically move focus to the next field when a digit is entered.
@@ -215,20 +218,23 @@ private fun OTPDigit(
             } else VisualTransformation.None,
             isError = isError,
             colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.Black,
-                cursorColor = Color.Black,
-                focusedContainerColor = KwikColorFilledTextField,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
                 focusedLabelColor = Color.Gray,
-                focusedBorderColor = KwikColorFilledTextField,
+                focusedBorderColor = Color.Transparent,
                 unfocusedBorderColor = Color.Transparent,
-                unfocusedContainerColor = KwikColorFilledTextFieldFocused,
+                unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
                 unfocusedLabelColor = Color.Gray,
                 unfocusedPlaceholderColor = Color.Gray,
-                unfocusedTextColor = Color.Black,
-                errorBorderColor = MaterialTheme.colorScheme.error,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                disabledBorderColor = Color.Transparent,
+                disabledContainerColor = Color.LightGray,
+                errorContainerColor = KwikColorFilledTextFieldError,
+                errorBorderColor = Color.Transparent,
                 errorLabelColor = MaterialTheme.colorScheme.error,
                 errorPlaceholderColor = MaterialTheme.colorScheme.error,
-                errorTextColor = Color.Black,
+                errorTextColor = MaterialTheme.colorScheme.error,
                 errorCursorColor = MaterialTheme.colorScheme.error
             ),
             singleLine = true,

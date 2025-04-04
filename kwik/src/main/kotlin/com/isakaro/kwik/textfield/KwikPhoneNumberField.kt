@@ -54,6 +54,7 @@ import com.isakaro.kwik.KwikCountryPickerDialog
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.CountryInfo
@@ -78,16 +79,16 @@ fun KwikPhoneNumberField(
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = Color.Black,
-        cursorColor = Color.Black,
-        focusedContainerColor = KwikColorFilledTextFieldFocused,
+        focusedTextColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
+        cursorColor = MaterialTheme.colorScheme.primary,
+        focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
         focusedBorderColor = KwikColorFilledTextField,
         unfocusedBorderColor = Color.Transparent,
-        unfocusedContainerColor = KwikColorFilledTextFieldFocused,
-        unfocusedLabelColor = Color.Gray,
+        unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+        unfocusedLabelColor = Color.LightGray,
         unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = Color.Black,
+        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
         disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
         disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
         errorBorderColor = MaterialTheme.colorScheme.error,
