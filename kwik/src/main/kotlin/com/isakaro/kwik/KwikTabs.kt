@@ -81,12 +81,12 @@ data class KwikIndicatorProps(
 @Composable
 fun KwikHorizontalTab(
     tabs: List<KwikTabItem>, pagerState: PagerState,
-    containerColor: Color = Color.White,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
     indicatorColor: Color = MaterialTheme.colorScheme.primary,
     kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
     divider: @Composable () -> Unit = {},
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContentColor: Color = Color.Gray,
+    unselectedContentColor: Color = Color.Gray
 ) {
     val scope = rememberCoroutineScope()
 

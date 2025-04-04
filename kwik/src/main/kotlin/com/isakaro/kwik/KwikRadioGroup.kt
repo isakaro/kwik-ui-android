@@ -71,7 +71,7 @@ fun <T> ColumnScope.KwikRadioButtonGroup(
                 Text(
                     text = item.label,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if(selectedIndex == index) MaterialTheme.colorScheme.primary else Color.Gray
+                    color = if(selectedIndex == index) MaterialTheme.colorScheme.onSurface else Color.Gray
                 )
             }
         }

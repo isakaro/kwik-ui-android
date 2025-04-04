@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikAccordion
 import com.isakaro.kwik.KwikAccordionGroup
 import com.isakaro.kwik.KwikAccordionItem
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
@@ -90,7 +91,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        Text("Content", color = Color.Black)
+                        Text("Content")
                     }
                 }
             }
@@ -110,7 +111,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        Text("Content", color = Color.Black)
+                        Text("Content")
                     }
                 }
             }
@@ -131,7 +132,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        Text("Content", color = Color.Black)
+                        Text("Content")
                     }
                 }
             }
@@ -147,12 +148,11 @@ internal fun KwikAccordionScreen(
             KwikAccordionGroup(
                 items = items,
                 titleProvider = { it.title },
-                containerColor = Color.White,
                 elevation = 2,
                 headerTextColor = Color.Black,
                 errorProvider = { it.hasError },
                 content = { item ->
-                    Text(text = item.content, modifier = Modifier.padding(16.dp))
+                    KwikText.BodyText(text = item.content, modifier = Modifier.padding(16.dp))
                 }
             )
         }

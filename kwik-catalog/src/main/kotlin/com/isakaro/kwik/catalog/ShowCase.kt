@@ -31,7 +31,7 @@ fun ShowCase(title: String, content: @Composable () -> Unit) {
         KwikText.TitleText(
             style = MaterialTheme.typography.titleMedium,
             text = title,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onSurface,
         )
 
         content()
@@ -41,7 +41,7 @@ fun ShowCase(title: String, content: @Composable () -> Unit) {
                 .padding(top = 8.dp)
                 .fillMaxWidth()
                 .height(1.dp)
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.onSurface)
         )
     }
 }

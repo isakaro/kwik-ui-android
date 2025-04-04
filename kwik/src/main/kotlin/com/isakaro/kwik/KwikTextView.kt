@@ -16,7 +16,7 @@ object KwikText {
     fun TitleText(
         modifier: Modifier = Modifier,
         text: Any,
-        color: Color = Color.DarkGray,
+        color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight = FontWeight.Bold,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.titleMedium,
