@@ -1,5 +1,6 @@
 package com.isakaro.kwik.textfield
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -50,6 +51,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikCountryCodeButton
 import com.isakaro.kwik.KwikCountryPickerDialog
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorSuccess
@@ -64,7 +66,7 @@ fun KwikPhoneNumberField(
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
-    placeholder: String,
+    label: String,
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
     error: String = "",
@@ -117,13 +119,11 @@ fun KwikPhoneNumberField(
     )
 
     Column {
-        Text(
-            text = placeholder,
-            color = Color.DarkGray,
+        KwikText.BodyText(
+            modifier = Modifier.padding(bottom = 4.dp),
+            text = label,
+            color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
             textAlign = TextAlign.Start,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -233,7 +233,7 @@ private fun KwikPhoneNumberFieldPreview() {
             value = value,
             onValueChange = {},
             onKeyboardDone = {},
-            placeholder = "Phone number",
+            label = "Phone number",
             initialCountryInfo = countryList.random()
         )
     }

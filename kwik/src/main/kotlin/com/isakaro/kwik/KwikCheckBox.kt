@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun KwikCheckBox(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
     text: String
 ) {
     Row(
@@ -38,7 +39,7 @@ fun KwikCheckBox(
                 onCheckedChange(!checked)
             },
             text = text,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = contentColor,
             style = MaterialTheme.typography.titleSmall
         )
     }

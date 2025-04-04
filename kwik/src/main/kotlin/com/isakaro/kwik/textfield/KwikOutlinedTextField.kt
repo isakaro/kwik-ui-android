@@ -58,6 +58,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.KwikCircularLoading
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.R
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess
@@ -154,20 +156,20 @@ fun KwikOutlinedTextField(
         cursorColor = MaterialTheme.colorScheme.primary,
         focusedContainerColor = Color.Transparent,
         focusedLabelColor = Color.Gray,
-        focusedPlaceholderColor = Color.Black,
+        focusedPlaceholderColor = Color.Gray,
         focusedBorderColor = Color.Gray,
-        unfocusedBorderColor = Color.Gray,
-        unfocusedLabelColor = Color.Gray,
+        unfocusedBorderColor = Color.LightGray,
+        unfocusedLabelColor = Color.LightGray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
-        disabledBorderColor = if(isEditable) Color.Unspecified else Color.Gray,
-        disabledTextColor = if(isEditable) Color.Unspecified else Color.Gray,
+        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
+        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
         errorBorderColor = MaterialTheme.colorScheme.error,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
         errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
-    )
+    ),
 ) {
 
     val autofillTypes = mutableListOf<AutofillType>()
@@ -319,13 +321,13 @@ fun KwikOutlinedTextField(
                                     onValueChange(TextFieldValue(""))
                                 },
                             contentDescription = "Clear text",
-                            tint = Color.Black
+                            tint = if(isSystemInDarkTheme()) Color.White else Color.Black
                         )
                     }
                     if(isLoading){
-                        CircularProgressIndicator(
+                        KwikCircularLoading(
                             modifier = Modifier.size(30.dp),
-                            color = Color.Black
+                            color = if(isSystemInDarkTheme()) Color.White else Color.Black
                         )
                     }
                     if(isValid){
@@ -382,7 +384,7 @@ fun KwikOutlinedTextField(
                     }
                     is AnnotatedString -> {
                         if(hint.isNotBlank()){
-                            Text(
+                            KwikText.BodyText(
                                 text = hint,
                                 color = KwikColorHint,
                                 textAlign = TextAlign.Start,
@@ -399,7 +401,7 @@ fun KwikOutlinedTextField(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 if(isError){
-                    Text(
+                    KwikText.BodyText(
                         text = error,
                         color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Start,
@@ -411,7 +413,7 @@ fun KwikOutlinedTextField(
                     )
                 }
                 if(isTextCounterShown || isBigTextField) {
-                    Text(
+                    KwikText.BodyText(
                         text = "${value.value.text.length}/$maxLength",
                         color = Color.Gray,
                         textAlign = TextAlign.End,
@@ -438,7 +440,7 @@ fun PasswordToggle(passwordVisible: Boolean, onClick: () -> Unit) {
     Icon(
         imageVector = image,
         contentDescription = if (passwordVisible) "Hide password" else "Show password",
-        tint = Color.Black,
+        tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
         modifier = Modifier
             .size(25.dp)
             .clickable { onClick() }

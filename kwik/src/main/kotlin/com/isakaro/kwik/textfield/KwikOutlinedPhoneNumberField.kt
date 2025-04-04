@@ -115,15 +115,22 @@ fun KwikOutlinedPhoneNumberField(
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = Color.Black,
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        cursorColor = MaterialTheme.colorScheme.primary,
+        focusedContainerColor = Color.Transparent,
+        focusedLabelColor = Color.Gray,
+        focusedPlaceholderColor = Color.Gray,
+        focusedBorderColor = Color.Gray,
+        unfocusedBorderColor = Color.LightGray,
+        unfocusedLabelColor = Color.LightGray,
+        unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = Color.Black,
-        cursorColor = Color.Black,
-        focusedContainerColor = Color.White,
-        focusedBorderColor = Color.Black,
-        unfocusedBorderColor = Color.Black,
-        disabledBorderColor = Color.Gray,
-        unfocusedContainerColor = Color.White,
+        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
+        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
         errorBorderColor = MaterialTheme.colorScheme.error,
+        errorLabelColor = MaterialTheme.colorScheme.error,
+        errorPlaceholderColor = MaterialTheme.colorScheme.error,
+        errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
     ),
     onCountrySelected: (CountryInfo) -> Unit = {}
@@ -151,7 +158,7 @@ fun KwikOutlinedPhoneNumberField(
     Column {
         Text(
             text = placeholder,
-            color = Color.DarkGray,
+            color = Color.LightGray,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .fillMaxWidth()

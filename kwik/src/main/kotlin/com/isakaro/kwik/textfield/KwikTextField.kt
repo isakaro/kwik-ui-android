@@ -57,6 +57,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.KwikCircularLoading
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldDisabled
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
@@ -204,7 +206,7 @@ fun KwikTextField(
         modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
     ) {
         if(!label.isNullOrBlank()){
-            Text(
+            KwikText.BodyText(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
@@ -334,7 +336,7 @@ fun KwikTextField(
                         )
                     }
                     if(isLoading){
-                        CircularProgressIndicator(
+                        KwikCircularLoading(
                             modifier = Modifier.size(30.dp),
                             color = if(isSystemInDarkTheme()) Color.White else Color.Black
                         )

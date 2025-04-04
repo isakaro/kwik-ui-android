@@ -149,20 +149,18 @@ fun KwikCountryCodeButton(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
+            KwikText.TitleText(
                 text = country.code,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier,
                 style = MaterialTheme.typography.titleMedium
             )
-            Text(
+            KwikText.TitleText(
                 text = country.dialingCode,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.headlineSmall
             )
             Icon(
                 Icons.Filled.KeyboardArrowDown,
-                tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(35.dp),
                 contentDescription = null
             )

@@ -100,7 +100,7 @@ internal fun KwikDialogScreen(
                             KwikPhoneNumberField(
                                 initialCountryInfo = countryList.random(),
                                 value = text,
-                                placeholder = "Phone number",
+                                label = "Phone number",
                                 onValueChange = {
                                     text.value = it
                                 },

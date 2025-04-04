@@ -24,11 +24,14 @@ fun KwikLoadingView(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary, trackColor = Color.LightGray)
-        Spacer(modifier = Modifier.size(8.dp))
-        Text(
+        KwikCircularLoading(
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        KwikVSpacer(8)
+
+        KwikText.BodyText(
             text = text,
-            color = Color.Gray,
             style = MaterialTheme.typography.titleSmall,
             textAlign = TextAlign.Center
         )
@@ -38,11 +41,12 @@ fun KwikLoadingView(
 @Composable
 fun KwikCircularLoading(
     modifier: Modifier = Modifier,
-    trackColor: Color = Color.LightGray
+    color: Color = MaterialTheme.colorScheme.primary,
+    trackColor: Color = Color.Transparent
 ) {
     CircularProgressIndicator(
         modifier = modifier,
-        color = MaterialTheme.colorScheme.primary,
+        color = color,
         trackColor = trackColor
     )
 }
