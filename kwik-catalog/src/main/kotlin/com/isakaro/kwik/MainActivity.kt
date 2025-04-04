@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
-import com.isakaro.kwik.catalog.KwikRatingBarScreen
+import com.isakaro.kwik.catalog.rating.KwikRatingBarScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen

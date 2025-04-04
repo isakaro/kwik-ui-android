@@ -3,13 +3,13 @@ package com.isakaro.kwik.catalog.rating
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.rating.KwikRatingBar
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.KwikRatingBar
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination
 fun KwikRatingBarScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -62,7 +62,7 @@ fun KwikRatingBarScreen(
                 }
             )
 
-            KwikText.BodyMedium(
+            KwikText.BodyText(
                 text = "User rating: $userRating",
             )
         }

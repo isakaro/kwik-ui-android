@@ -41,14 +41,14 @@ internal fun KwikButtonScreen(
         NormalMaxWidthOutlinedButton()
         TextButton()
         DisabledButton()
+        LoadingButtonLinear()
+        LoadingButtonCircular()
         FabButton()
         LoadingExtendedFloatingActionButton()
         ExtendedButton()
         LoadingFloatingActionButton()
         DisabledExtendedButton()
         ButtonWithIcon()
-        LoadingButtonLinear()
-        LoadingButtonCircular()
     }
 }
 

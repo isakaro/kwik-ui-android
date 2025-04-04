@@ -447,7 +447,8 @@ private fun KwikTextFieldPreview() {
     KwikTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
-        placeholder = "Pirate name",
+        label = "Address",
+        placeholder = "Enter address",
         keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,
         imeAction = ImeAction.Done,

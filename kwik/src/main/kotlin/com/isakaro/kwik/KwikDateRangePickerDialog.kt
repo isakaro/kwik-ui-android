@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
@@ -24,6 +25,19 @@ import androidx.compose.ui.unit.dp
 import java.util.Calendar
 import java.util.Date
 
+/**
+ * A date range picker dialog that allows the user to select a date range.
+ *
+ * * @param title: The title of the dialog.
+ * * @param confirmText: The text for the confirm button.
+ * * @param cancelText: The text for the cancel button.
+ * * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
+ * * @param showModeToggle: Whether to show the mode toggle button.
+ * * @param colors: The colors to use for the date picker.
+ * * @param onDismiss: Callback that is called when the dialog is dismissed.
+ *
+ * * @see [KwikDateField] for a date field that shows this dialog when clicked.
+ * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KwikDateRangePickerDialog(
@@ -31,6 +45,8 @@ fun KwikDateRangePickerDialog(
     confirmText: String = "Confirm",
     cancelText: String = "Cancel",
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
+    showModeToggle: Boolean = false,
+    colors: DatePickerColors,
     onDismiss: () -> Unit
 ) {
     val calendar = Calendar.getInstance()
@@ -57,7 +73,7 @@ fun KwikDateRangePickerDialog(
     DatePickerDialog(
         onDismissRequest = onDismiss,
         colors = DatePickerDefaults.colors().copy(
-            containerColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.surface,
         ),
         confirmButton = {
             TextButton(
@@ -94,21 +110,12 @@ fun KwikDateRangePickerDialog(
         DateRangePicker(
             state = dateRangePickerState,
             title = {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Gray,
+                KwikText.TitleText(
+                    text = title
                 )
             },
-            colors = DatePickerDefaults.colors().copy(
-                containerColor = Color.White,
-                selectedDayContainerColor = MaterialTheme.colorScheme.primary,
-                dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                dayInSelectionRangeContentColor = Color.White,
-                selectedYearContainerColor = MaterialTheme.colorScheme.primary,
-                disabledDayContentColor = Color.Gray
-            ),
-            showModeToggle = false,
+            colors = colors,
+            showModeToggle = showModeToggle,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)

@@ -1,6 +1,7 @@
 package com.isakaro.kwik.catalog.daterangepicker
 
 import android.annotation.SuppressLint
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.KwikDateField
@@ -11,6 +12,7 @@ import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Destination
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

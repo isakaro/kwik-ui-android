@@ -13,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
@@ -230,7 +231,7 @@ internal fun KwikComponentsCatalogScreen(
     ).sortedBy { it.action.title }
 
     val listState = rememberLazyListState()
-    val searchQuery = remember { mutableStateOf(TextFieldValue("")) }
+    val searchQuery = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val searchResults = remember { mutableStateOf(components) }
 
     Scaffold(

@@ -62,7 +62,7 @@ enum class KwikButtonLoadingStyle {
  * @param allCaps Whether the text should be in all caps. Defaults to true.
  * @param enabled Whether the button is enabled.
  * @param fontStyle The style of the text. Refer to [TextStyle] and [MaterialTheme.typography].
- * @param KwikButtonLoadingStyle The style of the loading indicator. Can be [KwikButtonLoadingStyle.CIRCULAR] or [KwikButtonLoadingStyle.LINEAR].
+ * @param kwikButtonLoadingStyle The style of the loading indicator. Can be [KwikButtonLoadingStyle.CIRCULAR] or [KwikButtonLoadingStyle.LINEAR].
  * @param onClick The action to be performed when the button is clicked.
  *
  * Example usage:
@@ -100,11 +100,13 @@ fun KwikButton(
     enabled: Boolean = true,
     fontStyle: TextStyle = MaterialTheme.typography.titleSmall,
     kwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
+    shape: Shape = RoundedCornerShape(8.dp),
+    border: BorderStroke? = null,
     onClick: () -> Unit = {}
 ) {
     Button(
         onClick = { onClick() },
-        border = if (outlined) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else null,
+        border = if (outlined) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else border,
         modifier = Modifier
             .height(height.dp)
             .alpha(if (isLoading) 0.5f else 1.0f)
@@ -119,7 +121,7 @@ fun KwikButton(
             containerColor = containerColor,
         ),
         contentPadding = PaddingValues(4.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = shape,
         enabled = enabled && !isLoading,
         interactionSource = remember { MutableInteractionSource() }
     ) {
@@ -196,7 +198,9 @@ fun KwikButton(
                     )
                 }
             }
+
             Spacer(modifier = Modifier.width(8.dp))
+
             when (text) {
                 is String -> {
                     Text(

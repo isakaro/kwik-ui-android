@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePickerColors
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,11 +38,20 @@ import java.util.Date
  * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
  * @param onClick: Callback that is called when the date field is clicked.
  * */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KwikDateField(
     modifier: Modifier = Modifier,
     label: String,
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
+    colors: DatePickerColors = DatePickerDefaults.colors().copy(
+        containerColor = MaterialTheme.colorScheme.surface,
+        selectedDayContainerColor = MaterialTheme.colorScheme.primary,
+        dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.secondary,
+        dayInSelectionRangeContentColor = MaterialTheme.colorScheme.onSurface,
+        selectedYearContainerColor = MaterialTheme.colorScheme.primary,
+        disabledDayContentColor = Color.Gray
+    ),
     onClick: () -> Unit = {}
 ) {
 
@@ -51,11 +63,8 @@ fun KwikDateField(
             .fillMaxWidth()
             .height(75.dp)
     ) {
-        Text(
-            text = label,
-            color = Color.Gray,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Bold,
+        KwikText.TitleText(
+            text = label
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -68,9 +77,9 @@ fun KwikDateField(
                 showDatePicker = true
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.surface,
             ),
-            border = BorderStroke(2.dp, Color.DarkGray),
+            border = BorderStroke(1.dp, Color.Gray),
             contentPadding = PaddingValues(4.dp),
             shape = RoundedCornerShape(8.dp),
         ) {
@@ -81,20 +90,20 @@ fun KwikDateField(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.calendar),
-                    tint = Color.DarkGray,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     contentDescription = null,
                 )
 
                 KwikText.BodyText(
                     modifier = Modifier.align(Alignment.Center),
                     text = dateDisplay,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                 )
 
                 Icon(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     painter = painterResource(id = R.drawable.arrow_down),
-                    tint = Color.DarkGray,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     contentDescription = null,
                 )
             }
@@ -102,6 +111,7 @@ fun KwikDateField(
 
         if (showDatePicker) {
             KwikDateRangePickerDialog(
+                colors = colors,
                 onDateRangeSelected = { selectedDates ->
                     onDateRangeSelected(selectedDates)
                     dateDisplay  = "${selectedDates.first.toMMdd()} - ${selectedDates.second.toMMdd()}"
@@ -114,6 +124,7 @@ fun KwikDateField(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun KwikDateFieldPreview() {
