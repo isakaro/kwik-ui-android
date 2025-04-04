@@ -63,8 +63,7 @@ fun KwikCountryCodePicker(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
-            .background(Color.White),
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -192,21 +191,24 @@ fun CountryCodeItem(
                     contentDescription = country.name
                 )
             }
+
             Spacer(modifier = Modifier.width(10.dp))
-            Text(
+
+            KwikText.BodyText(
                 modifier = Modifier.weight(1f),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                text = country.name,
-                color = Color.Black
+                text = country.name
             )
+
             Spacer(modifier = Modifier.width(10.dp))
-            Text(
+
+            KwikText.BodyText(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 text = country.dialingCode,
                 modifier = Modifier.padding(end = 10.dp),
-                color = Color.Black
+                color = Color.Gray
             )
         }
     }

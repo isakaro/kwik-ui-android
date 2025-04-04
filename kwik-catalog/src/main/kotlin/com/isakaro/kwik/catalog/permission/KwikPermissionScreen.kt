@@ -82,13 +82,15 @@ internal fun KwikPermissionsScreen(
             logo = {
                 KwikImageView(
                     modifier = Modifier.size(50.dp),
-                    url = R.drawable.shield
+                    url = R.drawable.shield,
+                    tint = Color.Gray
                 )
             },
             image = {
                 KwikImageView(
                     modifier = Modifier.size(120.dp),
-                    url = Icons.Default.Build
+                    url = Icons.Default.Build,
+                    tint = Color.Gray
                 )
             },
             onGrantAction = {

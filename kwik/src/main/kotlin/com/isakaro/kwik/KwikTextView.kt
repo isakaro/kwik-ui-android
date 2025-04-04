@@ -9,6 +9,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 object KwikText {
 
@@ -21,6 +22,7 @@ object KwikText {
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.titleMedium,
         maxLines: Int = Int.MAX_VALUE,
+        overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
         when (text) {
             is String -> Text(
@@ -30,7 +32,8 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
-                maxLines = maxLines
+                maxLines = maxLines,
+                overflow = overflow
             )
             is Int -> Text(
                 text = text.toString(),
@@ -39,7 +42,8 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
-                maxLines = maxLines
+                maxLines = maxLines,
+                overflow = overflow
             )
             is AnnotatedString -> Text(
                 text = text,
@@ -48,7 +52,8 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
-                maxLines = maxLines
+                maxLines = maxLines,
+                overflow = overflow
             )
         }
     }
@@ -60,7 +65,8 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         textAlign: TextAlign = TextAlign.Start,
         style: TextStyle = MaterialTheme.typography.bodyMedium,
-        maxLines: Int = Int.MAX_VALUE
+        maxLines: Int = Int.MAX_VALUE,
+        overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
         when (text) {
             is String -> Text(
@@ -69,7 +75,8 @@ object KwikText {
                 color = color,
                 textAlign = textAlign,
                 modifier = modifier,
-                maxLines = maxLines
+                maxLines = maxLines,
+                overflow = overflow
             )
             is Int -> Text(
                 text = text.toString(),
@@ -77,7 +84,8 @@ object KwikText {
                 color = color,
                 textAlign = textAlign,
                 modifier = modifier,
-                maxLines = maxLines
+                maxLines = maxLines,
+                overflow = overflow
             )
             is AnnotatedString -> Text(
                 text = text,
@@ -86,6 +94,7 @@ object KwikText {
                 textAlign = textAlign,
                 modifier = modifier,
                 maxLines = maxLines,
+                overflow = overflow
             )
         }
     }

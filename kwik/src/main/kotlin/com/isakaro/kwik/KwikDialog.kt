@@ -113,13 +113,12 @@ object KwikDialog {
                                 ),
                         ) {
                             if (title != null) {
-                                Text(
+                                KwikText.TitleText(
                                     modifier = Modifier
                                         .padding(16.dp)
                                         .fillMaxWidth(),
                                     text = title,
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold,
                                     textAlign = TextAlign.Center
                                 )
                             }
