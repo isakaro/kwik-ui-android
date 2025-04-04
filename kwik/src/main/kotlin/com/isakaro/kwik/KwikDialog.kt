@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -116,8 +117,7 @@ object KwikDialog {
                                     text = title,
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Center,
-                                    color = Color.Black
+                                    textAlign = TextAlign.Center
                                 )
                             }
 
@@ -137,7 +137,7 @@ object KwikDialog {
                                         .size(30.dp),
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "close",
-                                    tint = Color.Black
+                                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black
                                 )
                             }
                         }

@@ -53,8 +53,7 @@ fun ShowCaseContainer(
     onBackClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit
 ) = Surface(
-    modifier = Modifier.fillMaxSize(),
-    color = Color.White
+    modifier = Modifier.fillMaxSize()
 ) {
     Scaffold(
         topBar = {

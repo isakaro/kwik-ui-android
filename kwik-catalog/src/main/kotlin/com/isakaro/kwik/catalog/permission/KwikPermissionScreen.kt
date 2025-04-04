@@ -114,7 +114,6 @@ internal fun KwikPermissionsScreen(
                 )
                 Text(
                     text = "Permission granted",
-                    color = Color.Black,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -135,7 +134,6 @@ internal fun KwikPermissionsScreen(
                 )
                 Text(
                     text = "Permission not granted",
-                    color = Color.Black,
                     style = MaterialTheme.typography.titleMedium
                 )
                 KwikButton(
