@@ -40,7 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.CountryInfo
 import com.isakaro.kwik.utils.countryList
 import com.isakaro.kwik.utils.resolveCountries

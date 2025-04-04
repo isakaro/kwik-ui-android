@@ -8,7 +8,7 @@ import com.isakaro.kwik.KwikSwitch
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

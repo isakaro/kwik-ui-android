@@ -3,6 +3,8 @@ package com.isakaro.kwik.theme
 import androidx.compose.ui.graphics.Color
 
 val KwikColorPrimary = Color(0xFF2196F3)
+val KwikColorSecondary = Color(0xFF03DAC5)
+val KwikColorTertiary = Color(0xFFFF5722)
 val KwikColorWarning = Color(0xFFFF9800)
 val KwikColorYellow = Color(0xFFFFEB3B)
 val KwikColorError = Color(0xFFF44336)

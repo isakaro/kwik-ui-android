@@ -38,6 +38,7 @@ fun ShowCase(title: String, content: @Composable () -> Unit) {
 
         Box(
             modifier = Modifier
+                .padding(top = 8.dp)
                 .fillMaxWidth()
                 .height(1.dp)
                 .background(Color.LightGray)

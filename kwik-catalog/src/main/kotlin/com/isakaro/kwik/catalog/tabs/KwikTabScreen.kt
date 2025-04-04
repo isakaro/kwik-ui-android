@@ -2,6 +2,10 @@ package com.isakaro.kwik.catalog.tabs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.isakaro.Kwik.catalog.R
@@ -19,36 +23,34 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 internal fun KwikTabScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
+
+    @Composable
+    fun Content(text: String) {
+        Column {
+            repeat(5) {
+                Text(text = text)
+            }
+        }
+    }
+
     val tabsWithIcons = listOf(
         KwikTabItem(
             title = "Muraho",
-            icon = R.drawable.qr_code_scanner
+            icon = Icons.Default.Call
         ){
-            Column {
-                repeat(5) {
-                    Text(text = "Muraho")
-                }
-            }
+            Content(text = "Muraho")
         },
         KwikTabItem(
             title = "Hello",
-            icon = R.drawable.qr_code_scanner
+            icon = Icons.Default.MailOutline
         ){
-            Column {
-                repeat(5) {
-                    Text(text = "Hello")
-                }
-            }
+            Content(text = "Hello")
         },
         KwikTabItem(
             title = "Jambo",
-            icon = R.drawable.qr_code_scanner
+            icon = Icons.Default.Notifications
         ){
-            Column {
-                repeat(5) {
-                    Text(text = "Jambo")
-                }
-            }
+            Content(text = "Jambo")
         }
     )
 
@@ -63,19 +65,19 @@ internal fun KwikTabScreen(
         KwikTabItem(
             title = "Muraho",
             content = {
-                Text(text = "Muraho")
+                Content(text = "Muraho")
             }
         ),
         KwikTabItem(
             title = "Hello",
             content = {
-                Text(text = "Hello")
+                Content(text = "Hello")
             }
         ),
         KwikTabItem(
             title = "Jambo",
             content = {
-                Text(text = "Jambo")
+                Content(text = "Jambo")
             }
         )
     )
@@ -92,18 +94,18 @@ internal fun KwikTabScreen(
             title = "Muraho",
             counter = 3
         ){
-            Text(text = "Muraho")
+            Content(text = "Muraho")
         },
         KwikTabItem(
             title = "Hello",
         ){
-            Text(text = "Hello")
+            Content(text = "Hello")
         },
         KwikTabItem(
             title = "Jambo",
             counter = 1
         ){
-            Text(text = "Jambo")
+            Content(text = "Jambo")
         }
     )
 

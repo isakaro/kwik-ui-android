@@ -1,63 +1,80 @@
 package com.isakaro.kwik.theme
 
+import android.app.Activity
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
-object Theme {
-    @Composable
-    fun KwikTheme(
-        darkTheme: Boolean = isSystemInDarkTheme(),
-        dynamicColor: Boolean = false,
-        content: @Composable () -> Unit
-    ) {
-        val colorScheme: ColorScheme = if (darkTheme) {
-            DarkColorPalette
-        } else {
-            LightColorPalette
+private val DarkBackground = Color(0xFF121212)
+private val DarkSurface = Color(0xFF1E1E1E)
+
+private val LightBackground = Color(0xFFF8F8F8)
+private val LightSurface = Color(0xFFFFFFFF)
+
+private val DarkColorScheme = darkColorScheme(
+    primary = KwikColorPrimary,
+    secondary = KwikColorSecondary,
+    tertiary = KwikColorTertiary,
+    background = DarkBackground,
+    surface = DarkSurface,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+    onBackground = Color(0xFFE3E3E3),
+    onSurface = Color(0xFFE3E3E3),
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = KwikColorPrimary,
+    secondary = KwikColorSecondary,
+    tertiary = KwikColorTertiary,
+    background = LightBackground,
+    surface = LightSurface,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+    onBackground = Color(0xFF1C1B1F),
+    onSurface = Color(0xFF1C1B1F),
+)
+
+@Composable
+fun KwikTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = false,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
-        val shapes = Shapes(
-            small = RoundedCornerShape(4.dp),
-            medium = RoundedCornerShape(8.dp),
-            large = RoundedCornerShape(16.dp),
-            extraLarge = RoundedCornerShape(24.dp)
-        )
-
-        MaterialTheme(
-            colorScheme = LightColorPalette,
-            typography = Typography,
-            shapes = shapes,
-            content = content
-        )
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
     }
+
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.primary.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+        }
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
 }
-
-internal val LightColorPalette = lightColorScheme(
-    primary = KwikColorPrimary,
-    secondary = Color.White,
-    error = KwikColorError,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    onError = KwikColorError
-)
-
-internal val DarkColorPalette = darkColorScheme(
-    primary = KwikColorPrimary,
-    secondary = Color.White,
-    surface = Color.Black,
-    background = Color.Black,
-    error = KwikColorError,
-    onPrimary = Color.LightGray,
-    onSecondary = Color.Black,
-    onBackground = Color.Gray,
-    onSurface = Color.Gray,
-    onError = KwikColorError
-)

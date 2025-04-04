@@ -53,7 +53,7 @@ import com.isakaro.kwik.KwikCountryPickerDialog
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorSuccess
-import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.CountryInfo
 import com.isakaro.kwik.utils.countryList
 import com.isakaro.kwik.utils.text

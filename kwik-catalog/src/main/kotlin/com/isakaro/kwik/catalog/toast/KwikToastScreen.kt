@@ -13,7 +13,7 @@ import com.isakaro.kwik.rememberKwikToastState
 import com.isakaro.kwik.showToast
 import com.isakaro.kwik.theme.KwikColorError
 import com.isakaro.kwik.theme.KwikColorWarning
-import com.isakaro.kwik.theme.Theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch

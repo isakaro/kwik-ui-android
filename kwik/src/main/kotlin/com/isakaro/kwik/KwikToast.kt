@@ -29,7 +29,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,7 +57,7 @@ data class KwikToastState(
 
 @Composable
 fun rememberKwikToastState(): MutableState<KwikToastState> {
-    return rememberSaveable { mutableStateOf(KwikToastState()) }
+    return remember { mutableStateOf(KwikToastState()) }
 }
 
 /**
