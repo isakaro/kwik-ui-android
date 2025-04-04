@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikColorWarning
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,14 +48,28 @@ enum class KwikToastType {
     ERROR
 }
 
+/**
+ * The state of the toast.
+ *
+ * @param id: The id of the toast. Used to identify the toast. Set automatically. Don't change it.
+ * @param message: The message to display in the toast.
+ * @param type: The type of toast to display. Can be [KwikToastType.NEUTRAL], [KwikToastType.WARNING], [KwikToastType.SUCCESS], [KwikToastType.ERROR]. Default is [KwikToastType.NEUTRAL], which uses the primary color from [MaterialTheme.colorScheme].
+ * @param isVisible: Whether the toast is visible or not.
+ * @param duration: The duration to display the toast. Default is 4 seconds.
+ * @param backgroundColor: The background color of the toast. Default is [MaterialTheme.colorScheme.primary].
+ * */
 data class KwikToastState(
     val id: UUID = UUID.randomUUID(),
     val message: String = "",
     val type: KwikToastType = KwikToastType.NEUTRAL,
     val isVisible: Boolean = false,
-    val duration: Long = 4000L
+    val duration: Long = 4000L,
+    val backgroundColor: Color = Color.Unspecified,
 )
 
+/**
+ * A state holder for the toast. Refer to [KwikToastState]
+ * */
 @Composable
 fun rememberKwikToastState(): MutableState<KwikToastState> {
     return remember { mutableStateOf(KwikToastState()) }
@@ -101,11 +116,15 @@ fun KwikToast(
     // Animation progress state
     val progress = remember { Animatable(1f) }
 
-    val backgroundColor = when (state.value.type) {
-        KwikToastType.NEUTRAL -> MaterialTheme.colorScheme.primary
-        KwikToastType.WARNING -> KwikColorWarning
-        KwikToastType.SUCCESS -> Color.Green
-        KwikToastType.ERROR -> MaterialTheme.colorScheme.error
+    val backgroundColor = if(state.value.backgroundColor == Color.Unspecified) {
+        when (state.value.type) {
+            KwikToastType.NEUTRAL -> MaterialTheme.colorScheme.primary
+            KwikToastType.WARNING -> KwikColorWarning
+            KwikToastType.SUCCESS -> KwikColorSuccess
+            KwikToastType.ERROR -> MaterialTheme.colorScheme.error
+        }
+    } else {
+        state.value.backgroundColor
     }
 
     val icon = when (state.value.type) {
@@ -160,11 +179,12 @@ fun KwikToast(
             ) {
                 Box(
                     modifier = Modifier
+                        .padding(end = 1.dp)
                         .fillMaxWidth()
                         .height(4.dp)
                         .background(
                             color = Color.White.copy(alpha = 0.5f),
-                            shape = RoundedCornerShape(8.dp)
+                            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                         )
                 ) {
                     Box(
@@ -173,7 +193,7 @@ fun KwikToast(
                             .height(4.dp)
                             .background(
                                 color = Color.White,
-                                shape = RoundedCornerShape(8.dp)
+                                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                             )
                     )
                 }
@@ -209,12 +229,14 @@ fun KwikToast(
 fun MutableState<KwikToastState>.showToast(
     message: String,
     type: KwikToastType = KwikToastType.NEUTRAL,
-    duration: Long = 4000L
+    duration: Long = 4000L,
+    backgroundColor: Color = Color.Unspecified
 ) {
     this.value = KwikToastState(
         message = message,
         duration = duration,
         type = type,
-        isVisible = true
+        isVisible = true,
+        backgroundColor = backgroundColor
     )
 }

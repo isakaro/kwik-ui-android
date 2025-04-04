@@ -1,6 +1,7 @@
 package com.isakaro.kwik.textfield
 
 import android.view.KeyEvent.KEYCODE_DEL
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,6 +46,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.textfield.AllowedChars
 import com.isakaro.kwik.textfield.PasswordToggle
 
@@ -137,10 +139,10 @@ fun KwikOutlinedOTP(
             }
         }
         if(isError){
-            Text(
+            KwikText.BodyText(
                 modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
                 text = error,
-                color = Color.Red,
+                color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Start,
                 style = LocalTextStyle.current.copy(
                     fontSize = 12.sp,
@@ -189,7 +191,6 @@ private fun OTPDigit(
                 keyboardType = KeyboardType.NumberPassword
             ),
             textStyle = LocalTextStyle.current.copy(
-                color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center

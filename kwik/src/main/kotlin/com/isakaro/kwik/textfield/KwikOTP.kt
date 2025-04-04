@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
@@ -141,10 +142,10 @@ fun KwikOTP(
             }
         }
         if(isError){
-            Text(
+            KwikText.BodyText(
                 modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
                 text = error,
-                color = Color.Red,
+                color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Start,
                 style = LocalTextStyle.current.copy(
                     fontSize = 12.sp,
@@ -208,7 +209,6 @@ private fun OTPDigit(
                 keyboardType = KeyboardType.NumberPassword
             ),
             textStyle = LocalTextStyle.current.copy(
-                color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center

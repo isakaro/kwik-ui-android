@@ -28,7 +28,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -63,6 +65,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
+        borderRadius: Int = 12,
         onDismiss: () -> Unit,
         content: @Composable () -> Unit
     ) {
@@ -98,14 +101,18 @@ object KwikDialog {
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
                         .then(modifier)
+                        .background(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(borderRadius.dp)
+                        )
                 ) {
                     Box {
                         Column(
                             modifier = Modifier
                                 .heightIn(min = 150.dp)
                                 .background(
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(12.dp)
+                                    color = MaterialTheme.colorScheme.surface,
+                                    shape = RoundedCornerShape(borderRadius.dp)
                                 ),
                         ) {
                             if (title != null) {
@@ -134,9 +141,9 @@ object KwikDialog {
                                     modifier = Modifier
                                         .padding(8.dp)
                                         .size(30.dp),
-                                    imageVector = Icons.Default.Close,
+                                    painter = painterResource(R.drawable.close),
                                     contentDescription = "close",
-                                    tint = if(isSystemInDarkTheme()) Color.Black else Color.White
+                                    tint = Color.Gray
                                 )
                             }
                         }
@@ -164,6 +171,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
+        borderRadius: Int = 12,
         dismiss: () -> Unit,
         content: @Composable () -> Unit
     ){
@@ -172,6 +180,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
+                borderRadius = borderRadius,
                 withCloseIcon = withCloseIcon,
                 onDismiss = {
                     dismiss()
@@ -225,6 +234,7 @@ object KwikDialog {
         open: Boolean,
         title: String? = null,
         cancellable: Boolean = true,
+        borderRadius: Int = 12,
         onConfirm: () -> Unit,
         onCancel: () -> Unit = {},
         dismiss: () -> Unit,
@@ -240,6 +250,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
+                borderRadius = borderRadius,
                 onDismiss = {
                     dismiss()
                 }

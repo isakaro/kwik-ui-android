@@ -58,7 +58,7 @@ fun KwikTextButton(
             }
             when (text) {
                 is String -> {
-                    Text(
+                    KwikText.BodyText(
                         text = text,
                         textAlign = TextAlign.End,
                         color = textColor,
@@ -66,7 +66,7 @@ fun KwikTextButton(
                     )
                 }
                 is Int -> {
-                    Text(
+                    KwikText.BodyText(
                         text = stringResource(text),
                         textAlign = TextAlign.End,
                         color = textColor,
@@ -74,7 +74,7 @@ fun KwikTextButton(
                     )
                 }
                 is AnnotatedString -> {
-                    Text(
+                    KwikText.BodyText(
                         text = text,
                         textAlign = TextAlign.End,
                         color = textColor,

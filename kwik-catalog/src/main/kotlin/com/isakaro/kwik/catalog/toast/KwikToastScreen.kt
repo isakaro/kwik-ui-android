@@ -63,7 +63,7 @@ internal fun KwikToastScreen(
                     kwikToastState.showToast(
                         message = "This is a Kwik toast with duration",
                         type = KwikToastType.ERROR,
-                        duration = 6000L // 6 seconds
+                        duration = 6000L // 6 seconds,
                     )
                 }
             }

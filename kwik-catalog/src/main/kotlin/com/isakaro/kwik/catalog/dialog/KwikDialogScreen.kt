@@ -28,6 +28,7 @@ import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikCheckBox
 import com.isakaro.kwik.KwikDialog
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikTextButton
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -89,14 +90,22 @@ internal fun KwikDialogScreen(
                     Column(
                         modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp, bottom = 15.dp),
                     ) {
-                        Text(text = "I am a dialog with custom content", color = Color.Black, style = MaterialTheme.typography.headlineMedium)
+                        KwikText.BodyText(
+                            text = "I am a dialog with custom content",
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+
                         Column(
                             modifier = Modifier
                                 .padding(top = 30.dp)
                                 .fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            Text(text = "Enter your phone number and name", style = MaterialTheme.typography.titleSmall, color = Color.Black)
+                            KwikText.BodyText(
+                                text = "Enter your phone number and name",
+                                style = MaterialTheme.typography.titleSmall
+                            )
+
                             KwikPhoneNumberField(
                                 initialCountryInfo = countryList.random(),
                                 value = text,
@@ -142,10 +151,9 @@ internal fun KwikDialogScreen(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text(
+                    KwikText.BodyText(
                         text = "A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = Color.Black
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
             }
