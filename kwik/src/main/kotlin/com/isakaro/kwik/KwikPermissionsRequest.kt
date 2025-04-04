@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -108,7 +109,7 @@ import com.isakaro.kwik.utils.isPermissionGranted
  * */
 @Composable
 fun KwikPermissionsRequest(
-    state: MutableState<KwikPermissionRequestState>,
+    state: KwikPermissionRequestState,
     permissions: List<KwikPermissionDto>,
     title: String,
     deniedPermanentlyMessage: String = "Permission required. Go to settings to enable",
@@ -127,7 +128,10 @@ fun KwikPermissionsRequest(
     var arePermissionsGranted by remember { mutableStateOf(context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())) }
     var permissionsExplanationDialogVisible by remember { mutableStateOf(!arePermissionsGranted) }
     val appPackageName = LocalContext.current.packageName
-    var permissionRequestState by remember { mutableStateOf(state.value) }
+    var permissionRequestState = state
+    val permissionState by remember(permissionRequestState) {
+        derivedStateOf { state }
+    }
 
     fun evaluatePermissions(){
         arePermissionsGranted = context.isPermissionGranted(*permissions.map { it.permission }.toTypedArray())
@@ -137,15 +141,15 @@ fun KwikPermissionsRequest(
         } else {
             permissionsExplanationDialogVisible = true
         }
-        if(permissionRequestState == KwikPermissionRequestState.ShowRationale){
-            permissionRequestState = KwikPermissionRequestState.Requesting
+        permissionRequestState = if(permissionRequestState == KwikPermissionRequestState.ShowRationale){
+            KwikPermissionRequestState.Requesting
         } else {
-            permissionRequestState = KwikPermissionRequestState.Denied
+            KwikPermissionRequestState.Denied
         }
     }
 
-    LaunchedEffect(state.value) {
-        permissionRequestState = state.value
+    LaunchedEffect(state) {
+        permissionRequestState = state
         evaluatePermissions()
     }
 
@@ -164,7 +168,7 @@ fun KwikPermissionsRequest(
     ) {
         KwikPermissionRequest(
             permissions = permissions,
-            permissionRequestState = state,
+            permissionRequestState = permissionState,
             onPermissionRequestStateChange = { newState ->
                 permissionRequestState = newState
             },
@@ -268,7 +272,7 @@ private fun KwikPermissionRequestPreview() {
     val state = rememberKwikPermissionState()
 
     KwikPermissionsRequest(
-        state = state,
+        state = state.value,
         permissions = listOf(KwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "We need the permission to post notifications")),
         title = "Notifications"
     )
@@ -295,7 +299,7 @@ data class KwikPermissionDto(
 @Composable
 internal fun KwikPermissionRequest(
     permissions: List<KwikPermissionDto>,
-    permissionRequestState: MutableState<KwikPermissionRequestState>,
+    permissionRequestState: KwikPermissionRequestState,
     onPermissionRequestStateChange: (KwikPermissionRequestState) -> Unit,
     onGrantAction: () -> Unit = {},
     onShowRationale: () -> Unit = {},
@@ -330,8 +334,8 @@ internal fun KwikPermissionRequest(
         onPermissionRequestStateChange(newState)
     }
 
-    LaunchedEffect(permissionRequestState.value) {
-        when(permissionRequestState.value) {
+    LaunchedEffect(permissionRequestState) {
+        when(permissionRequestState) {
             KwikPermissionRequestState.Requesting -> {
                 getPermission.launch(permissionList)
             }

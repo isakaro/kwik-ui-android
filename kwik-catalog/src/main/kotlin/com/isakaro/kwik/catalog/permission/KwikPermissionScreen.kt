@@ -61,7 +61,7 @@ internal fun KwikPermissionsScreen(
         }
     ) {
         KwikPermissionsRequest(
-            state = permissionState,
+            state = permissionState.value,
             permissions = when {
                 Build.VERSION.SDK_INT >= 33 -> {
                     listOf(
