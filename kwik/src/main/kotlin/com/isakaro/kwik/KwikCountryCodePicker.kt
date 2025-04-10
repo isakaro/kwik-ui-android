@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
-import com.isakaro.kwik.utils.CountryInfo
+import com.isakaro.kwik.utils.KwikCountryInfo
 import com.isakaro.kwik.utils.countryList
 import com.isakaro.kwik.utils.resolveCountries
 import com.isakaro.kwik.utils.text
@@ -54,7 +54,7 @@ fun KwikCountryCodePicker(
     enableSearch: Boolean = true,
     showFlags: Boolean = true,
     noCountryFoundMessage: String = "No country found",
-    onSelect: (CountryInfo) -> Unit
+    onSelect: (KwikCountryInfo) -> Unit
 ){
     val countries = remember { resolveCountries(includeOnly = includeOnlyCountries, omit = omitCountries) }
     val searchResults = remember { mutableStateOf(countries) }
@@ -113,7 +113,7 @@ fun KwikCountryPickerDialog(
     open: Boolean,
     title: String = "Where are you from?",
     countryListState: LazyListState,
-    onSelect: (CountryInfo) -> Unit,
+    onSelect: (KwikCountryInfo) -> Unit,
     onDismiss: () -> Unit
 ){
     KwikDialog.ContentDialog(
@@ -132,7 +132,7 @@ fun KwikCountryPickerDialog(
 @Composable
 fun KwikCountryCodeButton(
     modifier: Modifier = Modifier.height(65.dp),
-    country: CountryInfo,
+    country: KwikCountryInfo,
     enabled: Boolean = true,
     onClick: () -> Unit
 ){
@@ -169,7 +169,7 @@ fun KwikCountryCodeButton(
 
 @Composable
 fun CountryCodeItem(
-    country: CountryInfo,
+    country: KwikCountryInfo,
     showFlags: Boolean = true,
     onClick: () -> Unit
 ) {

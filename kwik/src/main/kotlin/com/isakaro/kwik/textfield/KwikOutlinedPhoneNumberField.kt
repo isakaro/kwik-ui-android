@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
-import com.isakaro.kwik.utils.CountryInfo
+import com.isakaro.kwik.utils.KwikCountryInfo
 import com.isakaro.kwik.utils.countryList
 import com.isakaro.kwik.utils.text
 
@@ -112,7 +112,7 @@ fun KwikOutlinedPhoneNumberField(
     isSingleLine: Boolean = true,
     maxLines: Int = 1,
     imeAction: ImeAction = ImeAction.Done,
-    initialCountryInfo: CountryInfo,
+    initialCountryInfo: KwikCountryInfo,
     isValid: Boolean = false,
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
@@ -135,7 +135,7 @@ fun KwikOutlinedPhoneNumberField(
         errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
     ),
-    onCountrySelected: (CountryInfo) -> Unit = {}
+    onCountrySelected: (KwikCountryInfo) -> Unit = {}
 ) {
 
     var countryCodePickerWidth by remember { mutableStateOf(0.dp) }
