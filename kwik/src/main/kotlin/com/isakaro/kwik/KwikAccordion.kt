@@ -130,11 +130,10 @@ private fun KwikAccordionHeader(
                     contentDescription = if(isExpanded) "collapse" else "expand",
                 )
             }
-            Text(
+            KwikText.BodyMedium(
                 modifier = Modifier,
                 text = title,
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyMedium,
                 color = if(isError) MaterialTheme.colorScheme.error else headerTextColor
             )
             Spacer(modifier = Modifier.weight(1f))

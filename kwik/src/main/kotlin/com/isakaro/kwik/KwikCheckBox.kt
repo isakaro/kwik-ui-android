@@ -34,13 +34,12 @@ fun KwikCheckBox(
                 onCheckedChange(isChecked)
             }
         )
-        KwikText.BodyMedium(
+        KwikText.TitleSmall(
             modifier = Modifier.clickable {
                 onCheckedChange(!checked)
             },
             text = text,
-            color = contentColor,
-            style = MaterialTheme.typography.titleSmall
+            color = contentColor
         )
     }
 }

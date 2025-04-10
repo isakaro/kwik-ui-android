@@ -76,12 +76,11 @@ fun KwikNetworkStateView(
                     color = Color.White
                 )
             }
-            Text(
+            KwikText.BodySmall(
                 modifier = Modifier
                     .padding(4.dp)
                     .weight(1f),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall,
                 text = when (networkState) {
                     is KwikNetworkUtils.NetworkState.Available -> "Connected"
                     is KwikNetworkUtils.NetworkState.Unavailable -> "No internet connection"

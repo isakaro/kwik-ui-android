@@ -94,10 +94,9 @@ fun KwikDateField(
                     contentDescription = null,
                 )
 
-                KwikText.BodyMedium(
+                KwikText.BodyLarge(
                     modifier = Modifier.align(Alignment.Center),
-                    text = dateDisplay,
-                    style = MaterialTheme.typography.bodyLarge,
+                    text = dateDisplay
                 )
 
                 Icon(

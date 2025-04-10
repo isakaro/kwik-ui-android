@@ -17,12 +17,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -358,26 +356,24 @@ fun KwikOutlinedTextField(
             if (hint != null && (hintVisibleOnError && isError || !hintVisibleOnError)) {
                 when(hint){
                     is Int -> {
-                        Text(
+                        KwikText.LabelMedium(
                             text = stringResource(id = hint),
                             color = KwikColorHint,
                             textAlign = TextAlign.Start,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 8.dp),
-                            style = MaterialTheme.typography.labelMedium
+                                .padding(bottom = 8.dp)
                         )
                     }
                     is String -> {
                         if(hint.isNotBlank()){
-                            Text(
+                            KwikText.LabelMedium(
                                 text = hint,
                                 color = KwikColorHint,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
-                                style = MaterialTheme.typography.labelMedium
+                                    .padding(bottom = 8.dp)
                             )
                         }
                     }
@@ -389,8 +385,7 @@ fun KwikOutlinedTextField(
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
-                                style = MaterialTheme.typography.labelMedium
+                                    .padding(bottom = 8.dp)
                             )
                         }
                     }
@@ -400,27 +395,25 @@ fun KwikOutlinedTextField(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 if(isError){
-                    KwikText.BodyMedium(
+                    KwikText.LabelMedium(
                         text = error,
                         color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
-                            .align(Alignment.BottomEnd),
-                        style = MaterialTheme.typography.labelMedium
+                            .align(Alignment.BottomEnd)
                     )
                 }
                 if(isTextCounterShown || isBigTextField) {
-                    KwikText.BodyMedium(
+                    KwikText.LabelMedium(
                         text = "${value.value.text.length}/$maxLength",
                         color = Color.Gray,
                         textAlign = TextAlign.End,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
-                            .align(Alignment.BottomEnd),
-                        style = MaterialTheme.typography.labelMedium
+                            .align(Alignment.BottomEnd)
                     )
                 }
             }

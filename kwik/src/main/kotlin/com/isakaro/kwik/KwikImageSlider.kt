@@ -152,10 +152,9 @@ fun KwikImageCarousel(
                         shape = RoundedCornerShape(12.dp)
                     ).align(Alignment.BottomEnd)
             ) {
-                Text(
+                KwikText.TitleSmall(
                     text = "${pagerState.currentPage + 1}/${images.size}",
                     color = Color.White,
-                    style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(4.dp)
                 )
             }

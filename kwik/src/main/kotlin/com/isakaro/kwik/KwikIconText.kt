@@ -42,10 +42,9 @@ fun TextWithIcon(
             )
         }
         Spacer(modifier = Modifier.width(4.dp))
-        Text(
+        KwikText.LabelMedium(
             text = text,
-            color = Color.Gray,
-            style = MaterialTheme.typography.labelMedium
+            color = Color.Gray
         )
     }
 }

@@ -76,10 +76,9 @@ fun KwikCounter(
             .alpha(if (disabled) 0.5f else 1.0f),
     ) {
         if (label.isNotEmpty()) {
-            Text(
+            KwikText.TitleSmall(
                 text = label,
                 color = Color.Gray,
-                style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 4.dp)
             )

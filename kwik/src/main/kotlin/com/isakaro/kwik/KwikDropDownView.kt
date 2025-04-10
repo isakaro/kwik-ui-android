@@ -58,10 +58,9 @@ fun KwikDropDownView(
             .height(75.dp)
     ) {
         if(label.isBlank().not()){
-            Text(
+            KwikText.TitleSmall(
                 text = label,
                 color = Color.Gray,
-                style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -92,10 +91,9 @@ fun KwikDropDownView(
                     )
                 }
 
-                KwikText.BodyMedium(
+                KwikText.TitleSmall(
                     modifier = Modifier.align(Alignment.Center),
-                    text = text,
-                    style = MaterialTheme.typography.titleSmall,
+                    text = text
                 )
 
                 Icon(

@@ -76,18 +76,19 @@ fun KwikExpandableText(
                 Column(
                     modifier = Modifier.padding(8.dp)
                 ) {
-                    Text(
+                    KwikText.BodyLarge(
                         text = text,
                         color = Color.DarkGray,
-                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(16.dp)
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        TextButton(onClick = { isExpanded = false }){
-                            Text(text = "Close")
+                        KwikTextButton(
+                            text = "Close"
+                        ){
+                            isExpanded = false
                         }
                     }
                 }

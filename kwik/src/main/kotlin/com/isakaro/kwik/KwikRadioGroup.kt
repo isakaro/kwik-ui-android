@@ -68,9 +68,8 @@ fun <T> ColumnScope.KwikRadioButtonGroup(
                     }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
+                KwikText.BodyMedium(
                     text = item.label,
-                    style = MaterialTheme.typography.bodyMedium,
                     color = if(selectedIndex == index) MaterialTheme.colorScheme.onSurface else Color.Gray
                 )
             }

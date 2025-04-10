@@ -16,6 +16,7 @@ import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikButtonLoadingStyle
 import com.isakaro.kwik.KwikExtendedFloatingActionButton
 import com.isakaro.kwik.KwikFloatingActionButton
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
@@ -153,7 +154,7 @@ private fun FabButton() {
 private fun ExtendedButton() {
     ShowCase("Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+            text = { KwikText.TitleSmall(text = "Action") },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
@@ -168,7 +169,7 @@ private fun LoadingExtendedFloatingActionButton() {
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White,
             text = {
-                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
+                KwikText.TitleSmall(text = "Action")
             },
             icon = {
                 Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
@@ -184,7 +185,7 @@ private fun LoadingExtendedFloatingActionButton() {
 private fun DisabledExtendedButton() {
     ShowCase("Disabled Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { Text(text = "Action", style = MaterialTheme.typography.titleSmall) },
+            text = { KwikText.TitleSmall(text = "Action") },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
@@ -203,7 +204,7 @@ private fun LoadingFloatingActionButton() {
         ){
             Row {
                 Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
-                Text(text = "Action", style = MaterialTheme.typography.titleSmall)
+                KwikText.TitleSmall(text = "Action")
             }
         }
     }

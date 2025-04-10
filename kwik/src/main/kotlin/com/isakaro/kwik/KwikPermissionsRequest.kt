@@ -198,8 +198,7 @@ fun KwikPermissionsRequest(
 
                 KwikText.TitleMedium(
                     text = title,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
+                    textAlign = TextAlign.Center
                 )
 
                 KwikText.TitleMedium(

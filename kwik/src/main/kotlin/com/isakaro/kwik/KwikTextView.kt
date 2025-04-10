@@ -33,7 +33,7 @@ object KwikText {
      * [KwikText]'s functions like [DisplayLarge], [DisplayMedium], [BodyMedium] etc... rely on it to display text.
      * */
     @Composable
-    fun TextComponent(
+    fun RenderText(
         modifier: Modifier = Modifier,
         text: Any,
         color: Color = MaterialTheme.colorScheme.onSurface,
@@ -98,7 +98,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -131,7 +131,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -164,7 +164,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -197,7 +197,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -230,7 +230,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -263,7 +263,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -296,7 +296,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -329,7 +329,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -362,7 +362,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -395,7 +395,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -428,7 +428,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -461,7 +461,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -494,7 +494,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -527,7 +527,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,
@@ -560,7 +560,7 @@ object KwikText {
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
-        TextComponent(
+        RenderText(
             modifier = modifier,
             text = text,
             color = color,

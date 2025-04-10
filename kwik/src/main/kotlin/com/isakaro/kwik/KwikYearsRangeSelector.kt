@@ -88,17 +88,15 @@ fun KwikYearsRangeSelector(
                     startYearVisible.value = true
                 }
             ) {
-                Text(
-                    text = fromYearText,
-                    style = MaterialTheme.typography.bodySmall
+                KwikText.BodySmall(
+                    text = fromYearText
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    Text(
+                    KwikText.TitleSmall(
                         modifier = Modifier.padding(end = 2.dp),
-                        text = selectedMinYear.toString(),
-                        style = MaterialTheme.typography.titleSmall
+                        text = selectedMinYear.toString()
                     )
                     Icon(
                         Icons.Filled.KeyboardArrowDown,
@@ -136,17 +134,15 @@ fun KwikYearsRangeSelector(
                 },
                 horizontalAlignment = Alignment.End
             ) {
-                Text(
-                    text = toYearText,
-                    style = MaterialTheme.typography.bodySmall
+                KwikText.BodySmall(
+                    text = toYearText
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                   Text(
+                   KwikText.TitleSmall(
                        modifier = Modifier.padding(end = 2.dp),
-                       text = selectedMaxYear.toString(),
-                       style = MaterialTheme.typography.titleSmall
+                       text = selectedMaxYear.toString()
                    )
                     Icon(
                         Icons.Filled.KeyboardArrowDown,

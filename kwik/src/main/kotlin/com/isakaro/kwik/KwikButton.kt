@@ -134,7 +134,7 @@ fun KwikButton(
                     CircularProgressIndicator(color = Color.DarkGray, modifier = Modifier.size(30.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     if(loadingText.isNotBlank()) {
-                        KwikText.BodyMedium(
+                        KwikText.RenderText(
                             text = loadingText,
                             modifier = Modifier.fillMaxWidth(),
                             style = fontStyle
@@ -146,7 +146,7 @@ fun KwikButton(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     if(loadingText.isNotBlank()){
-                        KwikText.BodyMedium(
+                        KwikText.RenderText(
                             text = loadingText,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -318,9 +318,8 @@ fun KwikExtendedFloatingActionButton(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 if(loadingText != null){
-                    Text(
+                    KwikText.TitleSmall(
                         text = loadingText,
-                        style = MaterialTheme.typography.titleSmall,
                         color = contentColor
                     )
                 }
@@ -407,9 +406,8 @@ fun KwikFloatingActionButton(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 if(loadingText != null){
-                    Text(
+                    KwikText.TitleSmall(
                         text = loadingText,
-                        style = MaterialTheme.typography.titleSmall,
                         color = contentColor
                     )
                 }

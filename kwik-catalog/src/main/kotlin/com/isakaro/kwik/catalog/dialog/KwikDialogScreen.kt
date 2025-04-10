@@ -95,9 +95,8 @@ internal fun KwikDialogScreen(
                     Column(
                         modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp, bottom = 15.dp),
                     ) {
-                        KwikText.BodyMedium(
-                            text = "I am a dialog with custom content",
-                            style = MaterialTheme.typography.headlineMedium
+                        KwikText.HeadlineMedium(
+                            text = "I am a dialog with custom content"
                         )
 
                         Column(
@@ -106,9 +105,8 @@ internal fun KwikDialogScreen(
                                 .fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            KwikText.BodyMedium(
-                                text = "Enter your phone number and name",
-                                style = MaterialTheme.typography.titleSmall
+                            KwikText.TitleSmall(
+                                text = "Enter your phone number and name"
                             )
 
                             KwikPhoneNumberField(
@@ -156,9 +154,8 @@ internal fun KwikDialogScreen(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    KwikText.BodyMedium(
+                    KwikText.TitleSmall(
                         text = "A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog",
-                        style = MaterialTheme.typography.titleSmall
                     )
                 }
             }
@@ -186,9 +183,8 @@ internal fun KwikDialogScreen(
                         url = R.drawable.kwikui_logo,
                         modifier = Modifier.size(100.dp)
                     )
-                    KwikText.BodyMedium(
-                        text = "Accept the terms and conditions to proceed",
-                        style = MaterialTheme.typography.titleSmall
+                    KwikText.TitleSmall(
+                        text = "Accept the terms and conditions to proceed"
                     )
                 }
             }

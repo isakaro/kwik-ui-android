@@ -274,9 +274,8 @@ internal fun KwikComponentsCatalogScreen(
 
                 KwikHSpacer(8)
 
-                KwikText.TitleMedium(
-                    text = "Kwik Components Catalog",
-                    style = MaterialTheme.typography.headlineMedium
+                KwikText.HeadlineMedium(
+                    text = "Kwik Components Catalog"
                 )
             }
 

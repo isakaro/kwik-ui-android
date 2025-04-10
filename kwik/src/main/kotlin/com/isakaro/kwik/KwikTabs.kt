@@ -182,9 +182,8 @@ fun KwikTabItemView(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 6.dp)
             ) {
-                Text(
+                KwikText.TitleSmall(
                     text = item.title,
-                    style = MaterialTheme.typography.titleSmall,
                     color = if(selected) selectedContentColor else unselectedContentColor,
                 )
                 if(item.counter > 0){
@@ -196,9 +195,8 @@ fun KwikTabItemView(
                         .padding(4.dp),
                         contentAlignment = Alignment.Center
                     ){
-                        Text(
+                        KwikText.BodySmall(
                             text = if(item.counter > 99) "99+" else item.counter.toString(),
-                            style = MaterialTheme.typography.bodySmall,
                             color = if(selected) Color.White else Color.LightGray
                         )
                     }

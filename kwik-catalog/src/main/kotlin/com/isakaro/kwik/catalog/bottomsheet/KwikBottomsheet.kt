@@ -1,10 +1,13 @@
 package com.isakaro.kwik.catalog.bottomsheet
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -46,6 +49,8 @@ internal fun KwikBottomSheetScreen(
         }
     ) {
 
+        Spacer(modifier = Modifier.weight(1f))
+
         KwikButton(
             text = "Show bottom sheet",
             onClick = {
@@ -53,8 +58,11 @@ internal fun KwikBottomSheetScreen(
             }
         )
 
+        KwikVSpacer(12)
+
         if (showBottomSheet) {
             ModalBottomSheet(
+                containerColor = MaterialTheme.colorScheme.surface,
                 onDismissRequest = {
                     showBottomSheet = false
                 },

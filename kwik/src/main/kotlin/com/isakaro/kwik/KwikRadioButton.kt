@@ -35,13 +35,12 @@ fun KwikRadioButton(
             selected = selected,
             onClick = null
         )
-        KwikText.BodyMedium(
+        KwikText.TitleSmall(
             modifier = Modifier.clickable {
                 onClick(!selected)
             },
             text = text,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.titleSmall
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
 }

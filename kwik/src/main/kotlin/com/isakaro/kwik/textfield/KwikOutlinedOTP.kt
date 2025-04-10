@@ -139,7 +139,7 @@ fun KwikOutlinedOTP(
             }
         }
         if(isError){
-            KwikText.BodyMedium(
+            KwikText.RenderText(
                 modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
                 text = error,
                 color = MaterialTheme.colorScheme.error,

@@ -207,7 +207,7 @@ fun KwikTextField(
         modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
     ) {
         if(!label.isNullOrBlank()){
-            KwikText.BodyMedium(
+            KwikText.TitleMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,

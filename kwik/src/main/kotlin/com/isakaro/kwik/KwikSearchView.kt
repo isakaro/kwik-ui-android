@@ -237,15 +237,14 @@ fun KwikSearchView(
             modifier = Modifier.fillMaxWidth()
         ) {
             if(isError && error != null){
-                KwikText.BodyMedium(
+                KwikText.LabelMedium(
                     text = error,
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 4.dp)
-                        .align(Alignment.BottomEnd),
-                    style = MaterialTheme.typography.labelMedium
+                        .align(Alignment.BottomEnd)
                 )
             }
         }

@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -132,9 +133,8 @@ fun BottomNavigationItem(selected: Boolean, item: BottomNavItem, onClick: () -> 
                 modifier = Modifier
                     .size(30.dp)
             )
-            Text(
+            KwikText.TitleSmall(
                 text = item.name,
-                style = MaterialTheme.typography.titleSmall,
                 color = if(selected) Color.Black else Color.Gray
             )
         }

@@ -80,11 +80,10 @@ fun KwikSocialButton(
                 painter = painterResource(id = icon),
                 contentDescription = null,
             )
-            Text(
+            KwikText.TitleSmall(
                 modifier = Modifier.align(Alignment.Center),
                 text = text,
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.titleSmall,
                 color = contentColor
             )
         }

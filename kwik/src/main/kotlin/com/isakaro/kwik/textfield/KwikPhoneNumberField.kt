@@ -210,14 +210,13 @@ fun KwikPhoneNumberField(
         }
         Spacer(modifier = Modifier.height(4.dp))
         if(isError){
-            Text(
+            KwikText.LabelMedium(
                 text = error,
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                style = MaterialTheme.typography.labelMedium
+                    .padding(bottom = 8.dp)
             )
         }
     }

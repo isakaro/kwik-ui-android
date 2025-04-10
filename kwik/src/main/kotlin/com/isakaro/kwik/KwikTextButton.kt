@@ -61,24 +61,21 @@ fun KwikTextButton(
                     KwikText.BodyMedium(
                         text = text,
                         textAlign = TextAlign.End,
-                        color = textColor,
-                        style = TextStyle(fontSize = 18.sp)
+                        color = textColor
                     )
                 }
                 is Int -> {
                     KwikText.BodyMedium(
                         text = stringResource(text),
                         textAlign = TextAlign.End,
-                        color = textColor,
-                        style = TextStyle(fontSize = 18.sp)
+                        color = textColor
                     )
                 }
                 is AnnotatedString -> {
                     KwikText.BodyMedium(
                         text = text,
                         textAlign = TextAlign.End,
-                        color = textColor,
-                        style = TextStyle(fontSize = 18.sp)
+                        color = textColor
                     )
                 }
             }
