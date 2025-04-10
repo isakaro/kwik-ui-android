@@ -1,6 +1,5 @@
 package com.isakaro.kwik.catalog.dropdown
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
@@ -8,11 +7,13 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,8 +21,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.isakaro.Kwik.catalog.R
+import com.isakaro.kwik.KwikDropdown
+import com.isakaro.kwik.KwikDropdownItem
+import com.isakaro.kwik.KwikDropdownItemActionState
+import com.isakaro.kwik.KwikIconButton
+import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
@@ -42,25 +48,72 @@ internal fun KwikDropDownScreen(
         }
     ) {
         ShowCase(title = "DropDown") {
-            var expanded by remember { mutableStateOf(false) }
+            var state by remember { mutableStateOf(false) }
 
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentSize(Alignment.TopStart)
             ) {
-                IconButton(onClick = { expanded = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(text = { KwikText.BodyText(text = "Profile") }, onClick = { expanded = false })
-                    DropdownMenuItem(text = { KwikText.BodyText(text = "Settings") }, onClick = { expanded = false })
-                    HorizontalDivider()
-                    DropdownMenuItem(text = { KwikText.BodyText(text = "Logout") }, onClick = { expanded = false })
-                }
+                KwikIconButton(
+                    icon = Icons.Default.MoreVert,
+                    onClick = {
+                        state = true
+                    }
+                )
+                KwikDropdown(
+                    state = state,
+                    onDismissRequest = { state = false },
+                    items = listOf(
+                        KwikDropdownItemActionState.Header("Account"),
+                        KwikDropdownItemActionState.Data(
+                            KwikDropdownItem(
+                                text = {
+                                    KwikText.BodyText(text = "Profile")
+                                },
+                                leadingIcon = {
+                                    KwikImageView(
+                                        url = Icons.Default.AccountCircle
+                                    )
+                                },
+                                onClick = {
+
+                                }
+                            )
+                        ),
+                        KwikDropdownItemActionState.Data(
+                            KwikDropdownItem(
+                                text = {
+                                    KwikText.BodyText(text = "Settings")
+                                },
+                                leadingIcon = {
+                                    KwikImageView(
+                                        url = Icons.Default.Settings
+                                    )
+                                },
+                                onClick = {
+
+                                }
+                            )
+                        ),
+                        KwikDropdownItemActionState.Divider(),
+                        KwikDropdownItemActionState.Data(
+                            KwikDropdownItem(
+                                text = {
+                                    KwikText.BodyText(text = "Logout")
+                                },
+                                leadingIcon = {
+                                    KwikImageView(
+                                        url = Icons.AutoMirrored.Filled.ExitToApp
+                                    )
+                                },
+                                onClick = {
+
+                                }
+                            )
+                        ),
+                    )
+                )
             }
         }
     }

@@ -71,7 +71,7 @@ fun KwikIconButton(
     modifier: Modifier = Modifier,
     icon: Any,
     tint: Color = MaterialTheme.colorScheme.primary,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     TextButton(
         onClick = { onClick() },

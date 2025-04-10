@@ -35,6 +35,7 @@ import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
 import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
+import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
@@ -235,6 +236,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Component for selecting a country",
                 action = {
                     navigator.navigate(KwikCountryPickerScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Search view",
+                description = "Provides a neat search view with suggestions and debounce support",
+                action = {
+                    navigator.navigate(KwikSearchViewScreenDestination)
                 }
             )
         )

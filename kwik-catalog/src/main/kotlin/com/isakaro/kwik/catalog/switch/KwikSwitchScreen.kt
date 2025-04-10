@@ -5,10 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.KwikSwitch
+import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.theme.KwikColorError
+import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -28,9 +32,28 @@ internal fun KwikSwitchScreen(
             val checkedState = remember { mutableStateOf(true) }
 
             KwikSwitch(
+                text = {
+                    KwikText.BodyText(
+                        text = "Control the lights"
+                    )
+                },
                 checked = checkedState.value,
                 onCheckedChange = { checkedState.value = it }
             )
+
+            KwikVSpacer(12)
+
+            if (checkedState.value) {
+                KwikText.BodyText(
+                    text = "The lights are on",
+                    color = KwikColorSuccess
+                )
+            } else {
+                KwikText.BodyText(
+                    text = "The lights are off",
+                    color = KwikColorError
+                )
+            }
         }
     }
 }

@@ -5,6 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import com.isakaro.kwik.KwikCountryPicker
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikVSpacer
@@ -42,8 +46,13 @@ internal fun KwikCountryPickerScreen(
             KwikVSpacer(12)
 
             if(selectedCountryInfo != null){
-                KwikText.TitleText(
-                    text = "Selected country: ${selectedCountryInfo?.name}"
+                KwikText.BodyText(
+                    text = buildAnnotatedString {
+                        append("Selected country: ")
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                            append(selectedCountryInfo?.name ?: "")
+                        }
+                    }
                 )
             }
         }
@@ -59,8 +68,13 @@ internal fun KwikCountryPickerScreen(
             KwikVSpacer(12)
 
             if(selectedCountryInfo2 != null){
-                KwikText.TitleText(
-                    text = "Selected country: ${selectedCountryInfo2?.name}"
+                KwikText.BodyText(
+                    text = buildAnnotatedString {
+                        append("Selected country: ")
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                            append(selectedCountryInfo2?.name ?: "")
+                        }
+                    }
                 )
             }
         }

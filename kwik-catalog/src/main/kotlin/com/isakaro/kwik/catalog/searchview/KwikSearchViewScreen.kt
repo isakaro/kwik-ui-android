@@ -3,7 +3,11 @@ package com.isakaro.kwik.catalog.searchview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.KwikSearchView
 import com.isakaro.kwik.KwikText
@@ -56,8 +60,13 @@ internal fun KwikSearchViewScreen(
 
             KwikVSpacer(12)
 
-            KwikText.TitleText(
-                text = "Search query: ${query.text}"
+            KwikText.BodyText(
+                text = buildAnnotatedString {
+                    append("Search query: ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                        append(query.text)
+                    }
+                }
             )
         }
 
@@ -83,8 +92,13 @@ internal fun KwikSearchViewScreen(
 
             KwikVSpacer(12)
 
-            KwikText.TitleText(
-                text = "Search query: ${query.text}"
+            KwikText.BodyText(
+                text = buildAnnotatedString {
+                    append("Search query: ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                        append(query.text)
+                    }
+                }
             )
         }
     }

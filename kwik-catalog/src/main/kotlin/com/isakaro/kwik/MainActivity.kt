@@ -43,6 +43,7 @@ import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
 import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
+import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
@@ -147,7 +148,9 @@ class MainActivity: ComponentActivity() {
                         composable(KwikCountryPickerScreenDestination){
                             KwikCountryPickerScreen()
                         }
-
+                        composable(KwikSearchViewScreenDestination){
+                            KwikSearchViewScreen()
+                        }
                     }
                 }
             }
