@@ -1,7 +1,6 @@
 package com.isakaro.kwik
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,15 +19,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,10 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -61,7 +53,6 @@ enum class KwikButtonLoadingStyle {
  * @param height The height of the button.
  * @param containerColor The color of the button.
  * @param tintIcon Whether the icon should be tinted with the button color.
- * @param allCaps Whether the text should be in all caps. Defaults to true.
  * @param enabled Whether the button is enabled.
  * @param fontStyle The style of the text. Refer to [TextStyle] and [MaterialTheme.typography].
  * @param kwikButtonLoadingStyle The style of the loading indicator. Can be [KwikButtonLoadingStyle.CIRCULAR] or [KwikButtonLoadingStyle.LINEAR].
@@ -98,7 +89,6 @@ fun KwikButton(
     height: Int = 50,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Boolean = true,
-    allCaps: Boolean = true,
     enabled: Boolean = true,
     fontStyle: TextStyle = MaterialTheme.typography.titleSmall,
     kwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
@@ -176,100 +166,43 @@ fun KwikButton(
                 }
             }
         } else {
-            if(leadingIcon is Int){
-                if (tintIcon){
-                    Icon(
-                        painter = painterResource(id = leadingIcon),
-                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                } else {
-                    Image(
-                        painter = painterResource(id = leadingIcon),
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-            } else if (leadingIcon is ImageVector) {
-                if (tintIcon){
-                    Icon(
-                        imageVector = leadingIcon,
-                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                } else {
-                    Image(
-                        imageVector = leadingIcon,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
+            if(leadingIcon != null){
+                KwikImageView(
+                    modifier = Modifier.size(25.dp),
+                    url = leadingIcon,
+                    tint = if (tintIcon) {
+                        if(outlined) MaterialTheme.colorScheme.primary else Color.White
+                    } else {
+                        Color.Unspecified
+                    },
+                )
             }
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            when (text) {
-                is String -> {
-                    Text(
-                        text = if(allCaps) text.toString().uppercase() else text,
-                        style = fontStyle,
-                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
-                    )
-                }
-                is AnnotatedString -> {
-                    Text(
-                        text = text,
-                        style = fontStyle,
-                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
-                    )
-                }
-                is Int -> {
-                    Text(
-                        text = if(allCaps) stringResource(id = text).uppercase() else stringResource(id = text),
-                        style = fontStyle,
-                        color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
-                    )
-                }
-            }
+            KwikText.RenderText(
+                text = text,
+                style = fontStyle,
+                color = if(outlined) MaterialTheme.colorScheme.primary else Color.White
+            )
 
             if(trailingIcon != null) {
                 Spacer(modifier = Modifier.width(8.dp))
             }
 
-            if(trailingIcon is Int){
-                if (tintIcon){
-                    Icon(
-                        painter = painterResource(id = trailingIcon),
-                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                } else {
-                    Image(
-                        painter = painterResource(id = trailingIcon),
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-            } else if (trailingIcon is ImageVector) {
-                if (tintIcon){
-                    Icon(
-                        imageVector = trailingIcon,
-                        tint = if(outlined) MaterialTheme.colorScheme.primary else Color.White,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                } else {
-                    Image(
-                        imageVector = trailingIcon,
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
+            if(trailingIcon != null){
+                KwikImageView(
+                    modifier = Modifier.size(25.dp),
+                    url = trailingIcon,
+                    tint = if (tintIcon) {
+                        if(outlined) MaterialTheme.colorScheme.primary else Color.White
+                    } else {
+                        Color.Unspecified
+                    },
+                )
             }
-            Spacer(modifier = Modifier.width(8.dp))
+
+            KwikHSpacer(8)
         }
     }
 }

@@ -73,7 +73,7 @@ private fun NormalMaxWidthButton() {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {},
-            text = "action"
+            text = "Action"
         )
     }
 }
@@ -81,7 +81,11 @@ private fun NormalMaxWidthButton() {
 @Composable
 private fun OutlinedButton() {
     ShowCase("Outlined Button") {
-        KwikButton(onClick = {}, text = "action", outlined = true)
+        KwikButton(
+            text = "Action",
+            outlined = true,
+            onClick = {}
+        )
     }
 }
 
@@ -90,9 +94,9 @@ private fun NormalMaxWidthOutlinedButton() {
     ShowCase("Max width outlined button") {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
+            text = "Action",
             outlined = true,
-            onClick = {},
-            text = "action"
+            onClick = {}
         )
     }
 }
@@ -102,9 +106,9 @@ private fun ButtonWithCustomShape() {
     ShowCase("Button with custom shape") {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
+            text = "Action",
             shape = RoundedCornerShape(24.dp),
-            onClick = {},
-            text = "action"
+            onClick = {}
         )
     }
 }
@@ -112,7 +116,11 @@ private fun ButtonWithCustomShape() {
 @Composable
 private fun ButtonWithIcon() {
     ShowCase("Icon Button") {
-        KwikButton(onClick = {}, text = "action", leadingIcon = R.drawable.shield)
+        KwikButton(
+            text = "Action",
+            leadingIcon = R.drawable.shield,
+            onClick = {}
+        )
     }
 }
 
@@ -120,8 +128,8 @@ private fun ButtonWithIcon() {
 private fun DisabledButton() {
     ShowCase("Disabled Button") {
         KwikButton(
+            text = "Action",
             onClick = {},
-            text = "action",
             enabled = false
         )
     }
@@ -131,8 +139,8 @@ private fun DisabledButton() {
 private fun LoadingButtonLinear() {
     ShowCase("Linear loading style Button") {
         KwikButton(
+            text = "Action",
             onClick = {},
-            text = "action",
             isLoading = true,
             kwikButtonLoadingStyle = KwikButtonLoadingStyle.LINEAR,
             loadingText = "Loading. Please wait..."
@@ -144,8 +152,8 @@ private fun LoadingButtonLinear() {
 private fun LoadingButtonCircular() {
     ShowCase("Circular loading style Button") {
         KwikButton(
+            text = "Action",
             onClick = {},
-            text = "action",
             isLoading = true,
             loadingText = "Loading. Please wait..."
         )
