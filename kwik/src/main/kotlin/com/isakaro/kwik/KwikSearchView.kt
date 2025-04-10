@@ -63,6 +63,7 @@ import kotlinx.coroutines.launch
  * @param suggestions The list of suggestions to be displayed.
  * @param placeholder The placeholder text to be displayed.
  * @param delay Whether to delay the search or not. Useful for debouncing.
+ * @param delayDuration The duration of the delay in milliseconds.
  * @param maxChars The maximum number of characters allowed in the search field.
  * @param isError Whether the search field has an error or not.
  * @param error The error message to be displayed.
@@ -100,6 +101,7 @@ fun KwikSearchView(
     placeholder: String = "Search",
     label: String? = null,
     delay: Boolean = false,
+    delayDuration: Long = 500L,
     maxChars: Int = 30,
     isError: Boolean = false,
     error: String? = null,
@@ -141,8 +143,8 @@ fun KwikSearchView(
 
                     debounceJob?.cancel()
                     debounceJob = coroutineScope.launch {
-                        if (delay) {
-                            delay(500L)
+                        if(delay && delayDuration >= 1L) {
+                            delay(delayDuration)
                         }
                         onTextChange(queryText.value)
                     }

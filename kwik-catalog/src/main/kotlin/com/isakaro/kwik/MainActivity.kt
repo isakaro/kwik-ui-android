@@ -20,6 +20,7 @@ import com.isakaro.kwik.catalog.dropdown.KwikDropDownScreen
 import com.isakaro.kwik.catalog.permission.KwikPermissionsScreen
 import com.isakaro.kwik.catalog.progress.KwikProgressIndicatorScreen
 import com.isakaro.kwik.catalog.radio.KwikRadioButtonScreen
+import com.isakaro.kwik.catalog.searchview.KwikSearchViewScreen
 import com.isakaro.kwik.catalog.slider.KwikSliderScreen
 import com.isakaro.kwik.catalog.switch.KwikSwitchScreen
 import com.isakaro.kwik.catalog.tabs.KwikTabScreen
@@ -146,6 +147,7 @@ class MainActivity: ComponentActivity() {
                         composable(KwikCountryPickerScreenDestination){
                             KwikCountryPickerScreen()
                         }
+
                     }
                 }
             }

@@ -12,6 +12,7 @@ import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.utils.KwikCountry
 import com.isakaro.kwik.utils.KwikCountryInfo
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -24,6 +25,7 @@ internal fun KwikCountryPickerScreen(
 
     var showCountryPicker by remember { mutableStateOf(false) }
     var selectedCountryInfo by remember { mutableStateOf<KwikCountryInfo?>(null) }
+    var selectedCountryInfo2 by remember { mutableStateOf<KwikCountryInfo?>(null) }
 
     ShowCaseContainer(
         title = "Country picker",
@@ -42,6 +44,23 @@ internal fun KwikCountryPickerScreen(
             if(selectedCountryInfo != null){
                 KwikText.TitleText(
                     text = "Selected country: ${selectedCountryInfo?.name}"
+                )
+            }
+        }
+
+        ShowCase(title = "Country code picker with initial country") {
+            KwikCountryPicker(
+                initialCountry = KwikCountry.RW
+            ) { country ->
+                showCountryPicker = true
+                selectedCountryInfo2 = country
+            }
+
+            KwikVSpacer(12)
+
+            if(selectedCountryInfo2 != null){
+                KwikText.TitleText(
+                    text = "Selected country: ${selectedCountryInfo2?.name}"
                 )
             }
         }
