@@ -50,7 +50,7 @@ internal fun KwikRadioButtonScreen(
 
                 KwikVSpacer(12)
 
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = "Selected option: ${selectedOption.label}"
                 )
             }
@@ -77,7 +77,7 @@ internal fun KwikRadioButtonScreen(
                 KwikVSpacer(12)
 
                 if(selectedOption != null){
-                    KwikText.TitleText(
+                    KwikText.TitleMedium(
                         text = "Selected option: ${selectedOption.label}"
                     )
                 }

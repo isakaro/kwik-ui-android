@@ -92,7 +92,7 @@ fun KwikDropDownView(
                     )
                 }
 
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     modifier = Modifier.align(Alignment.Center),
                     text = text,
                     style = MaterialTheme.typography.titleSmall,

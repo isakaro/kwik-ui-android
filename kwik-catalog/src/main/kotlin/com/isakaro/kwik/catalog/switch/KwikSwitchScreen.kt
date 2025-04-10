@@ -33,7 +33,7 @@ internal fun KwikSwitchScreen(
 
             KwikSwitch(
                 text = {
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = "Control the lights"
                     )
                 },
@@ -44,12 +44,12 @@ internal fun KwikSwitchScreen(
             KwikVSpacer(12)
 
             if (checkedState.value) {
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = "The lights are on",
                     color = KwikColorSuccess
                 )
             } else {
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = "The lights are off",
                     color = KwikColorError
                 )

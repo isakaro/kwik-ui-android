@@ -133,10 +133,9 @@ fun KwikRatingBar(
             Badge(
                 containerColor = badgeContainerColor,
             ) {
-                KwikText.TitleText(
+                KwikText.TitleSmall(
                     text = displayRating.toString(),
-                    color = badgeContentColor,
-                    style = MaterialTheme.typography.titleSmall
+                    color = badgeContentColor
                 )
             }
         }

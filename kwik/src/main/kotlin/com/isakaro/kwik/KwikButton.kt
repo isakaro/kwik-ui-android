@@ -134,7 +134,7 @@ fun KwikButton(
                     CircularProgressIndicator(color = Color.DarkGray, modifier = Modifier.size(30.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     if(loadingText.isNotBlank()) {
-                        KwikText.BodyText(
+                        KwikText.BodyMedium(
                             text = loadingText,
                             modifier = Modifier.fillMaxWidth(),
                             style = fontStyle
@@ -146,7 +146,7 @@ fun KwikButton(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     if(loadingText.isNotBlank()){
-                        KwikText.BodyText(
+                        KwikText.BodyMedium(
                             text = loadingText,
                             modifier = Modifier
                                 .fillMaxWidth()

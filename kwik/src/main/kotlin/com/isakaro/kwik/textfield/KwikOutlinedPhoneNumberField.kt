@@ -158,14 +158,13 @@ fun KwikOutlinedPhoneNumberField(
     )
 
     Column {
-        KwikText.BodyText(
+        KwikText.BodyMedium(
             text = placeholder,
             color = Color.Gray,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            style = MaterialTheme.typography.titleMedium
+                .padding(bottom = 8.dp)
         )
 
         Spacer(modifier = Modifier.width(10.dp))

@@ -74,9 +74,8 @@ fun KwikYearsRangeSelector(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium
+        KwikText.TitleMedium(
+            text = title
         )
 
         Box(

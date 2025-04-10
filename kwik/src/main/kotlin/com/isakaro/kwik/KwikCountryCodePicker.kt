@@ -88,10 +88,9 @@ fun KwikCountryCodePicker(
         }
 
         if (searchResults.value.isEmpty() && searchQuery.text.isNotEmpty()) {
-            Text(
+            KwikText.TitleMedium(
                 text = noCountryFoundMessage,
-                modifier = Modifier.padding(bottom = 100.dp),
-                style = MaterialTheme.typography.titleMedium
+                modifier = Modifier.padding(bottom = 100.dp)
             )
         }
 
@@ -149,14 +148,12 @@ fun KwikCountryCodeButton(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            KwikText.TitleText(
+            KwikText.TitleMedium(
                 text = country?.code ?: "",
-                modifier = Modifier,
-                style = MaterialTheme.typography.titleMedium
+                modifier = Modifier
             )
-            KwikText.TitleText(
-                text = country?.dialingCode ?: "",
-                style = MaterialTheme.typography.headlineSmall
+            KwikText.TitleMedium(
+                text = country?.dialingCode ?: ""
             )
             Icon(
                 Icons.Filled.KeyboardArrowDown,
@@ -195,7 +192,7 @@ fun CountryCodeItem(
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 modifier = Modifier.weight(1f),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
@@ -204,7 +201,7 @@ fun CountryCodeItem(
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 text = country.dialingCode,

@@ -110,7 +110,7 @@ fun KwikDateRangePickerDialog(
         DateRangePicker(
             state = dateRangePickerState,
             title = {
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = title
                 )
             },

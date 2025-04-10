@@ -207,12 +207,11 @@ fun KwikTextField(
         modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
     ) {
         if(!label.isNullOrBlank()){
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.titleMedium
+                textAlign = TextAlign.Start
             )
         }
 
@@ -229,11 +228,10 @@ fun KwikTextField(
             isError = isError,
             enabled = enabled && isEditable,
             placeholder = {
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = placeholder,
                     color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium
+                    textAlign = TextAlign.Start
                 )
             },
             textStyle = MaterialTheme.typography.bodyLarge,

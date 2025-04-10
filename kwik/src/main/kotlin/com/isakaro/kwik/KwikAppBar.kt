@@ -45,16 +45,15 @@ fun KwikAppBar(
         ),
         title = {
             Column {
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = title,
-                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 if(subtitle != null){
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = subtitle,
                         maxLines = 2,
                         color = MaterialTheme.colorScheme.onSurface,

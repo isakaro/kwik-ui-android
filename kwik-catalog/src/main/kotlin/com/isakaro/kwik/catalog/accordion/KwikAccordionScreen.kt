@@ -53,7 +53,7 @@ internal fun KwikAccordionScreen(
                      modifier = Modifier.padding(8.dp)
                ) {
                     repeat(5) {
-                        KwikText.BodyText(text = "Content")
+                        KwikText.BodyMedium(text = "Content")
                     }
                }
             }
@@ -73,7 +73,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyText(text = "Content", color = Color.White)
+                        KwikText.BodyMedium(text = "Content", color = Color.White)
                     }
                 }
             }
@@ -112,7 +112,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyText(text = "Content")
+                        KwikText.BodyMedium(text = "Content")
                     }
                 }
             }
@@ -133,7 +133,7 @@ internal fun KwikAccordionScreen(
                     modifier = Modifier.padding(8.dp)
                 ) {
                     repeat(5) {
-                        KwikText.BodyText(text = "Content")
+                        KwikText.BodyMedium(text = "Content")
                     }
                 }
             }
@@ -152,7 +152,7 @@ internal fun KwikAccordionScreen(
                 elevation = 2,
                 errorProvider = { it.hasError },
                 content = { item ->
-                    KwikText.BodyText(text = item.content, modifier = Modifier.padding(16.dp))
+                    KwikText.BodyMedium(text = item.content, modifier = Modifier.padding(16.dp))
                 }
             )
         }

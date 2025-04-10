@@ -63,7 +63,7 @@ fun KwikRatingBarScreen(
                 }
             )
 
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 text = "User rating: $userRating",
             )
         }

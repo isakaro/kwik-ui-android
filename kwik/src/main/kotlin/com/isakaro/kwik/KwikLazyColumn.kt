@@ -73,9 +73,8 @@ fun KwikLazyList(
                     KwikVSpacer(16)
                 }
                 is KwikListItemActionState.Header -> {
-                    KwikText.TitleText(
-                        text = item.title,
-                        style = MaterialTheme.typography.titleMedium
+                    KwikText.TitleMedium(
+                        text = item.title
                     )
                 }
                 is KwikListItemActionState.Data -> {
@@ -118,12 +117,12 @@ fun KwikListActionItem(
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            KwikText.TitleText(
+            KwikText.TitleMedium(
                 text = item.title,
                 color = item.tint ?: MaterialTheme.colorScheme.onSurface,
             )
             if(item.description.isNotBlank()){
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = item.description,
                     maxLines = 2,
                     color = Color.Gray

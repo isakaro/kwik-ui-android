@@ -118,12 +118,11 @@ fun KwikSearchView(
 
     Column {
         if(!label.isNullOrBlank()){
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.titleMedium
+                textAlign = TextAlign.Start
             )
         }
 
@@ -199,11 +198,10 @@ fun KwikSearchView(
                 }
             },
             placeholder = {
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = placeholder,
                     color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium
+                    textAlign = TextAlign.Start
                 )
             },
             singleLine = true,
@@ -239,7 +237,7 @@ fun KwikSearchView(
             modifier = Modifier.fillMaxWidth()
         ) {
             if(isError && error != null){
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = error,
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Start,

@@ -113,12 +113,11 @@ object KwikDialog {
                                 ),
                         ) {
                             if (title != null) {
-                                KwikText.TitleText(
+                                KwikText.TitleMedium(
                                     modifier = Modifier
                                         .padding(16.dp)
                                         .fillMaxWidth(),
                                     text = title,
-                                    style = MaterialTheme.typography.titleMedium,
                                     textAlign = TextAlign.Center
                                 )
                             }
@@ -335,7 +334,7 @@ object KwikDialog {
                         .fillMaxSize()
                         .background(Color.Black)
                 ) {
-                    KwikText.TitleText(
+                    KwikText.TitleMedium(
                         text = title ?: "",
                         color = Color.White,
                         modifier = Modifier

@@ -116,9 +116,8 @@ fun KwikCounter(
                 )
             }
 
-            Text(
+            KwikText.TitleMedium(
                 text = value.toString(),
-                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 8.dp),
                 maxLines = 1
             )

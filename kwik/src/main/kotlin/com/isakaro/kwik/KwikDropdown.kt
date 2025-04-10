@@ -3,26 +3,26 @@ package com.isakaro.kwik
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import java.util.UUID
 
 @Composable
 fun KwikDropdown(
     state: Boolean,
+    shape: Shape = MaterialTheme.shapes.large,
     onDismissRequest: () -> Unit,
     items: List<KwikDropdownItemActionState>,
 ) {
@@ -30,27 +30,32 @@ fun KwikDropdown(
         modifier = Modifier.background(
             color = MaterialTheme.colorScheme.surface
         ),
+        shape = shape,
         expanded = state,
         onDismissRequest = { onDismissRequest() }
     ) {
-        items.forEach { item ->
-            when (item) {
-                is KwikDropdownItemActionState.Header -> {
-                    KwikText.BodyText(text = item.title)
-                }
-                is KwikDropdownItemActionState.Space -> {
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
-                is KwikDropdownItemActionState.Divider -> {
-                    HorizontalDivider()
-                }
-                is KwikDropdownItemActionState.Data -> {
-                    KwikDropdownItemView(
-                        data = item.action,
-                        onClick = {
-                            onDismissRequest()
-                        }
-                    )
+        Column(
+            modifier = Modifier.padding(12.dp)
+        ) {
+            items.forEach { item ->
+                when (item) {
+                    is KwikDropdownItemActionState.Header -> {
+                        KwikText.TitleMedium(text = item.title)
+                    }
+                    is KwikDropdownItemActionState.Space -> {
+                        KwikVSpacer(8)
+                    }
+                    is KwikDropdownItemActionState.Divider -> {
+                        HorizontalDivider()
+                    }
+                    is KwikDropdownItemActionState.Data -> {
+                        KwikDropdownItemView(
+                            data = item.action,
+                            onClick = {
+                                onDismissRequest()
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -64,20 +69,20 @@ fun KwikDropdownItemView(
 ){
     Row(
         modifier = Modifier
+            .fillMaxWidth()
             .height(48.dp)
-            .padding(PaddingValues(horizontal = 8.dp))
             .clickable {
                 onClick()
                 data.onClick()
             },
         horizontalArrangement = Arrangement.spacedBy(
             space = 8.dp,
-            alignment = Alignment.CenterHorizontally
+            alignment = Alignment.Start
         ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         data.leadingIcon?.invoke()
-        KwikText.BodyText(
+        KwikText.BodyMedium(
             text = data.text()
         )
         data.trailingIcon?.invoke()

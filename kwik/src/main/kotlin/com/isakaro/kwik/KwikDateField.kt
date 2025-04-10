@@ -63,7 +63,7 @@ fun KwikDateField(
             .fillMaxWidth()
             .height(75.dp)
     ) {
-        KwikText.TitleText(
+        KwikText.TitleMedium(
             text = label
         )
 
@@ -94,7 +94,7 @@ fun KwikDateField(
                     contentDescription = null,
                 )
 
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     modifier = Modifier.align(Alignment.Center),
                     text = dateDisplay,
                     style = MaterialTheme.typography.bodyLarge,

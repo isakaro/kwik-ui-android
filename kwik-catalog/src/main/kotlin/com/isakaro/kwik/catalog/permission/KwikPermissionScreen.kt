@@ -28,6 +28,7 @@ import com.isakaro.kwik.KwikCheckBox
 import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikPermissionDto
 import com.isakaro.kwik.KwikPermissionsRequest
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikToast
 import com.isakaro.kwik.KwikToastType
 import com.isakaro.kwik.R
@@ -116,9 +117,8 @@ internal fun KwikPermissionsScreen(
                     modifier = Modifier.size(120.dp),
                     url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
                 )
-                Text(
-                    text = "Permission granted",
-                    style = MaterialTheme.typography.titleMedium
+                KwikText.TitleMedium(
+                    text = "Permission granted"
                 )
             } else {
                 /*
@@ -128,9 +128,8 @@ internal fun KwikPermissionsScreen(
                     modifier = Modifier.size(120.dp),
                     url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
                 )
-                Text(
-                    text = "Permission not granted",
-                    style = MaterialTheme.typography.titleMedium
+                KwikText.BodyLarge(
+                    text = "Permission not granted"
                 )
                 KwikButton(
                     text = "Request permission",

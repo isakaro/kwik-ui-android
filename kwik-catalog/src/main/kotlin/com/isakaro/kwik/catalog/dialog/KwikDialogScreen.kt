@@ -95,7 +95,7 @@ internal fun KwikDialogScreen(
                     Column(
                         modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp, bottom = 15.dp),
                     ) {
-                        KwikText.BodyText(
+                        KwikText.BodyMedium(
                             text = "I am a dialog with custom content",
                             style = MaterialTheme.typography.headlineMedium
                         )
@@ -106,7 +106,7 @@ internal fun KwikDialogScreen(
                                 .fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            KwikText.BodyText(
+                            KwikText.BodyMedium(
                                 text = "Enter your phone number and name",
                                 style = MaterialTheme.typography.titleSmall
                             )
@@ -156,7 +156,7 @@ internal fun KwikDialogScreen(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = "A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog",
                         style = MaterialTheme.typography.titleSmall
                     )
@@ -186,7 +186,7 @@ internal fun KwikDialogScreen(
                         url = R.drawable.kwikui_logo,
                         modifier = Modifier.size(100.dp)
                     )
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = "Accept the terms and conditions to proceed",
                         style = MaterialTheme.typography.titleSmall
                     )

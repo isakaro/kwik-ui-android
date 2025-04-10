@@ -196,13 +196,13 @@ fun KwikPermissionsRequest(
             ) {
                 logo()
 
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = title,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge
                 )
 
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     text = permissions.firstOrNull()?.rationaleMessage ?: "Grant required permissions",
                     textAlign = TextAlign.Center
                 )
@@ -216,7 +216,7 @@ fun KwikPermissionsRequest(
                         modifier = Modifier.padding(12.dp),
                         containerColor = KwikColorWarning
                     ) {
-                        KwikText.TitleText(
+                        KwikText.TitleMedium(
                             modifier = Modifier.padding(12.dp),
                             text = deniedPermanentlyMessage,
                             textAlign = TextAlign.Center,

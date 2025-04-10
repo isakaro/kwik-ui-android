@@ -35,7 +35,7 @@ fun KwikRadioButton(
             selected = selected,
             onClick = null
         )
-        KwikText.BodyText(
+        KwikText.BodyMedium(
             modifier = Modifier.clickable {
                 onClick(!selected)
             },

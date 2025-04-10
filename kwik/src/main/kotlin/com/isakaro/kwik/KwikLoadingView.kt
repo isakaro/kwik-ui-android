@@ -30,7 +30,7 @@ fun KwikLoadingView(
 
         KwikVSpacer(8)
 
-        KwikText.BodyText(
+        KwikText.BodyMedium(
             text = text,
             style = MaterialTheme.typography.titleSmall,
             textAlign = TextAlign.Center

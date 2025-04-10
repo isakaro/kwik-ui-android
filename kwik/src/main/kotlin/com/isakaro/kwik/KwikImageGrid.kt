@@ -188,9 +188,8 @@ fun BoxWithConstraintsScope.KwikImageGrid(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
-                            Text(
+                            KwikText.TitleMedium(
                                 text = "+${total - 5}",
-                                style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
                                 textAlign = TextAlign.Center,

@@ -75,12 +75,11 @@ class KwikBiometricActivity : FragmentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                KwikText.TitleText(
+                KwikText.TitleMedium(
                     modifier = Modifier.padding(bottom = 4.dp),
                     text = "Verify your identity",
                     textAlign = TextAlign.Center,
-                    color = Color.DarkGray,
-                    style = MaterialTheme.typography.titleMedium
+                    color = Color.DarkGray
                 )
 
                 Button(

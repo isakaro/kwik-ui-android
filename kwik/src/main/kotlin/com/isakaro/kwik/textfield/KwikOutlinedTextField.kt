@@ -216,10 +216,9 @@ fun KwikOutlinedTextField(
                 }
             },
             label = {
-                Text(
+                KwikText.TitleMedium(
                     text = placeholder,
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium
+                    textAlign = TextAlign.Start
                 )
             },
             isError = isError,
@@ -384,7 +383,7 @@ fun KwikOutlinedTextField(
                     }
                     is AnnotatedString -> {
                         if(hint.isNotBlank()){
-                            KwikText.BodyText(
+                            KwikText.BodyMedium(
                                 text = hint,
                                 color = KwikColorHint,
                                 textAlign = TextAlign.Start,
@@ -401,7 +400,7 @@ fun KwikOutlinedTextField(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 if(isError){
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = error,
                         color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Start,
@@ -413,7 +412,7 @@ fun KwikOutlinedTextField(
                     )
                 }
                 if(isTextCounterShown || isBigTextField) {
-                    KwikText.BodyText(
+                    KwikText.BodyMedium(
                         text = "${value.value.text.length}/$maxLength",
                         color = Color.Gray,
                         textAlign = TextAlign.End,

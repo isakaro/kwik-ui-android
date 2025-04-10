@@ -60,7 +60,7 @@ internal fun KwikSearchViewScreen(
 
             KwikVSpacer(12)
 
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 text = buildAnnotatedString {
                     append("Search query: ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
@@ -92,7 +92,7 @@ internal fun KwikSearchViewScreen(
 
             KwikVSpacer(12)
 
-            KwikText.BodyText(
+            KwikText.BodyMedium(
                 text = buildAnnotatedString {
                     append("Search query: ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){

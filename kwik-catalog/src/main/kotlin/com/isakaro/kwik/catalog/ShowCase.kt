@@ -34,8 +34,7 @@ fun ShowCase(
         KwikVSpacer(16)
 
         if(title != null){
-            KwikText.TitleText(
-                style = MaterialTheme.typography.titleMedium,
+            KwikText.TitleMedium(
                 text = title,
                 color = MaterialTheme.colorScheme.onSurface,
             )

@@ -46,7 +46,7 @@ internal fun KwikCountryPickerScreen(
             KwikVSpacer(12)
 
             if(selectedCountryInfo != null){
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = buildAnnotatedString {
                         append("Selected country: ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
@@ -68,7 +68,7 @@ internal fun KwikCountryPickerScreen(
             KwikVSpacer(12)
 
             if(selectedCountryInfo2 != null){
-                KwikText.BodyText(
+                KwikText.BodyMedium(
                     text = buildAnnotatedString {
                         append("Selected country: ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){

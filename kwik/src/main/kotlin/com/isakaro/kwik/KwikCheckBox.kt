@@ -34,7 +34,7 @@ fun KwikCheckBox(
                 onCheckedChange(isChecked)
             }
         )
-        KwikText.BodyText(
+        KwikText.BodyMedium(
             modifier = Modifier.clickable {
                 onCheckedChange(!checked)
             },

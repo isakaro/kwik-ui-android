@@ -69,7 +69,7 @@ internal fun KwikDropDownScreen(
                         KwikDropdownItemActionState.Data(
                             KwikDropdownItem(
                                 text = {
-                                    KwikText.BodyText(text = "Profile")
+                                    KwikText.BodyMedium(text = "Profile")
                                 },
                                 leadingIcon = {
                                     KwikImageView(
@@ -84,7 +84,7 @@ internal fun KwikDropDownScreen(
                         KwikDropdownItemActionState.Data(
                             KwikDropdownItem(
                                 text = {
-                                    KwikText.BodyText(text = "Settings")
+                                    KwikText.BodyMedium(text = "Settings")
                                 },
                                 leadingIcon = {
                                     KwikImageView(
@@ -100,7 +100,7 @@ internal fun KwikDropDownScreen(
                         KwikDropdownItemActionState.Data(
                             KwikDropdownItem(
                                 text = {
-                                    KwikText.BodyText(text = "Logout")
+                                    KwikText.BodyMedium(text = "Logout")
                                 },
                                 leadingIcon = {
                                     KwikImageView(
