@@ -32,6 +32,7 @@ import com.isakaro.kwik.KwikImageView
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikTextButton
 import com.isakaro.kwik.KwikVSpacer
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.textfield.KwikPhoneNumberField
@@ -42,7 +43,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 internal fun KwikDialogScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

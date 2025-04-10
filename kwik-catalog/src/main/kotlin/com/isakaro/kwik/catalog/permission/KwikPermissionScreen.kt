@@ -31,6 +31,7 @@ import com.isakaro.kwik.KwikPermissionsRequest
 import com.isakaro.kwik.KwikToast
 import com.isakaro.kwik.KwikToastType
 import com.isakaro.kwik.R
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.rememberKwikPermissionState
@@ -42,7 +43,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 internal fun KwikPermissionsScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

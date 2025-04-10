@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -50,7 +51,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 internal fun KwikBottomTabsScreen(
     navigator: DestinationsNavigator = navigator()

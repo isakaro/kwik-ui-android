@@ -227,6 +227,15 @@ internal fun KwikComponentsCatalogScreen(
                     navigator.navigate(KwikRatingBarScreenDestination)
                 }
             )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Country picker",
+                description = "Component for selecting a country",
+                action = {
+                    navigator.navigate(KwikRatingBarScreenDestination)
+                }
+            )
         )
     ).sortedBy { it.action.title }
 

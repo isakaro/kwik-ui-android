@@ -12,6 +12,7 @@ import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.KwikHorizontalTab
 import com.isakaro.kwik.KwikTabItem
 import com.isakaro.kwik.KwikTabsContent
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -19,7 +20,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 internal fun KwikTabScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

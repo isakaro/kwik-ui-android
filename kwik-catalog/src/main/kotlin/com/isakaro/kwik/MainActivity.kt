@@ -14,6 +14,7 @@ import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreen
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
 import com.isakaro.kwik.catalog.card.KwikCardScreen
 import com.isakaro.kwik.catalog.checkbox.KwikCheckBoxScreen
+import com.isakaro.kwik.catalog.countrypicker.KwikCountryPickerScreen
 import com.isakaro.kwik.catalog.dialog.KwikDialogScreen
 import com.isakaro.kwik.catalog.dropdown.KwikDropDownScreen
 import com.isakaro.kwik.catalog.permission.KwikPermissionsScreen
@@ -33,6 +34,7 @@ import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
 import com.isakaro.kwik.destinations.KwikComponentsCatalogScreenDestination
+import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
@@ -140,6 +142,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikRatingBarScreenDestination){
                             KwikRatingBarScreen()
+                        }
+                        composable(KwikCountryPickerScreenDestination){
+                            KwikCountryPickerScreen()
                         }
                     }
                 }

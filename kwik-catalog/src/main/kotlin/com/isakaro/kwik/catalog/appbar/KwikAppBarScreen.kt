@@ -16,6 +16,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikAppBar
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.theme.KwikTheme
@@ -25,7 +26,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 internal fun KwikAppBarScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

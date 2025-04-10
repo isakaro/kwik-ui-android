@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikVSpacer
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.ramcosta.composedestinations.annotation.Destination
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination
+@Destination(style = SlideInFromRightAnimations::class)
 internal fun KwikBottomSheetScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
