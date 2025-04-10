@@ -32,7 +32,7 @@ internal fun KwikToggleButtonScreen(
             KwikToggleGroup(
                 options = listOf(
                     KwikToggleGroupOption("Tortuga", "Tortuga"),
-                    KwikToggleGroupOption("Shipwreck Cove", "Shipwreck Cove"),
+                    KwikToggleGroupOption("Singapore", "Singapore"),
                     KwikToggleGroupOption("Port Royal", "Port Royal")
                 ),
                 selectedOption = 2,

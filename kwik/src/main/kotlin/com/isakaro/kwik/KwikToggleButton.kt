@@ -39,13 +39,13 @@ fun <T> KwikToggleGroup(
     ) {
         options.forEachIndexed { index, item ->
             SegmentedButton(
-                shape = SegmentedButtonDefaults.itemShape(
-                    index = index,
-                    count = options.size
-                ),
+                shape = MaterialTheme.shapes.small,
                 onClick = {
                     selectedIndex = index
                     onOptionSelected(item.value)
+                },
+                icon = {
+                    null
                 },
                 selected = index == selectedIndex,
                 colors = SegmentedButtonDefaults.colors().copy(
