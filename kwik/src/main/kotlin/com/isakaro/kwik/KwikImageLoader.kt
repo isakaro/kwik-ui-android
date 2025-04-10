@@ -32,7 +32,7 @@ fun KwikImageLoader(
     modifier: Modifier = Modifier,
     url: Any,
     @DrawableRes placeholder: Int = R.drawable.ic_placeholder,
-    contentDescription: String = "",
+    contentDescription: String? = null,
     contentScale: ContentScale = ContentScale.Crop,
     loading: () -> Unit = {},
     success: () -> Unit = {},

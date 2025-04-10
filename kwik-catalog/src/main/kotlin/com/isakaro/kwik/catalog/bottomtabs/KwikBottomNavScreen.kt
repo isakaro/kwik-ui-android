@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Settings
@@ -72,44 +74,36 @@ internal fun KwikBottomTabsScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Bottom Navigation") {
-            var selectedDrawerItem by remember { mutableIntStateOf(0) }
-            val items = listOf("Songs", "Artists", "Playlists")
-
-            Scaffold(
-                bottomBar = {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(70.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        ),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 20.dp
-                        )
-                    ) {
-                        Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxSize()) {
-                            navItems.forEachIndexed { index, navItem ->
-                                BottomNavigationItem(
-                                    selected = navItem.route == selectedScreenRoute,
-                                    item = navItem,
-                                    onClick = {
-                                        selectedScreenRoute = navItem.route
-                                        coroutineScope.launch {
-                                            pagerState.animateScrollToPage(index)
-                                        }
+        Scaffold(
+            bottomBar = {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(70.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    )
+                ) {
+                    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxSize()) {
+                        navItems.forEachIndexed { index, navItem ->
+                            BottomNavigationItem(
+                                selected = navItem.route == selectedScreenRoute,
+                                item = navItem,
+                                onClick = {
+                                    selectedScreenRoute = navItem.route
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(index)
                                     }
-                                )
-                            }
+                                }
+                            )
                         }
                     }
-                },
-                content = {
-                    // Screen content
                 }
-            )
-        }
+            },
+            content = {
+                // Screen content
+            }
+        )
     }
 }
 
@@ -129,13 +123,13 @@ fun BottomNavigationItem(selected: Boolean, item: BottomNavItem, onClick: () -> 
             Icon(
                 imageVector = item.icon,
                 contentDescription = item.name,
-                tint = if(selected) Color.Black else Color.Gray,
+                tint = if(selected) MaterialTheme.colorScheme.primary else Color.Gray,
                 modifier = Modifier
                     .size(30.dp)
             )
             KwikText.TitleSmall(
                 text = item.name,
-                color = if(selected) Color.Black else Color.Gray
+                color = if(selected) MaterialTheme.colorScheme.primary else Color.Gray,
             )
         }
         Spacer(modifier = Modifier
@@ -145,8 +139,8 @@ fun BottomNavigationItem(selected: Boolean, item: BottomNavItem, onClick: () -> 
             .background(
                 brush = Brush.radialGradient(
                     colors = if (selected) listOf(
-                        Color.Black,
-                        Color.Black
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.primary
                     ) else listOf(Color.Transparent, Color.Transparent),
                 )
             ))
@@ -162,19 +156,19 @@ data class BottomNavItem(
 
 val navItems = listOf(
     BottomNavItem(
-        name = "Swaps",
+        name = "Home",
         route = "swaps",
-        icon = Icons.Rounded.Refresh,
+        icon = Icons.Rounded.Home,
     ),
     BottomNavItem(
-        name = "Stations",
+        name = "Discover",
         route = "station",
         icon = Icons.Rounded.LocationOn,
     ),
     BottomNavItem(
-        name = "Bikes",
+        name = "Favorites",
         route = "bikes",
-        icon = Icons.Rounded.ShoppingCart,
+        icon = Icons.Rounded.Favorite,
     ),
     BottomNavItem(
         name = "Settings",

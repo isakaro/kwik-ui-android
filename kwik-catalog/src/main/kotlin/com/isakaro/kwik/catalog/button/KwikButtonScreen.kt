@@ -56,6 +56,7 @@ internal fun KwikButtonScreen(
         LoadingButtonLinear()
         LoadingButtonCircular()
         FabButton()
+        DisabledFabButton()
         LoadingExtendedFloatingActionButton()
         ExtendedButton()
         DisabledExtendedButton()
@@ -196,6 +197,22 @@ private fun TextButtonWithCustomContent() {
 private fun FabButton() {
     ShowCase("Floating Action button") {
         KwikFloatingActionButton(onClick = {}, contentColor = Color.White) {
+            KwikText.TitleSmall(
+                text = "Action",
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+private fun DisabledFabButton() {
+    ShowCase("Disabled Floating Action button") {
+        KwikFloatingActionButton(
+            contentColor = Color.White,
+            enabled = false,
+            onClick = {}
+        ) {
             KwikText.TitleSmall(
                 text = "Action",
                 color = Color.White

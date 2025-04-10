@@ -216,7 +216,8 @@ fun KwikOutlinedTextField(
             label = {
                 KwikText.TitleMedium(
                     text = placeholder,
-                    textAlign = TextAlign.Start
+                    textAlign = TextAlign.Start,
+                    color = if(isError) MaterialTheme.colorScheme.error else Color.Gray
                 )
             },
             isError = isError,
@@ -445,6 +446,20 @@ private fun KwikOutlinedTextFieldPreview() {
     KwikOutlinedTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
+        placeholder = "Jack Sparrow",
+        keyboardType = KeyboardType.Phone,
+        visualTransformation = VisualTransformation.None,
+        imeAction = ImeAction.Done,
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun KwikErrorOutlinedTextFieldPreview() {
+    KwikOutlinedTextField(
+        value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
+        onValueChange = {},
+        isError = true,
         placeholder = "Jack Sparrow",
         keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,

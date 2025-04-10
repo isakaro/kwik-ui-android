@@ -240,7 +240,6 @@ fun KwikExtendedFloatingActionButton(
     text: @Composable () -> Unit,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     containerColor: Color = MaterialTheme.colorScheme.primary,
-    disabledContainerColor: Color = containerColor.copy(alpha = 0.5f),
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource? = null,
@@ -276,8 +275,7 @@ fun KwikExtendedFloatingActionButton(
             }
         },
         shape = shape,
-        contentColor = contentColor,
-        containerColor = if (enabled) containerColor else disabledContainerColor,
+        containerColor = containerColor,
         elevation = elevation,
         interactionSource = interactionSource,
         expanded = expanded,
@@ -318,7 +316,6 @@ fun KwikFloatingActionButton(
     modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     containerColor: Color = MaterialTheme.colorScheme.primary,
-    disabledContentColor: Color = contentColor.copy(alpha = 0.5f),
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -330,8 +327,8 @@ fun KwikFloatingActionButton(
 ) {
     FloatingActionButton(
         modifier = modifier.alpha(if(!enabled || loading) 0.5f else 1f),
-        contentColor = if (enabled) contentColor else disabledContentColor,
-        containerColor = if (enabled) containerColor else disabledContentColor,
+        contentColor = contentColor,
+        containerColor = containerColor,
         shape = shape,
         elevation = elevation,
         interactionSource = interactionSource,

@@ -19,7 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 fun KwikImageView(
     modifier: Modifier = Modifier,
     url: Any,
-    tint: Color = Color.Unspecified
+    tint: Color = Color.Unspecified,
+    contentDescription: String? = null
 ){
     when (url) {
         is Int -> {
@@ -27,7 +28,7 @@ fun KwikImageView(
                 modifier = modifier,
                 painter = painterResource(id = url),
                 tint = tint,
-                contentDescription = null
+                contentDescription = contentDescription
             )
         }
 
@@ -36,13 +37,14 @@ fun KwikImageView(
                 modifier = modifier,
                 imageVector = url,
                 tint = tint,
-                contentDescription = null
+                contentDescription = contentDescription
             )
         }
 
         is String -> {
             KwikImageLoader(
                 modifier = modifier,
+                contentDescription = contentDescription,
                 url = url
             )
         }
