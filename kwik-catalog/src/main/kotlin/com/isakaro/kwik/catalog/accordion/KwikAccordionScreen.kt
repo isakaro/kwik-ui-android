@@ -139,7 +139,7 @@ internal fun KwikAccordionScreen(
             }
         }
 
-        ShowCase(title = "According group") {
+        ShowCase(title = "Accordion group") {
             val items = listOf(
                 KwikAccordionItem("Tortuga", "A lawless island for pirates to hide and do business"),
                 KwikAccordionItem("Isla de Muerta", "Can only be found by those who already know where it is"),
