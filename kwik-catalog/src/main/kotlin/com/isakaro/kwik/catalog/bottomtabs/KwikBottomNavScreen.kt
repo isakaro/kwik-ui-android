@@ -1,7 +1,6 @@
 package com.isakaro.kwik.catalog.bottomtabs
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -9,15 +8,14 @@ import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikBottomTab
+import com.isakaro.kwik.KwikBottomTabs
+import com.isakaro.kwik.KwikCenterColumn
 import com.isakaro.kwik.KwikTabItem
-import com.isakaro.kwik.KwikTabsContent
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -34,10 +32,8 @@ internal fun KwikBottomTabsScreen(
 
     @Composable
     fun Content(text: String) {
-        Column {
-            repeat(5) {
-                Text(text = text)
-            }
+        KwikCenterColumn {
+            KwikText.HeadlineMedium(text = text)
         }
     }
 
@@ -80,20 +76,15 @@ internal fun KwikBottomTabsScreen(
     }
 
     ShowCaseContainer(
-        title = "Bottom Sheet",
+        title = "Bottom tabs navigation",
         onBackClick = {
             navigator.navigateUp()
         }
     ) {
-        Scaffold(
-            content = {
-                KwikBottomTab(
-                    modifier = Modifier.height(70.dp),
-                    tabs = navItems,
-                    pagerState = pagerState
-                )
-                KwikTabsContent(tabs = navItems, pagerState = pagerState)
-            }
+        KwikBottomTabs(
+            modifier = Modifier.height(70.dp),
+            tabs = navItems,
+            pagerState = pagerState
         )
     }
 }

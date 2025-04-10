@@ -1,5 +1,6 @@
 package com.isakaro.kwik
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -51,8 +53,36 @@ data class KwikBottomIndicatorProps(
     val borderRadius: Float = 4f
 )
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun KwikBottomTabs(
+    modifier: Modifier = Modifier,
+    tabs: List<KwikTabItem>,
+    pagerState: PagerState,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContentColor: Color = Color.Gray,
+    kwikBottomIndicatorProps: KwikBottomIndicatorProps = KwikBottomIndicatorProps()
+) {
+    Scaffold(
+        bottomBar = {
+            KwikBottomTabView(
+                modifier = modifier,
+                tabs = tabs,
+                pagerState = pagerState,
+                containerColor = containerColor,
+                selectedContentColor = selectedContentColor,
+                unselectedContentColor = unselectedContentColor,
+                kwikBottomIndicatorProps = kwikBottomIndicatorProps
+            )
+        }
+    ) { paddingValues ->
+        KwikTabsContent(tabs = tabs, pagerState = pagerState)
+    }
+}
+
 /**
- * A versatile horizontal tab pager capable of displaying any content.
+ *
  *
  * @param tabs List of tabs to display
  * @param pagerState The state of the pager
@@ -61,9 +91,10 @@ data class KwikBottomIndicatorProps(
  * @param selectedContentColor The color of the selected tab
  * */
 @Composable
-fun KwikBottomTab(
+fun KwikBottomTabView(
     modifier: Modifier = Modifier,
-    tabs: List<KwikTabItem>, pagerState: PagerState,
+    tabs: List<KwikTabItem>,
+    pagerState: PagerState,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
     unselectedContentColor: Color = Color.Gray,
@@ -107,10 +138,10 @@ fun KwikBottomTab(
  * @param unselectedContentColor Color sets the color of the unselected tab
  * @param enableIndicator Boolean indicates if the indicator is enabled
  * @param kwikBottomIndicatorProps [KwikBottomIndicatorProps] the properties of the indicator
- * @param item [KwikBottomTabItem] the tab item
+ * @param item [KwikTabItem] the tab item
  * @param onClick () -> Unit called when the tab is clicked
  *
- * @see KwikBottomTabItem
+ * @see KwikTabItem
  * */
 @Composable
 fun KwikBottomTabItemView(
@@ -177,25 +208,42 @@ fun KwikBottomTabItemView(
 @Preview
 @Composable
 private fun KwikBottomTabsWithCounterPreview() {
-    val list = listOf(
+    val navItems = listOf(
         KwikTabItem(
             title = "Home",
             icon = Icons.Default.Home,
             content = {
-
+                KwikCenterColumn {
+                    KwikText.BodyMedium(text = "Home")
+                }
             }
         ),
         KwikTabItem(
             title = "Discover",
-            icon = Icons.Default.LocationOn
+            icon = Icons.Default.LocationOn,
+            content = {
+                KwikCenterColumn {
+                    KwikText.BodyMedium(text = "Discover")
+                }
+            }
         ),
         KwikTabItem(
             title = "Favorites",
-            icon = Icons.Default.Favorite
+            icon = Icons.Default.Favorite,
+            content = {
+                KwikCenterColumn {
+                    KwikText.BodyMedium(text = "Favorites")
+                }
+            }
         ),
         KwikTabItem(
             title = "Settings",
-            icon = Icons.Default.Settings
+            icon = Icons.Default.Settings,
+            content = {
+                KwikCenterColumn {
+                    KwikText.BodyMedium(text = "Settings")
+                }
+            }
         )
     )
 
@@ -203,13 +251,13 @@ private fun KwikBottomTabsWithCounterPreview() {
         initialPage = 0,
         initialPageOffsetFraction = 0f
     ) {
-        list.size
+        navItems.size
     }
 
     KwikTheme {
-        KwikBottomTab(
+        KwikBottomTabs(
             modifier = Modifier.height(70.dp),
-            tabs = list,
+            tabs = navItems,
             pagerState = pagerState
         )
     }
