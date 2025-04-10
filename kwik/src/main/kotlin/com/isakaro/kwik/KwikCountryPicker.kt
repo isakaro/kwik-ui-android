@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.utils.KwikCountry
+import com.isakaro.kwik.utils.KwikCountryInfo
 import com.isakaro.kwik.utils.countryCode
 import com.isakaro.kwik.utils.getCountryInfo
 
@@ -24,15 +25,26 @@ import com.isakaro.kwik.utils.getCountryInfo
  *
  * @param initialCountry the country to be displayed initially. If not provided, the library will try to use the device's country code.
  * If it's also not available, it will default to Rwanda (RW).
+ * @param countryPicked a callback function that will be triggered when a country is selected. Returns the selected country information [KwikCountryInfo].
+ *
+ * Usage:
+ * ```
+ * KwikCountryPicker(
+ *     initialCountry = KwikCountry.RW,
+ *     countryPicked = { countryInfo ->
+ *      // Handle the selected country information
+ *     }
+ * )
  * */
 @Composable
 fun KwikCountryPicker(
-    initialCountry: KwikCountry? = null
+    initialCountry: KwikCountry? = null,
+    countryPicked: (KwikCountryInfo) -> Unit
 ) {
 
     val context = LocalContext.current
     var showCountryPicker by remember { mutableStateOf(false) }
-    var selectedCountryInfo by remember { mutableStateOf<KwikCountry>(initialCountry ?: getCountryInfo(context.countryCode())) }
+    var selectedCountryInfo by remember { mutableStateOf(getCountryInfo(initialCountry ?: context.countryCode())) }
     val countryListState = rememberLazyListState()
 
     KwikCountryPickerDialog(
@@ -44,6 +56,7 @@ fun KwikCountryPicker(
         onSelect = { country ->
             showCountryPicker = false
             selectedCountryInfo = country
+            countryPicked(country)
         }
     )
 

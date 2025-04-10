@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.utils.KwikCountry
 import com.isakaro.kwik.utils.KwikCountryInfo
 import com.isakaro.kwik.utils.countryList
 import com.isakaro.kwik.utils.resolveCountries
@@ -49,8 +50,8 @@ import com.isakaro.kwik.utils.text
 @Composable
 fun KwikCountryCodePicker(
     state: LazyListState,
-    includeOnlyCountries: List<String> = emptyList(),
-    omitCountries: List<String> = emptyList(),
+    includeOnlyCountries: List<KwikCountry> = emptyList(),
+    omitCountries: List<KwikCountry> = emptyList(),
     enableSearch: Boolean = true,
     showFlags: Boolean = true,
     noCountryFoundMessage: String = "No country found",
@@ -132,7 +133,7 @@ fun KwikCountryPickerDialog(
 @Composable
 fun KwikCountryCodeButton(
     modifier: Modifier = Modifier.height(65.dp),
-    country: KwikCountryInfo,
+    country: KwikCountryInfo?,
     enabled: Boolean = true,
     onClick: () -> Unit
 ){
@@ -149,12 +150,12 @@ fun KwikCountryCodeButton(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             KwikText.TitleText(
-                text = country.code,
+                text = country?.code ?: "",
                 modifier = Modifier,
                 style = MaterialTheme.typography.titleMedium
             )
             KwikText.TitleText(
-                text = country.dialingCode,
+                text = country?.dialingCode ?: "",
                 style = MaterialTheme.typography.headlineSmall
             )
             Icon(

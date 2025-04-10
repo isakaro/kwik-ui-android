@@ -26,6 +26,7 @@ import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
+import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
@@ -233,7 +234,7 @@ internal fun KwikComponentsCatalogScreen(
                 title = "Country picker",
                 description = "Component for selecting a country",
                 action = {
-                    navigator.navigate(KwikRatingBarScreenDestination)
+                    navigator.navigate(KwikCountryPickerScreenDestination)
                 }
             )
         )

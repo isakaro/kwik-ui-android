@@ -532,6 +532,10 @@ internal fun getCountryInfo(code: KwikCountry): KwikCountryInfo? {
 * */
 data class KwikCountryInfo(val name: String, val code: KwikCountry, val dialingCode: String, @DrawableRes val flag: Int, val tags: List<String> = listOf())
 
+/**
+ * Utility function to get the country code of the device based on the network country ISO
+ * This function uses the TelephonyManager to get the network country ISO and returns the corresponding [KwikCountry], which is an ISO 3166-1 alpha-2 code.
+ * */
 fun Context.countryCode(): KwikCountry {
     val telephonyManager = this.getSystemService(TELEPHONY_SERVICE) as TelephonyManager
     return try {
