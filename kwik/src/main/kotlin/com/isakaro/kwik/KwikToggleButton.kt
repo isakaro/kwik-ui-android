@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.isakaro.kwik.theme.KwikTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> ToggleGroup(
     options: List<KwikToggleGroupOption<T>>,
@@ -74,13 +74,15 @@ data class KwikToggleGroupOption<T>(
 @Preview
 @Composable
 private fun KwikToggleGroupPreview() {
-    ToggleGroup(
-        options = listOf(
-            KwikToggleGroupOption("Option 1", 1),
-            KwikToggleGroupOption("Option 2", 2),
-            KwikToggleGroupOption("Option 3", 3),
-        ),
-        selectedOption = 2,
-        onOptionSelected = {}
-    )
+    KwikTheme {
+        ToggleGroup(
+            options = listOf(
+                KwikToggleGroupOption("Option 1", 1),
+                KwikToggleGroupOption("Option 2", 2),
+                KwikToggleGroupOption("Option 3", 3),
+            ),
+            selectedOption = 2,
+            onOptionSelected = {}
+        )
+    }
 }

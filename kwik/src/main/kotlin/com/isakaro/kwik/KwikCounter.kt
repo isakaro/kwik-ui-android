@@ -2,6 +2,7 @@ package com.isakaro.kwik
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.theme.KwikTheme
 
 /**
  * A counter component that allows the user to increment or decrement a value.
@@ -89,7 +91,7 @@ fun KwikCounter(
                 .fillMaxWidth()
                 .height(40.dp)
                 .background(
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.small
                 ).border(
                     width = borderStroke.dp,
@@ -111,6 +113,7 @@ fun KwikCounter(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.remove),
+                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                     contentDescription = "Decrement"
                 )
             }
@@ -133,6 +136,7 @@ fun KwikCounter(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.add),
+                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
                     contentDescription = "Increment"
                 )
             }
@@ -143,9 +147,11 @@ fun KwikCounter(
 @Preview
 @Composable
 private fun KwikCounterPreview() {
-    KwikCounter(
-        label = "Counter",
-        initialValue = 2,
-        onValueChange = {}
-    )
+    KwikTheme {
+        KwikCounter(
+            label = "Counter",
+            initialValue = 2,
+            onValueChange = {}
+        )
+    }
 }

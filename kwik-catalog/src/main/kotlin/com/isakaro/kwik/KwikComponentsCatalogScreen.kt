@@ -28,6 +28,7 @@ import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
+import com.isakaro.kwik.destinations.KwikCounterScreenDestination
 import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
@@ -44,6 +45,7 @@ import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
+import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -266,6 +268,24 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Provides a stepper component for keeping track of steps",
                 action = {
                     navigator.navigate(KwikStepperScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Toggle button",
+                description = "Toggle button component",
+                action = {
+                    navigator.navigate(KwikToggleButtonScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Counter",
+                description = "Counter component",
+                action = {
+                    navigator.navigate(KwikCounterScreenDestination)
                 }
             )
         )
