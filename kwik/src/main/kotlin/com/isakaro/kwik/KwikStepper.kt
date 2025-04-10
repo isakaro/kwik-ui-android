@@ -36,6 +36,7 @@ import java.util.UUID
 /**
  * The state of the stepper
  *
+ * @param steps: The list of steps to display in the stepper.
  * @param currentStep: The current step of the stepper. Starts from 0.
  * @param isComplete: Whether the stepper is complete or not. Default is false.
  * */
@@ -130,8 +131,8 @@ fun MutableState<KwikStepperState>.moveBackward() {
 /**
  * A stepper component that displays a series of steps with indicators.
  *
+ * @param state: The state of the stepper. Refer to [KwikStepperState]
  * @param modifier Modifier to be applied to the stepper.
- * @param steps List of step labels.
  * @param activeStepColor Color of the active step indicator.
  * */
 @Composable
@@ -143,8 +144,8 @@ fun KwikStepper(
 
     var completed by remember { mutableStateOf(false) }
 
-    LaunchedEffect(state.value.currentStep) {
-        if (state.value.currentStep > state.value.steps.lastIndex) {
+    LaunchedEffect(state.value) {
+        if (state.value.currentStep > state.value.steps.size) {
             completed = true
         }
     }
@@ -218,10 +219,10 @@ private fun KwikStepperItem(
                         tint = Color.White
                     )
                 } else {
-                    Text(
+                    KwikText.RenderText(
                         text = (stepIndex + 1).toString(),
                         color = Color.White,
-                        style = if(stepsCount > 5) MaterialTheme.typography.bodySmall else MaterialTheme.typography.titleMedium,
+                        style = if(stepsCount > 5) MaterialTheme.typography.bodySmall else MaterialTheme.typography.titleMedium
                     )
                 }
             }

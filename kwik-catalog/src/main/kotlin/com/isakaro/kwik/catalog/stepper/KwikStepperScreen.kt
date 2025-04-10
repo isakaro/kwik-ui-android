@@ -1,6 +1,7 @@
 package com.isakaro.kwik.catalog.stepper
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikButton
@@ -45,7 +47,7 @@ internal fun KwikStepperScreen(
     )
 
     ShowCaseContainer(
-        title = "Tabs",
+        title = "Stepper",
         onBackClick = {
             navigator.navigateUp()
         }
@@ -76,19 +78,23 @@ internal fun KwikStepperScreen(
                 )
             }
 
-            KwikButton(
-                text = "Complete all",
-                onClick = {
-                    kwikStepperState.completeAll()
-                }
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(6.dp, alignment = Alignment.CenterVertically)
+            ) {
+                KwikButton(
+                    text = "Complete all",
+                    onClick = {
+                        kwikStepperState.completeAll()
+                    }
+                )
 
-            KwikButton(
-                text = "Clear all",
-                onClick = {
-                    kwikStepperState.clearAll()
-                }
-            )
+                KwikButton(
+                    text = "Clear all",
+                    onClick = {
+                        kwikStepperState.clearAll()
+                    }
+                )
+            }
         }
     }
 }
