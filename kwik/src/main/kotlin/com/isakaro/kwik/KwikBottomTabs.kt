@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -30,50 +28,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.launch
 
 /**
- * Properties for the indicator.
- * @param height The height of the indicator
- * @param width The width of the indicator. It's a percentage of the screen width. For example, if the width is 0.8, the indicator will be 80% of the screen width.
- * @param horizontalPadding The horizontal padding of the indicator
- * @param verticalPadding The vertical padding of the indicator
- * @param borderRadius The border radius of the indicator
+ *
+ *
  * */
-data class KwikBottomIndicatorProps(
-    val height: Float = 4f,
-    val width: Float = 0.8f,
-    val horizontalPadding: Float = 0f,
-    val verticalPadding: Float = 0f,
-    val borderRadius: Float = 4f
-)
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun KwikBottomTabs(
     modifier: Modifier = Modifier,
+    shape: Shape = MaterialTheme.shapes.medium,
     tabs: List<KwikTabItem>,
     pagerState: PagerState,
+    elevation: Int = 0,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContentColor: Color = Color.Gray,
-    kwikBottomIndicatorProps: KwikBottomIndicatorProps = KwikBottomIndicatorProps()
+    unselectedContentColor: Color = Color.Gray
 ) {
     Scaffold(
         bottomBar = {
             KwikBottomTabView(
                 modifier = modifier,
                 tabs = tabs,
+                shape = shape,
+                elevation = elevation,
                 pagerState = pagerState,
                 containerColor = containerColor,
                 selectedContentColor = selectedContentColor,
-                unselectedContentColor = unselectedContentColor,
-                kwikBottomIndicatorProps = kwikBottomIndicatorProps
+                unselectedContentColor = unselectedContentColor
             )
         }
     ) { paddingValues ->
@@ -82,32 +70,40 @@ fun KwikBottomTabs(
 }
 
 /**
- *
+ * The view for the tab row.
  *
  * @param tabs List of tabs to display
  * @param pagerState The state of the pager
  * @param kwikBottomIndicatorProps The properties of the indicator. Refer to [KwikBottomIndicatorProps] for more details.
  * @param containerColor The background color of the tab row
  * @param selectedContentColor The color of the selected tab
+ * @param unselectedContentColor The color of the unselected tab
+ * @param shape The shape that applies to the entire tab view
+ * @param enableIndicator Boolean indicates if the indicator is enabled
+ * @param elevation The elevation of the tab view
  * */
 @Composable
-fun KwikBottomTabView(
+private fun KwikBottomTabView(
     modifier: Modifier = Modifier,
     tabs: List<KwikTabItem>,
     pagerState: PagerState,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
     unselectedContentColor: Color = Color.Gray,
-    kwikBottomIndicatorProps: KwikBottomIndicatorProps = KwikBottomIndicatorProps()
+    shape: Shape,
+    elevation: Int = 0
 ) {
     val scope = rememberCoroutineScope()
 
     Card(
-        modifier = Modifier.fillMaxWidth().then(modifier),
+        modifier = modifier.fillMaxWidth().then(modifier),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        shape = MaterialTheme.shapes.extraSmall
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = elevation.dp
+        ),
+        shape = shape
     ) {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxSize()) {
             tabs.forEachIndexed { index, tab ->
@@ -117,7 +113,6 @@ fun KwikBottomTabView(
                     containerColor = containerColor,
                     selectedContentColor = selectedContentColor,
                     unselectedContentColor = unselectedContentColor,
-                    kwikBottomIndicatorProps = kwikBottomIndicatorProps,
                     onClick = {
                         scope.launch {
                             pagerState.animateScrollToPage(index)
@@ -136,22 +131,18 @@ fun KwikBottomTabView(
  * @param containerColor Color sets the background color
  * @param selectedContentColor Color sets the color of the selected tab
  * @param unselectedContentColor Color sets the color of the unselected tab
- * @param enableIndicator Boolean indicates if the indicator is enabled
- * @param kwikBottomIndicatorProps [KwikBottomIndicatorProps] the properties of the indicator
  * @param item [KwikTabItem] the tab item
  * @param onClick () -> Unit called when the tab is clicked
  *
  * @see KwikTabItem
  * */
 @Composable
-fun KwikBottomTabItemView(
+private fun KwikBottomTabItemView(
     selected: Boolean,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContentColor: Color = Color.Transparent,
-    enableIndicator: Boolean = false,
+    unselectedContentColor: Color = Color.Gray,
     item: KwikTabItem,
-    kwikBottomIndicatorProps: KwikBottomIndicatorProps,
     onClick: () -> Unit
 ){
     Box(
@@ -174,32 +165,15 @@ fun KwikBottomTabItemView(
                 KwikImageView(
                     modifier = Modifier.size(30.dp),
                     url = item.icon,
-                    tint = if(selected) MaterialTheme.colorScheme.primary else Color.Gray
+                    tint = if(selected) selectedContentColor else unselectedContentColor
                 )
             }
             if(item.title != null){
                 KwikText.TitleSmall(
                     text = item.title,
-                    color = if(selected) MaterialTheme.colorScheme.primary else Color.Gray,
+                    color = if(selected) selectedContentColor else unselectedContentColor
                 )
             }
-        }
-        if(enableIndicator){
-            Spacer(modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(vertical = kwikBottomIndicatorProps.verticalPadding.dp)
-                .padding(horizontal = kwikBottomIndicatorProps.horizontalPadding.dp)
-                .fillMaxWidth(kwikBottomIndicatorProps.width)
-                .height(kwikBottomIndicatorProps.height.dp)
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = if (selected) listOf(
-                            selectedContentColor,
-                            selectedContentColor
-                        ) else listOf(unselectedContentColor, unselectedContentColor),
-                    ),
-                    shape = RoundedCornerShape(kwikBottomIndicatorProps.borderRadius.dp)
-                ))
         }
     }
 

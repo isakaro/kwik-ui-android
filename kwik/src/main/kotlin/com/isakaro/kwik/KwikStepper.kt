@@ -15,7 +15,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,30 +30,140 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.isakaro.kwik.theme.KwikTheme
+import java.util.UUID
 
+/**
+ * The state of the stepper
+ *
+ * @param currentStep: The current step of the stepper. Starts from 0.
+ * @param isComplete: Whether the stepper is complete or not. Default is false.
+ * */
+data class KwikStepperState(
+    val steps: List<String>,
+    var currentStep: Int = 0,
+    var isComplete: Boolean = false
+)
+
+/**
+ * A state holder for the stepper. Refer to [KwikStepperState]
+ *
+ * @param steps: The list of steps to display in the stepper.
+ * */
+@Composable
+fun rememberKwikStepperState(steps: List<String>): MutableState<KwikStepperState> {
+    return remember { mutableStateOf(KwikStepperState(steps)) }
+}
+
+// this will complete the stepper, marking all steps as complete
+fun MutableState<KwikStepperState>.completeAll() {
+    this.value = KwikStepperState(
+        steps = this.value.steps,
+        currentStep = this.value.steps.size,
+        isComplete = true
+    )
+}
+
+// clear all steps and reset the stepper
+fun MutableState<KwikStepperState>.clearAll() {
+    this.value = KwikStepperState(
+        steps = this.value.steps,
+        currentStep = 0,
+        isComplete = false
+    )
+}
+
+/**
+ * Allows to set new steps to the stepper
+ *
+ * @param steps: The list of steps to display in the stepper.
+ * @param index: The index of the step to move to. Starts from 0.
+ * */
+fun MutableState<KwikStepperState>.setNewSteps(
+    steps: List<String>,
+    index: Int = 0
+) {
+    this.value = KwikStepperState(
+        steps = steps,
+        currentStep = index,
+        isComplete = false
+    )
+}
+
+/**
+* Move to a specific step
+*
+* @param index: The index of the step to move to. Starts from 0.
+* */
+fun MutableState<KwikStepperState>.moveToStep(index: Int) {
+    if(index in 0..this.value.steps.lastIndex) {
+        this.value = KwikStepperState(
+            steps = this.value.steps,
+            currentStep = index,
+            isComplete = this.value.currentStep >= this.value.steps.size
+        )
+    }
+}
+
+// move to the next step
+fun MutableState<KwikStepperState>.moveForward() {
+    if(this.value.currentStep < this.value.steps.size) {
+        this.value = KwikStepperState(
+            steps = this.value.steps,
+            currentStep = this.value.currentStep + 1,
+            isComplete = this.value.currentStep >= this.value.steps.size
+        )
+    }
+}
+
+// move to the previous step
+fun MutableState<KwikStepperState>.moveBackward() {
+    if(this.value.currentStep > 0) {
+        this.value = KwikStepperState(
+            steps = this.value.steps,
+            currentStep = this.value.currentStep - 1,
+            isComplete = this.value.currentStep >= this.value.steps.size
+        )
+    }
+}
+
+/**
+ * A stepper component that displays a series of steps with indicators.
+ *
+ * @param modifier Modifier to be applied to the stepper.
+ * @param steps List of step labels.
+ * @param activeStepColor Color of the active step indicator.
+ * */
 @Composable
 fun KwikStepper(
+    state: MutableState<KwikStepperState>,
     modifier: Modifier = Modifier,
-    steps: List<String>,
-    currentStepIndex: Int,
-    activeStepColor: Color = MaterialTheme.colorScheme.primary,
-    completed: Boolean = false
+    activeStepColor: Color = MaterialTheme.colorScheme.primary
 ) {
+
+    var completed by remember { mutableStateOf(false) }
+
+    LaunchedEffect(state.value.currentStep) {
+        if (state.value.currentStep > state.value.steps.lastIndex) {
+            completed = true
+        }
+    }
+
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        steps.forEachIndexed { index, step ->
+        state.value.steps.forEachIndexed { index, step ->
             KwikStepperItem(
                 modifier = Modifier.weight(1F),
-                stepsCount = steps.size,
+                stepsCount = state.value.steps.size,
                 stepIndex = index,
-                isComplete = index < currentStepIndex || completed,
-                isCurrent = index == currentStepIndex,
+                isComplete = index < state.value.currentStep || completed,
+                isCurrent = index == state.value.currentStep,
                 label = step,
                 activeStepColor = activeStepColor,
-                currentStepIndex = currentStepIndex,
-                isLastStep = index == steps.lastIndex
+                currentStepIndex = state.value.currentStep,
+                isLastStep = index == state.value.steps.lastIndex
             )
         }
     }
@@ -72,7 +187,7 @@ private fun KwikStepperItem(
     val indicatorColor by transition.animateColor(label = "indicatorColor") { if (it || isCurrent) activeStepColor else Color.Gray }
     val labelColor by transition.animateColor(label = "labelColor") {
         if (it || isCurrent) {
-            Color.Black
+            MaterialTheme.colorScheme.primary
         } else if(isCurrent) {
             activeStepColor
         } else {
@@ -146,8 +261,13 @@ private fun KwikStepperItem(
 @Preview
 @Composable
 private fun KwikStepperPreview() {
-    KwikStepper(
-        steps = listOf("Step 1", "Step 2", "Step 3", "Step 4"),
-        currentStepIndex = 2
-    )
+    KwikTheme {
+        val state = rememberKwikStepperState(
+            listOf("Step 1", "Step 2", "Step 3", "Step 4")
+        )
+
+        KwikStepper(
+            state = state
+        )
+    }
 }

@@ -2,12 +2,14 @@ package com.isakaro.kwik.catalog.bottomtabs
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -82,7 +84,9 @@ internal fun KwikBottomTabsScreenStyled(
         }
     ) {
         KwikBottomTabs(
-            modifier = Modifier.height(70.dp),
+            modifier = Modifier.height(100.dp).padding(4.dp),
+            shape = MaterialTheme.shapes.large,
+            elevation = 8,
             tabs = navItems,
             pagerState = pagerState
         )

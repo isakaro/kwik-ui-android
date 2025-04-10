@@ -11,6 +11,7 @@ import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreen
+import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
 import com.isakaro.kwik.catalog.card.KwikCardScreen
 import com.isakaro.kwik.catalog.checkbox.KwikCheckBoxScreen
@@ -22,6 +23,7 @@ import com.isakaro.kwik.catalog.progress.KwikProgressIndicatorScreen
 import com.isakaro.kwik.catalog.radio.KwikRadioButtonScreen
 import com.isakaro.kwik.catalog.searchview.KwikSearchViewScreen
 import com.isakaro.kwik.catalog.slider.KwikSliderScreen
+import com.isakaro.kwik.catalog.stepper.KwikStepperScreen
 import com.isakaro.kwik.catalog.switch.KwikSwitchScreen
 import com.isakaro.kwik.catalog.tabs.KwikTabScreen
 import com.isakaro.kwik.catalog.textfield.KwikOutlinedTextFieldScreen
@@ -31,6 +33,7 @@ import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
@@ -45,6 +48,7 @@ import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
 import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
+import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
@@ -96,6 +100,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikBottomTabsScreenDestination) {
                             KwikBottomTabsScreen()
+                        }
+                        composable(KwikBottomTabsScreenStyledDestination){
+                            KwikBottomTabsScreenStyled()
                         }
                         composable(KwikCardScreenDestination) {
                             KwikCardScreen()
@@ -150,6 +157,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikSearchViewScreenDestination){
                             KwikSearchViewScreen()
+                        }
+                        composable(KwikStepperScreenDestination){
+                            KwikStepperScreen()
                         }
                     }
                 }

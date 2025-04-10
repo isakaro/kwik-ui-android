@@ -19,10 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
+import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
@@ -37,6 +39,7 @@ import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
 import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
+import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
@@ -97,10 +100,19 @@ internal fun KwikComponentsCatalogScreen(
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Bottom Tabs Navigation",
+                title = "Bottom Tabs",
                 description = "Bottom navigation bar for modern apps",
                 action = {
                     navigator.navigate(KwikBottomTabsScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Bottom Tabs (Styled)",
+                description = "Showcasing the styled bottom tabs. Went for floating view style",
+                action = {
+                    navigator.navigate(KwikBottomTabsScreenStyledDestination)
                 }
             )
         ),
@@ -245,6 +257,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Provides a neat search view with suggestions and debounce support",
                 action = {
                     navigator.navigate(KwikSearchViewScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Stepper",
+                description = "Provides a stepper component for keeping track of steps",
+                action = {
+                    navigator.navigate(KwikStepperScreenDestination)
                 }
             )
         )

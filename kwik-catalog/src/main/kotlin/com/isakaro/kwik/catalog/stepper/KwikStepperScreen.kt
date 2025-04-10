@@ -1,29 +1,36 @@
 package com.isakaro.kwik.catalog.stepper
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.button.KwikButton
-import com.isakaro.kwik.button.KwikIconButton
-import com.isakaro.kwik.stepper.KwikStepper
+import com.isakaro.kwik.KwikButton
+import com.isakaro.kwik.KwikIconButton
+import com.isakaro.kwik.KwikIconTextButton
+import com.isakaro.kwik.KwikStepper
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
-import com.isakaro.kwik.stepper.clearAll
-import com.isakaro.kwik.stepper.completeAll
-import com.isakaro.kwik.stepper.moveBackward
-import com.isakaro.kwik.stepper.moveForward
+import com.isakaro.kwik.clearAll
+import com.isakaro.kwik.completeAll
+import com.isakaro.kwik.moveBackward
+import com.isakaro.kwik.moveForward
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.stepper.rememberKwikStepperState
+import com.isakaro.kwik.rememberKwikStepperState
+import com.isakaro.kwik.rememberKwikToastState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -38,7 +45,7 @@ internal fun KwikStepperScreen(
     )
 
     ShowCaseContainer(
-        title = "Stepper",
+        title = "Tabs",
         onBackClick = {
             navigator.navigateUp()
         }
@@ -69,23 +76,19 @@ internal fun KwikStepperScreen(
                 )
             }
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(6.dp, alignment = Alignment.CenterVertically)
-            ) {
-                KwikButton(
-                    text = "Complete all",
-                    onClick = {
-                        kwikStepperState.completeAll()
-                    }
-                )
+            KwikButton(
+                text = "Complete all",
+                onClick = {
+                    kwikStepperState.completeAll()
+                }
+            )
 
-                KwikButton(
-                    text = "Clear all",
-                    onClick = {
-                        kwikStepperState.clearAll()
-                    }
-                )
-            }
+            KwikButton(
+                text = "Clear all",
+                onClick = {
+                    kwikStepperState.clearAll()
+                }
+            )
         }
     }
 }
