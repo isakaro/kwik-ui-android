@@ -1,7 +1,9 @@
 package com.isakaro.kwik.catalog.button
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Share
@@ -10,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
@@ -19,6 +22,7 @@ import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikButtonLoadingStyle
 import com.isakaro.kwik.KwikExtendedFloatingActionButton
 import com.isakaro.kwik.KwikFloatingActionButton
+import com.isakaro.kwik.KwikHSpacer
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikTextButton
 import com.isakaro.kwik.R
@@ -54,7 +58,6 @@ internal fun KwikButtonScreen(
         FabButton()
         LoadingExtendedFloatingActionButton()
         ExtendedButton()
-        LoadingFloatingActionButton()
         DisabledExtendedButton()
         ButtonWithIcon()
     }
@@ -189,12 +192,14 @@ private fun TextButtonWithCustomContent() {
     }
 }
 
-
 @Composable
 private fun FabButton() {
-    ShowCase("Icon Floating Action") {
-        FloatingActionButton(onClick = {}, containerColor = MaterialTheme.colorScheme.primary, contentColor = Color.Black) {
-            Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
+    ShowCase("Floating Action button") {
+        KwikFloatingActionButton(onClick = {}, contentColor = Color.White) {
+            KwikText.TitleSmall(
+                text = "Action",
+                color = Color.White
+            )
         }
     }
 }
@@ -203,7 +208,7 @@ private fun FabButton() {
 private fun ExtendedButton() {
     ShowCase("Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { KwikText.TitleSmall(text = "Action") },
+            text = { KwikText.TitleSmall(text = "Action", color = Color.White) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
@@ -234,28 +239,12 @@ private fun LoadingExtendedFloatingActionButton() {
 private fun DisabledExtendedButton() {
     ShowCase("Disabled Extended Floating Action") {
         KwikExtendedFloatingActionButton(
-            text = { KwikText.TitleSmall(text = "Action") },
+            text = { KwikText.TitleSmall(text = "Action", color = Color.White) },
             icon = { Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share") },
+            enabled = false,
             containerColor = MaterialTheme.colorScheme.primary,
             onClick = { }
         )
-    }
-}
-
-@Composable
-private fun LoadingFloatingActionButton() {
-    ShowCase("Loading Floating Action Button") {
-        KwikFloatingActionButton(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.White,
-            loading = true,
-            onClick = { }
-        ){
-            Row {
-                Icon(Icons.Sharp.Share, tint = Color.White, contentDescription = "share")
-                KwikText.TitleSmall(text = "Action")
-            }
-        }
     }
 }
 

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -251,7 +252,7 @@ fun KwikExtendedFloatingActionButton(
     onClick: () -> Unit
 ) {
     ExtendedFloatingActionButton(
-        modifier = modifier.alpha(if(loading) 0.5f else 1f),
+        modifier = modifier.alpha(if(!enabled || loading) 0.5f else 1f),
         text = {
             if(loading){
                 KwikCircularLoading(
@@ -275,7 +276,8 @@ fun KwikExtendedFloatingActionButton(
             }
         },
         shape = shape,
-        containerColor = if (enabled) disabledContainerColor else containerColor,
+        contentColor = contentColor,
+        containerColor = if (enabled) containerColor else disabledContainerColor,
         elevation = elevation,
         interactionSource = interactionSource,
         expanded = expanded,
@@ -316,7 +318,6 @@ fun KwikFloatingActionButton(
     modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     containerColor: Color = MaterialTheme.colorScheme.primary,
-    disabledContainerColor: Color = containerColor.copy(alpha = 0.5f),
     disabledContentColor: Color = contentColor.copy(alpha = 0.5f),
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
@@ -328,33 +329,38 @@ fun KwikFloatingActionButton(
     content: @Composable () -> Unit
 ) {
     FloatingActionButton(
-        modifier = modifier,
-        contentColor = if (enabled) disabledContentColor else contentColor,
-        containerColor = if (enabled) disabledContainerColor else containerColor,
+        modifier = modifier.alpha(if(!enabled || loading) 0.5f else 1f),
+        contentColor = if (enabled) contentColor else disabledContentColor,
+        containerColor = if (enabled) containerColor else disabledContentColor,
         shape = shape,
         elevation = elevation,
         interactionSource = interactionSource,
         onClick = { if (enabled && !loading) onClick() },
     ) {
-        if (loading) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                KwikCircularLoading(
-                    trackColor = contentColor,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                if(loadingText != null){
-                    KwikText.TitleSmall(
-                        text = loadingText,
-                        color = contentColor
+        Row(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (loading) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    KwikCircularLoading(
+                        trackColor = contentColor,
+                        modifier = Modifier.size(24.dp)
                     )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    if(loadingText != null){
+                        KwikText.TitleSmall(
+                            text = loadingText,
+                            color = contentColor
+                        )
+                    }
                 }
+            } else {
+                content()
             }
-        } else {
-            content()
         }
     }
 }
