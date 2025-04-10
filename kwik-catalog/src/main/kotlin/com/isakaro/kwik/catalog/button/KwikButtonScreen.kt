@@ -63,7 +63,10 @@ internal fun KwikButtonScreen(
 @Composable
 private fun NormalButton() {
     ShowCase("Button") {
-        KwikButton(onClick = {}, text = "action")
+        KwikButton(
+            text = "Action",
+            onClick = {}
+        )
     }
 }
 

@@ -181,6 +181,7 @@ fun KwikButton(
             Spacer(modifier = Modifier.width(8.dp))
 
             KwikText.RenderText(
+                modifier = Modifier.alpha(if(!enabled) 0.5f else 1f),
                 text = text,
                 style = fontStyle,
                 color = if(outlined) MaterialTheme.colorScheme.primary else Color.White

@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.MoreVert
@@ -96,7 +97,6 @@ internal fun KwikDropDownScreen(
                                 }
                             )
                         ),
-                        KwikDropdownItemActionState.Divider(),
                         KwikDropdownItemActionState.Data(
                             KwikDropdownItem(
                                 text = {
@@ -112,6 +112,37 @@ internal fun KwikDropDownScreen(
                                 }
                             )
                         ),
+                        KwikDropdownItemActionState.Header("System"),
+                        KwikDropdownItemActionState.Data(
+                            KwikDropdownItem(
+                                text = {
+                                    KwikText.BodyMedium(text = "Dark mode")
+                                },
+                                leadingIcon = {
+                                    KwikImageView(
+                                        url = Icons.Default.Settings
+                                    )
+                                },
+                                onClick = {
+
+                                }
+                            )
+                        ),
+                        KwikDropdownItemActionState.Data(
+                            KwikDropdownItem(
+                                text = {
+                                    KwikText.BodyMedium(text = "Feedback")
+                                },
+                                leadingIcon = {
+                                    KwikImageView(
+                                        url = Icons.AutoMirrored.Filled.Send
+                                    )
+                                },
+                                onClick = {
+
+                                }
+                            )
+                        )
                     )
                 )
             }
