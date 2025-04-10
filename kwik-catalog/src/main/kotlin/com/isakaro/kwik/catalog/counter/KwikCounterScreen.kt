@@ -27,7 +27,7 @@ internal fun KwikCounterScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Counter") {
+        ShowCase(title = "Counter with initial value fo 2") {
             var count by remember { mutableIntStateOf(0) }
 
             KwikCounter(

@@ -1,13 +1,12 @@
 package com.isakaro.kwik.catalog.togglebutton
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikToggleGroup
 import com.isakaro.kwik.KwikToggleGroupOption
-import com.isakaro.kwik.ToggleGroup
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -30,7 +29,7 @@ internal fun KwikToggleButtonScreen(
         ShowCase(title = "Toggle button") {
             val (value, onValueChange) = remember { mutableStateOf("") }
 
-            ToggleGroup(
+            KwikToggleGroup(
                 options = listOf(
                     KwikToggleGroupOption("Tortuga", "Tortuga"),
                     KwikToggleGroupOption("Shipwreck Cove", "Shipwreck Cove"),

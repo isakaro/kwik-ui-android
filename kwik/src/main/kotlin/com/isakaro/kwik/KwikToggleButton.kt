@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.theme.KwikTheme
 
 @Composable
-fun <T> ToggleGroup(
+fun <T> KwikToggleGroup(
     options: List<KwikToggleGroupOption<T>>,
     selectedOption: T,
     onOptionSelected: (T) -> Unit
@@ -55,9 +55,10 @@ fun <T> ToggleGroup(
                     activeContentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 label = {
-                    Text(
+                    KwikText.LabelMedium(
                         text = item.label,
                         fontWeight = if(index == selectedIndex) FontWeight.Bold else null,
+                        maxLines = 2,
                         color = if(index == selectedIndex) Color.White else Color.Gray
                     )
                 }
@@ -75,7 +76,7 @@ data class KwikToggleGroupOption<T>(
 @Composable
 private fun KwikToggleGroupPreview() {
     KwikTheme {
-        ToggleGroup(
+        KwikToggleGroup(
             options = listOf(
                 KwikToggleGroupOption("Option 1", 1),
                 KwikToggleGroupOption("Option 2", 2),
