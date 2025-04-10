@@ -1,57 +1,29 @@
 package com.isakaro.kwik.catalog.bottomtabs
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.LocationOn
-import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.ShoppingCart
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikBottomTab
+import com.isakaro.kwik.KwikTabItem
+import com.isakaro.kwik.KwikTabsContent
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import kotlinx.coroutines.launch
 
 @Composable
 @Destination(style = SlideInFromRightAnimations::class)
@@ -59,8 +31,47 @@ import kotlinx.coroutines.launch
 internal fun KwikBottomTabsScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-    var selectedScreenRoute by remember { mutableStateOf("") }
-    val coroutineScope = rememberCoroutineScope()
+
+    @Composable
+    fun Content(text: String) {
+        Column {
+            repeat(5) {
+                Text(text = text)
+            }
+        }
+    }
+
+    val navItems = listOf(
+        KwikTabItem(
+            title = "Home",
+            icon = Icons.Rounded.Home,
+            content = {
+                Content("Home")
+            }
+        ),
+        KwikTabItem(
+            title = "Discover",
+            icon = Icons.Rounded.LocationOn,
+            content = {
+                Content("Discover")
+            }
+        ),
+        KwikTabItem(
+            title = "Favorites",
+            icon = Icons.Rounded.Favorite,
+            content = {
+                Content("Favorites")
+            }
+        ),
+        KwikTabItem(
+            title = "Settings",
+            icon = Icons.Rounded.Settings,
+            content = {
+                Content("Settings")
+            }
+        )
+    )
+
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
@@ -75,107 +86,17 @@ internal fun KwikBottomTabsScreen(
         }
     ) {
         Scaffold(
-            bottomBar = {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxSize()) {
-                        navItems.forEachIndexed { index, navItem ->
-                            BottomNavigationItem(
-                                selected = navItem.route == selectedScreenRoute,
-                                item = navItem,
-                                onClick = {
-                                    selectedScreenRoute = navItem.route
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(index)
-                                    }
-                                }
-                            )
-                        }
-                    }
-                }
-            },
             content = {
-                // Screen content
+                KwikBottomTab(
+                    modifier = Modifier.height(70.dp),
+                    tabs = navItems,
+                    pagerState = pagerState
+                )
+                KwikTabsContent(tabs = navItems, pagerState = pagerState)
             }
         )
     }
 }
-
-@Composable
-fun BottomNavigationItem(selected: Boolean, item: BottomNavItem, onClick: () -> Unit){
-    Box(
-        modifier = Modifier
-            .fillMaxHeight()
-    ) {
-        Column(modifier = Modifier
-            .align(Alignment.TopCenter)
-            .padding(top = 8.dp)
-            .clickable(
-                onClick = { onClick() },
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(
-                imageVector = item.icon,
-                contentDescription = item.name,
-                tint = if(selected) MaterialTheme.colorScheme.primary else Color.Gray,
-                modifier = Modifier
-                    .size(30.dp)
-            )
-            KwikText.TitleSmall(
-                text = item.name,
-                color = if(selected) MaterialTheme.colorScheme.primary else Color.Gray,
-            )
-        }
-        Spacer(modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .width(80.dp)
-            .height(4.dp)
-            .background(
-                brush = Brush.radialGradient(
-                    colors = if (selected) listOf(
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.primary
-                    ) else listOf(Color.Transparent, Color.Transparent),
-                )
-            ))
-    }
-
-}
-
-data class BottomNavItem(
-    val name: String,
-    val route: String,
-    val icon: ImageVector,
-)
-
-val navItems = listOf(
-    BottomNavItem(
-        name = "Home",
-        route = "swaps",
-        icon = Icons.Rounded.Home,
-    ),
-    BottomNavItem(
-        name = "Discover",
-        route = "station",
-        icon = Icons.Rounded.LocationOn,
-    ),
-    BottomNavItem(
-        name = "Favorites",
-        route = "bikes",
-        icon = Icons.Rounded.Favorite,
-    ),
-    BottomNavItem(
-        name = "Settings",
-        route = "settings",
-        icon = Icons.Rounded.Settings,
-    ),
-)
 
 @Preview(showBackground = true)
 @Composable

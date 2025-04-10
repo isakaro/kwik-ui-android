@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
  * @param content The content to display when the tab is selected
  * */
 data class KwikTabItem(
-    val title: String,
+    val title: String? = null,
     val counter: Int = 0,
     val icon: Any? = null,
     val content: @Composable () -> Unit
@@ -182,10 +182,12 @@ fun KwikTabItemView(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 6.dp)
             ) {
-                KwikText.TitleSmall(
-                    text = item.title,
-                    color = if(selected) selectedContentColor else unselectedContentColor,
-                )
+                if(item.title != null){
+                    KwikText.TitleSmall(
+                        text = item.title,
+                        color = if(selected) selectedContentColor else unselectedContentColor,
+                    )
+                }
                 if(item.counter > 0){
                     KwikHSpacer(6)
                     Box(modifier = Modifier
