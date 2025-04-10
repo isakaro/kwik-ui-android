@@ -2,6 +2,7 @@ package com.isakaro.kwik.catalog.button
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.FloatingActionButton
@@ -11,12 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikButton
 import com.isakaro.kwik.KwikButtonLoadingStyle
 import com.isakaro.kwik.KwikExtendedFloatingActionButton
 import com.isakaro.kwik.KwikFloatingActionButton
 import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikTextButton
 import com.isakaro.kwik.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
@@ -41,8 +45,10 @@ internal fun KwikButtonScreen(
         NormalMaxWidthButton()
         OutlinedButton()
         NormalMaxWidthOutlinedButton()
-        TextButton()
         DisabledButton()
+        ButtonWithCustomShape()
+        TextButton()
+        TextButtonWithCustomContent()
         LoadingButtonLinear()
         LoadingButtonCircular()
         FabButton()
@@ -85,6 +91,18 @@ private fun NormalMaxWidthOutlinedButton() {
         KwikButton(
             modifier = Modifier.fillMaxWidth(),
             outlined = true,
+            onClick = {},
+            text = "action"
+        )
+    }
+}
+
+@Composable
+private fun ButtonWithCustomShape() {
+    ShowCase("Button with custom shape") {
+        KwikButton(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
             onClick = {},
             text = "action"
         )
@@ -137,9 +155,29 @@ private fun LoadingButtonCircular() {
 @Composable
 private fun TextButton() {
     ShowCase("Text Button") {
-        KwikButton(onClick = {}, text = "action")
+        KwikTextButton(
+            text = "Action",
+            onClick = {}
+        )
     }
 }
+
+@Composable
+private fun TextButtonWithCustomContent() {
+    ShowCase("Text Button with custom content") {
+        KwikTextButton(
+            text = {
+                KwikText.RenderText(
+                    text = "Action",
+                    color = MaterialTheme.colorScheme.primary,
+                    textDecoration = TextDecoration.Underline
+                )
+            },
+            onClick = {}
+        )
+    }
+}
+
 
 @Composable
 private fun FabButton() {

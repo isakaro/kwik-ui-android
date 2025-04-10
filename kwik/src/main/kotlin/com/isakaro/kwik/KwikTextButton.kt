@@ -83,6 +83,43 @@ fun KwikTextButton(
     }
 }
 
+/**
+ * Simple text button
+ *
+ * @param modifier Modifier
+ * @param text content of the button
+ * @param containerColor Color sets the background color
+ * @param isLoading Boolean indicates if button is loading
+ * @param onClick () -> Unit called when button is clicked
+ * */
+@Composable
+fun KwikTextButton(
+    modifier: Modifier = Modifier,
+    text: @Composable () -> Unit,
+    containerColor: Color = Color.Transparent,
+    isLoading: Boolean = false,
+    onClick: () -> Unit = {}
+) {
+    TextButton(
+        onClick = { onClick() },
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            disabledContentColor = containerColor.copy(alpha = 0.5f),
+        ),
+        contentPadding = PaddingValues(12.dp),
+        shape = RoundedCornerShape(8.dp),
+        interactionSource = remember { MutableInteractionSource() }
+    ) {
+        Row {
+            if(isLoading){
+                KwikCircularLoading(modifier = Modifier.size(20.dp))
+            }
+            text()
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun KwikTextButtonPreview() {

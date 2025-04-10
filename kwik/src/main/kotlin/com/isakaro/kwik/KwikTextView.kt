@@ -9,6 +9,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 
 /**
@@ -39,7 +40,8 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        style: TextStyle,
+        textDecoration: TextDecoration = TextDecoration.None,
+        style: TextStyle = MaterialTheme.typography.bodyLarge,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -51,6 +53,7 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
+                textDecoration = textDecoration,
                 maxLines = maxLines,
                 overflow = overflow
             )
@@ -61,6 +64,7 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
+                textDecoration = textDecoration,
                 maxLines = maxLines,
                 overflow = overflow
             )
@@ -71,6 +75,7 @@ object KwikText {
                 fontWeight = fontWeight,
                 textAlign = textAlign,
                 modifier = modifier,
+                textDecoration = textDecoration,
                 maxLines = maxLines,
                 overflow = overflow
             )

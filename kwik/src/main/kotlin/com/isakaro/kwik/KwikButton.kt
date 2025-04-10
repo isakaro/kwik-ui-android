@@ -5,7 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -128,17 +130,24 @@ fun KwikButton(
         Spacer(modifier = Modifier.width(4.dp))
         if(isLoading){
             if(kwikButtonLoadingStyle == KwikButtonLoadingStyle.CIRCULAR){
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    CircularProgressIndicator(color = Color.DarkGray, modifier = Modifier.size(30.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    if(loadingText.isNotBlank()) {
-                        KwikText.RenderText(
-                            text = loadingText,
-                            modifier = Modifier.fillMaxWidth(),
-                            style = fontStyle
-                        )
+                Box {
+                    KwikCircularLoading(
+                        color = if(isSystemInDarkTheme()) Color.White else Color.DarkGray,
+                        modifier = Modifier.size(30.dp).align(Alignment.CenterStart)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth().align(Alignment.Center),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if(loadingText.isNotBlank()) {
+                            KwikText.RenderText(
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                text = loadingText,
+                                style = fontStyle
+                            )
+                        }
                     }
                 }
             } else {
@@ -161,7 +170,7 @@ fun KwikButton(
                     LinearProgressIndicator(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        color = Color.DarkGray,
+                        color = if(isSystemInDarkTheme()) Color.White else Color.DarkGray,
                         trackColor = Color.Transparent
                     )
                 }
@@ -297,7 +306,6 @@ fun KwikExtendedFloatingActionButton(
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     disabledContainerColor: Color = containerColor.copy(alpha = 0.5f),
-    disabledContentColor: Color = contentColor.copy(alpha = 0.5f),
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource? = null,
@@ -333,7 +341,6 @@ fun KwikExtendedFloatingActionButton(
             }
         },
         shape = shape,
-        contentColor = if (enabled) disabledContentColor else contentColor,
         containerColor = if (enabled) disabledContainerColor else containerColor,
         elevation = elevation,
         interactionSource = interactionSource,
