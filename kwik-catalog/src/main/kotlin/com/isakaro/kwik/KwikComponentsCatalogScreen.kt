@@ -176,8 +176,8 @@ internal fun KwikComponentsCatalogScreen(
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Slider",
-                description = "Slider component",
+                title = "Sliders",
+                description = "Slider components with custom thumb and track. Includes range and normal slider",
                 action = {
                     navigator.navigate(KwikSliderScreenDestination)
                 }
