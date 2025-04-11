@@ -91,7 +91,7 @@ fun KwikImageCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Box(
-                    modifier = Modifier.height(this@BoxWithConstraints.maxHeight / 3)
+                    modifier = Modifier.height(this@BoxWithConstraints.maxHeight / 2)
                 ) {
                     KwikImageView(
                         url = image

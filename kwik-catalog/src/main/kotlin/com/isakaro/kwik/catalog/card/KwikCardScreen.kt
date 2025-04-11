@@ -60,7 +60,8 @@ internal fun KwikCardScreen(
         ShowCase(title = "Card with image and title (vertical)") {
             KwikImageCard(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .height(250.dp),
                 image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
                 title = "I am a Card with an image",
             ){
