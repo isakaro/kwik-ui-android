@@ -3,6 +3,7 @@ package com.isakaro.kwik.catalog.textfield
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -159,6 +160,24 @@ internal fun KwikOutlinedTextFieldScreen(
                 onKeyboardDone = {
                     kwikToastState.showToast("keyboard done")
                 }
+            )
+        }
+
+        ShowCase(title = "Field with custom shape") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+
+            KwikOutlinedTextField(
+                value = text,
+                onValueChange = {
+                    text.value = it
+                },
+                placeholder = "Address",
+                maxLength = 35,
+                shape = MaterialTheme.shapes.extraLarge
             )
         }
 

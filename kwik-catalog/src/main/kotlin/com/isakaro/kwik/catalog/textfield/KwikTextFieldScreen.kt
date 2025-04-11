@@ -3,6 +3,7 @@ package com.isakaro.kwik.catalog.textfield
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -141,6 +142,7 @@ internal fun KwikTextFieldScreen(
                 }
             )
         }
+
         ShowCase(title = "Disabled field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
@@ -162,6 +164,25 @@ internal fun KwikTextFieldScreen(
                 onKeyboardDone = {
                     kwikToastState.showToast("keyboard done")
                 }
+            )
+        }
+
+        ShowCase(title = "Field with custom shape") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+
+            KwikTextField(
+                value = text,
+                onValueChange = {
+                    text.value = it
+                },
+                label = "Address",
+                placeholder = "Enter address",
+                maxLength = 35,
+                shape = MaterialTheme.shapes.extraLarge
             )
         }
 
