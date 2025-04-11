@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
+import java.util.Collections.addAll
 import java.util.UUID
 
 /**
@@ -46,7 +47,7 @@ data class KwikFilterChipOption<T>(
  * A filter chip component with multi-selection support
  *
  * @param filters List of filter options to display
- * @param preSelection List of pre-selected options
+ * @param preSelection Set of pre-selected options
  * @param filtersUpdated Callback when the filter options are updated
  * @param multiSelection Boolean if multiple options can be selected
  * @param selectedContainerColor Color of the chip when selected
@@ -59,7 +60,7 @@ data class KwikFilterChipOption<T>(
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
-    preSelection: List<KwikFilterChipOption<T>> = listOf(),
+    preSelection: Set<KwikFilterChipOption<T>> = mutableSetOf(),
     filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
@@ -69,7 +70,10 @@ fun <T> KwikFilterChips(
     border: BorderStroke? = null,
     showCheckedIcon: Boolean = true
 ) {
-    val selectedOptions = rememberSaveable { mutableSetOf<KwikFilterChipOption<T>>().apply { addAll(preSelection) } }
+    val selectedOptions = rememberSaveable {
+        mutableStateOf(preSelection.toSet())
+    }
+
     val listState = rememberLazyListState()
 
     fun handleSelection(
@@ -79,18 +83,17 @@ fun <T> KwikFilterChips(
     ) {
         if(multiSelection){
             if (isSelected) {
-                selectedOptions.remove(option)
+                selectedOptions.value = selectedOptions.value.filter { it != option }.toSet()
             } else {
-                selectedOptions.add(option)
+                selectedOptions.value += option
             }
         } else {
-            if(!selectedOptions.contains(option)){
-                selectedOptions.clear()
-                selectedOptions.add(option)
+            if(!selectedOptions.value.contains(option)){
+                selectedOptions.value = setOf(option)
             }
         }
 
-        onFiltersUpdated(selectedOptions.toList())
+        onFiltersUpdated(selectedOptions.value.toList())
     }
 
     LazyRow(
@@ -105,7 +108,7 @@ fun <T> KwikFilterChips(
 
             KwikFilterChip(
                 text = option.label,
-                isSelected = selectedOptions.contains(option),
+                isSelected = selectedOptions.value.contains(option),
                 onClick = { isSelected ->
                     handleSelection(
                         option = option,
@@ -226,7 +229,7 @@ private fun PreviewKwikFilterChips() {
     KwikTheme {
         KwikFilterChips(
             filters = filters,
-            preSelection = listOf(filters.random()),
+            preSelection = setOf(filters.random()),
             filtersUpdated = { selected = it }
         )
     }
