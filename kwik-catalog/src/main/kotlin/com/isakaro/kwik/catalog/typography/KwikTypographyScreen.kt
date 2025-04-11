@@ -1,7 +1,10 @@
 package com.isakaro.kwik.catalog.typography
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
@@ -22,35 +25,39 @@ fun KwikTypographyScreen(
             navigator.navigateUp()
         }
     ) {
-        KwikText.DisplayLarge(text = "DisplayLarge")
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            KwikText.DisplayLarge(text = "DisplayLarge")
 
-        KwikText.DisplayMedium(text = "DisplayMedium")
+            KwikText.DisplayMedium(text = "DisplayMedium")
 
-        KwikText.DisplaySmall(text = "DisplaySmall")
+            KwikText.DisplaySmall(text = "DisplaySmall")
 
-        KwikText.HeadlineLarge(text = "HeadlineLarge")
+            KwikText.HeadlineLarge(text = "HeadlineLarge")
 
-        KwikText.HeadlineMedium(text = "HeadlineMedium")
+            KwikText.HeadlineMedium(text = "HeadlineMedium")
 
-        KwikText.HeadlineSmall(text = "HeadlineSmall")
+            KwikText.HeadlineSmall(text = "HeadlineSmall")
 
-        KwikText.TitleLarge(text = "TitleLarge")
+            KwikText.TitleLarge(text = "TitleLarge")
 
-        KwikText.TitleMedium(text = "TitleMedium")
+            KwikText.TitleMedium(text = "TitleMedium")
 
-        KwikText.TitleSmall(text = "TitleSmall")
+            KwikText.TitleSmall(text = "TitleSmall")
 
-        KwikText.LabelLarge(text = "LabelLarge")
+            KwikText.BodyLarge(text = "BodyLarge")
 
-        KwikText.LabelMedium(text = "LabelMedium")
+            KwikText.BodyMedium(text = "BodyMedium")
 
-        KwikText.LabelSmall(text = "LabelSmall")
+            KwikText.BodySmall(text = "BodySmall")
 
-        KwikText.BodyLarge(text = "BodyLarge")
+            KwikText.LabelLarge(text = "LabelLarge")
 
-        KwikText.BodyMedium(text = "BodyMedium")
+            KwikText.LabelMedium(text = "LabelMedium")
 
-        KwikText.BodySmall(text = "BodySmall")
+            KwikText.LabelSmall(text = "LabelSmall")
+        }
     }
 
 }

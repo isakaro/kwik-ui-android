@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikCard
 import com.isakaro.kwik.KwikImageCard
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -58,10 +60,25 @@ internal fun KwikCardScreen(
             KwikImageCard(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp),
+                    .height(200.dp),
                 image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
                 title = "I am a Card with image",
-            )
+            ){
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(12.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    repeat(5){
+                        KwikText.BodyLarge(
+                            text = "Content",
+                            color = Color.White,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
         }
     }
 }

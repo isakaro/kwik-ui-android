@@ -26,8 +26,7 @@ internal fun KwikAvatarScreen(
     ) {
         ShowCase(title = "Avatar") {
             KwikAvatar(
-                modifier = Modifier
-                    .size(100.dp),
+                modifier = Modifier.size(300.dp),
                 url = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
             )
         }

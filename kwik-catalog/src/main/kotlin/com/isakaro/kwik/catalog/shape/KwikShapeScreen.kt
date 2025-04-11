@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikCenterColumn
 import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -32,7 +33,7 @@ fun KwikShapeScreen(
         }
     ) {
         ShapeShowCase(
-            title = "extraSmall",
+            title = "extra small",
             shape = MaterialTheme.shapes.extraSmall
         )
 
@@ -52,7 +53,7 @@ fun KwikShapeScreen(
         )
 
         ShapeShowCase(
-            title = "extraLarge",
+            title = "extra large",
             shape = MaterialTheme.shapes.extraLarge
         )
     }
@@ -76,6 +77,8 @@ private fun ShapeShowCase(
                 .height(30.dp)
         )
     }
+
+    KwikVSpacer(12)
 }
 
 @Preview(showBackground = true)

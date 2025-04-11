@@ -84,7 +84,7 @@ fun KwikImageCard(
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxHeight(0.3f)
+                    .fillMaxHeight()
             ) {
                 KwikImageView(
                     url = image
@@ -92,19 +92,19 @@ fun KwikImageCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.5f)
+                        .fillMaxHeight()
                         .align(Alignment.BottomCenter)
                         .background(
                             brush = Brush.verticalGradient(0F to Color.Transparent, 0F to Color.Transparent, 3F to Color.Black),
                         )
                 )
                 KwikText.TitleSmall(
-                    modifier = Modifier.align(Alignment.BottomStart).padding(horizontal = 8.dp),
+                    modifier = Modifier.align(Alignment.BottomStart).padding(horizontal = 8.dp, vertical = 8.dp),
                     text = title,
                     maxLines = 2
                 )
-                content()
             }
+            content()
         }
     }
 }

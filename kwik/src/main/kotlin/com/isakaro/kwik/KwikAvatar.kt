@@ -1,9 +1,13 @@
 package com.isakaro.kwik
 
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 
 /**
  * An avatar component that uses the KwikImageView to load images
@@ -14,15 +18,21 @@ import androidx.compose.ui.layout.ContentScale
 @Composable
 fun KwikAvatar(
     modifier: Modifier = Modifier,
+    shape: Shape = CircleShape,
     url: Any
 ) {
 
-    KwikCard {
+    KwikCard(
+        modifier = modifier,
+        shape = shape,
+        containerColor = Color.Transparent,
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
         KwikImageView(
             url = url,
             modifier = modifier,
             contentDescription = null,
-            shape = CircleShape,
+            shape = shape,
             contentScale = ContentScale.Crop
         )
     }

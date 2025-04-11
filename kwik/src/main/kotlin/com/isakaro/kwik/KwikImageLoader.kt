@@ -50,16 +50,15 @@ fun KwikImageLoader(
             .data(url)
             .build(),
         modifier = modifier
-            .apply {
-                if(shape != null) {
-                    clip(shape)
-                }
-            }
             .placeholder(
                 visible = loadingState[url] == ImageLoaderState.LOADING,
                 highlight = PlaceholderHighlight.shimmer(),
-                shape = MaterialTheme.shapes.medium
-            ),
+                shape = shape
+            ).apply {
+                if(shape != null) {
+                    clip(shape)
+                }
+            },
         contentDescription = contentDescription,
         contentScale = contentScale,
         error = painterResource(placeholder),
