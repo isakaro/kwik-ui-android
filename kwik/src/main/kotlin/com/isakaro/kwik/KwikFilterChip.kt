@@ -3,6 +3,8 @@ package com.isakaro.kwik
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -56,7 +58,9 @@ data class KwikFilterChipOption<T>(
  * @param unselectedContentColor Color of the text when unselected
  * @param border BorderStroke? border stroke of the chip
  * @param showCheckedIcon Boolean if the checked icon should be shown
+ * @param flowLayout Boolean if the chips should be displayed in a flow layout
  * */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
@@ -67,8 +71,12 @@ fun <T> KwikFilterChips(
     unselectedContainerColor: Color = Color.White,
     selectedContentColor: Color = Color.White,
     unselectedContentColor: Color = Color.Black,
-    border: BorderStroke? = null,
-    showCheckedIcon: Boolean = true
+    border: BorderStroke = BorderStroke(
+        width = 1.dp,
+        color = MaterialTheme.colorScheme.primary
+    ),
+    showCheckedIcon: Boolean = true,
+    flowLayout: Boolean = false
 ) {
     val selectedOptions = rememberSaveable {
         mutableStateOf(preSelection.toSet())
@@ -82,8 +90,8 @@ fun <T> KwikFilterChips(
         isSelected: Boolean
     ) {
         if(multiSelection){
-            if (isSelected) {
-                selectedOptions.value = selectedOptions.value.filter { it != option }.toSet()
+            if(selectedOptions.value.contains(option)){
+                selectedOptions.value -= option
             } else {
                 selectedOptions.value += option
             }
@@ -96,33 +104,64 @@ fun <T> KwikFilterChips(
         onFiltersUpdated(selectedOptions.value.toList())
     }
 
-    LazyRow(
-        state = listState,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(filters.size) { index ->
-            val option = filters[index]
-
-            KwikFilterChip(
-                text = option.label,
-                isSelected = selectedOptions.value.contains(option),
-                onClick = { isSelected ->
-                    handleSelection(
-                        option = option,
-                        isSelected = isSelected,
-                        onFiltersUpdated = filtersUpdated
-                    )
-                },
-                selectedContainerColor = selectedContainerColor,
-                unselectedContainerColor = unselectedContainerColor,
-                selectedContentColor = selectedContentColor,
-                unselectedContentColor = unselectedContentColor,
-                border = border,
-                showCheckedIcon = showCheckedIcon
+    if(flowLayout){
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(
+                space = 2.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(
+                space = 2.dp
             )
+        ) {
+            filters.forEach { option ->
+                KwikFilterChip(
+                    text = option.label,
+                    isSelected = selectedOptions.value.contains(option),
+                    onClick = { isSelected ->
+                        handleSelection(
+                            option = option,
+                            isSelected = isSelected,
+                            onFiltersUpdated = filtersUpdated
+                        )
+                    },
+                    selectedContainerColor = selectedContainerColor,
+                    unselectedContainerColor = unselectedContainerColor,
+                    selectedContentColor = selectedContentColor,
+                    unselectedContentColor = unselectedContentColor,
+                    border = border,
+                    showCheckedIcon = showCheckedIcon
+                )
+            }
+        }
+    } else {
+        LazyRow(
+            state = listState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(filters.size) { index ->
+                val option = filters[index]
+
+                KwikFilterChip(
+                    text = option.label,
+                    isSelected = selectedOptions.value.contains(option),
+                    onClick = { isSelected ->
+                        handleSelection(
+                            option = option,
+                            isSelected = isSelected,
+                            onFiltersUpdated = filtersUpdated
+                        )
+                    },
+                    selectedContainerColor = selectedContainerColor,
+                    unselectedContainerColor = unselectedContainerColor,
+                    selectedContentColor = selectedContentColor,
+                    unselectedContentColor = unselectedContentColor,
+                    border = border,
+                    showCheckedIcon = showCheckedIcon
+                )
+            }
         }
     }
 }
@@ -165,7 +204,7 @@ private fun KwikFilterChip(
         onClick = {
             onClick(!isSelected)
         },
-        border = border,
+        border = if(!isSelected) border else null,
         label = {
             KwikText.TitleSmall(
                 text = text,
