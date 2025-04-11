@@ -46,7 +46,7 @@ data class KwikFilterChipOption<T>(
  * A filter chip component with multi-selection support
  *
  * @param filters List of filter options to display
- * @param selected The currently selected option
+ * @param preSelection List of pre-selected options
  * @param filtersUpdated Callback when the filter options are updated
  * @param multiSelection Boolean if multiple options can be selected
  * @param selectedContainerColor Color of the chip when selected
@@ -59,7 +59,7 @@ data class KwikFilterChipOption<T>(
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
-    selected: KwikFilterChipOption<T>?,
+    preSelection: List<KwikFilterChipOption<T>> = listOf(),
     filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
@@ -69,8 +69,7 @@ fun <T> KwikFilterChips(
     border: BorderStroke? = null,
     showCheckedIcon: Boolean = true
 ) {
-    var selectedOption by remember { mutableStateOf(selected) }
-    val selectedOptions = rememberSaveable { mutableSetOf<KwikFilterChipOption<T>>() }
+    val selectedOptions = rememberSaveable { mutableSetOf<KwikFilterChipOption<T>>().apply { addAll(preSelection) } }
     val listState = rememberLazyListState()
 
     fun handleSelection(
@@ -85,9 +84,10 @@ fun <T> KwikFilterChips(
                 selectedOptions.add(option)
             }
         } else {
-            selectedOption = option
-            selectedOptions.clear()
-            selectedOptions.add(option)
+            if(!selectedOptions.contains(option)){
+                selectedOptions.clear()
+                selectedOptions.add(option)
+            }
         }
 
         onFiltersUpdated(selectedOptions.toList())
@@ -226,7 +226,7 @@ private fun PreviewKwikFilterChips() {
     KwikTheme {
         KwikFilterChips(
             filters = filters,
-            selected = selected.first(),
+            preSelection = listOf(filters.random()),
             filtersUpdated = { selected = it }
         )
     }

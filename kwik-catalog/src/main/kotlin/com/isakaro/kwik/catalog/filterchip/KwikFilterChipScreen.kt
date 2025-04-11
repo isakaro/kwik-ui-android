@@ -42,7 +42,7 @@ internal fun KwikFilterChipScreen(
 
             KwikFilterChips(
                 filters = filters,
-                selected = filters.first(),
+                preSelection = listOf(filters.first()),
                 filtersUpdated = { selected = it }
             )
         }
@@ -55,7 +55,7 @@ internal fun KwikFilterChipScreen(
             KwikTheme {
                 KwikFilterChips(
                     filters = filters,
-                    selected = filters.first(),
+                    preSelection = listOf(filters.first()),
                     filtersUpdated = { selected = it },
                     multiSelection = true,
                     showCheckedIcon = false
