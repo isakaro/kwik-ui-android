@@ -1,6 +1,10 @@
 package com.isakaro.kwik
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
@@ -17,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
 
 @Composable
@@ -34,35 +39,42 @@ fun <T> KwikToggleGroup(
         }
     }
 
-    SingleChoiceSegmentedButtonRow(
-        modifier = Modifier.fillMaxWidth()
+    Row(
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium)
+            .padding(horizontal = 4.dp)
+            .fillMaxWidth()
     ) {
-        options.forEachIndexed { index, item ->
-            SegmentedButton(
-                shape = MaterialTheme.shapes.small,
-                onClick = {
-                    selectedIndex = index
-                    onOptionSelected(item.value)
-                },
-                icon = {
-                    null
-                },
-                selected = index == selectedIndex,
-                colors = SegmentedButtonDefaults.colors().copy(
-                    activeContainerColor = MaterialTheme.colorScheme.primary,
-                    inactiveContainerColor = MaterialTheme.colorScheme.surface,
-                    inactiveContentColor = MaterialTheme.colorScheme.onSurface,
-                    activeContentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                label = {
-                    KwikText.LabelMedium(
-                        text = item.label,
-                        fontWeight = if(index == selectedIndex) FontWeight.Bold else null,
-                        maxLines = 2,
-                        color = if(index == selectedIndex) Color.White else Color.Gray
-                    )
-                }
-            )
+        SingleChoiceSegmentedButtonRow(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            options.forEachIndexed { index, item ->
+                SegmentedButton(
+                    shape = MaterialTheme.shapes.medium,
+                    onClick = {
+                        selectedIndex = index
+                        onOptionSelected(item.value)
+                    },
+                    border = BorderStroke(0.dp, Color.Transparent),
+                    icon = {
+                        null
+                    },
+                    selected = index == selectedIndex,
+                    colors = SegmentedButtonDefaults.colors().copy(
+                        activeContainerColor = MaterialTheme.colorScheme.primary,
+                        inactiveContainerColor = Color.Transparent,
+                        activeContentColor = Color.Transparent
+                    ),
+                    label = {
+                        KwikText.LabelMedium(
+                            text = item.label,
+                            fontWeight = if(index == selectedIndex) FontWeight.Bold else null,
+                            maxLines = 2,
+                            color = if(index == selectedIndex) Color.White else Color.Gray
+                        )
+                    }
+                )
+            }
         }
     }
 }

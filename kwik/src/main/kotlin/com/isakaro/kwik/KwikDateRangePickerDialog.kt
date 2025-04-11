@@ -3,7 +3,6 @@ package com.isakaro.kwik
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
@@ -11,8 +10,6 @@ import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -81,7 +78,9 @@ fun KwikDateRangePickerDialog(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
         confirmButton = {
-            TextButton(
+            KwikButton(
+                text = confirmText,
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     val startMillis = dateRangePickerState.selectedStartDateMillis
                     val endMillis = dateRangePickerState.selectedEndDateMillis
@@ -95,21 +94,18 @@ fun KwikDateRangePickerDialog(
                         checkOutDate = endDate
                     }
                     onDismiss()
-                },
-                colors = ButtonDefaults.textButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-            ) {
-                Text(
-                    text = confirmText,
-                    color = Color.White
-                )
-            }
+                }
+            )
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(cancelText)
-            }
+            KwikTextButton(
+                onClick = onDismiss,
+                text = {
+                    KwikText.LabelMedium(
+                        text = cancelText
+                    )
+                }
+            )
         }
     ) {
         DateRangePicker(

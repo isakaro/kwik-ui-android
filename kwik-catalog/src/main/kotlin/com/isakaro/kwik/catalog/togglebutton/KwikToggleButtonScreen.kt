@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikToggleGroup
 import com.isakaro.kwik.KwikToggleGroupOption
+import com.isakaro.kwik.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -40,6 +41,8 @@ internal fun KwikToggleButtonScreen(
                     onValueChange(it.toString())
                 }
             )
+
+            KwikVSpacer(12)
 
             KwikText.BodyMedium(
                 text = "Selected option: $value"
