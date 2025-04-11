@@ -27,6 +27,7 @@ import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
+import com.isakaro.kwik.destinations.KwikCarouselScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
 import com.isakaro.kwik.destinations.KwikCounterScreenDestination
 import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
@@ -296,6 +297,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Filter chips component",
                 action = {
                     navigator.navigate(KwikFilterChipScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Image Carousel",
+                description = "Image carousel component for easily displaying images",
+                action = {
+                    navigator.navigate(KwikCarouselScreenDestination)
                 }
             )
         )

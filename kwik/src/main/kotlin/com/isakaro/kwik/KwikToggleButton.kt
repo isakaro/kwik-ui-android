@@ -72,6 +72,7 @@ fun <T> KwikToggleGroup(
     KwikCard(
         modifier = Modifier
             .fillMaxWidth(),
+        containerColor = MaterialTheme.colorScheme.surface,
         elevation = elevation,
         shape = MaterialTheme.shapes.medium,
     ) {
