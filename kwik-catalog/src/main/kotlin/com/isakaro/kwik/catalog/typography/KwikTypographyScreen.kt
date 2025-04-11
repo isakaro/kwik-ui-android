@@ -1,22 +1,14 @@
 package com.isakaro.kwik.catalog.typography
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
-import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.text.KwikExpandableText
 import com.isakaro.kwik.theme.KwikTheme
-import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
 fun KwikTypographyScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -27,57 +19,35 @@ fun KwikTypographyScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Expandable Text") {
-            KwikExpandableText(
-                text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!.",
-                readMoreText = "Read more",
-                showLessText = "Show less",
-                maxLines = 3
-            )
-        }
+        KwikText.DisplayLarge(text = "DisplayLarge")
 
-        ShowCase(title = "Quote text") {
-            KwikText.Quote(
-                text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!",
-                author = "Jack Sparrow"
-            )
-        }
+        KwikText.DisplayMedium(text = "DisplayMedium")
 
-        ShowCase("Typography") {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                KwikText.DisplayLarge(text = "DisplayLarge")
+        KwikText.DisplaySmall(text = "DisplaySmall")
 
-                KwikText.DisplayMedium(text = "DisplayMedium")
+        KwikText.HeadlineLarge(text = "HeadlineLarge")
 
-                KwikText.DisplaySmall(text = "DisplaySmall")
+        KwikText.HeadlineMedium(text = "HeadlineMedium")
 
-                KwikText.HeadlineLarge(text = "HeadlineLarge")
+        KwikText.HeadlineSmall(text = "HeadlineSmall")
 
-                KwikText.HeadlineMedium(text = "HeadlineMedium")
+        KwikText.TitleLarge(text = "TitleLarge")
 
-                KwikText.HeadlineSmall(text = "HeadlineSmall")
+        KwikText.TitleMedium(text = "TitleMedium")
 
-                KwikText.TitleLarge(text = "TitleLarge")
+        KwikText.TitleSmall(text = "TitleSmall")
 
-                KwikText.TitleMedium(text = "TitleMedium")
+        KwikText.LabelLarge(text = "LabelLarge")
 
-                KwikText.TitleSmall(text = "TitleSmall")
+        KwikText.LabelMedium(text = "LabelMedium")
 
-                KwikText.BodyLarge(text = "BodyLarge")
+        KwikText.LabelSmall(text = "LabelSmall")
 
-                KwikText.BodyMedium(text = "BodyMedium")
+        KwikText.BodyLarge(text = "BodyLarge")
 
-                KwikText.BodySmall(text = "BodySmall")
+        KwikText.BodyMedium(text = "BodyMedium")
 
-                KwikText.LabelLarge(text = "LabelLarge")
-
-                KwikText.LabelMedium(text = "LabelMedium")
-
-                KwikText.LabelSmall(text = "LabelSmall")
-            }
-        }
+        KwikText.BodySmall(text = "BodySmall")
     }
 
 }

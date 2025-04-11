@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,6 +33,7 @@ import com.google.accompanist.placeholder.material.shimmer
 fun KwikImageLoader(
     modifier: Modifier = Modifier,
     url: Any,
+    shape: Shape? = null,
     @DrawableRes placeholder: Int = R.drawable.ic_placeholder,
     contentDescription: String? = null,
     contentScale: ContentScale = ContentScale.Crop,
@@ -47,6 +50,11 @@ fun KwikImageLoader(
             .data(url)
             .build(),
         modifier = modifier
+            .apply {
+                if(shape != null) {
+                    clip(shape)
+                }
+            }
             .placeholder(
                 visible = loadingState[url] == ImageLoaderState.LOADING,
                 highlight = PlaceholderHighlight.shimmer(),

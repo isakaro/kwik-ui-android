@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
@@ -306,6 +307,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Image carousel component for easily displaying images",
                 action = {
                     navigator.navigate(KwikCarouselScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Avatar",
+                description = "Avatar component that can load images from urls, resources or vectors",
+                action = {
+                    navigator.navigate(KwikAvatarScreenDestination)
                 }
             )
         )

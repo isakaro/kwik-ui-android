@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import com.isakaro.kwik.catalog.rating.KwikRatingBarScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
+import com.isakaro.kwik.catalog.avatar.KwikAvatarScreen
 import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreen
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
@@ -33,6 +34,7 @@ import com.isakaro.kwik.catalog.textfield.KwikTextFieldScreen
 import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
+import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
@@ -170,6 +172,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikCarouselScreenDestination){
                             KwikCarouselScreen()
+                        }
+                        composable(KwikAvatarScreenDestination){
+                            KwikAvatarScreen()
                         }
                     }
                 }

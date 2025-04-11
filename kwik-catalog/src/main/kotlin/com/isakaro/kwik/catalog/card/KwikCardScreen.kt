@@ -68,6 +68,6 @@ internal fun KwikCardScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikCardScreen() {
     KwikCardScreen()
 }
