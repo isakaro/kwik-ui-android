@@ -5,6 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
@@ -24,11 +27,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
 
+/**
+ * A toggle group component
+ *
+ * @param options List of options to display
+ * @param selectedOption The currently selected option
+ * @param onOptionSelected Callback when an option is selected
+ * @param elevation Card elevation
+ *
+ * Usage:
+ *
+ * ```
+ * KwikToggleGroup(
+ *     options = listOf(
+ *          KwikToggleGroupOption("Option 1", 1),
+ *          KwikToggleGroupOption("Option 2", 2),
+ *          KwikToggleGroupOption("Option 3", 3)
+ *     ),
+ *     selectedOption = 2,
+ *     onOptionSelected = { selected ->
+ *          // Handle option selection
+ *     }
+ * )
+ * ```
+ *
+ * @see [KwikToggleGroupOption] for the options data class
+ * */
 @Composable
 fun <T> KwikToggleGroup(
     options: List<KwikToggleGroupOption<T>>,
     selectedOption: T,
-    onOptionSelected: (T) -> Unit
+    onOptionSelected: (T) -> Unit,
+    elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
@@ -40,10 +70,13 @@ fun <T> KwikToggleGroup(
     }
 
     KwikCard(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth(),
+        elevation = elevation,
+        shape = MaterialTheme.shapes.medium,
     ) {
         SingleChoiceSegmentedButtonRow(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
         ) {
             options.forEachIndexed { index, item ->
                 SegmentedButton(
@@ -76,6 +109,12 @@ fun <T> KwikToggleGroup(
     }
 }
 
+/**
+ * Data class for toggle group options
+ *
+ * @param label The label to display for the option
+ * @param value The value of the option
+ * */
 data class KwikToggleGroupOption<T>(
     val label: String,
     val value: T
