@@ -211,9 +211,7 @@ fun KwikSearchView(
                 .height(60.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
-                    if(focusState.isFocused){
-                        suggestionsVisible = focusState.isFocused
-                    }
+                    suggestionsVisible = focusState.isFocused
                     onFocusChanged(focusState.isFocused)
                 }.onGloballyPositioned { layoutCoordinates ->
                     textFieldPosition = layoutCoordinates.boundsInWindow()
