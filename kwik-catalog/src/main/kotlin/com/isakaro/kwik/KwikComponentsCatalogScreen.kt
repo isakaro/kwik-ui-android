@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
+import com.isakaro.kwik.catalog.shape.KwikShapeScreen
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
@@ -30,6 +31,7 @@ import com.isakaro.kwik.destinations.KwikButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikCardScreenDestination
 import com.isakaro.kwik.destinations.KwikCarouselScreenDestination
 import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
+import com.isakaro.kwik.destinations.KwikColorsScreenDestination
 import com.isakaro.kwik.destinations.KwikCounterScreenDestination
 import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
@@ -42,6 +44,7 @@ import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
 import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
 import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
+import com.isakaro.kwik.destinations.KwikShapeScreenDestination
 import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
@@ -49,6 +52,7 @@ import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
+import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -316,6 +320,33 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Avatar component that can load images from urls, resources or vectors",
                 action = {
                     navigator.navigate(KwikAvatarScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Shapes",
+                description = "Showcases different shapes",
+                action = {
+                    navigator.navigate(KwikShapeScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Colors",
+                description = "Shows all color schemes in the theme",
+                action = {
+                    navigator.navigate(KwikColorsScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Typography",
+                description = "Showcases all typography styles in the theme",
+                action = {
+                    navigator.navigate(KwikTypographyScreenDestination)
                 }
             )
         )
