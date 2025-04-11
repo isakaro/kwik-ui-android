@@ -71,6 +71,7 @@ internal fun KwikFilterChipScreen(
             KwikFilterChips(
                 filters = filters,
                 flowLayout = true,
+                multiSelection = true,
                 preSelection = setOf(filters.first()),
                 filtersUpdated = { selected = it }
             )

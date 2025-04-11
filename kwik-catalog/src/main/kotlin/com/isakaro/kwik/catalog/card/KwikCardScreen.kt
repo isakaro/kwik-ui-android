@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikCard
+import com.isakaro.kwik.KwikImageCard
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -51,6 +52,16 @@ internal fun KwikCardScreen(
                     )
                 }
             }
+        }
+
+        ShowCase(title = "Card with image and title") {
+            KwikImageCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+                title = "I am a Card with image",
+            )
         }
     }
 }

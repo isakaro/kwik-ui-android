@@ -110,6 +110,7 @@ fun <T> KwikFilterChips(
 
     if(flowLayout){
         FlowRow(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(
                 space = flowLayoutHorizontalArrangement.dp
             ),

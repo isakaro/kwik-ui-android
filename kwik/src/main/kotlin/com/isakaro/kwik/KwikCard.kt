@@ -62,7 +62,7 @@ fun KwikCard(
  * @param content @Composable () -> Unit content of the card
  * */
 @Composable
-fun ImageWithTitleCard(
+fun KwikImageCard(
     modifier: Modifier = Modifier,
     image: Any,
     title: String,
