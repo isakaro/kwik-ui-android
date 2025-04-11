@@ -79,6 +79,7 @@ import kotlinx.coroutines.launch
 /**
  * A search view that allows users to search for items.
  * @param modifier Modifier to be applied to the view.
+ * @param suggestionsModifier Modifier to be applied to the suggestions view.
  * @param state The state of the search view.
  * @param suggestions The list of suggestions to be displayed.
  * @param placeholder The placeholder text to be displayed.
@@ -92,6 +93,7 @@ import kotlinx.coroutines.launch
  * @param onFocusChanged The callback to be called when the focus changes.
  * @param onKeyboardDone The callback to be called when the keyboard is done.
  * @param onSuggestionSelected The callback to be called when a suggestion is selected.
+ * @param showSuggestionsOnFocus Whether to show suggestions when the search field is focused or not.
  *
  * Example usage:
  *
@@ -117,8 +119,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun KwikSearchView(
     modifier: Modifier = Modifier,
+    suggestionsModifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
-    suggestions: List<String> = listOf(),
     placeholder: String = "Search",
     label: String? = null,
     delay: Boolean = false,
@@ -131,7 +133,9 @@ fun KwikSearchView(
     onFocusChanged: (Boolean) -> Unit = {},
     onKeyboardDone: () -> Unit = {},
     onSuggestionSelected: (String) -> Unit = {},
-    showSuggestionsOnFocus: Boolean = true
+    suggestions: List<String> = listOf(),
+    showSuggestionsOnFocus: Boolean = true,
+    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface
 ) {
     val queryText = remember { mutableStateOf("") }
     var suggestionsVisible by remember { mutableStateOf(showSuggestionsOnFocus) }
@@ -303,19 +307,19 @@ fun KwikSearchView(
             },
             offset = IntOffset(
                 x = textFieldPosition!!.width.toInt(),
-                y = textFieldPosition!!.height.toInt() * 2
+                y = textFieldPosition!!.height.toInt() * 2 - textFieldSize!!.height / 3
             )
         ) {
             AnimatedVisibility(
                 visible = suggestionsVisible,
-                enter = fadeIn() + slideInVertically { -it },
-                exit = fadeOut() + slideOutVertically { -it }
+                enter = slideInVertically { -it },
+                exit = slideOutVertically { -it }
             ) {
                 Column(
-                    modifier = modifier
+                    modifier = suggestionsModifier
                         .fillMaxWidth()
                         .background(
-                            color = MaterialTheme.colorScheme.surface,
+                            color = suggestionsContainerColor,
                             shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
                         )
                 ) {

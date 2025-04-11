@@ -1,14 +1,17 @@
 package com.isakaro.kwik.catalog.searchview
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.KwikSearchView
 import com.isakaro.kwik.KwikText
 import com.isakaro.kwik.KwikToast
@@ -78,6 +81,7 @@ internal fun KwikSearchViewScreen(
             }
 
             KwikSearchView(
+                suggestionsModifier = Modifier.padding(horizontal = 8.dp),
                 state = query,
                 placeholder = "Enter search query...",
                 onTextChange = { query ->
