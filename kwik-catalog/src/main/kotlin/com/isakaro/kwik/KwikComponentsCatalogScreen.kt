@@ -33,6 +33,7 @@ import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDateRangePickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
+import com.isakaro.kwik.destinations.KwikFilterChipScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
@@ -286,6 +287,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Counter component",
                 action = {
                     navigator.navigate(KwikCounterScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Filter Chips",
+                description = "Filter chips component",
+                action = {
+                    navigator.navigate(KwikFilterChipScreenDestination)
                 }
             )
         )

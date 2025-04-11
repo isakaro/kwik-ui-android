@@ -18,6 +18,7 @@ import com.isakaro.kwik.catalog.checkbox.KwikCheckBoxScreen
 import com.isakaro.kwik.catalog.countrypicker.KwikCountryPickerScreen
 import com.isakaro.kwik.catalog.dialog.KwikDialogScreen
 import com.isakaro.kwik.catalog.dropdown.KwikDropDownScreen
+import com.isakaro.kwik.catalog.filterchip.KwikFilterChipScreen
 import com.isakaro.kwik.catalog.permission.KwikPermissionsScreen
 import com.isakaro.kwik.catalog.progress.KwikProgressIndicatorScreen
 import com.isakaro.kwik.catalog.radio.KwikRadioButtonScreen
@@ -41,6 +42,7 @@ import com.isakaro.kwik.destinations.KwikComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
+import com.isakaro.kwik.destinations.KwikFilterChipScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
@@ -160,6 +162,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikStepperScreenDestination){
                             KwikStepperScreen()
+                        }
+                        composable(KwikFilterChipScreenDestination){
+                            KwikFilterChipScreen()
                         }
                     }
                 }

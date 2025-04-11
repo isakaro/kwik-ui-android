@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.theme.KwikTheme
 
 /**
  * Data class for toggle group options
@@ -37,11 +39,12 @@ data class KwikFilterChipOption<T>(
 )
 
 /**
- * A filter chip component
+ * A filter chip component with multi-selection support
  *
  * @param filters List of filter options to display
  * @param selected The currently selected option
  * @param filtersUpdated Callback when the filter options are updated
+ * @param multiSelection Boolean if multiple options can be selected
  * */
 @Composable
 fun <T> KwikFilterChips(
@@ -168,4 +171,26 @@ fun KwikChip(
             containerColor = Color.White
         )
     )
+}
+
+@Preview
+@Composable
+private fun PreviewKwikFilterChips() {
+    val filters = listOf(
+        KwikFilterChipOption("Option 1", "1"),
+        KwikFilterChipOption("Option 2", "2"),
+        KwikFilterChipOption("Option 3", "3"),
+        KwikFilterChipOption("Option 4", "4"),
+        KwikFilterChipOption("Option 5", "5")
+    )
+
+    var selected by remember { mutableStateOf(filters) }
+
+    KwikTheme {
+        KwikFilterChips(
+            filters = filters,
+            selected = selected.first(),
+            filtersUpdated = { selected = it }
+        )
+    }
 }

@@ -1,7 +1,13 @@
 package com.isakaro.kwik.catalog.filterchip
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.isakaro.kwik.KwikFilterChipOption
+import com.isakaro.kwik.KwikFilterChips
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.navigator
@@ -21,7 +27,23 @@ internal fun KwikFilterChipScreen(
             navigator.navigateUp()
         }
     ) {
+        val filters = listOf(
+            KwikFilterChipOption("Tortuga", 1),
+            KwikFilterChipOption("Isla de Muerta", 2),
+            KwikFilterChipOption("Davy Jones' Locker", 3),
+            KwikFilterChipOption("Shipwreck Cove", 4),
+            KwikFilterChipOption("Singapore", 5)
+        )
 
+        var selected by remember { mutableStateOf(filters) }
+
+        KwikTheme {
+            KwikFilterChips(
+                filters = filters,
+                selected = selected.first(),
+                filtersUpdated = { selected = it }
+            )
+        }
     }
 }
 
