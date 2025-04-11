@@ -62,6 +62,19 @@ internal fun KwikFilterChipScreen(
                 )
             }
         }
+
+        ShowCase(
+            title = "Kwik filter chips in flow layout",
+        ) {
+            var selected by remember { mutableStateOf(filters) }
+
+            KwikFilterChips(
+                filters = filters,
+                flowLayout = true,
+                preSelection = setOf(filters.first()),
+                filtersUpdated = { selected = it }
+            )
+        }
     }
 }
 

@@ -59,6 +59,8 @@ data class KwikFilterChipOption<T>(
  * @param border BorderStroke? border stroke of the chip
  * @param showCheckedIcon Boolean if the checked icon should be shown
  * @param flowLayout Boolean if the chips should be displayed in a flow layout
+ * @param flowLayoutVerticalArrangement Int vertical arrangement of the flow layout
+ * @param flowLayoutHorizontalArrangement Int horizontal arrangement of the flow layout
  * */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -77,7 +79,7 @@ fun <T> KwikFilterChips(
     ),
     showCheckedIcon: Boolean = true,
     flowLayout: Boolean = false,
-    flowLayoutVerticalArrangement: Int = 2,
+    flowLayoutVerticalArrangement: Int = 0,
     flowLayoutHorizontalArrangement: Int = 2
 ) {
     val selectedOptions = rememberSaveable {
