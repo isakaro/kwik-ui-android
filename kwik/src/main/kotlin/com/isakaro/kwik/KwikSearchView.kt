@@ -1,8 +1,18 @@
 package com.isakaro.kwik
 
+import android.annotation.SuppressLint
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -37,7 +47,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.layout.positionOnScreen
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,8 +61,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.round
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
@@ -93,6 +113,7 @@ import kotlinx.coroutines.launch
  *)
  * ```
  * */
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun KwikSearchView(
     modifier: Modifier = Modifier,
@@ -109,12 +130,16 @@ fun KwikSearchView(
     onTextCleared: () -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
     onKeyboardDone: () -> Unit = {},
-    onSuggestionSelected: (String) -> Unit = {}
+    onSuggestionSelected: (String) -> Unit = {},
+    showSuggestionsOnFocus: Boolean = true
 ) {
     val queryText = remember { mutableStateOf("") }
-    val suggestionsVisible = remember { mutableStateOf(false) }
+    var suggestionsVisible by remember { mutableStateOf(showSuggestionsOnFocus) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
+    var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
+    var textFieldPosition by remember { mutableStateOf<Rect?>(null) }
+    var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
 
     Column {
         if(!label.isNullOrBlank()){
@@ -131,20 +156,31 @@ fun KwikSearchView(
             onValueChange = { query ->
                 if (query.text.isBlank()) {
                     state.value = TextFieldValue("")
-                    suggestionsVisible.value = false
+                    suggestionsVisible = false
                     onTextCleared()
                     return@TextField
                 }
                 if (query.text.length <= maxChars) {
                     state.value = query
                     queryText.value = query.text
-                    suggestionsVisible.value = suggestions.isNotEmpty()
+                    suggestionsVisible = suggestions.isNotEmpty()
 
                     debounceJob?.cancel()
                     debounceJob = coroutineScope.launch {
                         if(delay && delayDuration >= 1L) {
                             delay(delayDuration)
                         }
+
+                        // filter suggestions based on the query
+                        filteredSuggestions = suggestions.filter { suggestion ->
+                            suggestion.contains(query.text, ignoreCase = true)
+                        }
+
+                        // if no results, show all suggestions
+                        if (filteredSuggestions.isEmpty()) {
+                            filteredSuggestions = suggestions.take(10)
+                        }
+
                         onTextChange(queryText.value)
                     }
                 }
@@ -154,7 +190,13 @@ fun KwikSearchView(
                 .height(60.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
+                    if(showSuggestionsOnFocus && focusState.isFocused){
+                        suggestionsVisible = focusState.isFocused
+                    }
                     onFocusChanged(focusState.isFocused)
+                }.onGloballyPositioned { layoutCoordinates ->
+                    textFieldPosition = layoutCoordinates.boundsInWindow()
+                    textFieldSize = layoutCoordinates.size
                 },
             textStyle = TextStyle(fontSize = 20.sp),
             leadingIcon = {
@@ -176,7 +218,7 @@ fun KwikSearchView(
                             onClick = {
                                 state.value = TextFieldValue("")
                                 queryText.value = ""
-                                suggestionsVisible.value = false
+                                suggestionsVisible = false
                                 debounceJob?.cancel()
                                 onTextCleared()
                             }
@@ -248,25 +290,59 @@ fun KwikSearchView(
                 )
             }
         }
-        DropdownMenu(
-            expanded = suggestionsVisible.value,
-            onDismissRequest = { suggestionsVisible.value = false },
-            containerColor = Color.White,
+    }
+    if(suggestions.isNotEmpty() && textFieldPosition != null){
+        Popup(
             properties = PopupProperties(
                 focusable = false,
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            ),
+            onDismissRequest = {
+                suggestionsVisible = false
+            },
+            offset = IntOffset(
+                x = textFieldPosition!!.width.toInt(),
+                y = textFieldPosition!!.height.toInt() * 2
             )
         ) {
-            suggestions.forEach { suggestion ->
-                DropdownMenuItem(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = { Text(suggestion) },
-                    onClick = {
-                        state.value = TextFieldValue(suggestion)
-                        queryText.value = suggestion
-                        suggestionsVisible.value = false
-                        onSuggestionSelected(suggestion)
+            AnimatedVisibility(
+                visible = suggestionsVisible,
+                enter = fadeIn() + slideInVertically { -it },
+                exit = fadeOut() + slideOutVertically { -it }
+            ) {
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                        )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        filteredSuggestions.forEach { suggestion ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp)
+                                    .padding(horizontal = 4.dp)
+                                    .clickable {
+                                        state.value = TextFieldValue(suggestion)
+                                        queryText.value = suggestion
+                                        suggestionsVisible = false
+                                        onSuggestionSelected(suggestion)
+                                    },
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                KwikText.BodyMedium(
+                                    text = suggestion
+                                )
+                            }
+                        }
                     }
-                )
+                }
             }
         }
     }

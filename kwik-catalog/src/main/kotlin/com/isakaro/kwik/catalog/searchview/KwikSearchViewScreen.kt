@@ -70,6 +70,35 @@ internal fun KwikSearchViewScreen(
             )
         }
 
+        ShowCase(title = "Search view suggestions") {
+            val query = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+
+            KwikSearchView(
+                state = query,
+                placeholder = "Enter search query...",
+                onTextChange = { query ->
+
+                },
+                suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
+                onTextCleared = {}
+            )
+
+            KwikVSpacer(12)
+
+            KwikText.BodyMedium(
+                text = buildAnnotatedString {
+                    append("Search query: ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                        append(query.text)
+                    }
+                }
+            )
+        }
+
         ShowCase(title = "Search view with delay (debounce)") {
             val query = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
