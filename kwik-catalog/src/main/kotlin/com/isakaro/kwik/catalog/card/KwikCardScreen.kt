@@ -61,7 +61,7 @@ internal fun KwikCardScreen(
             KwikImageCard(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
+                    .height(300.dp),
                 image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
                 title = "I am a Card with an image",
             ){
@@ -83,7 +83,7 @@ internal fun KwikCardScreen(
 
         ShowCase(title = "Card with image (horizontal)") {
             KwikImageCardHorizontal(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().height(150.dp),
                 image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
             ){
                 Column(
