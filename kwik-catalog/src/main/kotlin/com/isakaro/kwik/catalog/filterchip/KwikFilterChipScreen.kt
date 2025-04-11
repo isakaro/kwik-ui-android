@@ -10,6 +10,7 @@ import com.isakaro.kwik.KwikFilterChipOption
 import com.isakaro.kwik.KwikFilterChips
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
+import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
@@ -20,7 +21,6 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 internal fun KwikFilterChipScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-
     ScrollableShowCaseContainer(
         title = "Kwik filter chip",
         onBackClick = {
@@ -35,14 +35,32 @@ internal fun KwikFilterChipScreen(
             KwikFilterChipOption("Singapore", 5)
         )
 
-        var selected by remember { mutableStateOf(filters) }
+        ShowCase(
+            title = "Kwik filter chip",
+        ) {
+            var selected by remember { mutableStateOf(filters) }
 
-        KwikTheme {
             KwikFilterChips(
                 filters = filters,
-                selected = selected.first(),
+                selected = filters.first(),
                 filtersUpdated = { selected = it }
             )
+        }
+
+        ShowCase(
+            title = "Kwik filter chip with multi-selection and hidden checked icon",
+        ) {
+            var selected by remember { mutableStateOf(filters) }
+
+            KwikTheme {
+                KwikFilterChips(
+                    filters = filters,
+                    selected = filters.first(),
+                    filtersUpdated = { selected = it },
+                    multiSelection = true,
+                    showCheckedIcon = false
+                )
+            }
         }
     }
 }

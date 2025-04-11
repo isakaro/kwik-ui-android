@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.theme.KwikTheme
+import java.util.UUID
 
 /**
  * Data class for toggle group options
@@ -37,7 +38,8 @@ import com.isakaro.kwik.theme.KwikTheme
  * */
 data class KwikFilterChipOption<T>(
     val label: String,
-    val value: T
+    val value: T,
+    val id: UUID = UUID.randomUUID()
 )
 
 /**
