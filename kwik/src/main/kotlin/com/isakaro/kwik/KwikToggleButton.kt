@@ -39,11 +39,8 @@ fun <T> KwikToggleGroup(
         }
     }
 
-    Row(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium)
-            .padding(horizontal = 4.dp)
-            .fillMaxWidth()
+    KwikCard(
+        modifier = Modifier.fillMaxWidth()
     ) {
         SingleChoiceSegmentedButtonRow(
             modifier = Modifier.fillMaxWidth()
