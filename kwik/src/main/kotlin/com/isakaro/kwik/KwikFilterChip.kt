@@ -76,7 +76,9 @@ fun <T> KwikFilterChips(
         color = MaterialTheme.colorScheme.primary
     ),
     showCheckedIcon: Boolean = true,
-    flowLayout: Boolean = false
+    flowLayout: Boolean = false,
+    flowLayoutVerticalArrangement: Int = 2,
+    flowLayoutHorizontalArrangement: Int = 2
 ) {
     val selectedOptions = rememberSaveable {
         mutableStateOf(preSelection.toSet())
@@ -107,10 +109,10 @@ fun <T> KwikFilterChips(
     if(flowLayout){
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(
-                space = 2.dp
+                space = flowLayoutHorizontalArrangement.dp
             ),
             verticalArrangement = Arrangement.spacedBy(
-                space = 2.dp
+                space = flowLayoutVerticalArrangement.dp
             )
         ) {
             filters.forEach { option ->
@@ -268,6 +270,29 @@ private fun PreviewKwikFilterChips() {
     KwikTheme {
         KwikFilterChips(
             filters = filters,
+            preSelection = setOf(filters.random()),
+            filtersUpdated = { selected = it }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewKwikFilterChipsInFlowLayout() {
+    val filters = listOf(
+        KwikFilterChipOption("Option 1", "1"),
+        KwikFilterChipOption("Option 2", "2"),
+        KwikFilterChipOption("Option 3", "3"),
+        KwikFilterChipOption("Option 4", "4"),
+        KwikFilterChipOption("Option 5", "5")
+    )
+
+    var selected by remember { mutableStateOf(filters) }
+
+    KwikTheme {
+        KwikFilterChips(
+            filters = filters,
+            flowLayout = true,
             preSelection = setOf(filters.random()),
             filtersUpdated = { selected = it }
         )
