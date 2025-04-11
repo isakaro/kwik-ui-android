@@ -34,8 +34,13 @@ import java.util.Date
 
 /**
  * A date field with a label and a date. When clicked, a date picker dialog will be shown.
+ *
  * @param label: The label for the date field.
  * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
+ * @param minSelectableDate: The minimum selectable date in milliseconds since epoch. If null, 99 years before today is used.
+ * @param maxSelectableDate: The maximum selectable date in milliseconds since epoch. If null, 99 years from today is used.
+ * @param showModeToggle: Whether to show the mode toggle button.
+ * @param colors: The colors to use for the date picker.
  * @param onClick: Callback that is called when the date field is clicked.
  * */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +49,9 @@ fun KwikDateField(
     modifier: Modifier = Modifier,
     label: String,
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
+    minSelectableDate: Long? = null,
+    maxSelectableDate: Long? = null,
+    showModeToggle: Boolean = false,
     colors: DatePickerColors = DatePickerDefaults.colors().copy(
         containerColor = MaterialTheme.colorScheme.surface,
         selectedDayContainerColor = MaterialTheme.colorScheme.primary,
@@ -64,7 +72,8 @@ fun KwikDateField(
             .height(75.dp)
     ) {
         KwikText.TitleMedium(
-            text = label
+            text = label,
+            color = Color.Gray
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -111,6 +120,9 @@ fun KwikDateField(
         if (showDatePicker) {
             KwikDateRangePickerDialog(
                 colors = colors,
+                minSelectableDate = minSelectableDate,
+                maxSelectableDate = maxSelectableDate,
+                showModeToggle = showModeToggle,
                 onDateRangeSelected = { selectedDates ->
                     onDateRangeSelected(selectedDates)
                     dateDisplay  = "${selectedDates.first.toMMdd()} - ${selectedDates.second.toMMdd()}"

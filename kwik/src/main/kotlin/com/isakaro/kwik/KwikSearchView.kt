@@ -93,8 +93,8 @@ import kotlinx.coroutines.launch
  * @param suggestionsModifier Modifier to be applied to the suggestions view.
  * @param onSuggestionSelected The callback to be called when a suggestion is selected.
  * @param suggestions The list of suggestions to be displayed.
- * @param showSuggestionsOnFocus Whether to show suggestions when the search field is focused or not.
  * @param suggestionsContainerColor The color of the suggestions container.
+ * @param showSuggestions Whether to show the suggestions or not. Useful when you wish to control the visibility of the suggestions manually.
  *
  * Example usage:
  *
@@ -152,10 +152,11 @@ fun KwikSearchView(
     suggestionsModifier: Modifier = Modifier,
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
-    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface
+    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
+    showSuggestions: Boolean = false
 ) {
     val queryText = remember { mutableStateOf("") }
-    var suggestionsVisible by remember { mutableStateOf(false) }
+    var suggestionsVisible by remember { mutableStateOf(showSuggestions) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
@@ -329,8 +330,8 @@ fun KwikSearchView(
         ) {
             AnimatedVisibility(
                 visible = suggestionsVisible,
-                enter = slideInVertically { -it },
-                exit = slideOutVertically { -it }
+                enter = fadeIn() + slideInVertically { -it },
+                exit = fadeOut() + slideOutVertically { -it }
             ) {
                 Column(
                     modifier = suggestionsModifier

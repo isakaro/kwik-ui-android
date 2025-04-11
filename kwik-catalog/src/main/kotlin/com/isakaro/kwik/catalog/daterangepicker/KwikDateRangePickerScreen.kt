@@ -12,6 +12,7 @@ import com.isakaro.kwik.navigator
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +29,31 @@ internal fun KwikDateRangePickerScreen(
     ) {
         ShowCase(title = "Date Range Picker") {
             KwikDateField(
+                label = "Start and end date",
+                onDateRangeSelected = {}
+            )
+        }
+
+        ShowCase(title = "Date Range Picker with mode toggle") {
+            KwikDateField(
+                label = "Start and end date",
+                showModeToggle = true,
+                onDateRangeSelected = {}
+            )
+        }
+
+        ShowCase(title = "Booking date ranger picker") {
+            val calendar = Calendar.getInstance()
+            val today = calendar.clone() as Calendar
+
+            val sixMonthsAhead = calendar.clone() as Calendar
+            sixMonthsAhead.add(Calendar.MONTH, 6)
+
+            KwikDateField(
                 label = "Check-in and check-out",
+                showModeToggle = true,
+                minSelectableDate = today.timeInMillis,
+                maxSelectableDate = sixMonthsAhead.timeInMillis,
                 onDateRangeSelected = {}
             )
         }

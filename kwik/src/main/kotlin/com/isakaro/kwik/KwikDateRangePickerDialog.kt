@@ -28,13 +28,15 @@ import java.util.Date
 /**
  * A date range picker dialog that allows the user to select a date range.
  *
- * * @param title: The title of the dialog.
- * * @param confirmText: The text for the confirm button.
- * * @param cancelText: The text for the cancel button.
- * * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
- * * @param showModeToggle: Whether to show the mode toggle button.
- * * @param colors: The colors to use for the date picker.
- * * @param onDismiss: Callback that is called when the dialog is dismissed.
+ * @param title: The title of the dialog.
+ * @param confirmText: The text for the confirm button.
+ * @param cancelText: The text for the cancel button.
+ * @param minSelectableDate: The minimum selectable date in milliseconds since epoch. If null, 99 years before today is used.
+ * @param maxSelectableDate: The maximum selectable date in milliseconds since epoch. If null, 99 years from today is used.
+ * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
+ * @param showModeToggle: Whether to show the mode toggle button.
+ * @param colors: The colors to use for the date picker.
+ * @param onDismiss: Callback that is called when the dialog is dismissed.
  *
  * * @see [KwikDateField] for a date field that shows this dialog when clicked.
  * */
@@ -44,6 +46,8 @@ fun KwikDateRangePickerDialog(
     title: String = "Select date range",
     confirmText: String = "Confirm",
     cancelText: String = "Cancel",
+    minSelectableDate: Long? = null,
+    maxSelectableDate: Long? = null,
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     showModeToggle: Boolean = false,
     colors: DatePickerColors,
@@ -51,13 +55,14 @@ fun KwikDateRangePickerDialog(
 ) {
     val calendar = Calendar.getInstance()
 
-    val today = calendar.clone() as Calendar
+    val ninetyNineYearsBefore = calendar.clone() as Calendar
+    ninetyNineYearsBefore.add(Calendar.YEAR, -99)
 
-    val sixMonthsLater = calendar.clone() as Calendar
-    sixMonthsLater.add(Calendar.MONTH, 6)
+    val ninetyNineYearsLater = calendar.clone() as Calendar
+    ninetyNineYearsLater.add(Calendar.YEAR, 99)
 
-    val todayMillis = today.timeInMillis
-    val sixMonthsLaterMillis = sixMonthsLater.timeInMillis
+    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.timeInMillis
+    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.timeInMillis
 
     var checkInDate by remember { mutableStateOf<Date?>(null) }
     var checkOutDate by remember { mutableStateOf<Date?>(null) }
@@ -65,7 +70,7 @@ fun KwikDateRangePickerDialog(
     val dateRangePickerState = rememberDateRangePickerState(
         selectableDates = object: SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                return utcTimeMillis in todayMillis..sixMonthsLaterMillis
+                return utcTimeMillis in minSelectable..maxSelectable
             }
         }
     )
