@@ -79,9 +79,7 @@ import kotlinx.coroutines.launch
 /**
  * A search view that allows users to search for items.
  * @param modifier Modifier to be applied to the view.
- * @param suggestionsModifier Modifier to be applied to the suggestions view.
  * @param state The state of the search view.
- * @param suggestions The list of suggestions to be displayed.
  * @param placeholder The placeholder text to be displayed.
  * @param delay Whether to delay the search or not. Useful for debouncing.
  * @param delayDuration The duration of the delay in milliseconds.
@@ -92,8 +90,11 @@ import kotlinx.coroutines.launch
  * @param onTextCleared The callback to be called when the text is cleared.
  * @param onFocusChanged The callback to be called when the focus changes.
  * @param onKeyboardDone The callback to be called when the keyboard is done.
+ * @param suggestionsModifier Modifier to be applied to the suggestions view.
  * @param onSuggestionSelected The callback to be called when a suggestion is selected.
+ * @param suggestions The list of suggestions to be displayed.
  * @param showSuggestionsOnFocus Whether to show suggestions when the search field is focused or not.
+ * @param suggestionsContainerColor The color of the suggestions container.
  *
  * Example usage:
  *
@@ -114,12 +115,28 @@ import kotlinx.coroutines.launch
  *    }
  *)
  * ```
+ *
+ * This component is a custom search view that allows users to enter a search query and provides suggestions based on the input. It also handles focus changes, keyboard actions, and error states.
+ * ```
+ * KwikSearchView(
+ *    state = searchQueryState,
+ *    suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
+ *    onTextChange = {
+ *      // handle text change
+ *    },
+ *    onKeyboardDone = {
+ *      // validate search query and perform search
+ *    },
+ *    onSuggestionSelected = { suggestion ->
+ *      // handle suggestion selection
+ *    }
+ *)
+ * ```
  * */
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun KwikSearchView(
     modifier: Modifier = Modifier,
-    suggestionsModifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
     placeholder: String = "Search",
     label: String? = null,
@@ -132,13 +149,13 @@ fun KwikSearchView(
     onTextCleared: () -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
     onKeyboardDone: () -> Unit = {},
+    suggestionsModifier: Modifier = Modifier,
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
-    showSuggestionsOnFocus: Boolean = true,
     suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface
 ) {
     val queryText = remember { mutableStateOf("") }
-    var suggestionsVisible by remember { mutableStateOf(showSuggestionsOnFocus) }
+    var suggestionsVisible by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
@@ -167,7 +184,6 @@ fun KwikSearchView(
                 if (query.text.length <= maxChars) {
                     state.value = query
                     queryText.value = query.text
-                    suggestionsVisible = suggestions.isNotEmpty()
 
                     debounceJob?.cancel()
                     debounceJob = coroutineScope.launch {
@@ -194,7 +210,7 @@ fun KwikSearchView(
                 .height(60.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
-                    if(showSuggestionsOnFocus && focusState.isFocused){
+                    if(focusState.isFocused){
                         suggestionsVisible = focusState.isFocused
                     }
                     onFocusChanged(focusState.isFocused)
@@ -222,9 +238,10 @@ fun KwikSearchView(
                             onClick = {
                                 state.value = TextFieldValue("")
                                 queryText.value = ""
-                                suggestionsVisible = false
                                 debounceJob?.cancel()
                                 onTextCleared()
+                                filteredSuggestions = suggestions.take(10)
+                                suggestionsVisible = false
                             }
                         ) {
                             Icon(
