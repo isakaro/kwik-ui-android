@@ -77,6 +77,8 @@ fun ShowCaseContainer(
             content()
         }
     }
+
+    KwikVSpacer(12)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,4 +113,6 @@ fun ScrollableShowCaseContainer(
             content()
         }
     }
+
+    KwikVSpacer(12)
 }

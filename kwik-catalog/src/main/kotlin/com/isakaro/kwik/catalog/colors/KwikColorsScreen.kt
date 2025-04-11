@@ -80,8 +80,7 @@ private fun ColorShowCase(
 ) {
     KwikCenterColumn {
         KwikText.BodyLarge(
-            text = title,
-            color = color
+            text = title
         )
 
         Box(
