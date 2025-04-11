@@ -1,11 +1,13 @@
 package com.isakaro.kwik
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FilterChip
@@ -45,16 +47,29 @@ data class KwikFilterChipOption<T>(
  * @param selected The currently selected option
  * @param filtersUpdated Callback when the filter options are updated
  * @param multiSelection Boolean if multiple options can be selected
+ * @param selectedContainerColor Color of the chip when selected
+ * @param unselectedContainerColor Color of the chip when unselected
+ * @param selectedContentColor Color of the text when selected
+ * @param unselectedContentColor Color of the text when unselected
+ * @param border BorderStroke? border stroke of the chip
+ * @param showCheckedIcon Boolean if the checked icon should be shown
  * */
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
-    selected: KwikFilterChipOption<T>,
+    selected: KwikFilterChipOption<T>?,
     filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
-    multiSelection: Boolean = false
+    multiSelection: Boolean = false,
+    selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContainerColor: Color = Color.White,
+    selectedContentColor: Color = Color.White,
+    unselectedContentColor: Color = Color.Black,
+    border: BorderStroke? = null,
+    showCheckedIcon: Boolean = true
 ) {
     var selectedOption by remember { mutableStateOf(selected) }
     val selectedOptions = rememberSaveable { mutableSetOf<KwikFilterChipOption<T>>() }
+    val listState = rememberLazyListState()
 
     fun handleSelection(
         onFiltersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
@@ -77,6 +92,7 @@ fun <T> KwikFilterChips(
     }
 
     LazyRow(
+        state = listState,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp),
@@ -87,14 +103,20 @@ fun <T> KwikFilterChips(
 
             KwikFilterChip(
                 text = option.label,
-                isSelected = filters.contains(filters[index]),
+                isSelected = selectedOptions.contains(option),
                 onClick = { isSelected ->
                     handleSelection(
                         option = option,
                         isSelected = isSelected,
                         onFiltersUpdated = filtersUpdated
                     )
-                }
+                },
+                selectedContainerColor = selectedContainerColor,
+                unselectedContainerColor = unselectedContainerColor,
+                selectedContentColor = selectedContentColor,
+                unselectedContentColor = unselectedContentColor,
+                border = border,
+                showCheckedIcon = showCheckedIcon
             )
         }
     }
@@ -106,13 +128,25 @@ fun <T> KwikFilterChips(
  * @param text String text to be displayed
  * @param isSelected Boolean if the chip is selected or not
  * @param onClick () -> Unit called when the chip is clicked
+ * @param onLongPress () -> Unit called when the chip is long pressed
+ * @param selectedContainerColor Color of the chip when selected
+ * @param unselectedContainerColor Color of the chip when unselected
+ * @param selectedContentColor Color of the text when selected
+ * @param unselectedContentColor Color of the text when unselected
+ * @param border BorderStroke? border stroke of the chip
  * */
 @Composable
-fun KwikFilterChip(
+private fun KwikFilterChip(
     text: String,
     isSelected: Boolean,
     onClick: (Boolean) -> Unit,
-    onLongPress: (Boolean) -> Unit = {}
+    onLongPress: (Boolean) -> Unit = {},
+    selectedContainerColor: Color,
+    unselectedContainerColor: Color,
+    selectedContentColor: Color,
+    unselectedContentColor: Color,
+    border: BorderStroke? = null,
+    showCheckedIcon: Boolean = true
 ) {
     FilterChip(
         modifier = Modifier
@@ -126,23 +160,24 @@ fun KwikFilterChip(
         onClick = {
             onClick(!isSelected)
         },
+        border = border,
         label = {
-            Text(
+            KwikText.TitleSmall(
                 text = text,
                 fontWeight = if(isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if(isSelected) Color.White else Color.Black
+                color = if(isSelected) selectedContentColor else unselectedContentColor
             )
         },
         colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = MaterialTheme.colorScheme.primary,
-            containerColor = Color.White
+            selectedContainerColor = selectedContainerColor,
+            containerColor = unselectedContainerColor
         ),
-        leadingIcon = if (isSelected) {
+        leadingIcon = if (isSelected && showCheckedIcon) {
             {
                 Icon(
                     imageVector = Icons.Filled.Done,
                     contentDescription = "checked",
-                    tint = Color.White,
+                    tint = selectedContentColor,
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
             }
