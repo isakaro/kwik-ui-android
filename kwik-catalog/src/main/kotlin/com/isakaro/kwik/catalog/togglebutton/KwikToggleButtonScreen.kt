@@ -49,7 +49,7 @@ internal fun KwikToggleButtonScreen(
             )
         }
 
-        ShowCase(title = "Toggle button full width") {
+        ShowCase(title = "Toggle button") {
             val (value, onValueChange) = remember { mutableStateOf("") }
 
             KwikToggleGroup(

@@ -170,11 +170,13 @@ private fun KwikTimelineEntryItem(
                     )
                 }
 
+                Log.e("lineHeight.intValue.dp", lineHeight.intValue.dp.toString())
+
                 if (!isLastEntry) {
                     Spacer(
                         modifier = Modifier
                             .width(2.dp)
-                            .height(lineHeight.intValue.dp)
+                            .height((lineHeight.intValue * 0.9).dp)
                             .background(lineColor)
                     )
                 }
@@ -193,7 +195,7 @@ private fun KwikTimelineEntryItem(
                     }
                 )
                 .onGloballyPositioned { coordinates ->
-                    lineHeight.intValue = coordinates.boundsInWindow().height.toInt()
+                    lineHeight.intValue = coordinates.size.height
                 }
         ) {
             entry.title?.let {
