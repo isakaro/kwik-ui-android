@@ -64,7 +64,6 @@ data class KwikTimelineEntry(
  * @param entries List of timeline entries to display
  * @param modifier Modifier to be applied to the timeline
  * @param accentColor Color of the timeline indicators and lines
- * @param highlightCurrentEntry Whether to highlight the selected entry (if any)
  * @param currentEntryIndex Optional index of the current/selected entry
  */
 @Composable
@@ -73,7 +72,6 @@ fun KwikVerticalTimeline(
     clickable: Boolean = false,
     entries: List<KwikTimelineEntry>,
     accentColor: Color = MaterialTheme.colorScheme.primary,
-    highlightCurrentEntry: Boolean = false,
     currentEntryIndex: Int = -1,
     onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
@@ -94,14 +92,13 @@ fun KwikVerticalTimeline(
             items = entries,
             key = { _, item -> item.hashCode() }
         ) { index, entry ->
-            val isCurrentEntry = index == selectedIndex && highlightCurrentEntry
+            val isDone = selectedIndex >= index
             val isLastEntry = index == entries.lastIndex
 
             KwikTimelineEntryItem(
                 clickable = clickable,
                 entry = entry,
-                index = index,
-                isCurrentEntry = isCurrentEntry,
+                isDone = isDone,
                 isLastEntry = isLastEntry,
                 accentColor = accentColor,
                 onClick = onClick
@@ -115,8 +112,7 @@ fun KwikVerticalTimeline(
  *
  * @param clickable Whether the entry is clickable
  * @param entry The timeline entry data
- * @param index The index of the entry in the list
- * @param isCurrentEntry Whether this entry is the current/selected entry
+ * @param isDone whether the entry is done (highlighted)
  * @param isLastEntry Whether this entry is the last entry in the list
  * @param accentColor The color of the timeline indicators and lines
  * @param onClick Callback when the entry is clicked
@@ -125,20 +121,19 @@ fun KwikVerticalTimeline(
 private fun KwikTimelineEntryItem(
     clickable : Boolean = false,
     entry: KwikTimelineEntry,
-    index: Int,
-    isCurrentEntry: Boolean,
+    isDone: Boolean,
     isLastEntry: Boolean,
     accentColor: Color,
     onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
     val indicatorColor by animateColorAsState(
-        targetValue = if (isCurrentEntry) accentColor else Color.Gray,
+        targetValue = if (isDone) accentColor else Color.Gray,
         animationSpec = tween(300),
         label = "indicator color"
     )
 
     val lineColor by animateColorAsState(
-        targetValue = if (isCurrentEntry) accentColor else Color.Gray,
+        targetValue = if (isDone) accentColor else Color.Gray,
         animationSpec = tween(300),
         label = "line color"
     )
@@ -166,13 +161,13 @@ private fun KwikTimelineEntryItem(
                     modifier = Modifier
                         .size(circleSize)
                         .clip(CircleShape)
-                        .background(indicatorColor),
+                        .background(if(isDone) accentColor else Color.Gray),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = if(isDone) Color.White else Color.Transparent,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -205,7 +200,7 @@ private fun KwikTimelineEntryItem(
                 KwikText.TitleMedium(
                     text = it,
                     fontWeight = FontWeight.Bold,
-                    color = if (isCurrentEntry) accentColor else MaterialTheme.colorScheme.onSurface
+                    color = if (isDone) accentColor else MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
             }
@@ -274,7 +269,6 @@ private fun KwikTimelineExample() {
     KwikTheme {
         KwikVerticalTimeline(
             entries = timelineEntries,
-            highlightCurrentEntry = true,
             currentEntryIndex = 1
         )
     }

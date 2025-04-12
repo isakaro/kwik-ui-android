@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -15,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
+import com.isakaro.kwik.checkbox.KwikCheckBox
+import com.isakaro.kwik.checkbox.KwikTriStateCheckBox
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
@@ -33,18 +36,17 @@ internal fun KwikCheckBoxScreen(
     ) {
         ShowCase(title = "CheckBox") {
             var checked by remember { mutableStateOf(true) }
-            Checkbox(
-                colors = CheckboxDefaults.colors(
-                    checkedColor = MaterialTheme.colorScheme.primary,
-                    uncheckedColor = Color.Gray,
-                    checkmarkColor = Color.Black
-                ),
+
+            KwikCheckBox(
                 checked = checked,
-                onCheckedChange = { checked = checked.not() }
+                onCheckedChange = {
+                    checked = it.not()
+                }
             )
         }
         ShowCase(title = "Tristate CheckBox") {
-            var counter by remember { mutableStateOf(0) }
+            var state by remember { mutableIntStateOf(ToggleableState.Off) }
+
             val triState = remember(counter) {
                 when (counter % 3) {
                     0 -> ToggleableState.On
@@ -52,14 +54,12 @@ internal fun KwikCheckBoxScreen(
                     else -> ToggleableState.Indeterminate
                 }
             }
-            TriStateCheckbox(
+
+            KwikTriStateCheckBox(
                 state = triState,
-                colors = CheckboxDefaults.colors(
-                    checkedColor = MaterialTheme.colorScheme.primary,
-                    uncheckedColor = Color.Gray,
-                    checkmarkColor = Color.Black
-                ),
-                onClick = { counter++ }
+                onCheckedChange = {
+
+                }
             )
         }
     }

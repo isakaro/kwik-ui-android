@@ -197,12 +197,11 @@ internal fun KwikTimelineScreen(
     ) {
         KwikVerticalTimeline(
             entries = timelineEntries,
-            highlightCurrentEntry = true,
             clickable = true,
             currentEntryIndex = selectedMovieIndex,
             modifier = Modifier.padding(6.dp),
             onClick = {
-                selectedMovieIndex = it
+                selectedMovieIndex = it.id as Int
             }
         )
     }

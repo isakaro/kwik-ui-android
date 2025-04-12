@@ -140,7 +140,7 @@ internal fun KwikDialogScreen(
             KwikDialog.ConfirmDialog(
                 open = openConfirmDialog,
                 onConfirm = {
-                    Toast.makeText(context, "Confirmed ;)", Toast.LENGTH_SHORT).show()
+                    openConfirmDialog = false
                 },
                 dismiss = {
                     openConfirmDialog = false

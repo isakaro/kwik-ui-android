@@ -18,13 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.theme.KwikTheme
 
 @Composable
 fun KwikCheckBox(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    text: String
+    text: String? = null
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -35,50 +36,49 @@ fun KwikCheckBox(
                 onCheckedChange(isChecked)
             }
         )
-        KwikText.TitleSmall(
-            modifier = Modifier.clickable {
-                onCheckedChange(!checked)
-            },
-            text = text,
-            color = contentColor
-        )
+        if(text != null){
+            KwikText.TitleSmall(
+                modifier = Modifier.clickable {
+                    onCheckedChange(!checked)
+                },
+                text = text,
+                color = contentColor
+            )
+        }
     }
 }
 
 @Composable
 fun KwikTriStateCheckBox(
-    state: ToggleableState? = null,
+    initialState: ToggleableState? = null,
     onCheckedChange: (ToggleableState) -> Unit
 ){
-    var _state = state
+    var state = initialState ?: ToggleableState.Off
     var counter by remember { mutableIntStateOf(0) }
     val triState = remember(counter) {
-        if(_state != null) {
-            _state = null
-            return@remember state
-        } else {
-            when (counter % 3) {
-                0 -> {
-                    onCheckedChange(ToggleableState.On)
-                    ToggleableState.On
-                }
-                1 -> {
-                    onCheckedChange(ToggleableState.Off)
-                    ToggleableState.Off
-                }
-                else -> {
-                    onCheckedChange(ToggleableState.Indeterminate)
-                    ToggleableState.Indeterminate
-                }
+        when (counter % 3) {
+            0 -> {
+                onCheckedChange(ToggleableState.On)
+                ToggleableState.On
+            }
+            1 -> {
+                onCheckedChange(ToggleableState.Off)
+                ToggleableState.Off
+            }
+            else -> {
+                onCheckedChange(ToggleableState.Indeterminate)
+                ToggleableState.Indeterminate
             }
         }
     }
+
     TriStateCheckbox(
-        state = triState!!,
+        state = triState,
         colors = CheckboxDefaults.colors(
             checkedColor = MaterialTheme.colorScheme.primary,
             uncheckedColor = Color.Gray,
-            checkmarkColor = Color.White
+            checkmarkColor = Color.White,
+            disabledUncheckedColor = Color.White
         ),
         onClick = { counter++ }
     )
@@ -87,11 +87,13 @@ fun KwikTriStateCheckBox(
 @Preview
 @Composable
 private fun KwikCheckboxPreview() {
-    KwikCheckBox(
-        checked = true,
-        onCheckedChange = {},
-        text = "Checkbox"
-    )
+    KwikTheme {
+        KwikCheckBox(
+            checked = true,
+            onCheckedChange = {},
+            text = "Checkbox"
+        )
+    }
 }
 
 @Preview
@@ -100,7 +102,9 @@ private fun KwikTriStateCheckboxPreview() {
     val (state, onStateChange) = remember { mutableStateOf(true) }
     val parentState = remember(state) { if (state) ToggleableState. On else if (!state) ToggleableState. Off else ToggleableState. Indeterminate }
 
-    KwikTriStateCheckBox(
-        onCheckedChange = {},
-    )
+    KwikTheme {
+        KwikTriStateCheckBox(
+            onCheckedChange = {},
+        )
+    }
 }

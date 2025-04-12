@@ -18,6 +18,7 @@ import com.isakaro.kwik.catalog.carousel.KwikCarouselScreen
 import com.isakaro.kwik.catalog.checkbox.KwikCheckBoxScreen
 import com.isakaro.kwik.catalog.colors.KwikColorsScreen
 import com.isakaro.kwik.catalog.countrypicker.KwikCountryPickerScreen
+import com.isakaro.kwik.catalog.date.KwikDateScreen
 import com.isakaro.kwik.catalog.dialog.KwikDialogScreen
 import com.isakaro.kwik.catalog.dropdown.KwikDropDownScreen
 import com.isakaro.kwik.catalog.filterchip.KwikFilterChipScreen
@@ -203,7 +204,7 @@ class MainActivity: ComponentActivity() {
                             KwikTimelineScreen()
                         }
                         composable(KwikDateScreenDestination){
-                            KwikSearchViewScreen()
+                            KwikDateScreen()
                         }
                     }
                 }
