@@ -3,6 +3,7 @@ package com.isakaro.kwik.checkbox
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
@@ -23,15 +24,22 @@ import com.isakaro.kwik.theme.KwikTheme
 @Composable
 fun KwikCheckBox(
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
+    text: String? = null,
+    colors: CheckboxColors = CheckboxDefaults.colors(
+        checkedColor = MaterialTheme.colorScheme.primary,
+        uncheckedColor = Color.Gray,
+        checkmarkColor = Color.White,
+        disabledUncheckedColor = Color.White
+    ),
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    text: String? = null
+    onCheckedChange: (Boolean) -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
             checked = checked,
+            colors = colors,
             onCheckedChange = { isChecked ->
                 onCheckedChange(isChecked)
             }
@@ -50,13 +58,18 @@ fun KwikCheckBox(
 
 @Composable
 fun KwikTriStateCheckBox(
-    initialState: ToggleableState? = null,
-    onCheckedChange: (ToggleableState) -> Unit
+    state: ToggleableState? = null,
+    colors: CheckboxColors = CheckboxDefaults.colors(
+        checkedColor = MaterialTheme.colorScheme.primary,
+        uncheckedColor = Color.Gray,
+        checkmarkColor = Color.White,
+        disabledUncheckedColor = Color.White
+    ),
+    onCheckedChange: (ToggleableState) -> Unit,
 ){
-    var state = initialState ?: ToggleableState.Off
     var counter by remember { mutableIntStateOf(0) }
     val triState = remember(counter) {
-        when (counter % 3) {
+        state ?: when (counter % 3) {
             0 -> {
                 onCheckedChange(ToggleableState.On)
                 ToggleableState.On
@@ -74,12 +87,7 @@ fun KwikTriStateCheckBox(
 
     TriStateCheckbox(
         state = triState,
-        colors = CheckboxDefaults.colors(
-            checkedColor = MaterialTheme.colorScheme.primary,
-            uncheckedColor = Color.Gray,
-            checkmarkColor = Color.White,
-            disabledUncheckedColor = Color.White
-        ),
+        colors = colors,
         onClick = { counter++ }
     )
 }

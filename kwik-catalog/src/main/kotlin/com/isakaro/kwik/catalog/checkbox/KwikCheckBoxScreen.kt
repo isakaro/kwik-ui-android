@@ -1,16 +1,10 @@
 package com.isakaro.kwik.catalog.checkbox
 
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
@@ -44,21 +38,14 @@ internal fun KwikCheckBoxScreen(
                 }
             )
         }
-        ShowCase(title = "Tristate CheckBox") {
-            var state by remember { mutableIntStateOf(ToggleableState.Off) }
 
-            val triState = remember(counter) {
-                when (counter % 3) {
-                    0 -> ToggleableState.On
-                    1 -> ToggleableState.Off
-                    else -> ToggleableState.Indeterminate
-                }
-            }
+        ShowCase(title = "Tristate CheckBox") {
+            var state by remember { mutableStateOf(ToggleableState.Off) }
 
             KwikTriStateCheckBox(
-                state = triState,
+                state = state,
                 onCheckedChange = {
-
+                    state = it
                 }
             )
         }
