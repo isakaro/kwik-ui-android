@@ -109,8 +109,8 @@ fun MutableState<KwikCarouselState>.previous() {
  * @param autoPlayDelay The delay between auto-play slides in milliseconds.
  * @param onPageIndexChange Callback that is invoked when the current page index changes.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
- * @param customPrevButton Optional composable to replace the default previous button.
- * @param customNextButton Optional composable to replace the default next button.
+ * @param prevButton Optional composable to replace the default previous button.
+ * @param nextButton Optional composable to replace the default next button.
  * @param contentBuilder Function that builds the content for each page.
  *
  * Example usage:
@@ -140,12 +140,15 @@ fun KwikCarousel(
     autoPlay: Boolean = false,
     autoPlayDelay: Long = 3000L,
     onPageIndexChange: (Int) -> Unit = {},
-    customPrevButton: @Composable (() -> Unit)? = null,
-    customNextButton: @Composable (() -> Unit)? = null,
+    prevButton: @Composable (() -> Unit)? = null,
+    nextButton: @Composable (() -> Unit)? = null,
     contentBuilder: @Composable (page: Int) -> Unit
 ) {
+    // Initialize pagerState with the current index from state or initialIndex
+    val startingIndex = state.value.currentIndex.takeIf { it >= 0 } ?: initialIndex
+
     val pagerState = rememberPagerState(
-        initialPage = initialIndex,
+        initialPage = startingIndex,
         initialPageOffsetFraction = 0f
     ) {
         state.value.itemCount
@@ -153,29 +156,51 @@ fun KwikCarousel(
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    suspend fun handlePageChange(){
+    LaunchedEffect(state.value.currentIndex) {
+        if (state.value.currentIndex >= 0 &&
+            state.value.currentIndex < state.value.itemCount &&
+            state.value.currentIndex != pagerState.currentPage) {
+            pagerState.animateScrollToPage(state.value.currentIndex)
+        }
+    }
+
+    LaunchedEffect(pagerState.currentPage) {
+        if (state.value.currentIndex != pagerState.currentPage) {
+            state.value = state.value.copy(currentIndex = pagerState.currentPage)
+        }
+
         if (state.value.itemCount > 0) {
             listState.scrollToItem(
                 index = pagerState.currentPage,
                 scrollOffset = -listState.layoutInfo.viewportSize.width / 2
             )
         }
+
         onPageIndexChange(pagerState.currentPage)
     }
 
-    // Scroll indicators to current page when page changes
-    LaunchedEffect(pagerState.currentPage) {
-        handlePageChange()
+    // Update when item count changes in the state
+    LaunchedEffect(state.value.itemCount) {
+        // If current index is out of bounds after item count change, adjust it
+        if (state.value.currentIndex >= state.value.itemCount && state.value.itemCount > 0) {
+            state.value = state.value.copy(currentIndex = state.value.itemCount - 1)
+        }
     }
 
-    LaunchedEffect(state.value) {
-        handlePageChange()
-    }
+    LaunchedEffect(autoPlay, autoPlayDelay, state.value.itemCount) {
+        if (autoPlay && state.value.itemCount > 1) {
+            while (true) {
+                delay(autoPlayDelay)
+                val nextPage = if (pagerState.currentPage < state.value.itemCount - 1) {
+                    pagerState.currentPage + 1
+                } else if (state.value.loop) {
+                    0 // we start over
+                } else {
+                    continue
+                }
 
-    LaunchedEffect(Unit) {
-        while (autoPlay) {
-            delay(autoPlayDelay)
-            pagerState.animateScrollToPage((pagerState.currentPage + 1) % state.value.itemCount)
+                pagerState.animateScrollToPage(nextPage)
+            }
         }
     }
 
@@ -244,21 +269,29 @@ fun KwikCarousel(
                         .align(Alignment.CenterStart)
                         .padding(start = 8.dp)
                 ) {
-                    if (customPrevButton != null) {
+                    if (prevButton != null) {
                         Box(modifier = Modifier.clickable {
                             scope.launch {
-                                val targetPage = (pagerState.currentPage - 1).coerceAtLeast(0)
-                                pagerState.animateScrollToPage(targetPage)
+                                if (pagerState.currentPage > 0) {
+                                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                                } else if (state.value.loop) {
+                                    // Go to the last page if on first page and looping is enabled
+                                    pagerState.animateScrollToPage(state.value.itemCount - 1)
+                                }
                             }
                         }) {
-                            customPrevButton()
+                            prevButton()
                         }
                     } else {
                         IconButton(
                             onClick = {
                                 scope.launch {
-                                    val targetPage = (pagerState.currentPage - 1).coerceAtLeast(0)
-                                    pagerState.animateScrollToPage(targetPage)
+                                    if (pagerState.currentPage > 0) {
+                                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                                    } else if (state.value.loop) {
+                                        // Go to the last page if on first page and looping is enabled
+                                        pagerState.animateScrollToPage(state.value.itemCount - 1)
+                                    }
                                 }
                             },
                             modifier = Modifier
@@ -277,27 +310,35 @@ fun KwikCarousel(
                 }
             }
 
-            if(pagerState.currentPage < state.value.itemCount || state.value.loop){
+            if(pagerState.currentPage < state.value.itemCount - 1 || state.value.loop){
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(end = 8.dp)
                 ) {
-                    if (customNextButton != null) {
+                    if (nextButton != null) {
                         Box(modifier = Modifier.clickable {
                             scope.launch {
-                                val targetPage = (pagerState.currentPage + 1).coerceAtMost(state.value.itemCount - 1)
-                                pagerState.animateScrollToPage(targetPage)
+                                if (pagerState.currentPage < state.value.itemCount - 1) {
+                                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                                } else if (state.value.loop) {
+                                    // Go to the first page if on last page and looping is enabled
+                                    pagerState.animateScrollToPage(0)
+                                }
                             }
                         }) {
-                            customNextButton()
+                            nextButton()
                         }
                     } else {
                         IconButton(
                             onClick = {
                                 scope.launch {
-                                    val targetPage = (pagerState.currentPage + 1).coerceAtMost(state.value.itemCount - 1)
-                                    pagerState.animateScrollToPage(targetPage)
+                                    if (pagerState.currentPage < state.value.itemCount - 1) {
+                                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                                    } else if (state.value.loop) {
+                                        // Go to the first page if on last page and looping is enabled
+                                        pagerState.animateScrollToPage(0)
+                                    }
                                 }
                             },
                             modifier = Modifier
@@ -367,8 +408,8 @@ fun KwikImageCarousel(
     autoPlayDelay: Long = 3000L,
     onPageIndexChange: (Int) -> Unit = {},
     shape: Shape = MaterialTheme.shapes.large,
-    customPrevButton: @Composable (() -> Unit)? = null,
-    customNextButton: @Composable (() -> Unit)? = null
+    prevButton: @Composable (() -> Unit)? = null,
+    nextButton: @Composable (() -> Unit)? = null
 ) {
     KwikCarousel(
         modifier = modifier,
@@ -385,8 +426,8 @@ fun KwikImageCarousel(
         selectedIndicatorColor = selectedIndicatorColor,
         unselectedIndicatorColor = unselectedIndicatorColor,
         indicatorContainerColor = indicatorContainerColor,
-        customPrevButton = customPrevButton,
-        customNextButton = customNextButton,
+        prevButton = prevButton,
+        nextButton = nextButton,
         contentBuilder = { page ->
             KwikImageLoader(
                 url = images[page],

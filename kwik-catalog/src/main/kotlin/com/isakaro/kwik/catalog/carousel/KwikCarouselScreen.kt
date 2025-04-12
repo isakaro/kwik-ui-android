@@ -79,18 +79,18 @@ internal fun KwikCarouselScreen(
                 modifier = Modifier.height(200.dp),
                 state = carouselState,
                 images = images,
-                customPrevButton = {
-                    KwikIconButton(
-                        icon = Icons.Default.Add
-                    ) {
-                        carouselState.next()
-                    }
-                },
-                customNextButton = {
+                prevButton = {
                     KwikIconButton(
                         icon = Icons.Default.Close
                     ) {
                         carouselState.previous()
+                    }
+                },
+                nextButton = {
+                    KwikIconButton(
+                        icon = Icons.Default.Add
+                    ) {
+                        carouselState.next()
                     }
                 }
             )
