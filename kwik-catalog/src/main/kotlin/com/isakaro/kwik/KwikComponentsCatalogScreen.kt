@@ -244,8 +244,8 @@ internal fun KwikComponentsCatalogScreen(
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Date range picker",
-                description = "Date range picker component using Material3 DatePicker underneath",
+                title = "Date pickers",
+                description = "Date picker components. Includes date, date range, time and date-time pickers, as well as a date input",
                 action = {
                     navigator.navigate(KwikDateScreenDestination)
                 }

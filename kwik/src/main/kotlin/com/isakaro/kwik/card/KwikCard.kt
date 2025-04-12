@@ -62,6 +62,10 @@ fun KwikCard(
  *
  * @param modifier Modifier
  * @param image Any image to be displayed. Can be a URL or a resource ID. Note that it'll fill the whole card
+ * @param imageHeight A value between 1 and 5 (inclusive).
+ * Determines the image height relative to the card height.
+ * Each step increases by 20%, so:
+ * 1 = 20%, 2 = 40%, 3 = 60%, 4 = 80%, 5 = 100%.
  * @param title String title of the card
  * @param onClick () -> Unit called when card is clicked
  * @param content @Composable () -> Unit content of the card
@@ -72,6 +76,7 @@ fun KwikImageCard(
     containerColor: Color = MaterialTheme.colorScheme.surface,
     shape: Shape = MaterialTheme.shapes.medium,
     image: Any,
+    imageHeight: Int = 2,
     title: String? = null,
     elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     onClick: () -> Unit = {},
@@ -91,7 +96,7 @@ fun KwikImageCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Box(
-                    modifier = Modifier.height(this@BoxWithConstraints.maxHeight / 2)
+                    modifier = Modifier.height(this@BoxWithConstraints.maxHeight * (imageHeight / 5f))
                 ) {
                     KwikImageView(
                         url = image
