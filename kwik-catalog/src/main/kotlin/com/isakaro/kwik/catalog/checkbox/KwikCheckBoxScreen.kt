@@ -34,7 +34,7 @@ internal fun KwikCheckBoxScreen(
             KwikCheckBox(
                 checked = checked,
                 onCheckedChange = {
-                    checked = it.not()
+                    checked = it
                 }
             )
         }

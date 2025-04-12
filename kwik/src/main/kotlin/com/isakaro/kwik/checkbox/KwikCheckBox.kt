@@ -67,9 +67,10 @@ fun KwikTriStateCheckBox(
     ),
     onCheckedChange: (ToggleableState) -> Unit,
 ){
-    var counter by remember { mutableIntStateOf(0) }
-    val triState = remember(counter) {
-        state ?: when (counter % 3) {
+    var counter by remember { mutableIntStateOf(state?.ordinal ?: ToggleableState.Off.ordinal) }
+
+    fun determineState(): ToggleableState {
+        return when (counter % 3) {
             0 -> {
                 onCheckedChange(ToggleableState.On)
                 ToggleableState.On
@@ -85,10 +86,17 @@ fun KwikTriStateCheckBox(
         }
     }
 
+    val triState = remember(counter) {
+        state ?: determineState()
+    }
+
     TriStateCheckbox(
         state = triState,
         colors = colors,
-        onClick = { counter++ }
+        onClick = {
+            counter++
+            determineState()
+        }
     )
 }
 
@@ -107,12 +115,12 @@ private fun KwikCheckboxPreview() {
 @Preview
 @Composable
 private fun KwikTriStateCheckboxPreview() {
-    val (state, onStateChange) = remember { mutableStateOf(true) }
-    val parentState = remember(state) { if (state) ToggleableState. On else if (!state) ToggleableState. Off else ToggleableState. Indeterminate }
+    var state by remember { mutableStateOf(ToggleableState.Indeterminate) }
 
-    KwikTheme {
-        KwikTriStateCheckBox(
-            onCheckedChange = {},
-        )
-    }
+    KwikTriStateCheckBox(
+        state = state,
+        onCheckedChange = {
+            state = it
+        }
+    )
 }
