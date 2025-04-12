@@ -150,7 +150,7 @@ internal fun KwikDialogScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     KwikText.TitleSmall(
-                        text = "A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog",
+                        text = "",
                     )
                 }
             }
@@ -179,7 +179,7 @@ internal fun KwikDialogScreen(
                         modifier = Modifier.size(100.dp)
                     )
                     KwikText.TitleSmall(
-                        text = "Accept the terms and conditions to proceed"
+                        text = "Sorry mate, you must accept the terms and conditions to continue, savvy?",
                     )
                 }
             }
