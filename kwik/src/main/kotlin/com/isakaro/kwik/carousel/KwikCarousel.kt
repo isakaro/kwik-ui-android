@@ -51,6 +51,8 @@ import kotlinx.coroutines.launch
  *
  * @param itemCount: The number of items in the carousel.
  * @param initialIndex: The index of the item to display first.
+ * @param currentIndex: The index of the currently displayed item.
+ * @param loop: Whether to loop the carousel.
  * */
 data class KwikCarouselState(
     val itemCount: Int,
@@ -74,7 +76,7 @@ fun MutableState<KwikCarouselState>.next() {
         this.value = KwikCarouselState(
             itemCount = this.value.itemCount,
             initialIndex = this.value.initialIndex,
-            currentIndex = this.value.currentIndex + 1
+            currentIndex = if(this.value.currentIndex + 1 >= this.value.itemCount) 0 else this.value.currentIndex + 1
         )
     }
 }
@@ -83,11 +85,11 @@ fun MutableState<KwikCarouselState>.next() {
  * Slide to the previous page
  * */
 fun MutableState<KwikCarouselState>.previous() {
-    if(this.value.currentIndex > 0) {
+    if(this.value.currentIndex > 0 || this.value.loop) {
         this.value = KwikCarouselState(
             itemCount = this.value.itemCount,
             initialIndex = this.value.initialIndex,
-            currentIndex = this.value.currentIndex - 1
+            currentIndex = if(this.value.currentIndex - 1 < 0) this.value.itemCount - 1 else this.value.currentIndex - 1
         )
     }
 }
@@ -151,8 +153,7 @@ fun KwikCarousel(
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    // Scroll indicators to current page when page changes
-    LaunchedEffect(pagerState.currentPage) {
+    suspend fun handlePageChange(){
         if (state.value.itemCount > 0) {
             listState.scrollToItem(
                 index = pagerState.currentPage,
@@ -160,6 +161,15 @@ fun KwikCarousel(
             )
         }
         onPageIndexChange(pagerState.currentPage)
+    }
+
+    // Scroll indicators to current page when page changes
+    LaunchedEffect(pagerState.currentPage) {
+        handlePageChange()
+    }
+
+    LaunchedEffect(state.value.currentIndex) {
+        handlePageChange()
     }
 
     LaunchedEffect(Unit) {
