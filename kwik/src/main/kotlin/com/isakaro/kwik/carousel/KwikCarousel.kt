@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
  * A generic carousel that displays a list of content in a horizontal scrollable view.
  *
  * @param modifier The modifier to be applied to the carousel (HorizontalPager).
+ * @param shape The shape of the carousel.
  * @param itemCount The number of items in the carousel.
  * @param initialIndex The index of the item to display first.
  * @param showIndicators Whether to show the page indicators.
@@ -70,6 +72,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun KwikCarousel(
     modifier: Modifier = Modifier,
+    shape: Shape = MaterialTheme.shapes.large,
     itemCount: Int,
     initialIndex: Int = 0,
     showIndicators: Boolean = true,
@@ -103,7 +106,7 @@ fun KwikCarousel(
 
     Box {
         HorizontalPager(
-            modifier = modifier,
+            modifier = modifier.clip(shape),
             state = pagerState,
             userScrollEnabled = userScrollEnabled,
             flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
@@ -274,10 +277,12 @@ fun KwikImageCarousel(
     showIndicators: Boolean = true,
     showNavigation: Boolean = true,
     userScrollEnabled: Boolean = true,
-    showCounter: Boolean = true
+    showCounter: Boolean = true,
+    shape: Shape = MaterialTheme.shapes.large
 ) {
     KwikCarousel(
         modifier = modifier,
+        shape = shape,
         itemCount = images.size,
         initialIndex = initialIndex,
         showIndicators = showIndicators,
