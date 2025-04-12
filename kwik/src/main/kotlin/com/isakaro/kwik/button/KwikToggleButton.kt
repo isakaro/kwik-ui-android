@@ -106,7 +106,8 @@ fun <T> KwikToggleGroup(
         Box {
             Box(
                 modifier = Modifier
-                    .padding(4.dp)
+                    .padding(top = 6.dp)
+                    .padding(horizontal = 6.dp)
                     .offset { IntOffset(indicatorOffset.value.toInt(), 0) }
                     .width(with(LocalDensity.current) { buttonDimens.getOrNull(selectedIndex)?.first?.toDp() ?: 0.dp })
                     .clip(shape)
@@ -116,12 +117,12 @@ fun <T> KwikToggleGroup(
             )
 
             SingleChoiceSegmentedButtonRow(
-                modifier = Modifier
+                modifier = Modifier.padding(horizontal = 4.dp)
             ) {
                 options.forEachIndexed { index, item ->
                     SegmentedButton(
                         modifier = Modifier.padding(2.dp).onGloballyPositioned {
-                            buttonDimens[index] = Pair(it.size.width, it.size.height)
+                            buttonDimens[index] = Pair(it.size.width, it.size.height * 4/5)
                         },
                         shape = MaterialTheme.shapes.medium,
                         onClick = {

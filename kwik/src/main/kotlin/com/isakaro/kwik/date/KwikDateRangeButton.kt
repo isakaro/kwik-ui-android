@@ -1,19 +1,18 @@
 package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePickerColors
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,16 +26,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.utils.toFormat
-import java.time.LocalDate
+import com.isakaro.kwik.utils.toMMdd
+import java.util.Date
 
 /**
- * A date button with a label and a date. When clicked, a date range picker dialog will be shown.
+ * A date field with a label and a date. When clicked, a date picker dialog will be shown.
  *
  * @param label: The label for the date field.
  * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.
@@ -46,87 +44,79 @@ import java.time.LocalDate
  * @param dialogShape: The shape of the date picker dialog.
  * @param colors: The colors to use for the date picker.
  * @param onClick: Callback that is called when the date field is clicked.
- * @param border: The border to use for the date field.
- * @param shape: The shape of the date field.
- * @param leadingIcon: The leading icon to use for the date field.
- * @param trailingIcon: The trailing icon to use for the date field.
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KwikDateRangeButton(
     modifier: Modifier = Modifier,
-    label: String? = null,
-    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
+    label: String,
+    onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
     showModeToggle: Boolean = false,
     dialogShape: Shape = MaterialTheme.shapes.medium,
-    colors: DatePickerColors = kwikDatePickerColors(),
-    onClick: () -> Unit = {},
-    border: BorderStroke? = null,
-    shape: Shape = MaterialTheme.shapes.medium,
-    leadingIcon: @Composable (() -> Unit?) = {
-        Icon(
-            painter = painterResource(id = R.drawable.calendar),
-            tint = MaterialTheme.colorScheme.onSurface,
-            contentDescription = null,
-        )
-    },
-    trailingIcon: @Composable (() -> Unit?) = {
-        Icon(
-            painter = painterResource(id = R.drawable.arrow_down),
-            tint = MaterialTheme.colorScheme.onSurface,
-            contentDescription = null,
-        )
-    }
+    colors: DatePickerColors = DatePickerDefaults.colors().copy(
+        containerColor = MaterialTheme.colorScheme.surface,
+        selectedDayContainerColor = MaterialTheme.colorScheme.primary,
+        dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.secondary,
+        dayInSelectionRangeContentColor = MaterialTheme.colorScheme.onSurface,
+        selectedYearContainerColor = MaterialTheme.colorScheme.primary,
+        disabledDayContentColor = Color.Gray
+    ),
+    onClick: () -> Unit = {}
 ) {
+
     var showDatePicker by remember { mutableStateOf(false) }
     var dateDisplay by remember { mutableStateOf("Select dates") }
 
-    Column {
-        if(!label.isNullOrBlank()){
-            KwikText.TitleMedium(
-                modifier = Modifier.padding(bottom = 4.dp),
-                text = label,
-                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
-                textAlign = TextAlign.Start
-            )
-        }
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(75.dp)
+    ) {
+        KwikText.TitleMedium(
+            text = label,
+            color = Color.Gray
+        )
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        Button(
+            modifier = modifier
+                .height(50.dp),
+            onClick = {
+                onClick()
+                showDatePicker = true
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+            border = BorderStroke(1.dp, Color.Gray),
+            contentPadding = PaddingValues(4.dp),
+            shape = RoundedCornerShape(8.dp),
         ) {
-            Button(
-                modifier = modifier
-                    .weight(1f)
-                    .heightIn(55.dp),
-                onClick = {
-                    onClick()
-                    showDatePicker = true
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                ),
-                border = border,
-                shape = shape
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
             ) {
-                Row(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    leadingIcon()
+                Icon(
+                    painter = painterResource(id = R.drawable.calendar),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    contentDescription = null,
+                )
 
-                    KwikText.BodyMedium(
-                        text = dateDisplay
-                    )
+                KwikText.BodyLarge(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = dateDisplay
+                )
 
-                    trailingIcon()
-                }
+                Icon(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    painter = painterResource(id = R.drawable.arrow_down),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    contentDescription = null,
+                )
             }
         }
 
@@ -139,7 +129,7 @@ fun KwikDateRangeButton(
                 shape = dialogShape,
                 onDateRangeSelected = { selectedDates ->
                     onDateRangeSelected(selectedDates)
-                    dateDisplay  = "${selectedDates.first.toFormat()} - ${selectedDates.second.toFormat()}"
+                    dateDisplay  = "${selectedDates.first.toMMdd()} - ${selectedDates.second.toMMdd()}"
                 },
                 onDismiss = {
                     showDatePicker = false

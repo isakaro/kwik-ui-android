@@ -41,7 +41,7 @@ data class KwikYearsData(
  * @param title The title of the year range selector.
  * @param fromYearText The text to display for the "From Year" label.
  * @param toYearText The text to display for the "To Year" label.
- * @param KwikYearsData [KwikYearsData] The data to use for the year range selector.
+ * @param kwikYearsData [KwikYearsData] The data to use for the year range selector.
  * @param onYearRangeChanged A callback that is called when the year range is changed.
  * */
 @Composable
@@ -49,11 +49,11 @@ fun KwikYearsRangeSelector(
     title: String = "Year Range",
     fromYearText: String = "From Year",
     toYearText: String = "To Year",
-    KwikYearsData: KwikYearsData = KwikYearsData(),
+    kwikYearsData: KwikYearsData = KwikYearsData(),
     onYearRangeChanged: (Int, Int) -> Unit
 ) {
-    val currentYear = KwikYearsData.maxYear
-    val oldestYear = KwikYearsData.minYear
+    val currentYear = kwikYearsData.maxYear
+    val oldestYear = kwikYearsData.minYear
     val yearRange = (oldestYear..currentYear).sortedByDescending { it }
     val startYearVisible = remember { mutableStateOf(false) }
     val endYearVisible = remember { mutableStateOf(false) }

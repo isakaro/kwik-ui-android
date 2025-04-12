@@ -38,7 +38,7 @@ import java.util.Date
  * @param colors: The colors to use for the date picker.
  * @param onDismiss: Callback that is called when the dialog is dismissed.
  *
- * * @see [KwikDateField] for a date field that shows this dialog when clicked.
+ * * @see [KwikDateRangeButton] for a date field that shows this dialog when clicked.
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

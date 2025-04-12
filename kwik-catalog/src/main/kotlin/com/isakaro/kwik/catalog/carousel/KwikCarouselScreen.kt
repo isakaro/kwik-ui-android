@@ -18,6 +18,7 @@ import com.isakaro.kwik.carousel.previous
 import com.isakaro.kwik.carousel.rememberKwikCarouselState
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
@@ -35,10 +36,10 @@ internal fun KwikCarouselScreen(
         }
     ) {
         val images = listOf(
-            "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
-            "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
-            "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
-            "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+            KwikConstants.SAMPLE_IMAGE,
+            KwikConstants.SAMPLE_IMAGE,
+            KwikConstants.SAMPLE_IMAGE,
+            KwikConstants.SAMPLE_IMAGE
         )
 
         ShowCase(title = "Image carousel") {

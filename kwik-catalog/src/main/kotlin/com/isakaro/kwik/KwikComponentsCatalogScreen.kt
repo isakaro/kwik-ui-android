@@ -49,6 +49,7 @@ import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
@@ -364,6 +365,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Web view component for displaying web pages. Supports Javascript native bridge, file upload, multi-windows and more...",
                 action = {
                     navigator.navigate(KwikWebViewScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Timeline",
+                description = "Timeline component for showing events in a vertical fashion",
+                action = {
+                    navigator.navigate(KwikTimelineScreenDestination)
                 }
             )
         )

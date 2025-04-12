@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.date.KwikDateField
+import com.isakaro.kwik.date.KwikDateRangeButton
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -28,14 +28,14 @@ internal fun KwikDateRangePickerScreen(
         }
     ) {
         ShowCase(title = "Date Range Picker") {
-            KwikDateField(
+            KwikDateRangeButton(
                 label = "Start and end date",
                 onDateRangeSelected = {}
             )
         }
 
         ShowCase(title = "Date Range Picker with mode toggle") {
-            KwikDateField(
+            KwikDateRangeButton(
                 label = "Start and end date",
                 showModeToggle = true,
                 onDateRangeSelected = {}
@@ -49,7 +49,7 @@ internal fun KwikDateRangePickerScreen(
             val sixMonthsAhead = calendar.clone() as Calendar
             sixMonthsAhead.add(Calendar.MONTH, 6)
 
-            KwikDateField(
+            KwikDateRangeButton(
                 label = "Check-in and check-out",
                 showModeToggle = true,
                 minSelectableDate = today.timeInMillis,

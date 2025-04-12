@@ -18,6 +18,7 @@ import com.isakaro.kwik.card.KwikImageCard
 import com.isakaro.kwik.card.KwikImageCardHorizontal
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.helpers.KwikCenterColumn
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.text.KwikText
@@ -57,7 +58,7 @@ internal fun KwikCardScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp),
-                image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+                image = KwikConstants.SAMPLE_IMAGE,
                 title = "I am a Card with an image",
             ){
                 Column(
@@ -79,7 +80,7 @@ internal fun KwikCardScreen(
         ShowCase(title = "Card with image (horizontal)") {
             KwikImageCardHorizontal(
                 modifier = Modifier.fillMaxWidth().height(150.dp),
-                image = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+                image = KwikConstants.SAMPLE_IMAGE,
             ){
                 Column(
                     modifier = Modifier.padding(8.dp),

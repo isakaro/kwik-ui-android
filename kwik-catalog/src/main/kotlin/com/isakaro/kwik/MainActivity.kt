@@ -33,6 +33,7 @@ import com.isakaro.kwik.catalog.switch.KwikSwitchScreen
 import com.isakaro.kwik.catalog.tabs.KwikTabScreen
 import com.isakaro.kwik.catalog.textfield.KwikOutlinedTextFieldScreen
 import com.isakaro.kwik.catalog.textfield.KwikTextFieldScreen
+import com.isakaro.kwik.catalog.timeline.KwikTimelineScreen
 import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.catalog.typography.KwikTypographyScreen
 import com.isakaro.kwik.catalog.webview.KwikWebViewScreen
@@ -64,6 +65,7 @@ import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
+import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
 import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
@@ -195,6 +197,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikWebViewScreenDestination){
                             KwikWebViewScreen()
+                        }
+                        composable(KwikTimelineScreenDestination){
+                            KwikTimelineScreen()
                         }
                     }
                 }
