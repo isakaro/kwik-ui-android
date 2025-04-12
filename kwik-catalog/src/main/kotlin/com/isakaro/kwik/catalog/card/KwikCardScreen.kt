@@ -6,22 +6,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.card.KwikCard
 import com.isakaro.kwik.card.KwikImageCard
 import com.isakaro.kwik.card.KwikImageCardHorizontal
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.helpers.KwikCenterColumn
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -42,15 +41,11 @@ internal fun KwikCardScreen(
                     .fillMaxWidth()
                     .height(100.dp)
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                KwikCenterColumn(
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Text(
+                    KwikText.BodyLarge(
                         text = "I am a Card",
-                        color = Color.Black,
-                        modifier = Modifier.fillMaxSize(),
                         textAlign = TextAlign.Center
                     )
                 }

@@ -26,8 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 
 /**
@@ -110,7 +110,7 @@ fun KwikCounter(
                     }
                 },
                 enabled = !decrementDisabled && !disabled,
-                modifier = Modifier.height(40.dp)
+                modifier = Modifier.height(40.dp).alpha(if (decrementDisabled) 0.3f else 1.0f)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.remove),
@@ -133,7 +133,7 @@ fun KwikCounter(
                     }
                 },
                 enabled = !incrementDisabled && !disabled,
-                modifier = Modifier.height(40.dp),
+                modifier = Modifier.height(40.dp).alpha(if (incrementDisabled) 0.3f else 1.0f),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.add),

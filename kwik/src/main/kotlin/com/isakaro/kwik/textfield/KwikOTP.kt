@@ -46,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
@@ -219,7 +220,7 @@ private fun OTPDigit(
                 cursorColor = MaterialTheme.colorScheme.primary,
                 focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
                 focusedLabelColor = Color.Gray,
-                focusedBorderColor = Color.Transparent,
+                focusedBorderColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray,
                 unfocusedBorderColor = Color.Transparent,
                 unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
                 unfocusedLabelColor = Color.Gray,

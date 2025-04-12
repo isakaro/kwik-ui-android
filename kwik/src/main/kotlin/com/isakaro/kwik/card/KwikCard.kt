@@ -38,7 +38,7 @@ import com.isakaro.kwik.text.KwikText
 @Composable
 fun KwikCard(
     modifier: Modifier = Modifier,
-    containerColor: Color = Color.White,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
     shape: Shape = RoundedCornerShape(12.dp),
     elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     onClick: () -> Unit = {},
