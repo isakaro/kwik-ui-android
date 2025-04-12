@@ -208,7 +208,7 @@ internal fun KwikTimelineScreen(
             currentStepIndex = completedIndex,
             modifier = Modifier.padding(6.dp),
             onClick = {
-                completedIndex = it.id as Int
+                kwikToastState.showToast(message = "Clicked on ${it.title}")
             }
         )
     }

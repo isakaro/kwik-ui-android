@@ -126,12 +126,6 @@ private fun KwikTimelineEntryItem(
     accentColor: Color,
     onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
-    val indicatorColor by animateColorAsState(
-        targetValue = if (isDone) accentColor else Color.Gray,
-        animationSpec = tween(300),
-        label = "indicator color"
-    )
-
     val lineColor by animateColorAsState(
         targetValue = if (isDone) accentColor else Color.Gray,
         animationSpec = tween(300),
