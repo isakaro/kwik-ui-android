@@ -28,6 +28,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,18 +43,68 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.image.KwikImageLoader
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+/**
+ * The state of the carousel
+ *
+ * @param itemCount: The number of items in the carousel.
+ * @param initialIndex: The index of the item to display first.
+ * */
+data class KwikCarouselState(
+    val itemCount: Int,
+    var initialIndex: Int = 0,
+    var currentIndex: Int = initialIndex,
+    var loop: Boolean = false
+)
+
+@Composable
+fun rememberKwikCarouselState(
+    state: KwikCarouselState
+): MutableState<KwikCarouselState> {
+    return remember { mutableStateOf(state) }
+}
+
+/**
+ * Slide to the next page
+ * */
+fun MutableState<KwikCarouselState>.next() {
+    if(this.value.currentIndex < this.value.itemCount) {
+        this.value = KwikCarouselState(
+            itemCount = this.value.itemCount,
+            initialIndex = this.value.initialIndex,
+            currentIndex = this.value.currentIndex + 1
+        )
+    }
+}
+
+/**
+ * Slide to the previous page
+ * */
+fun MutableState<KwikCarouselState>.previous() {
+    if(this.value.currentIndex > 0) {
+        this.value = KwikCarouselState(
+            itemCount = this.value.itemCount,
+            initialIndex = this.value.initialIndex,
+            currentIndex = this.value.currentIndex - 1
+        )
+    }
+}
 
 /**
  * A generic carousel that displays a list of content in a horizontal scrollable view.
  *
  * @param modifier The modifier to be applied to the carousel (HorizontalPager).
  * @param shape The shape of the carousel.
- * @param itemCount The number of items in the carousel.
  * @param initialIndex The index of the item to display first.
  * @param showIndicators Whether to show the page indicators.
+ * @param selectedIndicatorColor The color of the selected page indicator.
+ * @param unselectedIndicatorColor The color of the unselected page indicator.
  * @param showNavigation Whether to show the navigation buttons.
  * @param showCounter Whether to show the counter.
+ * @param autoPlay Whether to automatically play the carousel.
+ * @param autoPlayDelay The delay between auto-play slides in milliseconds.
  * @param onPageIndexChange Callback that is invoked when the current page index changes.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
  * @param customPrevButton Optional composable to replace the default previous button.
@@ -72,36 +125,48 @@ import kotlinx.coroutines.launch
 @Composable
 fun KwikCarousel(
     modifier: Modifier = Modifier,
+    state: MutableState<KwikCarouselState>,
     shape: Shape = MaterialTheme.shapes.large,
-    itemCount: Int,
     initialIndex: Int = 0,
     showIndicators: Boolean = true,
+    selectedIndicatorColor: Color = Color.White,
+    unselectedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+    indicatorContainerColor: Color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
     showNavigation: Boolean = true,
     userScrollEnabled: Boolean = true,
     showCounter: Boolean = false,
+    autoPlay: Boolean = false,
+    autoPlayDelay: Long = 3000L,
     onPageIndexChange: (Int) -> Unit = {},
     customPrevButton: @Composable (() -> Unit)? = null,
     customNextButton: @Composable (() -> Unit)? = null,
-    contentBuilder: @Composable (page: Int) -> Unit,
+    contentBuilder: @Composable (page: Int) -> Unit
 ) {
     val pagerState = rememberPagerState(
         initialPage = initialIndex,
         initialPageOffsetFraction = 0f
     ) {
-        itemCount
+        state.value.itemCount
     }
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
     // Scroll indicators to current page when page changes
     LaunchedEffect(pagerState.currentPage) {
-        if (itemCount > 0) {
+        if (state.value.itemCount > 0) {
             listState.scrollToItem(
                 index = pagerState.currentPage,
                 scrollOffset = -listState.layoutInfo.viewportSize.width / 2
             )
         }
         onPageIndexChange(pagerState.currentPage)
+    }
+
+    LaunchedEffect(Unit) {
+        while (autoPlay) {
+            delay(autoPlayDelay)
+            pagerState.animateScrollToPage((pagerState.currentPage + 1) % state.value.itemCount)
+        }
     }
 
     Box {
@@ -119,7 +184,7 @@ fun KwikCarousel(
             }
         )
 
-        if (showIndicators && itemCount > 1) {
+        if (showIndicators && state.value.itemCount > 1) {
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -132,7 +197,7 @@ fun KwikCarousel(
                         .widthIn(max = this.maxWidth * 3/5)
                         .wrapContentWidth()
                         .background(
-                            color = Color.Black.copy(alpha = 0.5f),
+                            color = indicatorContainerColor,
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(vertical = 6.dp)
@@ -141,15 +206,15 @@ fun KwikCarousel(
                     userScrollEnabled = false,
                     contentPadding = PaddingValues(horizontal = 12.dp)
                 ) {
-                    items(itemCount) { index ->
+                    items(state.value.itemCount) { index ->
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
                                 .size(7.dp)
                                 .background(
                                     color = if (pagerState.currentPage == index)
-                                        MaterialTheme.colorScheme.primary
-                                    else Color.White
+                                        selectedIndicatorColor
+                                    else unselectedIndicatorColor
                                 )
                                 .clickable {
                                     scope.launch {
@@ -162,78 +227,81 @@ fun KwikCarousel(
             }
         }
 
-        if (showNavigation && itemCount > 1) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 8.dp)
-            ) {
-                if (customPrevButton != null) {
-                    Box(modifier = Modifier.clickable {
-                        scope.launch {
-                            val targetPage = (pagerState.currentPage - 1).coerceAtLeast(0)
-                            pagerState.animateScrollToPage(targetPage)
-                        }
-                    }) {
-                        customPrevButton()
-                    }
-                } else {
-                    IconButton(
-                        onClick = {
+        if (showNavigation && state.value.itemCount > 1) {
+            if(pagerState.currentPage > 0 || state.value.loop){
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 8.dp)
+                ) {
+                    if (customPrevButton != null) {
+                        Box(modifier = Modifier.clickable {
                             scope.launch {
                                 val targetPage = (pagerState.currentPage - 1).coerceAtLeast(0)
                                 pagerState.animateScrollToPage(targetPage)
                             }
-                        },
-                        modifier = Modifier
-                            .background(
-                                color = Color.Black.copy(alpha = 0.5f),
-                                shape = CircleShape
+                        }) {
+                            customPrevButton()
+                        }
+                    } else {
+                        IconButton(
+                            onClick = {
+                                scope.launch {
+                                    val targetPage = (pagerState.currentPage - 1).coerceAtLeast(0)
+                                    pagerState.animateScrollToPage(targetPage)
+                                }
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Black.copy(alpha = 0.5f),
+                                    shape = CircleShape
+                                )
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                                contentDescription = "Previous",
+                                tint = Color.White
                             )
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Previous",
-                            tint = Color.White
-                        )
+                        }
                     }
                 }
             }
 
-            // Next button
-            Box(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 8.dp)
-            ) {
-                if (customNextButton != null) {
-                    Box(modifier = Modifier.clickable {
-                        scope.launch {
-                            val targetPage = (pagerState.currentPage + 1).coerceAtMost(itemCount - 1)
-                            pagerState.animateScrollToPage(targetPage)
-                        }
-                    }) {
-                        customNextButton()
-                    }
-                } else {
-                    IconButton(
-                        onClick = {
+            if(pagerState.currentPage < state.value.itemCount || state.value.loop){
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 8.dp)
+                ) {
+                    if (customNextButton != null) {
+                        Box(modifier = Modifier.clickable {
                             scope.launch {
-                                val targetPage = (pagerState.currentPage + 1).coerceAtMost(itemCount - 1)
+                                val targetPage = (pagerState.currentPage + 1).coerceAtMost(state.value.itemCount - 1)
                                 pagerState.animateScrollToPage(targetPage)
                             }
-                        },
-                        modifier = Modifier
-                            .background(
-                                color = Color.Black.copy(alpha = 0.5f),
-                                shape = CircleShape
+                        }) {
+                            customNextButton()
+                        }
+                    } else {
+                        IconButton(
+                            onClick = {
+                                scope.launch {
+                                    val targetPage = (pagerState.currentPage + 1).coerceAtMost(state.value.itemCount - 1)
+                                    pagerState.animateScrollToPage(targetPage)
+                                }
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Black.copy(alpha = 0.5f),
+                                    shape = CircleShape
+                                )
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                contentDescription = "Next",
+                                tint = Color.White
                             )
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = "Next",
-                            tint = Color.White
-                        )
+                        }
                     }
                 }
             }
@@ -249,7 +317,7 @@ fun KwikCarousel(
                     ).align(Alignment.BottomEnd)
             ) {
                 KwikText.TitleSmall(
-                    text = "${pagerState.currentPage + 1}/${itemCount}",
+                    text = "${pagerState.currentPage + 1}/${state.value.itemCount}",
                     color = Color.White,
                     modifier = Modifier.padding(4.dp)
                 )
@@ -268,27 +336,47 @@ fun KwikCarousel(
  * @param showNavigation Whether to show the navigation buttons.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
  * @param showCounter Whether to show the counter.
+ * @param autoPlay Whether to automatically play the carousel.
+ * @param autoPlayDelay The delay between auto-play slides in milliseconds.
+ * @param onPageIndexChange Callback that is invoked when the current page index changes.
  * */
 @Composable
 fun KwikImageCarousel(
     modifier: Modifier = Modifier,
+    state: MutableState<KwikCarouselState>,
     images: List<Any>,
     initialIndex: Int = 0,
     showIndicators: Boolean = true,
     showNavigation: Boolean = true,
     userScrollEnabled: Boolean = true,
     showCounter: Boolean = true,
-    shape: Shape = MaterialTheme.shapes.large
+    selectedIndicatorColor: Color = Color.White,
+    unselectedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+    indicatorContainerColor: Color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+    autoPlay: Boolean = false,
+    autoPlayDelay: Long = 3000L,
+    onPageIndexChange: (Int) -> Unit = {},
+    shape: Shape = MaterialTheme.shapes.large,
+    customPrevButton: @Composable (() -> Unit)? = null,
+    customNextButton: @Composable (() -> Unit)? = null
 ) {
     KwikCarousel(
         modifier = modifier,
+        state = state,
         shape = shape,
-        itemCount = images.size,
         initialIndex = initialIndex,
         showIndicators = showIndicators,
         showNavigation = showNavigation,
         showCounter = showCounter,
         userScrollEnabled = userScrollEnabled,
+        onPageIndexChange = onPageIndexChange,
+        autoPlay = autoPlay,
+        autoPlayDelay = autoPlayDelay,
+        selectedIndicatorColor = selectedIndicatorColor,
+        unselectedIndicatorColor = unselectedIndicatorColor,
+        indicatorContainerColor = indicatorContainerColor,
+        customPrevButton = customPrevButton,
+        customNextButton = customNextButton,
         contentBuilder = { page ->
             KwikImageLoader(
                 url = images[page],
@@ -302,8 +390,15 @@ fun KwikImageCarousel(
 @Composable
 private fun KwikCarouselPreview() {
     KwikTheme {
+        val kwikCarouselState = rememberKwikCarouselState(
+            KwikCarouselState(
+                itemCount = 3,
+                initialIndex = 0
+            )
+        )
+
         KwikCarousel(
-            itemCount = 3,
+            state = kwikCarouselState,
             showNavigation = true,
             contentBuilder = { page ->
                 Box(
