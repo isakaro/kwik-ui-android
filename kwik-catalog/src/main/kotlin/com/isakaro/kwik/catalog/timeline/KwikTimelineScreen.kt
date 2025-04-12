@@ -23,6 +23,9 @@ import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.timeline.KwikTimelineEntry
 import com.isakaro.kwik.timeline.KwikVerticalTimeline
+import com.isakaro.kwik.toast.KwikToast
+import com.isakaro.kwik.toast.rememberKwikToastState
+import com.isakaro.kwik.toast.showToast
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -32,7 +35,9 @@ internal fun KwikTimelineScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
 
-    var selectedMovieIndex by remember { mutableIntStateOf(0) }
+    val kwikToastState = rememberKwikToastState()
+
+    KwikToast(state = kwikToastState)
 
     val timelineEntries = listOf(
         KwikTimelineEntry(
@@ -40,7 +45,7 @@ internal fun KwikTimelineScreen(
             title = "The Curse of the Black Pearl (2003)",
             description = "Captain Jack Sparrow teams up with Will Turner to save Elizabeth Swann from cursed pirates.",
             onClick = {
-
+                kwikToastState.showToast(message = "Clicked on ${it.title}")
             },
             content = {
                 KwikCard(
@@ -71,7 +76,7 @@ internal fun KwikTimelineScreen(
             id = 1,
             title = "Dead Man's Chest (2006)",
             description = "Jack Sparrow races to recover the heart of Davy Jones to avoid enslaving his soul to Jones' service.",
-            onClick = { selectedMovieIndex = 1 },
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") },
             content = {
                 KwikCard(
                     modifier = Modifier
@@ -101,7 +106,7 @@ internal fun KwikTimelineScreen(
             id = 2,
             title = "At World's End (2007)",
             description = "Jack, Barbossa, Will, Elizabeth, and the crew must sail to the edge of the world to rescue Jack from Davy Jones' Locker.",
-            onClick = { selectedMovieIndex = 2 },
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") },
             content = {
                 KwikCard(
                     modifier = Modifier
@@ -131,7 +136,7 @@ internal fun KwikTimelineScreen(
             id = 3,
             title = "On Stranger Tides (2011)",
             description = "Jack Sparrow crosses paths with Blackbeard and his daughter while searching for the Fountain of Youth.",
-            onClick = { selectedMovieIndex = 3 },
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") },
             content = {
                 KwikCard(
                     modifier = Modifier
@@ -161,7 +166,7 @@ internal fun KwikTimelineScreen(
             id = 4,
             title = "Dead Men Tell No Tales (2017)",
             description = "Captain Jack Sparrow searches for the Trident of Poseidon while being pursued by an old rival, Captain Salazar.",
-            onClick = { selectedMovieIndex = 4 },
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") },
             content = {
                 KwikCard(
                     modifier = Modifier
@@ -189,6 +194,8 @@ internal fun KwikTimelineScreen(
         )
     )
 
+    var completedIndex by remember { mutableIntStateOf(timelineEntries.size) }
+
     ShowCaseContainer(
         title = "Timeline",
         onBackClick = {
@@ -198,10 +205,10 @@ internal fun KwikTimelineScreen(
         KwikVerticalTimeline(
             entries = timelineEntries,
             clickable = true,
-            currentEntryIndex = selectedMovieIndex,
+            currentStepIndex = completedIndex,
             modifier = Modifier.padding(6.dp),
             onClick = {
-                selectedMovieIndex = it.id as Int
+                completedIndex = it.id as Int
             }
         )
     }

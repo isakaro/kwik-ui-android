@@ -64,7 +64,7 @@ data class KwikTimelineEntry(
  * @param entries List of timeline entries to display
  * @param modifier Modifier to be applied to the timeline
  * @param accentColor Color of the timeline indicators and lines
- * @param currentEntryIndex Optional index of the current/selected entry
+ * @param currentStepIndex Optional index of the current/selected entry
  */
 @Composable
 fun KwikVerticalTimeline(
@@ -72,15 +72,15 @@ fun KwikVerticalTimeline(
     clickable: Boolean = false,
     entries: List<KwikTimelineEntry>,
     accentColor: Color = MaterialTheme.colorScheme.primary,
-    currentEntryIndex: Int = -1,
+    currentStepIndex: Int = -1,
     onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
 
-    var selectedIndex by remember { mutableIntStateOf(currentEntryIndex) }
+    var selectedIndex by remember { mutableIntStateOf(currentStepIndex) }
 
-    LaunchedEffect(currentEntryIndex) {
-        if (currentEntryIndex != -1) {
-            selectedIndex = currentEntryIndex
+    LaunchedEffect(currentStepIndex) {
+        if (currentStepIndex != -1) {
+            selectedIndex = currentStepIndex
         }
     }
 
@@ -269,7 +269,7 @@ private fun KwikTimelineExample() {
     KwikTheme {
         KwikVerticalTimeline(
             entries = timelineEntries,
-            currentEntryIndex = 1
+            currentStepIndex = 1
         )
     }
 }
