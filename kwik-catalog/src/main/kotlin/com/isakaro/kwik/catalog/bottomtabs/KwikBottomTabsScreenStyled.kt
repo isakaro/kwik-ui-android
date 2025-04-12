@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikBottomTabs
-import com.isakaro.kwik.KwikCenterColumn
-import com.isakaro.kwik.KwikTabItem
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.tabs.KwikBottomTabs
+import com.isakaro.kwik.helpers.KwikCenterColumn
+import com.isakaro.kwik.tabs.KwikTabItem
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator

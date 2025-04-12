@@ -12,10 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikAccordion
-import com.isakaro.kwik.KwikAccordionGroup
-import com.isakaro.kwik.KwikAccordionItem
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.accordion.KwikAccordion
+import com.isakaro.kwik.accordion.KwikAccordionGroup
+import com.isakaro.kwik.accordion.KwikAccordionItem
+import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
@@ -105,7 +106,7 @@ internal fun KwikAccordionScreen(
                 onExpandedChange = {
                     expanded4 = it
                 },
-                headerIcon = com.isakaro.kwik.R.drawable.shield,
+                headerIcon = R.drawable.shield,
                 elevation = 1
             ) {
                 Column(
@@ -126,7 +127,7 @@ internal fun KwikAccordionScreen(
                     expanded5 = it
                 },
                 isError = true,
-                errorIcon = com.isakaro.kwik.R.drawable.shield,
+                errorIcon = R.drawable.shield,
                 elevation = 1
             ) {
                 Column(

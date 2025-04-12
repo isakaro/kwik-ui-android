@@ -20,18 +20,10 @@ import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
 import java.util.UUID
 
-/**
- * A dropdown menu component that allows the user to select an item from a list of options.
- *
- * @param state: The state of the dropdown menu. If true, the dropdown menu will be shown.
- * @param shape: The shape of the dropdown menu. Default is MaterialTheme.shapes.medium.
- * @param onDismissRequest: The callback that will be called when the dropdown menu is dismissed.
- * @param items: The list of items to be displayed in the dropdown menu. Each item can be a header, space, divider, or data.
- * */
 @Composable
 fun KwikDropdown(
     state: Boolean,
-    shape: Shape = MaterialTheme.shapes.medium,
+    shape: Shape = MaterialTheme.shapes.large,
     onDismissRequest: () -> Unit,
     items: List<KwikDropdownItemActionState>,
 ) {
@@ -71,14 +63,8 @@ fun KwikDropdown(
     }
 }
 
-/**
- * A composable function that represents an item in the dropdown menu.
- *
- * @param data: The data for the item.
- * @param onClick: The callback that will be called when the item is clicked.
- * */
 @Composable
-private fun KwikDropdownItemView(
+fun KwikDropdownItemView(
     data: KwikDropdownItem,
     onClick: () -> Unit
 ){
@@ -107,17 +93,6 @@ private fun KwikDropdownItemView(
     }
 }
 
-/**
- * A data class representing an item in the dropdown menu.
- *
- * @param id: The unique identifier for the item.
- * @param text: The text to be displayed for the item.
- * @param onClick: The callback that will be called when the item is clicked.
- * @param enabled: A boolean indicating whether the item is enabled or not. Default is true.
- * @param leadingIcon: A composable function that represents the leading icon for the item. Default is null.
- * @param trailingIcon: A composable function that represents the trailing icon for the item. Default is null.
- * @param divider: A boolean indicating whether to show a divider after the item. Default is false.
- * */
 data class KwikDropdownItem(
     val id: UUID = UUID.randomUUID(),
     val text: @Composable () -> Unit,
@@ -128,14 +103,6 @@ data class KwikDropdownItem(
     val divider: Boolean = false
 )
 
-/**
- * A sealed class representing the different states of the dropdown menu items.
- *
- * [Header]: Represents a header item in the dropdown menu.
- * [Space]: Represents a space item in the dropdown menu.
- * [Divider] : Represents a divider item in the dropdown menu.
- * [Data]: Represents a data item in the dropdown menu.
- * */
 sealed class KwikDropdownItemActionState {
     data class Header(val title: String) : KwikDropdownItemActionState()
     data class Space(val id: UUID = UUID.randomUUID()) : KwikDropdownItemActionState()

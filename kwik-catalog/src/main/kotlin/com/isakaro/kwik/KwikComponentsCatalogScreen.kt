@@ -19,8 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
-import com.isakaro.kwik.catalog.shape.KwikShapeScreen
+import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
@@ -53,6 +52,14 @@ import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
+import com.isakaro.kwik.image.KwikImageView
+import com.isakaro.kwik.list.KwikLazyList
+import com.isakaro.kwik.list.KwikListItemAction
+import com.isakaro.kwik.list.KwikListItemActionState
+import com.isakaro.kwik.spacer.KwikHSpacer
+import com.isakaro.kwik.spacer.KwikVSpacer
+import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.textfield.KwikSearchView
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -371,7 +378,7 @@ internal fun KwikComponentsCatalogScreen(
             ) {
                 KwikImageView(
                     modifier = Modifier.size(40.dp),
-                    url = com.isakaro.Kwik.catalog.R.drawable.kwikui_logo
+                    url = R.drawable.kwikui_logo
                 )
 
                 KwikHSpacer(8)

@@ -13,6 +13,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -227,7 +228,7 @@ private fun KwikStepperItem(
             }
         }
 
-        KwikText.RenderText(
+        Text(
             modifier = Modifier.constrainAs(stepLabel) {
                 start.linkTo(indicator.start)
                 top.linkTo(indicator.bottom)

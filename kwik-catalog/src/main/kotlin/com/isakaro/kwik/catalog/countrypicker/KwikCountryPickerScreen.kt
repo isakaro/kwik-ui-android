@@ -9,9 +9,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import com.isakaro.kwik.KwikCountryPicker
-import com.isakaro.kwik.KwikText
-import com.isakaro.kwik.KwikVSpacer
+import com.isakaro.kwik.countrypicker.KwikCountryPicker
+import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer

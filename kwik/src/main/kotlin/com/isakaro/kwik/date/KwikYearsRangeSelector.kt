@@ -30,10 +30,6 @@ import com.isakaro.kwik.text.KwikText
 
 import java.util.Calendar
 
-/**
- * @param minYear The minimum year that can be selected.
- * @param maxYear The maximum year that can be selected.
- * */
 data class KwikYearsData(
     val minYear: Int = 1965,
     val maxYear: Int = Calendar.getInstance().get(Calendar.YEAR)
@@ -45,7 +41,7 @@ data class KwikYearsData(
  * @param title The title of the year range selector.
  * @param fromYearText The text to display for the "From Year" label.
  * @param toYearText The text to display for the "To Year" label.
- * @param kwikYearsData [KwikYearsData] The data to use for the year range selector.
+ * @param KwikYearsData [KwikYearsData] The data to use for the year range selector.
  * @param onYearRangeChanged A callback that is called when the year range is changed.
  * */
 @Composable
@@ -53,11 +49,11 @@ fun KwikYearsRangeSelector(
     title: String = "Year Range",
     fromYearText: String = "From Year",
     toYearText: String = "To Year",
-    kwikYearsData: KwikYearsData = KwikYearsData(),
+    KwikYearsData: KwikYearsData = KwikYearsData(),
     onYearRangeChanged: (Int, Int) -> Unit
 ) {
-    val currentYear = kwikYearsData.maxYear
-    val oldestYear = kwikYearsData.minYear
+    val currentYear = KwikYearsData.maxYear
+    val oldestYear = KwikYearsData.minYear
     val yearRange = (oldestYear..currentYear).sortedByDescending { it }
     val startYearVisible = remember { mutableStateOf(false) }
     val endYearVisible = remember { mutableStateOf(false) }
@@ -167,7 +163,7 @@ fun KwikYearsRangeSelector(
                 yearRange.forEach { year ->
                     DropdownMenuItem(
                         text = {
-                            KwikText.BodyMedium(text = year.toString())
+                            Text(year.toString())
                         },
                         onClick = {
                             selectedMaxYear = year

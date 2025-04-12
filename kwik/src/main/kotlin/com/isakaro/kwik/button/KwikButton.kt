@@ -11,18 +11,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -40,14 +35,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.R
-import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.loading.KwikCircularLoading
 import com.isakaro.kwik.spacer.KwikHSpacer
+import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.theme.KwikTheme
 
 enum class KwikButtonLoadingStyle {
     CIRCULAR,
@@ -99,21 +91,21 @@ fun KwikButton(
     outlined: Boolean = false,
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
+    height: Int = 50,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Boolean = true,
     enabled: Boolean = true,
     fontStyle: TextStyle = MaterialTheme.typography.titleSmall,
     kwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
-    shape: Shape = MaterialTheme.shapes.medium,
+    shape: Shape = RoundedCornerShape(8.dp),
     border: BorderStroke? = null,
-    contentPadding: PaddingValues = PaddingValues(2.dp),
     onClick: () -> Unit = {}
 ) {
     Button(
         onClick = { onClick() },
         border = if (outlined) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else border,
         modifier = Modifier
-            .heightIn(40.dp)
+            .height(height.dp)
             .alpha(if (isLoading) 0.5f else 1.0f)
             .clickable(
                 indication = if (isLoading) null else LocalIndication.current,
@@ -125,7 +117,7 @@ fun KwikButton(
         colors = if(outlined) ButtonDefaults.outlinedButtonColors(contentColor = Color.White) else ButtonDefaults.buttonColors(
             containerColor = containerColor,
         ),
-        contentPadding = contentPadding,
+        contentPadding = PaddingValues(4.dp),
         shape = shape,
         enabled = enabled && !isLoading,
         interactionSource = remember { MutableInteractionSource() }
@@ -172,8 +164,7 @@ fun KwikButton(
 
                     LinearProgressIndicator(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 2.dp),
+                            .fillMaxWidth(),
                         color = if(isSystemInDarkTheme()) Color.White else Color.DarkGray,
                         trackColor = Color.Transparent
                     )
@@ -182,6 +173,7 @@ fun KwikButton(
         } else {
             if(leadingIcon != null){
                 KwikImageView(
+                    modifier = Modifier.size(25.dp),
                     url = leadingIcon,
                     tint = if (tintIcon) {
                         if(outlined) MaterialTheme.colorScheme.primary else Color.White
@@ -206,6 +198,7 @@ fun KwikButton(
 
             if(trailingIcon != null){
                 KwikImageView(
+                    modifier = Modifier.size(25.dp),
                     url = trailingIcon,
                     tint = if (tintIcon) {
                         if(outlined) MaterialTheme.colorScheme.primary else Color.White
@@ -370,40 +363,5 @@ fun KwikFloatingActionButton(
                 content()
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun KwikButtonPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            onClick = {  }
-        )
-    }
-}
-
-@Preview
-@Composable
-fun KwikButtonWithLeadingIconPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            leadingIcon = R.drawable.shield,
-            onClick = {  }
-        )
-    }
-}
-
-@Preview
-@Composable
-fun KwikButtonWithTrailingIconPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
-            onClick = {  }
-        )
     }
 }

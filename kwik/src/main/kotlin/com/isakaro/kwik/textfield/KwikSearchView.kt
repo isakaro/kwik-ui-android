@@ -1,7 +1,6 @@
-package com.isakaro.kwik
+package com.isakaro.kwik.textfield
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,7 +11,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -28,14 +26,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -47,27 +41,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
-import androidx.compose.ui.layout.positionOnScreen
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.round
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
@@ -168,7 +158,7 @@ fun KwikSearchView(
             KwikText.BodyMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
-                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                color = if (isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
                 textAlign = TextAlign.Start
             )
         }
@@ -262,7 +252,7 @@ fun KwikSearchView(
             placeholder = {
                 KwikText.TitleMedium(
                     text = placeholder,
-                    color = if(isError) MaterialTheme.colorScheme.error else Color.Gray,
+                    color = if (isError) MaterialTheme.colorScheme.error else Color.Gray,
                     textAlign = TextAlign.Start
                 )
             },

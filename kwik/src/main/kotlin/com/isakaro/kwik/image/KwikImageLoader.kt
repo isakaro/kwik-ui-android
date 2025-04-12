@@ -1,8 +1,6 @@
 package com.isakaro.kwik.image
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
@@ -30,7 +28,6 @@ import com.isakaro.kwik.R
  * @param loading The action to perform when the image is loading.
  * @param success The action to perform when the image has loaded successfully.
  * @param error The action to perform when the image has failed to load.
- * @param onClick The action to perform when the image is clicked.
  * */
 @Composable
 fun KwikImageLoader(
@@ -42,8 +39,7 @@ fun KwikImageLoader(
     contentScale: ContentScale = ContentScale.Crop,
     loading: () -> Unit = {},
     success: () -> Unit = {},
-    error: () -> Unit = {},
-    onClick: () -> Unit = {}
+    error: () -> Unit = {}
 ) {
     val loadingState = remember {
         mutableStateMapOf<Any, ImageLoaderState>()
@@ -54,8 +50,6 @@ fun KwikImageLoader(
             .data(url)
             .build(),
         modifier = modifier
-            .fillMaxSize()
-            .clickable { onClick() }
             .placeholder(
                 visible = loadingState[url] == ImageLoaderState.LOADING,
                 highlight = PlaceholderHighlight.shimmer(),

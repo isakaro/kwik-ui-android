@@ -2,7 +2,6 @@ package com.isakaro.kwik.filterchip
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -25,7 +24,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,7 +56,6 @@ data class KwikFilterChipOption<T>(
  * @param selectedContentColor Color of the text when selected
  * @param unselectedContentColor Color of the text when unselected
  * @param border BorderStroke? border stroke of the chip
- * @param shape Shape shape of the chip
  * @param showCheckedIcon Boolean if the checked icon should be shown
  * @param flowLayout Boolean if the chips should be displayed in a flow layout
  * @param flowLayoutVerticalArrangement Int vertical arrangement of the flow layout
@@ -72,15 +69,14 @@ fun <T> KwikFilterChips(
     filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContainerColor: Color = if(isSystemInDarkTheme()) Color.DarkGray else Color.LightGray,
+    unselectedContainerColor: Color = Color.White,
     selectedContentColor: Color = Color.White,
-    unselectedContentColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
+    unselectedContentColor: Color = Color.Black,
     border: BorderStroke = BorderStroke(
-        width = 0.dp,
-        color = Color.Transparent
+        width = 1.dp,
+        color = MaterialTheme.colorScheme.primary
     ),
-    shape: Shape = MaterialTheme.shapes.medium,
-    showCheckedIcon: Boolean = false,
+    showCheckedIcon: Boolean = true,
     flowLayout: Boolean = false,
     flowLayoutVerticalArrangement: Int = 0,
     flowLayoutHorizontalArrangement: Int = 2
@@ -137,7 +133,6 @@ fun <T> KwikFilterChips(
                     selectedContentColor = selectedContentColor,
                     unselectedContentColor = unselectedContentColor,
                     border = border,
-                    shape = shape,
                     showCheckedIcon = showCheckedIcon
                 )
             }
@@ -168,7 +163,6 @@ fun <T> KwikFilterChips(
                     selectedContentColor = selectedContentColor,
                     unselectedContentColor = unselectedContentColor,
                     border = border,
-                    shape = shape,
                     showCheckedIcon = showCheckedIcon
                 )
             }
@@ -188,7 +182,6 @@ fun <T> KwikFilterChips(
  * @param selectedContentColor Color of the text when selected
  * @param unselectedContentColor Color of the text when unselected
  * @param border BorderStroke? border stroke of the chip
- * @param shape Shape shape of the chip
  * */
 @Composable
 private fun KwikFilterChip(
@@ -201,7 +194,6 @@ private fun KwikFilterChip(
     selectedContentColor: Color,
     unselectedContentColor: Color,
     border: BorderStroke? = null,
-    shape: Shape,
     showCheckedIcon: Boolean = true
 ) {
     FilterChip(
@@ -216,7 +208,6 @@ private fun KwikFilterChip(
         onClick = {
             onClick(!isSelected)
         },
-        shape = shape,
         border = if(!isSelected) border else null,
         label = {
             KwikText.TitleSmall(

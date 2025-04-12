@@ -65,7 +65,7 @@ fun KwikWebView(
         valueCallback = null
     }
     var progressVisible by remember { mutableStateOf(true) }
-    var loaded by remember { mutableStateOf(false) }
+    var loaded by remember { mutableStateOf(true) }
     val _webViewSettings = KwikWebViewSettings().apply(webViewSettings)
 
     Box {

@@ -1,34 +1,24 @@
 package com.isakaro.kwik.text
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLayoutInput
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 
 /**
- * `Text` component that uses the Material3 typography system.
+ * This a text component that uses the Material3 typography system.
  * */
 object KwikText {
 
     /**
-     * Base `Text` component that uses the Material3 typography system.
+     * Base text component that uses the Material3 typography system.
      *
      * @param modifier Modifier to be applied to the text
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -38,7 +28,6 @@ object KwikText {
      * @param style Text style
      * @param maxLines Maximum number of lines to display
      * @param overflow Text overflow behavior
-     * @param onTextLayout Text layout callback
      *
      * @see [Text]
      *
@@ -51,12 +40,10 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         textDecoration: TextDecoration = TextDecoration.None,
         style: TextStyle = MaterialTheme.typography.bodyLarge,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
-        onTextLayout: (TextLayoutResult) -> Unit = {},
     ) {
         when (text) {
             is String -> Text(
@@ -65,14 +52,10 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                fontStyle = fontStyle,
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow,
-                onTextLayout = {
-                    onTextLayout(it)
-                }
+                overflow = overflow
             )
             is Int -> Text(
                 text = text.toString(),
@@ -80,14 +63,10 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                fontStyle = fontStyle,
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow,
-                onTextLayout = {
-                    onTextLayout(it)
-                }
+                overflow = overflow
             )
             is AnnotatedString -> Text(
                 text = text,
@@ -95,14 +74,10 @@ object KwikText {
                 color = color,
                 fontWeight = fontWeight,
                 textAlign = textAlign,
-                fontStyle = fontStyle,
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow,
-                onTextLayout = {
-                    onTextLayout(it)
-                }
+                overflow = overflow
             )
         }
     }
@@ -124,7 +99,6 @@ object KwikText {
         text: Any,
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
-        fontStyle: FontStyle? = null,
         textAlign: TextAlign = TextAlign.Start,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
@@ -135,7 +109,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.displayLarge,
             maxLines = maxLines,
             overflow = overflow
@@ -160,7 +133,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -170,7 +142,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.displayMedium,
             maxLines = maxLines,
             overflow = overflow
@@ -195,7 +166,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -205,7 +175,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.displaySmall,
             maxLines = maxLines,
             overflow = overflow
@@ -213,7 +182,7 @@ object KwikText {
     }
 
     /**
-     * Headline large text
+     * Display Headline large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -230,7 +199,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -240,7 +208,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.headlineLarge,
             maxLines = maxLines,
             overflow = overflow
@@ -248,7 +215,7 @@ object KwikText {
     }
 
     /**
-     * Headline medium
+     * Display Headline medium
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -265,7 +232,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -275,7 +241,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.headlineMedium,
             maxLines = maxLines,
             overflow = overflow
@@ -283,7 +248,7 @@ object KwikText {
     }
 
     /**
-     * Headline small text
+     * Display Headline small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -300,7 +265,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -310,7 +274,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.headlineSmall,
             maxLines = maxLines,
             overflow = overflow
@@ -318,7 +281,7 @@ object KwikText {
     }
 
     /**
-     * Title large text
+     * Display Title large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -335,7 +298,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -345,7 +307,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.titleLarge,
             maxLines = maxLines,
             overflow = overflow
@@ -353,7 +314,7 @@ object KwikText {
     }
 
     /**
-     * Title medium text
+     * Display Title medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -370,7 +331,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -380,7 +340,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.titleMedium,
             maxLines = maxLines,
             overflow = overflow
@@ -388,7 +347,7 @@ object KwikText {
     }
 
     /**
-     * Title small text
+     * Display title small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -405,7 +364,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -415,7 +373,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.titleSmall,
             maxLines = maxLines,
             overflow = overflow
@@ -423,7 +380,7 @@ object KwikText {
     }
 
     /**
-     * Body large text
+     * Display body large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -440,7 +397,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -450,7 +406,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.bodyLarge,
             maxLines = maxLines,
             overflow = overflow
@@ -458,7 +413,7 @@ object KwikText {
     }
 
     /**
-     * Body medium text
+     * Display body medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -475,7 +430,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -485,7 +439,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.bodyMedium,
             maxLines = maxLines,
             overflow = overflow
@@ -493,7 +446,7 @@ object KwikText {
     }
 
     /**
-     * Body small text
+     * Display body small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -510,7 +463,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -520,7 +472,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.bodySmall,
             maxLines = maxLines,
             overflow = overflow
@@ -528,7 +479,7 @@ object KwikText {
     }
 
     /**
-     * Label large text
+     * Display label large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -545,7 +496,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -555,7 +505,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.labelLarge,
             maxLines = maxLines,
             overflow = overflow
@@ -563,7 +512,7 @@ object KwikText {
     }
 
     /**
-     * Label medium text
+     * Display label medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -580,7 +529,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -590,7 +538,6 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.labelMedium,
             maxLines = maxLines,
             overflow = overflow
@@ -598,7 +545,7 @@ object KwikText {
     }
 
     /**
-     * Label small text
+     * Display label small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -615,7 +562,6 @@ object KwikText {
         color: Color = MaterialTheme.colorScheme.onSurface,
         fontWeight: FontWeight? = null,
         textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle? = null,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
     ) {
@@ -625,65 +571,9 @@ object KwikText {
             color = color,
             fontWeight = fontWeight,
             textAlign = textAlign,
-            fontStyle = fontStyle,
             style = MaterialTheme.typography.labelSmall,
             maxLines = maxLines,
             overflow = overflow
         )
     }
-
-    /**
-     * A quote text component for displaying quotes.
-     *
-     * @param modifier Modifier to be applied to the text
-     * @param text Text to display. Can be String, Int or AnnotatedString
-     * @param color Text color
-     * @param fontWeight Font weight
-     * @param textAlign Text alignment
-     * @param fontStyle Font style
-     * @param maxLines Maximum number of lines to display
-     * @param overflow Text overflow behavior
-     * */
-    @Composable
-    fun Quote(
-        modifier: Modifier = Modifier,
-        text: Any,
-        author: String? = null,
-        color: Color = MaterialTheme.colorScheme.onSurface,
-        fontWeight: FontWeight? = null,
-        textAlign: TextAlign = TextAlign.Start,
-        fontStyle: FontStyle = FontStyle.Italic,
-        maxLines: Int = Int.MAX_VALUE,
-        overflow: TextOverflow = TextOverflow.Ellipsis,
-    ) {
-        Row(
-            modifier = modifier.fillMaxHeight(),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            RenderText(
-                modifier = modifier,
-                text = buildAnnotatedString {
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.displaySmall.fontSize)) {
-                        append("“")
-                        append(" ")
-                    }
-                    append(text.toString())
-                    if(author != null) {
-                        append(" ")
-                        append("-")
-                        append(" ")
-                        append(author)
-                    }
-                },
-                color = color,
-                fontWeight = fontWeight,
-                textAlign = textAlign,
-                fontStyle = fontStyle,
-                style = MaterialTheme.typography.titleSmall,
-                maxLines = maxLines,
-                overflow = overflow
-            )
-        }
-    }
-
 }

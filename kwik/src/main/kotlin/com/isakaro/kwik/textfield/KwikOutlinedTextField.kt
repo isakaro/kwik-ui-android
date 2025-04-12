@@ -56,8 +56,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikCircularLoading
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.loading.KwikCircularLoading
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess

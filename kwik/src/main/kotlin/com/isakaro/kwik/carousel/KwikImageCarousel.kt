@@ -1,4 +1,4 @@
-package com.isakaro.kwik
+package com.isakaro.kwik.carousel
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +31,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.image.KwikImageLoader
+import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.R
 import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.launch
 

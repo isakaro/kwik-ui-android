@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.KwikSwitch
-import com.isakaro.kwik.KwikText
-import com.isakaro.kwik.KwikVSpacer
+import com.isakaro.kwik.switch.KwikSwitch
+import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer

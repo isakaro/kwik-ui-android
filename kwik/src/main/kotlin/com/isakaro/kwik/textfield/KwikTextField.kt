@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -57,10 +56,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikCircularLoading
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.loading.KwikCircularLoading
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
-import com.isakaro.kwik.theme.KwikColorFilledTextFieldDisabled
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode

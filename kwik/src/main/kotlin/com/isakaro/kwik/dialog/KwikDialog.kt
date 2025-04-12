@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
@@ -66,7 +64,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
-        shape: Shape = MaterialTheme.shapes.medium,
+        borderRadius: Int = 12,
         onDismiss: () -> Unit,
         content: @Composable () -> Unit
     ) {
@@ -100,9 +98,9 @@ object KwikDialog {
             ) {
                 Surface(
                     modifier = Modifier
-                        .padding(horizontal = 12.dp, vertical = 12.dp)
+                        .padding(horizontal = 12.dp)
                         .then(modifier)
-                        .clip(shape)
+                        .clip(RoundedCornerShape(borderRadius.dp))
                 ) {
                     Box {
                         Column(
@@ -110,7 +108,7 @@ object KwikDialog {
                                 .heightIn(min = 150.dp)
                                 .background(
                                     color = MaterialTheme.colorScheme.surface,
-                                    shape = shape
+                                    shape = RoundedCornerShape(borderRadius.dp)
                                 ),
                         ) {
                             if (title != null) {
@@ -167,7 +165,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
-        shape: Shape = MaterialTheme.shapes.medium,
+        borderRadius: Int = 12,
         dismiss: () -> Unit,
         content: @Composable () -> Unit
     ){
@@ -176,7 +174,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
-                shape = shape,
+                borderRadius = borderRadius,
                 withCloseIcon = withCloseIcon,
                 onDismiss = {
                     dismiss()
@@ -230,7 +228,7 @@ object KwikDialog {
         open: Boolean,
         title: String? = null,
         cancellable: Boolean = true,
-        shape: Shape = MaterialTheme.shapes.medium,
+        borderRadius: Int = 12,
         onConfirm: () -> Unit,
         onCancel: () -> Unit = {},
         dismiss: () -> Unit,
@@ -246,7 +244,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
-                shape = shape,
+                borderRadius = borderRadius,
                 onDismiss = {
                     dismiss()
                 }
@@ -265,8 +263,7 @@ object KwikDialog {
                 ) {
                     if(cancellable){
                         KwikTextButton(
-                            modifier = Modifier
-                                .weight(0.4f),
+                            modifier = Modifier.weight(0.4f),
                             text = "Cancel",
                             onClick = {
                                 onCancel()
@@ -277,10 +274,10 @@ object KwikDialog {
 
                     if(confirmButtonVisible){
                         KwikButton(
-                            modifier = Modifier
-                                .weight(0.6f),
+                            modifier = Modifier.weight(0.6f),
                             text = confirmText ?: "Confirm",
                             containerColor = confirmColor,
+                            height = 40,
                             isLoading = isLoading
                         ) {
                             onConfirm()

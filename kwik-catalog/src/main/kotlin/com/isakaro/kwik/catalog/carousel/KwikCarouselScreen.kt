@@ -2,7 +2,7 @@ package com.isakaro.kwik.catalog.carousel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.KwikImageCarousel
+import com.isakaro.kwik.carousel.KwikImageCarousel
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer

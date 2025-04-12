@@ -6,11 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -22,25 +18,33 @@ import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.text.KwikText
 
 @Composable
-fun KwikIconButton(
+fun KwikIconTextButton(
     modifier: Modifier = Modifier,
+    text: String,
     icon: Any,
-    containerColor: Color = MaterialTheme.colorScheme.primary,
-    tint: Color = MaterialTheme.colorScheme.onPrimary,
-    onClick: () -> Unit
+    color: Color = MaterialTheme.colorScheme.primary,
+    onClick: () -> Unit = {}
 ) {
-    IconButton(
-        modifier = modifier,
+    TextButton(
         onClick = { onClick() },
-        interactionSource = remember { MutableInteractionSource() },
-        colors = IconButtonDefaults.iconButtonColors(
-            containerColor = containerColor
-        )
+        modifier = modifier,
+        contentPadding = PaddingValues(4.dp),
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.primary
+        ),
+        interactionSource = remember { MutableInteractionSource() }
     ) {
         KwikImageView(
-            modifier = modifier.padding(4.dp),
             url = icon,
-            tint = tint
+            modifier = Modifier.size(35.dp)
+        )
+        KwikText.BodyMedium(
+            modifier = Modifier.padding(end = 8.dp),
+            text = text,
+            textAlign = TextAlign.End,
+            color = color
         )
     }
 }
@@ -48,18 +52,21 @@ fun KwikIconButton(
 @Composable
 fun KwikIconButton(
     modifier: Modifier = Modifier,
-    icon: @Composable () -> Unit,
-    containerColor: Color = MaterialTheme.colorScheme.primary,
+    icon: Any,
+    tint: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
 ) {
-    IconButton(
-        modifier = modifier,
+    TextButton(
         onClick = { onClick() },
-        interactionSource = remember { MutableInteractionSource() },
-        colors = IconButtonDefaults.iconButtonColors(
-            containerColor = containerColor
-        )
+        modifier = Modifier,
+        contentPadding = PaddingValues(4.dp),
+        shape = RoundedCornerShape(8.dp),
+        interactionSource = remember { MutableInteractionSource() }
     ) {
-        icon()
+        KwikImageView(
+            url = icon,
+            modifier = modifier,
+            tint = tint
+        )
     }
 }

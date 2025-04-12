@@ -39,16 +39,8 @@ import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.launch
 
 /**
- * Bottoms tabs component that can display multiple tabs.
  *
- * @param modifier Modifier to be applied to the component
- * @param shape Shape to be applied to the component
- * @param tabs List of [KwikTabItem]tabs to be displayed
- * @param pagerState [PagerState] to be used for the tabs
- * @param elevation Elevation of the component
- * @param containerColor Background color of the component
- * @param selectedContentColor Color of the selected tab
- * @param unselectedContentColor Color of the unselected tab
+ *
  * */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

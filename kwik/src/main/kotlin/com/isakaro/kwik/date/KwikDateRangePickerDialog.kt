@@ -12,16 +12,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.button.KwikButton
-import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.utils.toLocalDate
-import com.isakaro.kwik.utils.toMillis
-import java.time.LocalDate
+import com.isakaro.kwik.button.KwikTextButton
+import com.isakaro.kwik.button.KwikButton
+import java.util.Calendar
+import java.util.Date
 
 /**
  * A date range picker dialog that allows the user to select a date range.
@@ -36,7 +37,7 @@ import java.time.LocalDate
  * @param colors: The colors to use for the date picker.
  * @param onDismiss: Callback that is called when the dialog is dismissed.
  *
- * * @see [KwikDateRangeButton] for a date field that shows this dialog when clicked.
+ * * @see [KwikDateField] for a date field that shows this dialog when clicked.
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,18 +47,24 @@ fun KwikDateRangePickerDialog(
     cancelText: String = "Cancel",
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
-    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
+    onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     showModeToggle: Boolean = false,
-    colors: DatePickerColors = kwikDatePickerColors(),
-    shape: Shape = MaterialTheme.shapes.medium,
+    colors: DatePickerColors,
     onDismiss: () -> Unit
 ) {
-    val today = LocalDate.now()
-    val ninetyNineYearsBefore = today.minusYears(99)
-    val ninetyNineYearsLater = today.plusYears(99)
+    val calendar = Calendar.getInstance()
 
-    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.toMillis()
-    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.toMillis()
+    val ninetyNineYearsBefore = calendar.clone() as Calendar
+    ninetyNineYearsBefore.add(Calendar.YEAR, -99)
+
+    val ninetyNineYearsLater = calendar.clone() as Calendar
+    ninetyNineYearsLater.add(Calendar.YEAR, 99)
+
+    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.timeInMillis
+    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.timeInMillis
+
+    var checkInDate by remember { mutableStateOf<Date?>(null) }
+    var checkOutDate by remember { mutableStateOf<Date?>(null) }
 
     val dateRangePickerState = rememberDateRangePickerState(
         selectableDates = object: SelectableDates {
@@ -72,18 +79,21 @@ fun KwikDateRangePickerDialog(
         colors = DatePickerDefaults.colors().copy(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
-        shape = shape,
         confirmButton = {
             KwikButton(
                 text = confirmText,
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     val startMillis = dateRangePickerState.selectedStartDateMillis
                     val endMillis = dateRangePickerState.selectedEndDateMillis
 
                     if (startMillis != null && endMillis != null) {
-                        val startDate = startMillis.toLocalDate()
-                        val endDate = endMillis.toLocalDate()
+                        val startDate = Date(startMillis)
+                        val endDate = Date(endMillis)
+
                         onDateRangeSelected(Pair(startDate, endDate))
+                        checkInDate = startDate
+                        checkOutDate = endDate
                     }
                     onDismiss()
                 }
@@ -115,17 +125,4 @@ fun KwikDateRangePickerDialog(
                 .padding(12.dp)
         )
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun kwikDatePickerColors(): DatePickerColors {
-    return DatePickerDefaults.colors().copy(
-        containerColor = MaterialTheme.colorScheme.surface,
-        selectedDayContainerColor = MaterialTheme.colorScheme.primary,
-        dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.secondary,
-        dayInSelectionRangeContentColor = MaterialTheme.colorScheme.onSurface,
-        selectedYearContainerColor = MaterialTheme.colorScheme.primary,
-        disabledDayContentColor = Color.Gray
-    )
 }

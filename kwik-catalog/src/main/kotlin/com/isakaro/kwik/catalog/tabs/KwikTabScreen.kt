@@ -8,10 +8,9 @@ import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.isakaro.Kwik.catalog.R
-import com.isakaro.kwik.KwikHorizontalTab
-import com.isakaro.kwik.KwikTabItem
-import com.isakaro.kwik.KwikTabsContent
+import com.isakaro.kwik.tabs.KwikHorizontalTab
+import com.isakaro.kwik.tabs.KwikTabItem
+import com.isakaro.kwik.tabs.KwikTabsContent
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer

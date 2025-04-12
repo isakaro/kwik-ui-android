@@ -8,15 +8,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
@@ -30,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,9 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.dialog.KwikDialog
-import com.isakaro.kwik.spacer.KwikHSpacer
-import com.isakaro.kwik.inputfields.KwikSearchView
-import com.isakaro.kwik.inputfields.kwikTextFieldColors
+import com.isakaro.kwik.textfield.KwikSearchView
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.KwikCountry
 import com.isakaro.kwik.utils.KwikCountryInfo
@@ -54,6 +54,7 @@ fun KwikCountryCodePicker(
     includeOnlyCountries: List<KwikCountry> = emptyList(),
     omitCountries: List<KwikCountry> = emptyList(),
     enableSearch: Boolean = true,
+    showFlags: Boolean = true,
     noCountryFoundMessage: String = "No country found",
     onSelect: (KwikCountryInfo) -> Unit
 ){
@@ -70,12 +71,7 @@ fun KwikCountryCodePicker(
     ) {
         if(enableSearch && countries.isNotEmpty()){
             KwikSearchView(
-                modifier = Modifier.height(65.dp),
                 state = searchQuery,
-                colors = kwikTextFieldColors().copy(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                ),
                 onTextChange = { query ->
                     if (query.isBlank()) {
                         searchResults.value = countries
@@ -101,8 +97,9 @@ fun KwikCountryCodePicker(
 
         LazyColumn(state = state, modifier = Modifier.fillMaxSize().weight(1f)) {
             itemsIndexed(searchResults.value) { index, country ->
-                KwikCountryCodeItem(
-                    country = country
+                CountryCodeItem(
+                    country = country,
+                    showFlags = showFlags
                 ){
                     onSelect(country)
                 }
@@ -115,7 +112,7 @@ fun KwikCountryCodePicker(
 @Composable
 fun KwikCountryPickerDialog(
     open: Boolean,
-    title: String,
+    title: String = "Where are you from?",
     countryListState: LazyListState,
     onSelect: (KwikCountryInfo) -> Unit,
     onDismiss: () -> Unit
@@ -135,46 +132,30 @@ fun KwikCountryPickerDialog(
 
 @Composable
 fun KwikCountryCodeButton(
-    modifier: Modifier = Modifier,
-    showFlags: Boolean = false,
-    showCountryCode: Boolean = false,
-    showDialingCode: Boolean = true,
+    modifier: Modifier = Modifier.height(65.dp),
     country: KwikCountryInfo?,
     enabled: Boolean = true,
-    shape: Shape = MaterialTheme.shapes.medium,
     onClick: () -> Unit
 ){
     Button(
         onClick = { onClick() },
-        modifier = modifier.alpha(if (enabled) 1.5f else 0.5f).padding(horizontal = 4.dp),
+        modifier = modifier.alpha(if (enabled) 1.5f else 0.5f),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
-        contentPadding = PaddingValues(8.dp),
-        shape = shape,
+        contentPadding = PaddingValues(12.dp),
+        shape = RoundedCornerShape(8.dp),
         interactionSource = remember { MutableInteractionSource() },
         enabled = enabled
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            if(showFlags && country != null){
-                Image(
-                    modifier = Modifier
-                        .size(30.dp),
-                    painter = painterResource(id = country.flag),
-                    contentDescription = country.name
-                )
-            }
-            if(showCountryCode){
-                KwikText.TitleMedium(
-                    text = country?.code?.name ?: ""
-                )
-            }
-            if(showDialingCode){
-                KwikText.TitleMedium(
-                    text = country?.dialingCode ?: ""
-                )
-            }
+            KwikText.TitleMedium(
+                text = country?.code ?: "",
+                modifier = Modifier
+            )
+            KwikText.TitleMedium(
+                text = country?.dialingCode ?: ""
+            )
             Icon(
                 Icons.Filled.KeyboardArrowDown,
                 tint = MaterialTheme.colorScheme.onSurface,
@@ -186,7 +167,7 @@ fun KwikCountryCodeButton(
 }
 
 @Composable
-fun KwikCountryCodeItem(
+fun CountryCodeItem(
     country: KwikCountryInfo,
     showFlags: Boolean = true,
     onClick: () -> Unit
@@ -210,7 +191,7 @@ fun KwikCountryCodeItem(
                 )
             }
 
-            KwikHSpacer(10)
+            Spacer(modifier = Modifier.width(10.dp))
 
             KwikText.BodyMedium(
                 modifier = Modifier.weight(1f),
@@ -219,7 +200,7 @@ fun KwikCountryCodeItem(
                 text = country.name
             )
 
-            KwikHSpacer(10)
+            Spacer(modifier = Modifier.width(10.dp))
 
             KwikText.BodyMedium(
                 maxLines = 1,
@@ -238,9 +219,7 @@ private fun KwikCountryCodePickerPreview(){
     KwikTheme {
         KwikCountryCodePicker(
             state = rememberLazyListState(),
-            onSelect = {
-
-            },
+            onSelect = {},
         )
     }
 }
@@ -251,20 +230,6 @@ private fun KwikCountryCodeButtonPreview(){
     KwikTheme {
         KwikCountryCodeButton(
             country = countryList.random(),
-            onClick = {}
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun KwikCountryCodeButtonWithFlagsPreview(){
-    KwikTheme {
-        KwikCountryCodeButton(
-            country = countryList.random(),
-            showFlags = true,
-            showDialingCode = true,
-            showCountryCode = true,
             onClick = {}
         )
     }

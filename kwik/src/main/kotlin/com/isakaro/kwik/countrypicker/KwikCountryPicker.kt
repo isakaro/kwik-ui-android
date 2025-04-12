@@ -22,14 +22,12 @@ import com.isakaro.kwik.utils.getCountryInfo
  *
  * @param initialCountry the country to be displayed initially. If not provided, the library will try to use the device's country code.
  * If it's also not available, it will default to Rwanda (RW).
- * @param showFlags a flag indicating whether to show country flags or not. Defaults to false.
  * @param countryPicked a callback function that will be triggered when a country is selected. Returns the selected country information [KwikCountryInfo].
  *
  * Usage:
  * ```
  * KwikCountryPicker(
  *     initialCountry = KwikCountry.RW,
- *     title = "Select your country",
  *     countryPicked = { countryInfo ->
  *      // Handle the selected country information
  *     }
@@ -38,8 +36,6 @@ import com.isakaro.kwik.utils.getCountryInfo
 @Composable
 fun KwikCountryPicker(
     initialCountry: KwikCountry? = null,
-    showFlags: Boolean = false,
-    title: String = "Select your country",
     countryPicked: (KwikCountryInfo) -> Unit
 ) {
 
@@ -49,7 +45,6 @@ fun KwikCountryPicker(
     val countryListState = rememberLazyListState()
 
     KwikCountryPickerDialog(
-        title = title,
         open = showCountryPicker,
         countryListState = countryListState,
         onDismiss = {
@@ -64,7 +59,6 @@ fun KwikCountryPicker(
 
     KwikCountryCodeButton(
         modifier = Modifier.height(55.dp),
-        showFlags = showFlags,
         country = selectedCountryInfo
     ){
         showCountryPicker = true

@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
@@ -49,9 +48,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikCountryCodeButton
-import com.isakaro.kwik.KwikCountryPickerDialog
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.countrypicker.KwikCountryCodeButton
+import com.isakaro.kwik.countrypicker.KwikCountryPickerDialog
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode

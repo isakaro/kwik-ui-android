@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.KwikFilterChipOption
-import com.isakaro.kwik.KwikFilterChips
+import com.isakaro.kwik.filterchip.KwikFilterChipOption
+import com.isakaro.kwik.filterchip.KwikFilterChips
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase

@@ -14,10 +14,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.KwikCard
-import com.isakaro.kwik.KwikImageCard
-import com.isakaro.kwik.KwikImageCardHorizontal
-import com.isakaro.kwik.KwikText
+import com.isakaro.kwik.card.KwikCard
+import com.isakaro.kwik.card.KwikImageCard
+import com.isakaro.kwik.card.KwikImageCardHorizontal
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
