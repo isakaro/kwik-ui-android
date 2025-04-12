@@ -24,11 +24,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.utils.toMMdd
 import java.util.Date
 
@@ -40,6 +41,7 @@ import java.util.Date
  * @param minSelectableDate: The minimum selectable date in milliseconds since epoch. If null, 99 years before today is used.
  * @param maxSelectableDate: The maximum selectable date in milliseconds since epoch. If null, 99 years from today is used.
  * @param showModeToggle: Whether to show the mode toggle button.
+ * @param dialogShape: The shape of the date picker dialog.
  * @param colors: The colors to use for the date picker.
  * @param onClick: Callback that is called when the date field is clicked.
  * */
@@ -52,6 +54,7 @@ fun KwikDateField(
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
     showModeToggle: Boolean = false,
+    dialogShape: Shape = MaterialTheme.shapes.medium,
     colors: DatePickerColors = DatePickerDefaults.colors().copy(
         containerColor = MaterialTheme.colorScheme.surface,
         selectedDayContainerColor = MaterialTheme.colorScheme.primary,
@@ -123,6 +126,7 @@ fun KwikDateField(
                 minSelectableDate = minSelectableDate,
                 maxSelectableDate = maxSelectableDate,
                 showModeToggle = showModeToggle,
+                shape = dialogShape,
                 onDateRangeSelected = { selectedDates ->
                     onDateRangeSelected(selectedDates)
                     dateDisplay  = "${selectedDates.first.toMMdd()} - ${selectedDates.second.toMMdd()}"

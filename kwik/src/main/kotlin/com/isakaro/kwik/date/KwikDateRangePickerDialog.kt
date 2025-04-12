@@ -17,10 +17,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.button.KwikButton
+import com.isakaro.kwik.button.KwikTextButton
+import com.isakaro.kwik.text.KwikText
 import java.util.Calendar
 import java.util.Date
 
@@ -50,6 +51,7 @@ fun KwikDateRangePickerDialog(
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     showModeToggle: Boolean = false,
     colors: DatePickerColors,
+    shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {
     val calendar = Calendar.getInstance()
@@ -79,10 +81,10 @@ fun KwikDateRangePickerDialog(
         colors = DatePickerDefaults.colors().copy(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
+        shape = shape,
         confirmButton = {
             KwikButton(
                 text = confirmText,
-                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     val startMillis = dateRangePickerState.selectedStartDateMillis
                     val endMillis = dateRangePickerState.selectedEndDateMillis

@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -36,9 +35,9 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.loading.KwikCircularLoading
 import com.isakaro.kwik.spacer.KwikHSpacer
-import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.text.KwikText
 
 enum class KwikButtonLoadingStyle {
@@ -91,14 +90,15 @@ fun KwikButton(
     outlined: Boolean = false,
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
-    height: Int = 50,
+    height: Int = 40,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Boolean = true,
     enabled: Boolean = true,
     fontStyle: TextStyle = MaterialTheme.typography.titleSmall,
     kwikButtonLoadingStyle: KwikButtonLoadingStyle = KwikButtonLoadingStyle.CIRCULAR,
-    shape: Shape = RoundedCornerShape(8.dp),
+    shape: Shape = MaterialTheme.shapes.medium,
     border: BorderStroke? = null,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     onClick: () -> Unit = {}
 ) {
     Button(
@@ -117,7 +117,7 @@ fun KwikButton(
         colors = if(outlined) ButtonDefaults.outlinedButtonColors(contentColor = Color.White) else ButtonDefaults.buttonColors(
             containerColor = containerColor,
         ),
-        contentPadding = PaddingValues(4.dp),
+        contentPadding = contentPadding,
         shape = shape,
         enabled = enabled && !isLoading,
         interactionSource = remember { MutableInteractionSource() }

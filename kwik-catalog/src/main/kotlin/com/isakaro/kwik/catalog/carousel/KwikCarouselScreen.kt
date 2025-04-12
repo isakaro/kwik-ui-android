@@ -16,8 +16,8 @@ import com.isakaro.kwik.carousel.KwikImageCarousel
 import com.isakaro.kwik.carousel.next
 import com.isakaro.kwik.carousel.previous
 import com.isakaro.kwik.carousel.rememberKwikCarouselState
+import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
-import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
@@ -28,7 +28,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 internal fun KwikCarouselScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-    ShowCaseContainer(
+    ScrollableShowCaseContainer(
         title = "Carousel",
         onBackClick = {
             navigator.navigateUp()
@@ -44,7 +44,7 @@ internal fun KwikCarouselScreen(
         ShowCase(title = "Image carousel") {
             val carouselState = rememberKwikCarouselState(
                 KwikCarouselState(
-                    itemCount = 3,
+                    itemCount = images.size,
                     loop = true
                 )
             )
@@ -59,7 +59,7 @@ internal fun KwikCarouselScreen(
         ShowCase(title = "Image carousel with autoplay and looping capabilities") {
             val carouselState = rememberKwikCarouselState(
                 KwikCarouselState(
-                    itemCount = 3,
+                    itemCount = images.size,
                     loop = true
                 )
             )

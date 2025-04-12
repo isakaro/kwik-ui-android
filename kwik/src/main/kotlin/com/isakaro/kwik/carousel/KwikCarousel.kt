@@ -168,7 +168,7 @@ fun KwikCarousel(
         handlePageChange()
     }
 
-    LaunchedEffect(state.value.currentIndex) {
+    LaunchedEffect(state.value) {
         handlePageChange()
     }
 
