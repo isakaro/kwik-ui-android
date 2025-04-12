@@ -3,7 +3,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -76,7 +75,7 @@ fun KwikVerticalTimeline(
     accentColor: Color = MaterialTheme.colorScheme.primary,
     highlightCurrentEntry: Boolean = false,
     currentEntryIndex: Int = -1,
-    onClick: (Int) -> Unit = {}
+    onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
 
     var selectedIndex by remember { mutableIntStateOf(currentEntryIndex) }
@@ -111,6 +110,17 @@ fun KwikVerticalTimeline(
     }
 }
 
+/**
+* Item for the timeline entry
+ *
+ * @param clickable Whether the entry is clickable
+ * @param entry The timeline entry data
+ * @param index The index of the entry in the list
+ * @param isCurrentEntry Whether this entry is the current/selected entry
+ * @param isLastEntry Whether this entry is the last entry in the list
+ * @param accentColor The color of the timeline indicators and lines
+ * @param onClick Callback when the entry is clicked
+* */
 @Composable
 private fun KwikTimelineEntryItem(
     clickable : Boolean = false,
@@ -119,7 +129,7 @@ private fun KwikTimelineEntryItem(
     isCurrentEntry: Boolean,
     isLastEntry: Boolean,
     accentColor: Color,
-    onClick: (Int) -> Unit = {}
+    onClick: (KwikTimelineEntry) -> Unit = {}
 ) {
     val indicatorColor by animateColorAsState(
         targetValue = if (isCurrentEntry) accentColor else Color.Gray,
@@ -140,7 +150,7 @@ private fun KwikTimelineEntryItem(
             .fillMaxWidth()
             .clickable {
                 if (clickable) {
-                    onClick(index)
+                    onClick(entry)
                 }
             }
     ) {
@@ -188,11 +198,7 @@ private fun KwikTimelineEntryItem(
                 }
                 .weight(1f)
                 .then(
-                    if (entry.onClick != null) {
-                        Modifier.clickable { entry.onClick.invoke(entry) }
-                    } else {
-                        Modifier
-                    }
+                    Modifier.clickable { entry.onClick.invoke(entry) }
                 )
         ) {
             entry.title?.let {
