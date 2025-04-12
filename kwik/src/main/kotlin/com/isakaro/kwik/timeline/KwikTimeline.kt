@@ -29,10 +29,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.boundsInParent
+import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -76,6 +80,15 @@ fun KwikVerticalTimeline(
     currentEntryIndex: Int = -1,
     onClick: (Int) -> Unit = {}
 ) {
+
+    var selectedIndex by remember { mutableIntStateOf(currentEntryIndex) }
+
+    LaunchedEffect(currentEntryIndex) {
+        if (currentEntryIndex != -1) {
+            selectedIndex = currentEntryIndex
+        }
+    }
+
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start,
@@ -85,7 +98,7 @@ fun KwikVerticalTimeline(
             items = entries,
             key = { _, item -> item.hashCode() }
         ) { index, entry ->
-            val isCurrentEntry = index == currentEntryIndex && highlightCurrentEntry
+            val isCurrentEntry = index == selectedIndex && highlightCurrentEntry
             val isLastEntry = index == entries.lastIndex
 
             KwikTimelineEntryItem(
@@ -180,7 +193,7 @@ private fun KwikTimelineEntryItem(
                     }
                 )
                 .onGloballyPositioned { coordinates ->
-                    lineHeight.intValue = coordinates.size.height / totalEntries - 1
+                    lineHeight.intValue = coordinates.boundsInWindow().height.toInt()
                 }
         ) {
             entry.title?.let {
