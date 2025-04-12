@@ -34,7 +34,7 @@ import com.isakaro.kwik.utils.toMMdd
 import java.util.Date
 
 /**
- * A date field with a label and a date. When clicked, a date picker dialog will be shown.
+ * A date button with a label and a date. When clicked, a date range picker dialog will be shown.
  *
  * @param label: The label for the date field.
  * @param onDateRangeSelected: Callback that is called when a date range is selected. The Pair contains the start and end dates.

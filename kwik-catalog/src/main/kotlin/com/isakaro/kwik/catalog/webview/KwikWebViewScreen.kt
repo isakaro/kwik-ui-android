@@ -20,11 +20,9 @@ internal fun KwikWebViewScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Web view") {
-            KwikWebView(
-                url = "https://www.wikipedia.org"
-            )
-        }
+        KwikWebView(
+            url = "https://www.wikipedia.org"
+        )
     }
 }
 

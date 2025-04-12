@@ -188,20 +188,16 @@ internal fun KwikTimelineScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Timeline") {
-            KwikTheme {
-                KwikVerticalTimeline(
-                    entries = timelineEntries,
-                    highlightCurrentEntry = true,
-                    clickable = true,
-                    currentEntryIndex = 0,
-                    modifier = Modifier.padding(16.dp),
-                    onClick = {
-                        selectedMovieIndex = it
-                    }
-                )
+        KwikVerticalTimeline(
+            entries = timelineEntries,
+            highlightCurrentEntry = true,
+            clickable = true,
+            currentEntryIndex = 0,
+            modifier = Modifier.padding(16.dp),
+            onClick = {
+                selectedMovieIndex = it
             }
-        }
+        )
     }
 }
 

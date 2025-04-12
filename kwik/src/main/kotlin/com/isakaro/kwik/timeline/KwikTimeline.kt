@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -65,11 +67,14 @@ fun KwikVerticalTimeline(
     currentEntryIndex: Int = -1,
     onClick: (Int) -> Unit = {}
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
-        entries.forEachIndexed { index, entry ->
+        itemsIndexed(
+            items = entries,
+            key = { _, item -> item.hashCode() }
+        ) { index, entry ->
             val isCurrentEntry = index == currentEntryIndex && highlightCurrentEntry
             val isLastEntry = index == entries.lastIndex
 
