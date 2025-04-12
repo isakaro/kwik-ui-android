@@ -1,25 +1,40 @@
 package com.isakaro.kwik.text
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
 
 /**
- * Text component that uses the Material3 typography system.
+ * `Text` component that uses the Material3 typography system.
  * */
 object KwikText {
 
     /**
-     * Base text component that uses the Material3 typography system.
+     * Base `Text` component that uses the Material3 typography system.
      *
      * @param modifier Modifier to be applied to the text
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -193,7 +208,7 @@ object KwikText {
     }
 
     /**
-     * Display Headline large text
+     * Headline large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -228,7 +243,7 @@ object KwikText {
     }
 
     /**
-     * Display Headline medium
+     * Headline medium
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -263,7 +278,7 @@ object KwikText {
     }
 
     /**
-     * Display Headline small text
+     * Headline small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -298,7 +313,7 @@ object KwikText {
     }
 
     /**
-     * Display Title large text
+     * Title large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -333,7 +348,7 @@ object KwikText {
     }
 
     /**
-     * Display Title medium text
+     * Title medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -368,7 +383,7 @@ object KwikText {
     }
 
     /**
-     * Display title small text
+     * Title small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -403,7 +418,7 @@ object KwikText {
     }
 
     /**
-     * Display body large text
+     * Body large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -438,7 +453,7 @@ object KwikText {
     }
 
     /**
-     * Display body medium text
+     * Body medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -473,7 +488,7 @@ object KwikText {
     }
 
     /**
-     * Display body small text
+     * Body small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -508,7 +523,7 @@ object KwikText {
     }
 
     /**
-     * Display label large text
+     * Label large text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -543,7 +558,7 @@ object KwikText {
     }
 
     /**
-     * Display label medium text
+     * Label medium text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -578,7 +593,7 @@ object KwikText {
     }
 
     /**
-     * Display label small text
+     * Label small text
      *
      * @param modifier
      * @param text Text to display. Can be String, Int or AnnotatedString
@@ -611,4 +626,59 @@ object KwikText {
             overflow = overflow
         )
     }
+
+    /**
+     * A quote text component for displaying quotes.
+     *
+     * @param modifier Modifier to be applied to the text
+     * @param text Text to display. Can be String, Int or AnnotatedString
+     * @param color Text color
+     * @param fontWeight Font weight
+     * @param textAlign Text alignment
+     * @param fontStyle Font style
+     * @param maxLines Maximum number of lines to display
+     * @param overflow Text overflow behavior
+     * */
+    @Composable
+    fun Quote(
+        modifier: Modifier = Modifier,
+        text: Any,
+        author: String? = null,
+        color: Color = MaterialTheme.colorScheme.onSurface,
+        fontWeight: FontWeight? = null,
+        textAlign: TextAlign = TextAlign.Start,
+        fontStyle: FontStyle = FontStyle.Italic,
+        maxLines: Int = Int.MAX_VALUE,
+        overflow: TextOverflow = TextOverflow.Ellipsis,
+    ) {
+        Row(
+            modifier = modifier.fillMaxHeight(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            RenderText(
+                modifier = modifier,
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.displaySmall.fontSize)) {
+                        append("“")
+                        append(" ")
+                    }
+                    append(text.toString())
+                    if(author != null) {
+                        append(" ")
+                        append("-")
+                        append(" ")
+                        append(author)
+                    }
+                },
+                color = color,
+                fontWeight = fontWeight,
+                textAlign = textAlign,
+                fontStyle = fontStyle,
+                style = MaterialTheme.typography.titleSmall,
+                maxLines = maxLines,
+                overflow = overflow
+            )
+        }
+    }
+
 }

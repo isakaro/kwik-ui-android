@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
@@ -64,7 +65,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
-        borderRadius: Int = 12,
+        shape: Shape = MaterialTheme.shapes.medium,
         onDismiss: () -> Unit,
         content: @Composable () -> Unit
     ) {
@@ -100,7 +101,7 @@ object KwikDialog {
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
                         .then(modifier)
-                        .clip(RoundedCornerShape(borderRadius.dp))
+                        .clip(shape)
                 ) {
                     Box {
                         Column(
@@ -108,7 +109,7 @@ object KwikDialog {
                                 .heightIn(min = 150.dp)
                                 .background(
                                     color = MaterialTheme.colorScheme.surface,
-                                    shape = RoundedCornerShape(borderRadius.dp)
+                                    shape = shape
                                 ),
                         ) {
                             if (title != null) {
@@ -165,7 +166,7 @@ object KwikDialog {
         title: String? = null,
         cancellable: Boolean = true,
         withCloseIcon: Boolean = false,
-        borderRadius: Int = 12,
+        shape: Shape = MaterialTheme.shapes.medium,
         dismiss: () -> Unit,
         content: @Composable () -> Unit
     ){
@@ -174,7 +175,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
-                borderRadius = borderRadius,
+                shape = shape,
                 withCloseIcon = withCloseIcon,
                 onDismiss = {
                     dismiss()
@@ -228,7 +229,7 @@ object KwikDialog {
         open: Boolean,
         title: String? = null,
         cancellable: Boolean = true,
-        borderRadius: Int = 12,
+        shape: Shape = MaterialTheme.shapes.medium,
         onConfirm: () -> Unit,
         onCancel: () -> Unit = {},
         dismiss: () -> Unit,
@@ -244,7 +245,7 @@ object KwikDialog {
                 modifier = modifier,
                 title = title,
                 cancellable = cancellable,
-                borderRadius = borderRadius,
+                shape = shape,
                 onDismiss = {
                     dismiss()
                 }

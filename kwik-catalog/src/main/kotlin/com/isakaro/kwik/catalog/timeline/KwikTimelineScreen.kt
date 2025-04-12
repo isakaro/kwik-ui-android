@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.card.KwikCard
@@ -60,8 +61,9 @@ internal fun KwikTimelineScreen(
                         )
 
                         Column(modifier = Modifier.padding(12.dp)) {
-                            KwikText.TitleSmall(
+                            KwikText.Quote(
                                 text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!",
+                                fontStyle = FontStyle.Italic
                             )
                             KwikVSpacer(height = 8)
                             KwikText.TitleSmall(
@@ -90,8 +92,9 @@ internal fun KwikTimelineScreen(
                         )
 
                         Column(modifier = Modifier.padding(12.dp)) {
-                            KwikText.TitleSmall(
-                                text = "I've got a jar of dirt! I've got a jar of dirt!"
+                            KwikText.Quote(
+                                text = "I've got a jar of dirt! I've got a jar of dirt!",
+                                fontStyle = FontStyle.Italic
                             )
                             KwikVSpacer(height = 8)
                             KwikText.TitleSmall(
@@ -120,8 +123,9 @@ internal fun KwikTimelineScreen(
                         )
 
                         Column(modifier = Modifier.padding(12.dp)) {
-                            KwikText.TitleSmall(
-                                text = "The Brethren Court is called. And you and I must answer."
+                            KwikText.Quote(
+                                text = "The Brethren Court is called. And you and I must answer.",
+                                fontStyle = FontStyle.Italic
                             )
                             KwikVSpacer(height = 8)
                             KwikText.TitleSmall(
@@ -150,8 +154,9 @@ internal fun KwikTimelineScreen(
                         )
 
                         Column(modifier = Modifier.padding(12.dp)) {
-                            KwikText.TitleSmall(
-                                text = "Did everyone see that? Because I will not be doing it again."
+                            KwikText.Quote(
+                                text = "Did everyone see that? Because I will not be doing it again.",
+                                fontStyle = FontStyle.Italic
                             )
                             KwikVSpacer(height = 8)
                             KwikText.TitleSmall(
@@ -180,8 +185,9 @@ internal fun KwikTimelineScreen(
                         )
 
                         Column(modifier = Modifier.padding(12.dp)) {
-                            KwikText.TitleSmall(
-                                text = "A pirate's life, Henry... it's the only life."
+                            KwikText.Quote(
+                                text = "A pirate's life, Henry... it's the only life.",
+                                fontStyle = FontStyle.Italic
                             )
                             KwikVSpacer(height = 8)
                             KwikText.TitleSmall(

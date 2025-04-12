@@ -57,6 +57,11 @@ fun KwikTypographyScreen(
             KwikText.LabelMedium(text = "LabelMedium")
 
             KwikText.LabelSmall(text = "LabelSmall")
+
+            KwikText.Quote(
+                text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!",
+                author = "Jack Sparrow"
+            )
         }
     }
 
