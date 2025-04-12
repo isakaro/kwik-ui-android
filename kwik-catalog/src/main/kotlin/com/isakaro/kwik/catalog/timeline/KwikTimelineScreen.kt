@@ -36,9 +36,12 @@ internal fun KwikTimelineScreen(
 
     val timelineEntries = listOf(
         KwikTimelineEntry(
+            id = 0,
             title = "The Curse of the Black Pearl (2003)",
             description = "Captain Jack Sparrow teams up with Will Turner to save Elizabeth Swann from cursed pirates.",
-            onClick = { selectedMovieIndex = 0 },
+            onClick = {
+
+            },
             content = {
                 KwikCard(
                     modifier = Modifier
@@ -65,6 +68,7 @@ internal fun KwikTimelineScreen(
             }
         ),
         KwikTimelineEntry(
+            id = 1,
             title = "Dead Man's Chest (2006)",
             description = "Jack Sparrow races to recover the heart of Davy Jones to avoid enslaving his soul to Jones' service.",
             onClick = { selectedMovieIndex = 1 },
@@ -94,6 +98,7 @@ internal fun KwikTimelineScreen(
             }
         ),
         KwikTimelineEntry(
+            id = 2,
             title = "At World's End (2007)",
             description = "Jack, Barbossa, Will, Elizabeth, and the crew must sail to the edge of the world to rescue Jack from Davy Jones' Locker.",
             onClick = { selectedMovieIndex = 2 },
@@ -123,6 +128,7 @@ internal fun KwikTimelineScreen(
             }
         ),
         KwikTimelineEntry(
+            id = 3,
             title = "On Stranger Tides (2011)",
             description = "Jack Sparrow crosses paths with Blackbeard and his daughter while searching for the Fountain of Youth.",
             onClick = { selectedMovieIndex = 3 },
@@ -152,6 +158,7 @@ internal fun KwikTimelineScreen(
             }
         ),
         KwikTimelineEntry(
+            id = 4,
             title = "Dead Men Tell No Tales (2017)",
             description = "Captain Jack Sparrow searches for the Trident of Poseidon while being pursued by an old rival, Captain Salazar.",
             onClick = { selectedMovieIndex = 4 },
@@ -192,7 +199,7 @@ internal fun KwikTimelineScreen(
             entries = timelineEntries,
             highlightCurrentEntry = true,
             clickable = true,
-            currentEntryIndex = 0,
+            currentEntryIndex = selectedMovieIndex,
             modifier = Modifier.padding(6.dp),
             onClick = {
                 selectedMovieIndex = it

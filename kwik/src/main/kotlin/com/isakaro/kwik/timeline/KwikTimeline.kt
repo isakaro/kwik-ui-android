@@ -1,16 +1,13 @@
 package com.isakaro.kwik.timeline
-import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,30 +31,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.boundsInParent
-import androidx.compose.ui.layout.boundsInRoot
-import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.card.KwikCard
+import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 
 /**
  * Data class representing a single entry in the timeline
  *
+ * @param id Unique identifier for the timeline entry. Can be any type. Use it to identify the entry.
  * @param title Optional title text for the timeline entry
  * @param description Optional description text for the timeline entry
  * @param onClick Optional callback when the timeline entry is clicked
  * @param content Optional composable content to be displayed within the timeline entry
  */
 data class KwikTimelineEntry(
+    val id: Any = Any(),
     val title: String? = null,
     val description: String? = null,
-    val onClick: (() -> Unit)? = null,
+    val onClick: (KwikTimelineEntry) -> Unit = {},
     val content: (@Composable () -> Unit)? = null
 )
 
@@ -91,8 +89,7 @@ fun KwikVerticalTimeline(
 
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalAlignment = Alignment.Start
     ) {
         itemsIndexed(
             items = entries,
@@ -102,7 +99,6 @@ fun KwikVerticalTimeline(
             val isLastEntry = index == entries.lastIndex
 
             KwikTimelineEntryItem(
-                totalEntries = entries.size,
                 clickable = clickable,
                 entry = entry,
                 index = index,
@@ -117,7 +113,6 @@ fun KwikVerticalTimeline(
 
 @Composable
 private fun KwikTimelineEntryItem(
-    totalEntries: Int = 1,
     clickable : Boolean = false,
     entry: KwikTimelineEntry,
     index: Int,
@@ -126,8 +121,6 @@ private fun KwikTimelineEntryItem(
     accentColor: Color,
     onClick: (Int) -> Unit = {}
 ) {
-    val lineHeight = remember { mutableIntStateOf(0) }
-
     val indicatorColor by animateColorAsState(
         targetValue = if (isCurrentEntry) accentColor else Color.Gray,
         animationSpec = tween(300),
@@ -140,6 +133,8 @@ private fun KwikTimelineEntryItem(
         label = "line color"
     )
 
+    var contentHeight by remember { mutableIntStateOf(0) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -150,14 +145,16 @@ private fun KwikTimelineEntryItem(
             }
     ) {
         Box(
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopCenter
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val circleSize = 24.dp
+
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(circleSize)
                         .clip(CircleShape)
                         .background(indicatorColor),
                     contentAlignment = Alignment.Center
@@ -170,13 +167,13 @@ private fun KwikTimelineEntryItem(
                     )
                 }
 
-                Log.e("lineHeight.intValue.dp", lineHeight.intValue.dp.toString())
-
                 if (!isLastEntry) {
                     Spacer(
                         modifier = Modifier
                             .width(2.dp)
-                            .height((lineHeight.intValue * 0.9).dp)
+                            .height(with(LocalDensity.current) {
+                                (contentHeight.toDp() - circleSize).coerceAtLeast(0.dp)
+                            })
                             .background(lineColor)
                     )
                 }
@@ -186,17 +183,17 @@ private fun KwikTimelineEntryItem(
         Column(
             modifier = Modifier
                 .padding(start = 8.dp)
+                .onGloballyPositioned {
+                    contentHeight = it.size.height
+                }
                 .weight(1f)
                 .then(
                     if (entry.onClick != null) {
-                        Modifier.clickable { entry.onClick.invoke() }
+                        Modifier.clickable { entry.onClick.invoke(entry) }
                     } else {
                         Modifier
                     }
                 )
-                .onGloballyPositioned { coordinates ->
-                    lineHeight.intValue = coordinates.size.height
-                }
         ) {
             entry.title?.let {
                 KwikText.TitleMedium(
@@ -218,8 +215,13 @@ private fun KwikTimelineEntryItem(
             entry.content?.let {
                 it()
             }
+
+            if(!isLastEntry) {
+                KwikVSpacer(height = 8)
+            }
         }
     }
+
 }
 
 @Preview
@@ -229,7 +231,9 @@ private fun KwikTimelineExample() {
         KwikTimelineEntry(
             title = "Project Started",
             description = "Initial research and planning phase",
-            onClick = {  }
+            onClick = {
+
+            }
         ),
         KwikTimelineEntry(
             title = "Design Phase",
