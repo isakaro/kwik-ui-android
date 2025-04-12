@@ -50,6 +50,7 @@ import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
 import com.isakaro.kwik.destinations.KwikColorsScreenDestination
 import com.isakaro.kwik.destinations.KwikComponentsCatalogScreenDestination
 import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
+import com.isakaro.kwik.destinations.KwikDateScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
 import com.isakaro.kwik.destinations.KwikFilterChipScreenDestination
@@ -200,6 +201,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikTimelineScreenDestination){
                             KwikTimelineScreen()
+                        }
+                        composable(KwikDateScreenDestination){
+                            KwikSearchViewScreen()
                         }
                     }
                 }

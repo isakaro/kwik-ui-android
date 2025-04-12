@@ -74,7 +74,7 @@ internal fun KwikToastScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewToastScreen() {
     KwikTheme {
         KwikToastScreen()
     }

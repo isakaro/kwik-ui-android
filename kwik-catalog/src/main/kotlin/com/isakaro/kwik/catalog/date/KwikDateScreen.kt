@@ -1,29 +1,18 @@
 package com.isakaro.kwik.catalog.date
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
-import com.isakaro.kwik.date.KwikDateFieldButton
-import com.isakaro.kwik.date.KwikDatePickerMode
+import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.date.KwikDateRangeButton
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import java.time.LocalDate
-import java.time.ZoneId
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,46 +21,12 @@ import java.time.ZoneId
 internal fun KwikDateScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-
-    ScrollableShowCaseContainer(
+    ShowCaseContainer(
         title = "Date range picker",
         onBackClick = {
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Date Picker with manual input support") {
-            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-
-            KwikDateFieldButton(
-                label = "Date of birth",
-                placeholder = "Enter your date of birth",
-                selected = {
-                    selectedDate = it
-                }
-            )
-
-            KwikVSpacer(8)
-
-            KwikText.BodyMedium(text = "Selected date: ${selectedDate?.toString() ?: "No date selected"}")
-        }
-
-        ShowCase(title = "") {
-            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-
-            KwikDateFieldButton(
-                label = "Date of birth",
-                placeholder = "Enter your date of birth",
-                mode = KwikDatePickerMode.Input,
-                selected = {
-                    selectedDate = it
-                }
-            )
-
-            KwikVSpacer(8)
-
-            KwikText.BodyMedium(text = "Selected date: ${selectedDate?.toString() ?: "No date selected"}")
-        }
-
         ShowCase(title = "Date Range Picker") {
             KwikDateRangeButton(
                 label = "Start and end date",
@@ -88,15 +43,17 @@ internal fun KwikDateScreen(
         }
 
         ShowCase(title = "Booking date ranger picker") {
-            val today = LocalDate.now()
-            val zoneId = ZoneId.systemDefault()
-            val sixMonthsAhead = today.plusMonths(6)
+            val calendar = Calendar.getInstance()
+            val today = calendar.clone() as Calendar
+
+            val sixMonthsAhead = calendar.clone() as Calendar
+            sixMonthsAhead.add(Calendar.MONTH, 6)
 
             KwikDateRangeButton(
                 label = "Check-in and check-out",
                 showModeToggle = true,
-                minSelectableDate = today.atStartOfDay(zoneId).toInstant().toEpochMilli(),
-                maxSelectableDate = sixMonthsAhead.atStartOfDay(zoneId).toInstant().toEpochMilli(),
+                minSelectableDate = today.timeInMillis,
+                maxSelectableDate = sixMonthsAhead.timeInMillis,
                 onDateRangeSelected = {}
             )
         }

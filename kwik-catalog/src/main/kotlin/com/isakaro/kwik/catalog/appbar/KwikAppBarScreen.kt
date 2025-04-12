@@ -49,7 +49,7 @@ internal fun KwikAppBarScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStartScreen() {
+private fun PreviewKwikDialogScreen() {
     KwikTheme {
         KwikAppBarScreen()
     }
