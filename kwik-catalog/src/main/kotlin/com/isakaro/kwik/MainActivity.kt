@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
-import com.isakaro.kwik.catalog.rating.KwikRatingBarScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.avatar.KwikAvatarScreen
@@ -25,6 +24,7 @@ import com.isakaro.kwik.catalog.filterchip.KwikFilterChipScreen
 import com.isakaro.kwik.catalog.permission.KwikPermissionsScreen
 import com.isakaro.kwik.catalog.progress.KwikProgressIndicatorScreen
 import com.isakaro.kwik.catalog.radio.KwikRadioButtonScreen
+import com.isakaro.kwik.catalog.rating.KwikRatingBarScreen
 import com.isakaro.kwik.catalog.searchview.KwikSearchViewScreen
 import com.isakaro.kwik.catalog.shape.KwikShapeScreen
 import com.isakaro.kwik.catalog.slider.KwikSliderScreen
@@ -35,6 +35,7 @@ import com.isakaro.kwik.catalog.textfield.KwikOutlinedTextFieldScreen
 import com.isakaro.kwik.catalog.textfield.KwikTextFieldScreen
 import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.catalog.typography.KwikTypographyScreen
+import com.isakaro.kwik.catalog.webview.KwikWebViewScreen
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
@@ -65,6 +66,7 @@ import com.isakaro.kwik.destinations.KwikTabScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
+import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
@@ -190,6 +192,9 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikShapeScreenDestination){
                             KwikShapeScreen()
+                        }
+                        composable(KwikWebViewScreenDestination){
+                            KwikWebViewScreen()
                         }
                     }
                 }

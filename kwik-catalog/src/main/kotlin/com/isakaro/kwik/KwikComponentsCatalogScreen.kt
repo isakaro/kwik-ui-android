@@ -52,6 +52,7 @@ import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
+import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
 import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.list.KwikLazyList
 import com.isakaro.kwik.list.KwikListItemAction
@@ -354,6 +355,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Showcases all typography styles in the theme",
                 action = {
                     navigator.navigate(KwikTypographyScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Web view",
+                description = "Web view component for displaying web pages. Supports Javascript native bridge, file upload, multi-windows and more...",
+                action = {
+                    navigator.navigate(KwikWebViewScreenDestination)
                 }
             )
         )
