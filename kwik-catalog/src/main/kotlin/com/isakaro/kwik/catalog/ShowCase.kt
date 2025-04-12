@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.appbar.KwikAppBar
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.spacer.KwikVSpacer
+import com.isakaro.kwik.text.KwikText
 
 @Composable
-fun ShowCase(
+internal fun ShowCase(
     title: String? = null,
     content: @Composable () -> Unit
 ) {
@@ -50,7 +50,7 @@ fun ShowCase(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowCaseContainer(
+internal fun ShowCaseContainer(
     title: String,
     onBackClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit
@@ -81,7 +81,7 @@ fun ShowCaseContainer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScrollableShowCaseContainer(
+internal fun ScrollableShowCaseContainer(
     title: String,
     onBackClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit

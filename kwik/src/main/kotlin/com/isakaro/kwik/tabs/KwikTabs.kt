@@ -32,8 +32,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.spacer.KwikHSpacer
 import com.isakaro.kwik.image.KwikImageView
+import com.isakaro.kwik.spacer.KwikHSpacer
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.launch
@@ -60,7 +60,6 @@ data class KwikTabItem(
  * @param horizontalPadding The horizontal padding of the indicator
  * @param verticalPadding The vertical padding of the indicator
  * @param borderRadius The border radius of the indicator
- * @param color The color of the indicator
 * */
 data class KwikIndicatorProps(
     val height: Float = 4f,
@@ -69,6 +68,46 @@ data class KwikIndicatorProps(
     val verticalPadding: Float = 0f,
     val borderRadius: Float = 4f
 )
+
+/**
+ * A versatile horizontal tab pager capable of displaying any content.
+ *
+ * @param tabs List of tabs to display
+ * @param pagerState The state of the pager
+ * @param kwikIndicatorProps The properties of the indicator. Refer to [KwikIndicatorProps] for more details.
+ * @param containerColor The background color of the tab row
+ * @param indicatorColor The color of the indicator
+ * @param divider The divider to display between tabs
+ * @param selectedContentColor The color of the selected tab
+ * @param unselectedContentColor The color of the unselected tab
+ *
+ * */
+@Composable
+fun KwikHorizontalTabs(
+    tabs: List<KwikTabItem>, pagerState: PagerState,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
+    indicatorColor: Color = MaterialTheme.colorScheme.primary,
+    kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
+    divider: @Composable () -> Unit = {},
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContentColor: Color = Color.Gray,
+    userScrollEnabled: Boolean = true
+){
+    KwikHorizontalTab(
+        tabs = tabs,
+        pagerState = pagerState,
+        containerColor = containerColor,
+        indicatorColor = indicatorColor,
+        kwikIndicatorProps = kwikIndicatorProps,
+        divider = divider,
+        selectedContentColor = selectedContentColor,
+        unselectedContentColor = unselectedContentColor
+    )
+    KwikTabsContent(
+        tabs = tabs,
+        pagerState = pagerState
+    )
+}
 
 /**
  * A versatile horizontal tab pager capable of displaying any content.
@@ -128,19 +167,23 @@ fun KwikHorizontalTab(
 
 @Composable
 fun KwikTabsContent(
+    modifier: Modifier = Modifier,
     tabs: List<KwikTabItem>,
     pagerState: PagerState,
+    userScrollEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    pageSize: PageSize = PageSize.Fill
 ) {
     HorizontalPager(
-        modifier = Modifier,
+        modifier = modifier,
         state = pagerState,
         pageSpacing = 0.dp,
-        userScrollEnabled = true,
-        reverseLayout = false,
-        contentPadding = PaddingValues(0.dp),
-        pageSize = PageSize.Fill,
+        userScrollEnabled = userScrollEnabled,
+        reverseLayout = reverseLayout,
+        contentPadding = contentPadding,
+        pageSize = pageSize,
         flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
-        key = null,
         pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
             pagerState,
             Orientation.Horizontal

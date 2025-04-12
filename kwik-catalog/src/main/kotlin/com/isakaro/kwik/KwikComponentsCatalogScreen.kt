@@ -315,8 +315,8 @@ internal fun KwikComponentsCatalogScreen(
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Image Carousel",
-                description = "Image carousel component for easily displaying images",
+                title = "Carousel (Slider)",
+                description = "Carousel component for easily displaying content on scrollable, multiple pages",
                 action = {
                     navigator.navigate(KwikCarouselScreenDestination)
                 }
