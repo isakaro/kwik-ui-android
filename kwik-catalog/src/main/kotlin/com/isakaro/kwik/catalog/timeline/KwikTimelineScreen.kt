@@ -193,7 +193,7 @@ internal fun KwikTimelineScreen(
             highlightCurrentEntry = true,
             clickable = true,
             currentEntryIndex = 0,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(6.dp),
             onClick = {
                 selectedMovieIndex = it
             }
