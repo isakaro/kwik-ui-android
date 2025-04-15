@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -268,7 +269,9 @@ fun KwikTagsInput(
                 }
             )
 
-            AnimatedVisibility(visible = showSuggestions.value) {
+            AnimatedVisibility(
+                visible = showSuggestions.value
+            ) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()

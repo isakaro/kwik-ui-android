@@ -2,6 +2,7 @@ package com.isakaro.kwik.filterchip
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -71,15 +72,15 @@ fun <T> KwikFilterChips(
     filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContainerColor: Color = Color.White,
+    unselectedContainerColor: Color = if(isSystemInDarkTheme()) Color.DarkGray else Color.LightGray,
     selectedContentColor: Color = Color.White,
-    unselectedContentColor: Color = Color.Black,
+    unselectedContentColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
     border: BorderStroke = BorderStroke(
-        width = 1.dp,
-        color = MaterialTheme.colorScheme.surface
+        width = 0.dp,
+        color = Color.Transparent
     ),
-    shape: Shape = MaterialTheme.shapes.large,
-    showCheckedIcon: Boolean = true,
+    shape: Shape = MaterialTheme.shapes.medium,
+    showCheckedIcon: Boolean = false,
     flowLayout: Boolean = false,
     flowLayoutVerticalArrangement: Int = 0,
     flowLayoutHorizontalArrangement: Int = 2
