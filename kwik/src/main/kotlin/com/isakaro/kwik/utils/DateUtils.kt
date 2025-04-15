@@ -8,3 +8,11 @@ fun Date.toMMdd(): String {
     val formattedDate: String = formatter.format(this)
     return formattedDate
 }
+
+fun Date.toFormat(
+    format: String = "MMM dd"
+): String {
+    val formatter = SimpleDateFormat(format)
+    val formattedDate: String = formatter.format(this)
+    return formattedDate
+}

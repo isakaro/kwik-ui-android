@@ -66,7 +66,7 @@ fun KwikDateRangeButton(
             .fillMaxWidth()
             .height(75.dp)
     ) {
-        KwikText.TitleMedium(
+        KwikText.TitleSmall(
             text = label,
             color = Color.Gray
         )
@@ -98,7 +98,7 @@ fun KwikDateRangeButton(
                     contentDescription = null,
                 )
 
-                KwikText.BodyLarge(
+                KwikText.BodyMedium(
                     modifier = Modifier.align(Alignment.Center),
                     text = dateDisplay
                 )

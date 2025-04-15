@@ -39,15 +39,18 @@ internal fun KwikDateScreen(
             var selectedDate by remember { mutableStateOf<Date?>(null) }
 
             KwikDateField(
-                placeholder = "Birthday",
+                label = "Birthday",
+                placeholder = "MM/DD/YYYY",
                 selected = {
                     selectedDate = it
                 }
             )
 
-            KwikText.BodyMedium(
-                text = "Selected date: $selectedDate"
-            )
+            if(selectedDate != null){
+                KwikText.BodyMedium(
+                    text = "Selected date: $selectedDate"
+                )
+            }
         }
 
         ShowCase(title = "Date Range Picker") {
