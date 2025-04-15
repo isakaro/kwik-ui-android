@@ -16,13 +16,13 @@ KwikUI offers a range of text field styles to suit your needs:
 *   **Outlined Text Fields:** Text fields with an outlined border.
 *   **OTP Fields:** Specialized text fields for collecting One-Time Passcodes (OTP).  Provides features like automatic focus and input masking.
 
-### Webviews
+### Webview
 
-Integrate web content seamlessly with pre-configured webviews. Includes features like Javascript support and progress indicators.
+Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators and more.
 
 ### Permission Handlers
 
-Simplify permission management with easy-to-use handlers. Request permissions with clear callbacks for granted and denied scenarios.
+Simplify permission management with easy-to-use handlers. Request permissions with clear callbacks for granted and denied scenarios. Additionally, handle multiple permissions in a single request, as well as know if you can show rationale for permissions.
 
 ### Radio Groups
 
@@ -35,3 +35,4 @@ Implement rating input with customizable rating bars. Supports different icons a
 ### Progress Bars
 
 Display progress indicators with various styles and customization options, including linear and circular progress bars.
+
