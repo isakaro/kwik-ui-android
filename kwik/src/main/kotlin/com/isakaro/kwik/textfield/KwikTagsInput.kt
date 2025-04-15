@@ -41,12 +41,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import com.isakaro.kwik.R
+import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.counter.KwikCounter
 import com.isakaro.kwik.dialog.KwikDialog
@@ -67,11 +69,15 @@ import java.util.UUID
  * @param id: Unique identifier for the tag.
  * @param label: The display name of the tag.
  * @param quantity: The quantity of the tag. Default is 1.
+ * @param minQuantity: The minimum quantity allowed. Default is 1.
+ * @param maxQuantity: The maximum quantity allowed. Default is 100.
  * */
 data class KwikTagsInputItem(
     val id: String,
     val label: String,
-    val quantity: Int = 1
+    val quantity: Int = 1,
+    val minQuantity: Int = 1,
+    val maxQuantity: Int = 100
 )
 
 /**
@@ -99,7 +105,7 @@ fun KwikTagsInput(
     onTagsChanged: (List<KwikTagsInputItem>) -> Unit,
     shape: Shape = MaterialTheme.shapes.medium,
     outlined: Boolean = false,
-    tagsVerticalSpacing: Int = 0,
+    tagsVerticalSpacing: Int = 2,
     tagsHorizontalSpacing: Int = 2
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -188,6 +194,7 @@ fun KwikTagsInput(
                         KwikTagChip(
                             tag = item.value,
                             withQuantity = withQuantity,
+                            shape = shape,
                             quantity = item.value.quantity,
                             onQuantityChange = { newQuantity ->
                                 updateQuantity(item.key, newQuantity)
@@ -272,7 +279,7 @@ fun KwikTagChip(
     Surface(
         modifier = Modifier
             .clip(shape),
-        color = MaterialTheme.colorScheme.primary
+        color = MaterialTheme.colorScheme.surface
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
@@ -281,7 +288,7 @@ fun KwikTagChip(
         ) {
             KwikText.BodyMedium(
                 text = tag.label,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -293,13 +300,14 @@ fun KwikTagChip(
                     modifier = Modifier
                         .clickable { showQuantityDialog.value = true }
                         .background(
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = MaterialTheme.colorScheme.onSurface,
                             shape = RoundedCornerShape(4.dp)
                         )
                         .padding(horizontal = 8.dp, vertical = 2.dp)
                 ) {
                     KwikText.BodyMedium(
-                        text = quantity.toString()
+                        text = quantity.toString(),
+                        color = MaterialTheme.colorScheme.surface
                     )
                 }
             }
@@ -308,12 +316,12 @@ fun KwikTagChip(
 
             IconButton(
                 onClick = onRemove,
-                modifier = Modifier.size(18.dp)
+                modifier = Modifier.size(20.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Clear,
+                    painter = painterResource(R.drawable.close),
                     contentDescription = "Remove tag",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = if(isSystemInDarkTheme()) Color.White else Color.Black
                 )
             }
         }
@@ -329,7 +337,6 @@ fun KwikTagChip(
             quantity = quantity,
             onQuantitySelected = {
                 onQuantityChange(it)
-                showQuantityDialog.value = false
             },
             onDismiss = { showQuantityDialog.value = false }
         )
@@ -362,13 +369,24 @@ private fun KwikQuantitySelection(
             }
         )
 
-        KwikTextButton(
-            text = "Cancel",
-            onClick = onDismiss,
+        Row(
             modifier = Modifier
-                .align(Alignment.End)
-                .padding(top = 8.dp)
-        )
+                .padding(top = 16.dp)
+                .align(Alignment.End),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            KwikTextButton(
+                text = "Cancel",
+                onClick = onDismiss,
+                modifier = Modifier
+            )
+
+            KwikButton(
+                text = "Confirm",
+                onClick = onDismiss
+            )
+        }
     }
 }
 
