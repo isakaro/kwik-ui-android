@@ -2,9 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/black" />
     <item
-        android:width="90dp"
-        android:height="90dp"
+        android:width="130dp"
+        android:height="55dp"
         android:gravity="center"
-        android:drawable="@drawable/kwikui_logo" >
+        android:drawable="@drawable/kwikui_text" >
     </item>
 </layer-list>

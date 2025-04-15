@@ -31,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -45,6 +46,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -85,6 +87,7 @@ import kotlinx.coroutines.launch
  * @param suggestions The list of suggestions to be displayed.
  * @param suggestionsContainerColor The color of the suggestions container.
  * @param showSuggestions Whether to show the suggestions or not. Useful when you wish to control the visibility of the suggestions manually.
+ * @param colors The colors to be used for the text field.
  *
  * Example usage:
  *
@@ -143,7 +146,11 @@ fun KwikSearchView(
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
     suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
-    showSuggestions: Boolean = false
+    showSuggestions: Boolean = false,
+    colors: TextFieldColors = kwikTextFieldColors().copy(
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent
+    )
 ) {
     val queryText = remember { mutableStateOf("") }
     var suggestionsVisible by remember { mutableStateOf(showSuggestions) }
@@ -259,26 +266,7 @@ fun KwikSearchView(
             singleLine = true,
             isError = isError,
             shape = RoundedCornerShape(8.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                cursorColor = MaterialTheme.colorScheme.primary,
-                focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-                focusedLabelColor = Color.Gray,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-                unfocusedLabelColor = Color.Gray,
-                unfocusedPlaceholderColor = Color.Gray,
-                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                disabledBorderColor = Color.Transparent,
-                disabledContainerColor = Color.LightGray,
-                errorContainerColor = KwikColorFilledTextFieldError,
-                errorBorderColor = Color.Transparent,
-                errorLabelColor = MaterialTheme.colorScheme.error,
-                errorPlaceholderColor = MaterialTheme.colorScheme.error,
-                errorTextColor = MaterialTheme.colorScheme.error,
-                errorCursorColor = MaterialTheme.colorScheme.error
-            ),
+            colors = colors,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
@@ -339,7 +327,7 @@ fun KwikSearchView(
                                     .height(60.dp)
                                     .padding(horizontal = 4.dp)
                                     .clickable {
-                                        state.value = TextFieldValue(suggestion)
+                                        state.value = state.value.copy(text = suggestion, selection = TextRange(suggestion.length))
                                         queryText.value = suggestion
                                         suggestionsVisible = false
                                         onSuggestionSelected(suggestion)
