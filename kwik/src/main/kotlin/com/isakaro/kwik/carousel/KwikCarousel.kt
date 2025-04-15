@@ -105,7 +105,7 @@ fun MutableState<KwikCarouselState>.previous() {
  * @param unselectedIndicatorColor The color of the unselected page indicator.
  * @param showNavigation Whether to show the navigation buttons.
  * @param showCounter Whether to show the counter.
- * @param autoPlay Whether to automatically play the carousel.
+ * @param autoPlay Whether to automatically slide the carousel.
  * @param autoPlayDelay The delay between auto-play slides in milliseconds.
  * @param onPageIndexChange Callback that is invoked when the current page index changes.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
@@ -388,7 +388,7 @@ fun KwikCarousel(
  * @param showNavigation Whether to show the navigation buttons.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
  * @param showCounter Whether to show the counter.
- * @param autoPlay Whether to automatically play the carousel.
+ * @param autoPlay Whether to automatically slide the images.
  * @param autoPlayDelay The delay between auto-play slides in milliseconds.
  * @param onPageIndexChange Callback that is invoked when the current page index changes.
  * */
