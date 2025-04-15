@@ -39,19 +39,36 @@ fun KwikTagsInputScreen(
             )
         }
 
-        val initialTags = remember {
-            listOf(sampleTags.first())
-        }
-
-        var currentTags by remember { mutableStateOf(initialTags) }
-
         ShowCase(
             title = "Tags input with quantity",
         ) {
+            var currentTags by remember { mutableStateOf<List<KwikTagsInputItem>>(emptyList()) }
+
             KwikTagsInput(
                 items = sampleTags,
                 placeholder = "Enter or select your destination",
-                initialValues = initialTags,
+                withQuantity = true,
+                onTagsChanged = { newTags ->
+                    currentTags = newTags
+                }
+            )
+        }
+
+        ShowCase(
+            title = "Tags input with initial values",
+        ) {
+            val initialTags = remember {
+                listOf(
+                    sampleTags.first(),
+                    sampleTags.random()
+                )
+            }
+
+            var currentTags by remember { mutableStateOf(initialTags) }
+
+            KwikTagsInput(
+                items = sampleTags,
+                placeholder = "Enter or select your destination",
                 withQuantity = true,
                 onTagsChanged = { newTags ->
                     currentTags = newTags
@@ -62,10 +79,11 @@ fun KwikTagsInputScreen(
         ShowCase(
             title = "Tags input with persistent suggestions"
         ) {
+            var currentTags by remember { mutableStateOf<List<KwikTagsInputItem>>(emptyList()) }
+
             KwikTagsInput(
                 items = sampleTags,
                 placeholder = "Enter or select your destination",
-                initialValues = initialTags,
                 suggestionsAlwaysVisible = true,
                 onTagsChanged = { newTags ->
                     currentTags = newTags
@@ -74,13 +92,14 @@ fun KwikTagsInputScreen(
         }
 
         ShowCase(
-            title = "Tags input with suggestions"
+            title = "Tags input with outline style"
         ) {
+            var currentTags by remember { mutableStateOf<List<KwikTagsInputItem>>(emptyList()) }
+
             KwikTagsInput(
                 items = sampleTags,
                 placeholder = "Enter or select your destination",
-                initialValues = initialTags,
-                suggestionsAlwaysVisible = true,
+                outlined = true,
                 onTagsChanged = { newTags ->
                     currentTags = newTags
                 }
