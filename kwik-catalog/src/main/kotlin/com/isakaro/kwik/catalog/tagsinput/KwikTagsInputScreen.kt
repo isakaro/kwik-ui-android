@@ -45,12 +45,42 @@ fun KwikTagsInputScreen(
 
         var currentTags by remember { mutableStateOf(initialTags) }
 
-        ShowCase {
+        ShowCase(
+            title = "Tags input with quantity",
+        ) {
             KwikTagsInput(
                 items = sampleTags,
                 placeholder = "Enter or select your destination",
                 initialValues = initialTags,
                 withQuantity = true,
+                onTagsChanged = { newTags ->
+                    currentTags = newTags
+                }
+            )
+        }
+
+        ShowCase(
+            title = "Tags input with persistent suggestions"
+        ) {
+            KwikTagsInput(
+                items = sampleTags,
+                placeholder = "Enter or select your destination",
+                initialValues = initialTags,
+                suggestionsAlwaysVisible = true,
+                onTagsChanged = { newTags ->
+                    currentTags = newTags
+                }
+            )
+        }
+
+        ShowCase(
+            title = "Tags input with suggestions"
+        ) {
+            KwikTagsInput(
+                items = sampleTags,
+                placeholder = "Enter or select your destination",
+                initialValues = initialTags,
+                suggestionsAlwaysVisible = true,
                 onTagsChanged = { newTags ->
                     currentTags = newTags
                 }

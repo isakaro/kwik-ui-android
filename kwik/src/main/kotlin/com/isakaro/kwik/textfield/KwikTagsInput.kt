@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,8 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -73,7 +72,7 @@ import java.util.UUID
  * @param maxQuantity: The maximum quantity allowed. Default is 100.
  * */
 data class KwikTagsInputItem(
-    val id: String,
+    val id: Any,
     val label: String,
     val quantity: Int = 1,
     val minQuantity: Int = 1,
@@ -88,8 +87,11 @@ data class KwikTagsInputItem(
  * @param onlySuggestions: If true, the user can only select from the suggestions.
  * @param initialValues: Initial selected tags.
  * @param withQuantity: If true, allows the user to specify a quantity for each tag.
+ * @param suggestionsAlwaysVisible: If true, the suggestions will always be visible. Note that all suggestions will be shown, provided the input field is empty.
+ * Otherwise, the suggestions will be filtered according to the input text.
  * @param onTagsChanged: Callback that is called when the selected tags change.
  * @param shape: Shape of the input field. Applies to the tag items as well.
+ * @param tagsItemShape: Shape of the tag items.
  * @param outlined: If true, the input field will be outlined. Else it's filled. Refer to [KwikOutlinedTextField] and [KwikTextField].
  * @param tagsVerticalSpacing: Vertical spacing between tags.
  * @param tagsHorizontalSpacing: Horizontal spacing between tags.
@@ -102,8 +104,10 @@ fun KwikTagsInput(
     onlySuggestions: Boolean = false,
     initialValues: List<KwikTagsInputItem> = emptyList(),
     withQuantity: Boolean = false,
+    suggestionsAlwaysVisible: Boolean = false,
     onTagsChanged: (List<KwikTagsInputItem>) -> Unit,
     shape: Shape = MaterialTheme.shapes.medium,
+    tagsItemShape: Shape = MaterialTheme.shapes.small,
     outlined: Boolean = false,
     tagsVerticalSpacing: Int = 2,
     tagsHorizontalSpacing: Int = 2
@@ -137,7 +141,17 @@ fun KwikTagsInput(
             )
             showDropdown.value = suggestions.isNotEmpty()
         } else {
-            showDropdown.value = false
+            if(suggestionsAlwaysVisible){
+                suggestions.clear()
+                suggestions.addAll(
+                    items.filter { item ->
+                        !selectedItems.any { it.key == item.id }
+                    }
+                )
+            } else {
+                suggestions.clear()
+                showDropdown.value = false
+            }
         }
     }
 
@@ -194,7 +208,7 @@ fun KwikTagsInput(
                         KwikTagChip(
                             tag = item.value,
                             withQuantity = withQuantity,
-                            shape = shape,
+                            shape = tagsItemShape,
                             quantity = item.value.quantity,
                             onQuantityChange = { newQuantity ->
                                 updateQuantity(item.key, newQuantity)
@@ -234,7 +248,12 @@ fun KwikTagsInput(
                         }
                         keyboardController?.hide()
                     }
-                )
+                ),
+                onFocusChanged = { focused ->
+                    if (focused) {
+                        showDropdown.value = suggestions.isNotEmpty()
+                    }
+                }
             )
 
             AnimatedVisibility(visible = showDropdown.value) {
@@ -249,14 +268,22 @@ fun KwikTagsInput(
                         Surface(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .clickable { tagAdded(suggestion) },
-                            color = MaterialTheme.colorScheme.surfaceVariant
+                                .background(
+                                    color = MaterialTheme.colorScheme.surface,
+                                    shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                                )
+                                .clickable { tagAdded(suggestion) }
                         ) {
-                            KwikText.BodyMedium(
-                                text = suggestion.label,
-                                modifier = Modifier.padding(12.dp)
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                KwikText.BodyMedium(
+                                    text = suggestion.label
+                                )
+                            }
                         }
                     }
                 }
