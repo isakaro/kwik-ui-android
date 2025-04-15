@@ -118,7 +118,7 @@ fun KwikTagsInput(
     ) }
     val selectedItems = remember { mutableStateMapOf<Any, KwikTagsInputItem>() }
     val suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
-    val showDropdown = remember { mutableStateOf(false) }
+    val showSuggestions = remember { mutableStateOf(false) }
     val kwikToastState = rememberKwikToastState()
 
     KwikToast(state = kwikToastState)
@@ -139,7 +139,7 @@ fun KwikTagsInput(
                     item.label.contains(inputValue.text, ignoreCase = true) && !selectedItems.any { it.key == item.id }
                 }
             )
-            showDropdown.value = suggestions.isNotEmpty()
+            showSuggestions.value = suggestions.isNotEmpty()
         } else {
             if(suggestionsAlwaysVisible){
                 suggestions.clear()
@@ -150,7 +150,7 @@ fun KwikTagsInput(
                 )
             } else {
                 suggestions.clear()
-                showDropdown.value = false
+                showSuggestions.value = false
             }
         }
     }
@@ -159,7 +159,7 @@ fun KwikTagsInput(
         if (selectedItems.none { it.key == item.id }) {
             selectedItems[item.id] = item
             inputValue.value = TextFieldValue("")
-            showDropdown.value = false
+            showSuggestions.value = false
             onTagsChanged(selectedItems.map { it.value })
         }
     }
@@ -251,12 +251,14 @@ fun KwikTagsInput(
                 ),
                 onFocusChanged = { focused ->
                     if (focused) {
-                        showDropdown.value = suggestions.isNotEmpty()
+                        showSuggestions.value = suggestions.isNotEmpty()
+                    } else {
+                        showSuggestions.value = false
                     }
                 }
             )
 
-            AnimatedVisibility(visible = showDropdown.value) {
+            AnimatedVisibility(visible = showSuggestions.value) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -268,9 +270,9 @@ fun KwikTagsInput(
                         Surface(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .padding(4.dp)
                                 .background(
-                                    color = MaterialTheme.colorScheme.surface,
-                                    shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                                    color = MaterialTheme.colorScheme.surface
                                 )
                                 .clickable { tagAdded(suggestion) }
                         ) {
