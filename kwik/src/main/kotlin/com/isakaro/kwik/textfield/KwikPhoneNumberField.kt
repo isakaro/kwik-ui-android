@@ -77,25 +77,7 @@ fun KwikPhoneNumberField(
     isValid: Boolean = false,
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
-    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
-        cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-        focusedLabelColor = Color.Gray,
-        focusedBorderColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray,
-        unfocusedBorderColor = Color.Transparent,
-        unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-        unfocusedLabelColor = Color.LightGray,
-        unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
-        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
-        errorBorderColor = MaterialTheme.colorScheme.error,
-        errorLabelColor = MaterialTheme.colorScheme.error,
-        errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = Color.Black,
-        errorCursorColor = MaterialTheme.colorScheme.error
-    ),
+    colors: TextFieldColors = kwikTextFieldColors(),
     onCountrySelected: (KwikCountryInfo) -> Unit = {}
 ) {
 

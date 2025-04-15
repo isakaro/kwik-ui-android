@@ -1,8 +1,5 @@
 package com.isakaro.kwik.textfield
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import com.isakaro.kwik.countrypicker.KwikCountryCodeButton
-import com.isakaro.kwik.countrypicker.KwikCountryPickerDialog
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +19,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -50,6 +46,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.isakaro.kwik.countrypicker.KwikCountryCodeButton
+import com.isakaro.kwik.countrypicker.KwikCountryPickerDialog
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
@@ -115,25 +113,7 @@ fun KwikOutlinedPhoneNumberField(
     isValid: Boolean = false,
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
-    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = MaterialTheme.colorScheme.onSurface,
-        cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = Color.Transparent,
-        focusedLabelColor = Color.Gray,
-        focusedPlaceholderColor = Color.Gray,
-        focusedBorderColor = if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray,
-        unfocusedBorderColor = Color.Gray,
-        unfocusedLabelColor = Color.Gray,
-        unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = Color.Black,
-        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
-        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
-        errorBorderColor = MaterialTheme.colorScheme.error,
-        errorLabelColor = MaterialTheme.colorScheme.error,
-        errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = MaterialTheme.colorScheme.error,
-        errorCursorColor = MaterialTheme.colorScheme.error
-    ),
+    colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled),
     onCountrySelected: (KwikCountryInfo) -> Unit = {}
 ) {
 

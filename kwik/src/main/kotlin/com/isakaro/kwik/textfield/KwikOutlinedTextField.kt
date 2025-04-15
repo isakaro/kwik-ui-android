@@ -155,25 +155,7 @@ fun KwikOutlinedTextField(
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
-    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = MaterialTheme.colorScheme.onSurface,
-        cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = Color.Transparent,
-        focusedLabelColor = Color.Gray,
-        focusedPlaceholderColor = Color.Gray,
-        focusedBorderColor = if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray,
-        unfocusedBorderColor = Color.Gray,
-        unfocusedLabelColor = Color.Gray,
-        unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = Color.Black,
-        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
-        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
-        errorBorderColor = MaterialTheme.colorScheme.error,
-        errorLabelColor = MaterialTheme.colorScheme.error,
-        errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = MaterialTheme.colorScheme.error,
-        errorCursorColor = MaterialTheme.colorScheme.error
-    )
+    colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled)
 ) {
 
     val autofillTypes = mutableListOf<AutofillType>()
@@ -398,6 +380,31 @@ fun KwikOutlinedTextField(
             }
         }
     }
+}
+
+@Composable
+fun kwikOutlinedTextFieldColors(
+    enabled: Boolean
+): TextFieldColors {
+    return OutlinedTextFieldDefaults.colors(
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        cursorColor = MaterialTheme.colorScheme.primary,
+        focusedContainerColor = Color.Transparent,
+        focusedLabelColor = Color.Gray,
+        focusedPlaceholderColor = Color.Gray,
+        focusedBorderColor = if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray,
+        unfocusedBorderColor = Color.Gray,
+        unfocusedLabelColor = Color.Gray,
+        unfocusedPlaceholderColor = Color.Gray,
+        unfocusedTextColor = Color.Black,
+        disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
+        disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
+        errorBorderColor = MaterialTheme.colorScheme.error,
+        errorLabelColor = MaterialTheme.colorScheme.error,
+        errorPlaceholderColor = MaterialTheme.colorScheme.error,
+        errorTextColor = MaterialTheme.colorScheme.error,
+        errorCursorColor = MaterialTheme.colorScheme.error
+    )
 }
 
 @Composable

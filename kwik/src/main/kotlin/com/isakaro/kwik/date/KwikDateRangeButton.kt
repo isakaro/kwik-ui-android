@@ -55,17 +55,9 @@ fun KwikDateRangeButton(
     maxSelectableDate: Long? = null,
     showModeToggle: Boolean = false,
     dialogShape: Shape = MaterialTheme.shapes.medium,
-    colors: DatePickerColors = DatePickerDefaults.colors().copy(
-        containerColor = MaterialTheme.colorScheme.surface,
-        selectedDayContainerColor = MaterialTheme.colorScheme.primary,
-        dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.secondary,
-        dayInSelectionRangeContentColor = MaterialTheme.colorScheme.onSurface,
-        selectedYearContainerColor = MaterialTheme.colorScheme.primary,
-        disabledDayContentColor = Color.Gray
-    ),
+    colors: DatePickerColors = KwikDatePickerColors(),
     onClick: () -> Unit = {}
 ) {
-
     var showDatePicker by remember { mutableStateOf(false) }
     var dateDisplay by remember { mutableStateOf("Select dates") }
 

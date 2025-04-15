@@ -30,6 +30,10 @@ import com.isakaro.kwik.text.KwikText
 
 import java.util.Calendar
 
+/**
+ * @param minYear The minimum year that can be selected.
+ * @param maxYear The maximum year that can be selected.
+ * */
 data class KwikYearsData(
     val minYear: Int = 1965,
     val maxYear: Int = Calendar.getInstance().get(Calendar.YEAR)
@@ -163,7 +167,7 @@ fun KwikYearsRangeSelector(
                 yearRange.forEach { year ->
                     DropdownMenuItem(
                         text = {
-                            Text(year.toString())
+                            KwikText.BodyMedium(text = year.toString())
                         },
                         onClick = {
                             selectedMaxYear = year

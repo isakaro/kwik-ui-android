@@ -12,11 +12,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.button.KwikButton
@@ -50,7 +47,7 @@ fun KwikDateRangePickerDialog(
     maxSelectableDate: Long? = null,
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     showModeToggle: Boolean = false,
-    colors: DatePickerColors,
+    colors: DatePickerColors = KwikDatePickerColors(),
     shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {
@@ -64,9 +61,6 @@ fun KwikDateRangePickerDialog(
 
     val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.timeInMillis
     val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.timeInMillis
-
-    var checkInDate by remember { mutableStateOf<Date?>(null) }
-    var checkOutDate by remember { mutableStateOf<Date?>(null) }
 
     val dateRangePickerState = rememberDateRangePickerState(
         selectableDates = object: SelectableDates {
@@ -94,8 +88,6 @@ fun KwikDateRangePickerDialog(
                         val endDate = Date(endMillis)
 
                         onDateRangeSelected(Pair(startDate, endDate))
-                        checkInDate = startDate
-                        checkOutDate = endDate
                     }
                     onDismiss()
                 }
@@ -127,4 +119,17 @@ fun KwikDateRangePickerDialog(
                 .padding(12.dp)
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun KwikDatePickerColors(): DatePickerColors {
+    return DatePickerDefaults.colors().copy(
+        containerColor = MaterialTheme.colorScheme.surface,
+        selectedDayContainerColor = MaterialTheme.colorScheme.primary,
+        dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.secondary,
+        dayInSelectionRangeContentColor = MaterialTheme.colorScheme.onSurface,
+        selectedYearContainerColor = MaterialTheme.colorScheme.primary,
+        disabledDayContentColor = Color.Gray
+    )
 }
