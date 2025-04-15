@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -95,6 +94,8 @@ data class KwikTagsInputItem(
  * @param outlined: If true, the input field will be outlined. Else it's filled. Refer to [KwikOutlinedTextField] and [KwikTextField].
  * @param tagsVerticalSpacing: Vertical spacing between tags.
  * @param tagsHorizontalSpacing: Horizontal spacing between tags.
+ * @param quantityCancelText: Text for the cancel button in the quantity dialog.
+ * @param quantityDoneText: Text for the done button in the quantity dialog.
  * */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -110,7 +111,9 @@ fun KwikTagsInput(
     tagsItemShape: Shape = MaterialTheme.shapes.small,
     outlined: Boolean = false,
     tagsVerticalSpacing: Int = 2,
-    tagsHorizontalSpacing: Int = 2
+    tagsHorizontalSpacing: Int = 2,
+    quantityCancelText: String = "Cancel",
+    quantityDoneText: String = "Done"
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(
@@ -216,7 +219,9 @@ fun KwikTagsInput(
                             onQuantityChange = { newQuantity ->
                                 updateQuantity(item.key, newQuantity)
                             },
-                            onRemove = { tagRemoved(item.value) }
+                            onRemove = { tagRemoved(item.value) },
+                            quantityCancelText = quantityCancelText,
+                            quantityDoneText = quantityDoneText
                         )
                     }
                 }
@@ -304,7 +309,9 @@ fun KwikTagChip(
     quantity: Int,
     onQuantityChange: (Int) -> Unit,
     onRemove: () -> Unit,
-    shape: Shape = MaterialTheme.shapes.medium
+    shape: Shape = MaterialTheme.shapes.medium,
+    quantityCancelText: String,
+    quantityDoneText: String
 ) {
     val showQuantityDialog = remember { mutableStateOf(false) }
 
@@ -370,7 +377,9 @@ fun KwikTagChip(
             onQuantitySelected = {
                 onQuantityChange(it)
             },
-            onDismiss = { showQuantityDialog.value = false }
+            onDismiss = { showQuantityDialog.value = false },
+            cancelText = quantityCancelText,
+            doneText = quantityDoneText
         )
     }
 }
@@ -379,7 +388,9 @@ fun KwikTagChip(
 private fun KwikQuantitySelection(
     quantity: Int,
     onQuantitySelected: (Int) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    cancelText: String,
+    doneText: String
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
@@ -409,13 +420,13 @@ private fun KwikQuantitySelection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             KwikTextButton(
-                text = "Cancel",
+                text = cancelText,
                 onClick = onDismiss,
                 modifier = Modifier
             )
 
             KwikButton(
-                text = "Done",
+                text = doneText,
                 onClick = onDismiss
             )
         }
