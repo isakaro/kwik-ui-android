@@ -48,6 +48,7 @@ import com.isakaro.kwik.destinations.KwikSliderScreenDestination
 import com.isakaro.kwik.destinations.KwikStepperScreenDestination
 import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
 import com.isakaro.kwik.destinations.KwikTabScreenDestination
+import com.isakaro.kwik.destinations.KwikTagsInputScreenDestination
 import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
@@ -374,6 +375,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Timeline component for showing events in a vertical fashion",
                 action = {
                     navigator.navigate(KwikTimelineScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Tags input",
+                description = "Allows the user to input tags. Whether preset or custom",
+                action = {
+                    navigator.navigate(KwikTagsInputScreenDestination)
                 }
             )
         )

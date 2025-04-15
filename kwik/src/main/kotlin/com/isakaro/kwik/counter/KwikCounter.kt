@@ -59,7 +59,7 @@ import com.isakaro.kwik.theme.KwikTheme
 @Composable
 fun KwikCounter(
     modifier: Modifier = Modifier,
-    label: String = "",
+    label: String? = null,
     initialValue: Int = 0,
     minValue: Int = 0,
     maxValue: Int = 99,
@@ -78,7 +78,7 @@ fun KwikCounter(
             .height(65.dp)
             .alpha(if (disabled) 0.5f else 1.0f),
     ) {
-        if (label.isNotEmpty()) {
+        if (label != null) {
             KwikText.TitleSmall(
                 text = label,
                 color = Color.Gray,

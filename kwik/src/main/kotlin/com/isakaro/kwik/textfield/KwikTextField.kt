@@ -79,9 +79,10 @@ import com.isakaro.kwik.theme.KwikColorSuccess
  * @param shape: The shape of the text field. Default is [RoundedCornerShape].
  * @param isError: If true, the text field will display an error state.
  * @param error: The error message to display when isError is true.
- * @param isSingleLine: If true, the text field will be single line. Default is true.
+ * @param singleLine: If true, the text field will be single line. Default is true.
  * @param maxLength: The maximum length of the text field. Default is 35.
  * @param keyboardType: The keyboard type of the text field. Default is [KeyboardType.Text].
+ * @param keyboardActions: The keyboard actions of the text field. Default is [KeyboardActions] with ImeAction.Done.
  * @param maxLines: The maximum number of lines of the text field. Default is 1.
  * @param allowedChars: The allowed characters in the text field. Default is [AllowedChars.ALL].
  * @param imeAction: The IME action of the text field. Default is [ImeAction.Done].
@@ -131,9 +132,14 @@ fun KwikTextField(
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
     error: String = "Field is required",
-    isSingleLine: Boolean = true,
+    singleLine: Boolean = true,
     maxLength: Int = 35,
     keyboardType: KeyboardType = KeyboardType.Text,
+    keyboardActions: KeyboardActions = KeyboardActions(
+        onDone = {
+            onKeyboardDone()
+        }
+    ),
     maxLines: Int = 1,
     allowedChars: Regex? = AllowedChars.ALL,
     imeAction: ImeAction = ImeAction.Done,
@@ -255,7 +261,7 @@ fun KwikTextField(
                         }
                     }
                 },
-            singleLine = isSingleLine && !isBigTextField,
+            singleLine = singleLine && !isBigTextField,
             maxLines = if(isBigTextField) 8 else maxLines,
             shape = shape,
             leadingIcon = if(leadingIcon != null){
@@ -359,7 +365,7 @@ fun KwikTextField(
                 imeAction = imeAction,
                 keyboardType = keyboardType,
             ),
-            keyboardActions = KeyboardActions(onDone = { onKeyboardDone() }),
+            keyboardActions = keyboardActions,
         )
         Column(
             modifier = Modifier.fillMaxWidth(),

@@ -70,7 +70,7 @@ fun KwikPhoneNumberField(
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
     error: String = "",
-    isSingleLine: Boolean = true,
+    singleLine: Boolean = true,
     maxLines: Int = 1,
     imeAction: ImeAction = ImeAction.Done,
     initialCountryInfo: KwikCountryInfo,
@@ -167,7 +167,7 @@ fun KwikPhoneNumberField(
                             }
                         }
                     },
-                singleLine = isSingleLine,
+                singleLine = singleLine,
                 maxLines = maxLines,
                 enabled = enabled,
                 shape = shape,

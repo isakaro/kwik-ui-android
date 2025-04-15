@@ -71,7 +71,7 @@ val allowedChars = Regex("^[0-9]*$")
  * @param shape The shape of the field
  * @param isError Whether the field is in an error state
  * @param error The error message to show when the field is in an error state
- * @param isSingleLine Whether the field should be single line
+ * @param singleLine Whether the field should be single line
  * @param maxLines The maximum number of lines the field can have
  * @param imeAction The action that should be performed when the keyboard done button is clicked
  * @param initialCountryInfo The initial country info to show in the field
@@ -108,7 +108,7 @@ fun KwikOutlinedPhoneNumberField(
     shape: Shape = RoundedCornerShape(8.dp),
     isError: Boolean = false,
     error: String = "",
-    isSingleLine: Boolean = true,
+    singleLine: Boolean = true,
     maxLines: Int = 1,
     imeAction: ImeAction = ImeAction.Done,
     initialCountryInfo: KwikCountryInfo,
@@ -207,7 +207,7 @@ fun KwikOutlinedPhoneNumberField(
                             }
                         }
                     },
-                singleLine = isSingleLine,
+                singleLine = singleLine,
                 maxLines = maxLines,
                 enabled = enabled,
                 shape = shape,
