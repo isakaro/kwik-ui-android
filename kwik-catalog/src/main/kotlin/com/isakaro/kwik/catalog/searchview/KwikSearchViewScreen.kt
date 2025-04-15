@@ -2,8 +2,11 @@ package com.isakaro.kwik.catalog.searchview
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -103,23 +106,22 @@ internal fun KwikSearchViewScreen(
             )
         }
 
-        ShowCase(title = "Search view with delay (debounce)") {
-            val query = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        ShowCase(title = "Search view with delay (debounce - 2 seconds)") {
+            val state = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("")
                 )
             }
 
+            var debouncedQuery by remember { mutableStateOf("") }
+
             KwikSearchView(
-                state = query,
+                state = state,
                 placeholder = "Enter search query...",
                 delay = true,
-                delayDuration = 2000L, // 2 second delay
+                delayDuration = 2000L,
                 onTextChange = { query ->
-
-                },
-                onTextCleared = {
-                    kwikToastState.showToast("Text cleared")
+                    debouncedQuery = query
                 }
             )
 
@@ -129,7 +131,7 @@ internal fun KwikSearchViewScreen(
                 text = buildAnnotatedString {
                     append("Search query: ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
-                        append(query.text)
+                        append(debouncedQuery)
                     }
                 }
             )

@@ -195,19 +195,19 @@ fun KwikSearchView(
                     debounceJob = coroutineScope.launch {
                         if(delay && delayDuration >= 1L) {
                             delay(delayDuration)
-
-                            // filter suggestions based on the query
-                            filteredSuggestions = suggestions.filter { suggestion ->
-                                suggestion.contains(query.text, ignoreCase = true)
-                            }
-
-                            // if no results, show all suggestions
-                            if (filteredSuggestions.isEmpty()) {
-                                filteredSuggestions = suggestions.take(10)
-                            }
-
-                            onTextChange(queryText.value)
                         }
+
+                        // filter suggestions based on the query
+                        filteredSuggestions = suggestions.filter { suggestion ->
+                            suggestion.contains(query.text, ignoreCase = true)
+                        }
+
+                        // if no results, show all suggestions
+                        if (filteredSuggestions.isEmpty()) {
+                            filteredSuggestions = suggestions.take(10)
+                        }
+
+                        onTextChange(queryText.value)
                     }
                 }
             },
