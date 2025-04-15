@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,13 +15,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.card.KwikCard
 import com.isakaro.kwik.card.KwikImageCard
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.theme.KwikColorWarning
 import com.isakaro.kwik.timeline.KwikTimelineEntry
 import com.isakaro.kwik.timeline.KwikVerticalTimeline
 import com.isakaro.kwik.toast.KwikToast
@@ -173,6 +178,53 @@ internal fun KwikTimelineScreen(
             title = "Directed by Gore Verbinski",
             description = "Gore Verbinski directed the first three films in the series, bringing a unique blend of action and humor.",
             onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") }
+        ),
+        KwikTimelineEntry(
+            id = 6,
+            icon = R.drawable.kwikui_logo,
+            content = {
+                KwikImageCard(
+                    image = KwikConstants.SAMPLE_IMAGE,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        KwikText.Quote(
+                            text = "The sea is a cruel mistress.",
+                            fontStyle = FontStyle.Italic
+                        )
+                        KwikVSpacer(height = 8)
+                        KwikText.TitleSmall(
+                            text = "The series has become a cultural phenomenon, inspiring rides, merchandise, and more."
+                        )
+                    }
+                }
+            },
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") }
+        ),
+        KwikTimelineEntry(
+            id = 7,
+            icon = Icons.Default.Settings,
+            accentColor = KwikColorWarning,
+            onClick = { kwikToastState.showToast(message = "Clicked on ${it.title}") },
+            content = {
+                KwikCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        KwikText.Quote(
+                            text = "Big budget",
+                            fontStyle = FontStyle.Italic
+                        )
+                        KwikVSpacer(height = 8)
+                        KwikText.TitleSmall(
+                            text = "The series is known for its high production values, elaborate sets, and special effects."
+                        )
+                    }
+                }
+            }
         )
     )
 

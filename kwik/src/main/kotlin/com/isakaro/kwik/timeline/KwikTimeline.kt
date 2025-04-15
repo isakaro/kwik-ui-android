@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.card.KwikCard
+import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
@@ -47,6 +48,8 @@ import com.isakaro.kwik.theme.KwikTheme
  * @param id Unique identifier for the timeline entry. Can be any type. Use it to identify the entry.
  * @param title Optional title text for the timeline entry
  * @param description Optional description text for the timeline entry
+ * @param icon Optional icon to be displayed in the timeline entry
+ * @param accentColor Optional color for the timeline entry indicator and connecting line
  * @param onClick Optional callback when the timeline entry is clicked
  * @param content Optional composable content to be displayed within the timeline entry
  */
@@ -54,6 +57,8 @@ data class KwikTimelineEntry(
     val id: Any = Any(),
     val title: String? = null,
     val description: String? = null,
+    val icon: Any? = null,
+    val accentColor: Color? = null,
     val onClick: (KwikTimelineEntry) -> Unit = {},
     val content: (@Composable () -> Unit)? = null
 )
@@ -155,15 +160,21 @@ private fun KwikTimelineEntryItem(
                     modifier = Modifier
                         .size(circleSize)
                         .clip(CircleShape)
-                        .background(if(isDone) accentColor else Color.Gray),
+                        .background(entry.accentColor ?: if(isDone) accentColor else Color.Gray),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.CheckCircle,
-                        contentDescription = null,
-                        tint = if(isDone) Color.White else Color.Transparent,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    if(entry.icon != null){
+                        KwikImageView(
+                            url = entry.icon
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = if(isDone) Color.White else Color.Transparent,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
 
                 if (!isLastEntry) {
