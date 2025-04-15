@@ -4,14 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
@@ -29,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
@@ -50,11 +49,28 @@ enum class KwikDatePickerMode {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KwikDateField(
+    modifier: Modifier = Modifier,
     outlined: Boolean = false,
     label: String = "Date",
     placeholder: String = "",
-    displayFormat: String = "dd/MM/yyyy",
+    displayFormat: String = "d MMM yyyy",
     selected: (Date) -> Unit,
+    border: BorderStroke? = null,
+    shape: Shape = MaterialTheme.shapes.medium,
+    leadingIcon: @Composable (() -> Unit?) = {
+        Icon(
+            painter = painterResource(id = R.drawable.calendar),
+            tint = MaterialTheme.colorScheme.onSurface,
+            contentDescription = null,
+        )
+    },
+    trailingIcon: @Composable (() -> Unit?) = {
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_down),
+            tint = MaterialTheme.colorScheme.onSurface,
+            contentDescription = null,
+        )
+    }
 ) {
     var selectedDate by remember { mutableStateOf<Date?>(null) }
     var showDatePicker by remember { mutableStateOf(false) }
@@ -77,7 +93,7 @@ fun KwikDateField(
     }
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if(mode.value == KwikDatePickerMode.Edit){
@@ -121,46 +137,38 @@ fun KwikDateField(
             }
         } else {
             Button(
-                modifier = Modifier.height(50.dp),
+                modifier = Modifier
+                    .then(modifier),
                 onClick = {
                     showDatePicker = true
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                 ),
-                border = BorderStroke(1.dp, Color.Gray),
-                contentPadding = PaddingValues(4.dp),
-                shape = RoundedCornerShape(8.dp),
+                border = border,
+                shape = shape
             ) {
-                Box(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.calendar),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        contentDescription = null,
-                    )
+                    leadingIcon()
 
                     KwikText.BodyMedium(
-                        modifier = Modifier.align(Alignment.Center),
                         text = dateDisplay
                     )
 
-                    Icon(
-                        modifier = Modifier.align(Alignment.CenterEnd),
-                        painter = painterResource(id = R.drawable.arrow_down),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        contentDescription = null,
-                    )
+                    trailingIcon()
                 }
             }
         }
         KwikIconButton(
             modifier = Modifier.size(45.dp),
             icon = if(mode.value == KwikDatePickerMode.Edit) Icons.Default.Create else Icons.Default.Close,
-            tint = MaterialTheme.colorScheme.onSurface,
+            tint = Color.Black,
         ) {
             if(mode.value == KwikDatePickerMode.Edit){
                 mode.value = KwikDatePickerMode.Display

@@ -1,12 +1,16 @@
 package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -44,6 +48,10 @@ import java.util.Date
  * @param dialogShape: The shape of the date picker dialog.
  * @param colors: The colors to use for the date picker.
  * @param onClick: Callback that is called when the date field is clicked.
+ * @param border: The border to use for the date field.
+ * @param shape: The shape of the date field.
+ * @param leadingIcon: The leading icon to use for the date field.
+ * @param trailingIcon: The trailing icon to use for the date field.
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,16 +63,33 @@ fun KwikDateRangeButton(
     maxSelectableDate: Long? = null,
     showModeToggle: Boolean = false,
     dialogShape: Shape = MaterialTheme.shapes.medium,
-    colors: DatePickerColors = KwikDatePickerColors(),
-    onClick: () -> Unit = {}
+    colors: DatePickerColors = kwikDatePickerColors(),
+    onClick: () -> Unit = {},
+    border: BorderStroke? = null,
+    shape: Shape = MaterialTheme.shapes.medium,
+    leadingIcon: @Composable (() -> Unit?) = {
+        Icon(
+            painter = painterResource(id = R.drawable.calendar),
+            tint = MaterialTheme.colorScheme.onSurface,
+            contentDescription = null,
+        )
+    },
+    trailingIcon: @Composable (() -> Unit?) = {
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_down),
+            tint = MaterialTheme.colorScheme.onSurface,
+            contentDescription = null,
+        )
+    }
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
     var dateDisplay by remember { mutableStateOf("Select dates") }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .height(75.dp)
+            .heightIn(65.dp)
+            .then(modifier)
     ) {
         KwikText.TitleSmall(
             text = label,
@@ -74,8 +99,7 @@ fun KwikDateRangeButton(
         Spacer(modifier = Modifier.height(4.dp))
 
         Button(
-            modifier = modifier
-                .height(50.dp),
+            modifier = Modifier.fillMaxSize(),
             onClick = {
                 onClick()
                 showDatePicker = true
@@ -83,32 +107,23 @@ fun KwikDateRangeButton(
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
-            border = BorderStroke(1.dp, Color.Gray),
-            contentPadding = PaddingValues(4.dp),
-            shape = RoundedCornerShape(8.dp),
+            border = border,
+            shape = shape
         ) {
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.calendar),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    contentDescription = null,
-                )
+                leadingIcon()
 
                 KwikText.BodyMedium(
-                    modifier = Modifier.align(Alignment.Center),
                     text = dateDisplay
                 )
 
-                Icon(
-                    modifier = Modifier.align(Alignment.CenterEnd),
-                    painter = painterResource(id = R.drawable.arrow_down),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    contentDescription = null,
-                )
+                trailingIcon()
             }
         }
 

@@ -48,7 +48,7 @@ fun KwikDatePickerDialog(
     onDateSelected: (Date) -> Unit,
     showModeToggle: Boolean = false,
     confirmOnSelection: Boolean = true,
-    colors: DatePickerColors = KwikDatePickerColors(),
+    colors: DatePickerColors = kwikDatePickerColors(),
     shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {

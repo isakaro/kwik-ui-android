@@ -47,7 +47,7 @@ fun KwikDateRangePickerDialog(
     maxSelectableDate: Long? = null,
     onDateRangeSelected: (Pair<Date, Date>) -> Unit,
     showModeToggle: Boolean = false,
-    colors: DatePickerColors = KwikDatePickerColors(),
+    colors: DatePickerColors = kwikDatePickerColors(),
     shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {
@@ -123,7 +123,7 @@ fun KwikDateRangePickerDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KwikDatePickerColors(): DatePickerColors {
+fun kwikDatePickerColors(): DatePickerColors {
     return DatePickerDefaults.colors().copy(
         containerColor = MaterialTheme.colorScheme.surface,
         selectedDayContainerColor = MaterialTheme.colorScheme.primary,
