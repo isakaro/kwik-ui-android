@@ -214,9 +214,8 @@ internal fun KwikTimelineScreen(
                         .fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
-                        KwikText.Quote(
-                            text = "Big budget",
-                            fontStyle = FontStyle.Italic
+                        KwikText.TitleMedium(
+                            text = "Big budget"
                         )
                         KwikVSpacer(height = 8)
                         KwikText.TitleSmall(
