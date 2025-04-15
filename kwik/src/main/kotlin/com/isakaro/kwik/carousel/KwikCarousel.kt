@@ -128,7 +128,7 @@ fun MutableState<KwikCarouselState>.previous() {
 fun KwikCarousel(
     modifier: Modifier = Modifier,
     state: MutableState<KwikCarouselState>,
-    shape: Shape = MaterialTheme.shapes.large,
+    shape: Shape = MaterialTheme.shapes.medium,
     initialIndex: Int = 0,
     showIndicators: Boolean = true,
     selectedIndicatorColor: Color = Color.White,
@@ -298,6 +298,7 @@ fun KwikCarousel(
                                     color = Color.Black.copy(alpha = 0.5f),
                                     shape = CircleShape
                                 )
+                                .size(35.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -345,6 +346,7 @@ fun KwikCarousel(
                                     color = Color.Black.copy(alpha = 0.5f),
                                     shape = CircleShape
                                 )
+                                .size(35.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
