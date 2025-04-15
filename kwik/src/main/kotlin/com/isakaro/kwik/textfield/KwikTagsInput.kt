@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -271,8 +272,7 @@ fun KwikTagsInput(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(max = 240.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                        .heightIn(max = 240.dp)
                 ) {
                     items(suggestions) { suggestion ->
                         Surface(
@@ -280,14 +280,17 @@ fun KwikTagsInput(
                                 .fillMaxWidth()
                                 .padding(4.dp)
                                 .background(
-                                    color = MaterialTheme.colorScheme.surface
+                                    color = MaterialTheme.colorScheme.surface,
+                                    shape = MaterialTheme.shapes.small
                                 )
-                                .clickable { tagAdded(suggestion) }
+                                .clickable { tagAdded(suggestion) },
+                            color = Color.Transparent
                         ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 4.dp),
+                                    .height(40.dp)
+                                    .padding(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ){
                                 KwikText.BodyMedium(

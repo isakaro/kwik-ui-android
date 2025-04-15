@@ -135,7 +135,7 @@ fun KwikOutlinedTextField(
     isError: Boolean = false,
     error: String = "Field is required",
     singleLine: Boolean = true,
-    maxLength: Int = 35,
+    maxLength: Int = 65,
     keyboardType: KeyboardType = KeyboardType.Text,
     keyboardActions: KeyboardActions = KeyboardActions(
         onDone = {
@@ -361,42 +361,14 @@ fun KwikOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (hint != null && (hintVisibleOnError && isError || !hintVisibleOnError)) {
-                when(hint){
-                    is Int -> {
-                        KwikText.LabelMedium(
-                            text = stringResource(id = hint),
-                            color = KwikColorHint,
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 8.dp)
-                        )
-                    }
-                    is String -> {
-                        if(hint.isNotBlank()){
-                            KwikText.LabelMedium(
-                                text = hint,
-                                color = KwikColorHint,
-                                textAlign = TextAlign.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp)
-                            )
-                        }
-                    }
-                    is AnnotatedString -> {
-                        if(hint.isNotBlank()){
-                            KwikText.BodyMedium(
-                                text = hint,
-                                color = KwikColorHint,
-                                textAlign = TextAlign.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp)
-                            )
-                        }
-                    }
-                }
+                KwikText.RenderText(
+                    text = hint,
+                    color = KwikColorHint,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                )
             }
             Box(
                 modifier = Modifier.fillMaxWidth()
@@ -409,7 +381,7 @@ fun KwikOutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
-                            .align(Alignment.BottomEnd)
+                            .align(Alignment.BottomStart)
                     )
                 }
                 if(isTextCounterShown || isBigTextField) {

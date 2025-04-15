@@ -133,7 +133,7 @@ fun KwikTextField(
     isError: Boolean = false,
     error: String = "Field is required",
     singleLine: Boolean = true,
-    maxLength: Int = 35,
+    maxLength: Int = 65,
     keyboardType: KeyboardType = KeyboardType.Text,
     keyboardActions: KeyboardActions = KeyboardActions(
         onDone = {
@@ -244,7 +244,6 @@ fun KwikTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
                 .height(if (isBigTextField) 150.dp else 65.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
@@ -371,71 +370,38 @@ fun KwikTextField(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (hint != null && (hintVisibleOnError && isError || !hintVisibleOnError)) {
-                when(hint){
-                    is Int -> {
-                        Text(
-                            text = stringResource(id = hint),
-                            color = KwikColorHint,
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 8.dp),
-                            style = MaterialTheme.typography.labelMedium
-                        )
-                    }
-                    is String -> {
-                        if(hint.isNotBlank()){
-                            Text(
-                                text = hint,
-                                color = KwikColorHint,
-                                textAlign = TextAlign.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        }
-                    }
-                    is AnnotatedString -> {
-                        if(hint.isNotBlank()){
-                            Text(
-                                text = hint,
-                                color = KwikColorHint,
-                                textAlign = TextAlign.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        }
-                    }
-                }
+                KwikText.RenderText(
+                    text = hint,
+                    color = KwikColorHint,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                )
             }
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 if(isError){
-                    Text(
+                    KwikText.LabelMedium(
                         text = error,
                         color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
-                            .align(Alignment.BottomEnd),
-                        style = MaterialTheme.typography.labelMedium
+                            .align(Alignment.BottomStart)
                     )
                 }
                 if(isTextCounterShown || isBigTextField) {
-                    Text(
+                    KwikText.LabelMedium(
                         text = "${value.value.text.length}/$maxLength",
                         color = Color.Gray,
                         textAlign = TextAlign.End,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
-                            .align(Alignment.BottomEnd),
-                        style = MaterialTheme.typography.labelMedium
+                            .align(Alignment.BottomEnd)
                     )
                 }
             }
