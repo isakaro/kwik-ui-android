@@ -120,6 +120,7 @@ fun KwikTagsInput(
     val suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
     val showSuggestions = remember { mutableStateOf(false) }
     val kwikToastState = rememberKwikToastState()
+    var isFocused by remember { mutableStateOf(false) }
 
     KwikToast(state = kwikToastState)
 
@@ -182,7 +183,9 @@ fun KwikTagsInput(
             .fillMaxWidth()
             .border(
                 width = if(outlined) 2.dp else 0.dp,
-                color = if(outlined) MaterialTheme.colorScheme.outline else Color.Transparent,
+                color = if(outlined) {
+                    if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray
+                } else Color.Transparent,
                 shape = shape
             )
             .background(
@@ -250,6 +253,7 @@ fun KwikTagsInput(
                     }
                 ),
                 onFocusChanged = { focused ->
+                    isFocused = focused
                     if (focused) {
                         showSuggestions.value = suggestions.isNotEmpty()
                     } else {
@@ -262,8 +266,7 @@ fun KwikTagsInput(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(max = 240.dp)
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                        .heightIn(max = 240.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(suggestions) { suggestion ->
@@ -412,7 +415,7 @@ private fun KwikQuantitySelection(
             )
 
             KwikButton(
-                text = "Confirm",
+                text = "Done",
                 onClick = onDismiss
             )
         }

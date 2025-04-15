@@ -173,7 +173,7 @@ fun KwikOutlinedTextField(
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
         errorTextColor = MaterialTheme.colorScheme.error,
         errorCursorColor = MaterialTheme.colorScheme.error
-    ),
+    )
 ) {
 
     val autofillTypes = mutableListOf<AutofillType>()

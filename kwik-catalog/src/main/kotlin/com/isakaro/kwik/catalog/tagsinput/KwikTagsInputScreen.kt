@@ -70,6 +70,7 @@ fun KwikTagsInputScreen(
                 items = sampleTags,
                 placeholder = "Enter or select your destination",
                 withQuantity = true,
+                initialValues = initialTags,
                 onTagsChanged = { newTags ->
                     currentTags = newTags
                 }
