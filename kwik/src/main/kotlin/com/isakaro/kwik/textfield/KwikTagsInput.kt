@@ -373,7 +373,8 @@ fun KwikTagChip(
         }
     ) {
         KwikQuantitySelection(
-            quantity = quantity,
+            tag = tag,
+            quantity = tag.quantity,
             onQuantitySelected = {
                 onQuantityChange(it)
             },
@@ -387,6 +388,7 @@ fun KwikTagChip(
 @Composable
 private fun KwikQuantitySelection(
     quantity: Int,
+    tag: KwikTagsInputItem,
     onQuantitySelected: (Int) -> Unit,
     onDismiss: () -> Unit,
     cancelText: String,
@@ -406,7 +408,8 @@ private fun KwikQuantitySelection(
 
         KwikCounter(
             initialValue = quantity,
-            minValue = 1,
+            minValue = tag.minQuantity,
+            maxValue = tag.maxQuantity,
             onValueChange = {
                 onQuantitySelected(it)
             }
