@@ -384,7 +384,7 @@ fun KwikOutlinedTextField(
 
 @Composable
 fun kwikOutlinedTextFieldColors(
-    enabled: Boolean
+    enabled: Boolean = true
 ): TextFieldColors {
     return OutlinedTextFieldDefaults.colors(
         focusedTextColor = MaterialTheme.colorScheme.onSurface,

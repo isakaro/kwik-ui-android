@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -235,13 +233,13 @@ fun KwikTagsInput(
                 placeholder = placeholder,
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(
+                colors = kwikTextFieldColors().copy(
                     focusedTextColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
                     cursorColor = MaterialTheme.colorScheme.primary,
                     focusedContainerColor = Color.Transparent,
                     focusedLabelColor = Color.Gray,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
                     unfocusedLabelColor = Color.Gray,
                     unfocusedPlaceholderColor = Color.Gray,
