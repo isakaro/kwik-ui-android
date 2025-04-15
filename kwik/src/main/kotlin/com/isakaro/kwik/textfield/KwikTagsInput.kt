@@ -54,6 +54,8 @@ import com.isakaro.kwik.spacer.KwikHSpacer
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldUnfocused
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldUnfocusedDarkMode
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.toast.KwikToast
 import com.isakaro.kwik.toast.rememberKwikToastState
@@ -110,15 +112,13 @@ fun KwikTagsInput(
     shape: Shape = MaterialTheme.shapes.medium,
     tagsItemShape: Shape = MaterialTheme.shapes.small,
     outlined: Boolean = false,
-    tagsVerticalSpacing: Int = 2,
-    tagsHorizontalSpacing: Int = 2,
+    tagsVerticalSpacing: Int = 4,
+    tagsHorizontalSpacing: Int = 4,
     quantityCancelText: String = "Cancel",
     quantityDoneText: String = "Done"
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(
-        TextFieldValue("")
-    ) }
+    val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val selectedItems = remember { mutableStateMapOf<Any, KwikTagsInputItem>() }
     val suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
     val showSuggestions = remember { mutableStateOf(false) }
@@ -163,7 +163,7 @@ fun KwikTagsInput(
         if (selectedItems.none { it.key == item.id }) {
             selectedItems[item.id] = item
             inputValue.value = TextFieldValue("")
-            showSuggestions.value = false
+            showSuggestions.value = false || suggestionsAlwaysVisible
             onTagsChanged(selectedItems.map { it.value })
         }
     }
@@ -187,12 +187,20 @@ fun KwikTagsInput(
             .border(
                 width = if(outlined) 2.dp else 0.dp,
                 color = if(outlined) {
-                    if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray
+                    if(isFocused){
+                        if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray
+                    } else {
+                        Color.Gray
+                    }
                 } else Color.Transparent,
                 shape = shape
             )
             .background(
-                color = if(outlined) Color.Transparent else if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+                color = if(isFocused) {
+                    if(outlined) Color.Transparent else if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused
+                } else {
+                    if(outlined) Color.Transparent else if(isSystemInDarkTheme()) KwikColorFilledTextFieldUnfocusedDarkMode else KwikColorFilledTextFieldUnfocused
+                },
                 shape = shape
             )
     ) {
@@ -321,7 +329,8 @@ fun KwikTagChip(
 
     Surface(
         modifier = Modifier
-            .clip(shape),
+            .clip(shape)
+            .clickable { showQuantityDialog.value = true },
         color = MaterialTheme.colorScheme.surface
     ) {
         Row(
@@ -341,7 +350,6 @@ fun KwikTagChip(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
-                        .clickable { showQuantityDialog.value = true }
                         .background(
                             color = MaterialTheme.colorScheme.onSurface,
                             shape = RoundedCornerShape(4.dp)

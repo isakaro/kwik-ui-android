@@ -63,7 +63,7 @@ fun KwikIconButton(
 ) {
     IconButton(
         onClick = { onClick() },
-        modifier = Modifier,
+        modifier = modifier,
         interactionSource = remember { MutableInteractionSource() },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = containerColor
@@ -71,7 +71,6 @@ fun KwikIconButton(
     ) {
         KwikImageView(
             url = icon,
-            modifier = modifier,
             tint = tint
         )
     }

@@ -106,7 +106,7 @@ internal fun KwikCarouselScreen(
             )
         }
 
-        ShowCase(title = "Content carousel") {
+        ShowCase(title = "Custom content carousel") {
             val content: List<@Composable () -> Unit> = listOf(
                 {
                     KwikCard(

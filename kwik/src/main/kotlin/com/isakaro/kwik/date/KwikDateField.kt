@@ -31,7 +31,11 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.button.KwikIconButton
@@ -41,7 +45,7 @@ import com.isakaro.kwik.textfield.KwikTextField
 import com.isakaro.kwik.utils.toFormat
 import java.util.Date
 
-enum class KwikDatePickerMode {
+private enum class KwikDatePickerMode {
     Display,
     Edit
 }
@@ -97,47 +101,52 @@ fun KwikDateField(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if(mode.value == KwikDatePickerMode.Edit){
-            if(outlined){
-                KwikOutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .pointerInput(selectedDate) {
-                            awaitEachGesture {
-                                awaitFirstDown(pass = PointerEventPass.Initial)
-                                val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-                                if (upEvent != null) {
-                                    showDatePicker = true
+            Row(
+                modifier = Modifier.weight(1f)
+            ) {
+                if(outlined){
+                    KwikOutlinedTextField(
+                        modifier = Modifier
+                            .pointerInput(selectedDate) {
+                                awaitEachGesture {
+                                    awaitFirstDown(pass = PointerEventPass.Initial)
+                                    val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
+                                    if (upEvent != null) {
+                                        showDatePicker = true
+                                    }
                                 }
-                            }
-                        },
-                    value = dateValue,
-                    onValueChange = { dateValue.value = it },
-                    placeholder = placeholder,
-                    singleLine = true
-                )
-            } else {
-                KwikTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .pointerInput(selectedDate) {
-                            awaitEachGesture {
-                                awaitFirstDown(pass = PointerEventPass.Initial)
-                                val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-                                if (upEvent != null) {
-                                    showDatePicker = true
+                            },
+                        value = dateValue,
+                        onValueChange = { dateValue.value = it },
+                        placeholder = placeholder,
+                        singleLine = true,
+                        visualTransformation = DateVisualTransformation()
+                    )
+                } else {
+                    KwikTextField(
+                        modifier = Modifier
+                            .pointerInput(selectedDate) {
+                                awaitEachGesture {
+                                    awaitFirstDown(pass = PointerEventPass.Initial)
+                                    val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
+                                    if (upEvent != null) {
+                                        showDatePicker = true
+                                    }
                                 }
-                            }
-                        },
-                    value = dateValue,
-                    label = label,
-                    onValueChange = { dateValue.value = it },
-                    placeholder = placeholder,
-                    singleLine = true
-                )
+                            },
+                        value = dateValue,
+                        label = label,
+                        onValueChange = { dateValue.value = it },
+                        placeholder = placeholder,
+                        singleLine = true,
+                        visualTransformation = DateVisualTransformation()
+                    )
+                }
             }
         } else {
             Button(
                 modifier = Modifier
+                    .weight(1f)
                     .then(modifier),
                 onClick = {
                     showDatePicker = true
@@ -166,18 +175,49 @@ fun KwikDateField(
             }
         }
         KwikIconButton(
-            modifier = Modifier.size(45.dp),
-            icon = if(mode.value == KwikDatePickerMode.Edit) Icons.Default.Create else Icons.Default.Close,
-            tint = Color.Black,
+            modifier = Modifier.size(40.dp).padding(horizontal = 6.dp),
+            icon = if(mode.value == KwikDatePickerMode.Edit) Icons.Default.Close else Icons.Default.Create,
+            containerColor = Color.Transparent,
+            tint = MaterialTheme.colorScheme.onSurface
         ) {
             if(mode.value == KwikDatePickerMode.Edit){
                 mode.value = KwikDatePickerMode.Display
             } else {
-                dateValue.value = TextFieldValue("")
-                selectedDate = null
-                selected(Date(0))
                 mode.value = KwikDatePickerMode.Edit
             }
         }
     }
+}
+
+class DateVisualTransformation() : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        return maskFilter(text)
+    }
+}
+
+fun maskFilter(text: AnnotatedString): TransformedText {
+
+    val trimmed = if (text.text.length >= 8) text.text.substring(0..7) else text.text
+    var out = ""
+    for (i in trimmed.indices) {
+        out += trimmed[i]
+        if (i==4) out += "-"
+    }
+
+    val numberOffsetTranslator = object : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int {
+            if (offset <= 4) return offset
+            if (offset <= 8) return offset +1
+            return 9
+
+        }
+
+        override fun transformedToOriginal(offset: Int): Int {
+            if (offset <=5) return offset
+            if (offset <=9) return offset -1
+            return 8
+        }
+    }
+
+    return TransformedText(AnnotatedString(out), numberOffsetTranslator)
 }

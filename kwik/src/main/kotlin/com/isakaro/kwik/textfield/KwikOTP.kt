@@ -16,6 +16,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -29,6 +30,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalTextToolbar
@@ -73,19 +75,27 @@ import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
  * */
 @Composable
 fun KwikOTP(
+    modifier: Modifier = Modifier,
     onValidOTP: (TextFieldValue) -> Unit,
     size: Int = 6,
     isError: Boolean = false,
     error: String,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     clearAll: Boolean = false,
+    outlined: Boolean = false,
+    shape: Shape = MaterialTheme.shapes.small,
+    colors: TextFieldColors = kwikTextFieldColors().copy(
+        focusedContainerColor = if(outlined) Color.Transparent else KwikColorFilledTextField,
+        unfocusedContainerColor = if(outlined) Color.Transparent else KwikColorFilledTextField,
+        focusedIndicatorColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray
+    ),
     onKeyboardDone: () -> Unit = {  }
 ) {
     val focusManager = LocalFocusManager.current
 
     val otpFields = List(size = size) { rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) } }
 
-    fun validOtp(): Boolean {
+    fun validOTP(): Boolean {
         return if(otpFields.none { it.value.text.isEmpty() }){
             onValidOTP(TextFieldValue(
                 text = otpFields.joinToString("") { it.value.text },
@@ -102,7 +112,7 @@ fun KwikOTP(
 
     Column {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             (0 until size).forEach { index ->
@@ -112,11 +122,11 @@ fun KwikOTP(
                     isError = isError,
                     onValueChange = {
                         otpFields[index].value = it
-                        val isValidOtp = validOtp()
+                        val isValidOTP = validOTP()
                         if(it.text.length == 1){
                             // don't move focus to next field if the otp field is already filled
                             try {
-                                if(!isValidOtp) focusManager.moveFocus(FocusDirection.Right)
+                                if(!isValidOTP) focusManager.moveFocus(FocusDirection.Right)
                             } catch (e: Exception){}
                         }
                     },
@@ -130,7 +140,9 @@ fun KwikOTP(
                     },
                     onKeyboardDone = {
                         onKeyboardDone()
-                    }
+                    },
+                    colors = colors,
+                    shape = shape
                 )
             }
             if(visualTransformation is PasswordVisualTransformation) {
@@ -186,7 +198,9 @@ private fun OTPDigit(
     passwordVisible: Boolean = false,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    isLastField: Boolean = false, // if true, will trigger onKeyboardDone when user presses enter key on keyboard
+    isLastField: Boolean = false, // if true, will trigger onKeyboardDone when user presses enter key on keyboard,
+    colors: TextFieldColors,
+    shape: Shape
 ) {
     val customTextSelectionColors = TextSelectionColors(
         handleColor = Color.Transparent,
@@ -211,30 +225,12 @@ private fun OTPDigit(
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
             ),
+            shape = shape,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
             } else VisualTransformation.None,
             isError = isError,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                cursorColor = MaterialTheme.colorScheme.primary,
-                focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-                focusedLabelColor = Color.Gray,
-                focusedBorderColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray,
-                unfocusedBorderColor = Color.Transparent,
-                unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
-                unfocusedLabelColor = Color.Gray,
-                unfocusedPlaceholderColor = Color.Gray,
-                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                disabledBorderColor = Color.Transparent,
-                disabledContainerColor = Color.LightGray,
-                errorContainerColor = KwikColorFilledTextFieldError,
-                errorBorderColor = Color.Transparent,
-                errorLabelColor = MaterialTheme.colorScheme.error,
-                errorPlaceholderColor = MaterialTheme.colorScheme.error,
-                errorTextColor = MaterialTheme.colorScheme.error,
-                errorCursorColor = MaterialTheme.colorScheme.error
-            ),
+            colors = colors,
             singleLine = true,
             maxLines = 1,
             modifier = Modifier

@@ -1,6 +1,7 @@
 package com.isakaro.kwik.textfield
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -177,11 +178,14 @@ fun KwikSearchView(
             onValueChange = { query ->
                 if (query.text.isBlank()) {
                     state.value = TextFieldValue("")
-                    suggestionsVisible = false
                     onTextCleared()
+
+                    if(showSuggestions){
+                        filteredSuggestions = suggestions.take(10)
+                        suggestionsVisible = true
+                    }
+
                     return@TextField
-                } else {
-                    filteredSuggestions = suggestions.take(10)
                 }
                 if (query.text.length <= maxChars) {
                     state.value = query
@@ -190,7 +194,9 @@ fun KwikSearchView(
                     debounceJob?.cancel()
                     debounceJob = coroutineScope.launch {
                         if(delay && delayDuration >= 1L) {
+                            Log.e("started delay at", "${System.currentTimeMillis()}")
                             delay(delayDuration)
+                            Log.e("ended delay at", "${System.currentTimeMillis()}")
                         }
 
                         // filter suggestions based on the query
