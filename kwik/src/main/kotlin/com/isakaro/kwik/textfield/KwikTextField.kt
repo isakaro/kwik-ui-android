@@ -62,6 +62,7 @@ import com.isakaro.kwik.theme.KwikColorFilledTextField
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldError
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
+import com.isakaro.kwik.theme.KwikColorFilledTextFieldUnfocused
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess
 
@@ -129,7 +130,7 @@ fun KwikTextField(
     isEditable: Boolean = true,
     label: String? = null,
     placeholder: String,
-    shape: Shape = RoundedCornerShape(8.dp),
+    shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "Field is required",
     singleLine: Boolean = true,
@@ -224,7 +225,7 @@ fun KwikTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(if (isBigTextField) 150.dp else 65.dp)
+                .height(if (isBigTextField) 150.dp else 60.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
@@ -350,7 +351,7 @@ fun KwikTextField(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (hint != null && (hintVisibleOnError && isError || !hintVisibleOnError)) {
-                KwikText.RenderText(
+                KwikText.LabelMedium(
                     text = hint,
                     color = KwikColorHint,
                     textAlign = TextAlign.Start,
@@ -398,9 +399,9 @@ fun kwikTextFieldColors(
         cursorColor = MaterialTheme.colorScheme.primary,
         focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
         focusedLabelColor = Color.Gray,
-        focusedBorderColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray,
+        focusedBorderColor = Color.Transparent,
         unfocusedBorderColor = Color.Transparent,
-        unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+        unfocusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldUnfocused,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
         unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
@@ -411,7 +412,7 @@ fun kwikTextFieldColors(
         errorBorderColor = Color.Transparent,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = MaterialTheme.colorScheme.error,
+        errorTextColor = MaterialTheme.colorScheme.onSurface,
         errorCursorColor = MaterialTheme.colorScheme.error
     )
 }

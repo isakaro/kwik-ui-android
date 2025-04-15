@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -19,7 +18,6 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
@@ -51,9 +49,6 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.countrypicker.KwikCountryCodeButton
 import com.isakaro.kwik.countrypicker.KwikCountryPickerDialog
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.theme.KwikColorFilledTextField
-import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocused
-import com.isakaro.kwik.theme.KwikColorFilledTextFieldFocusedDarkMode
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.KwikCountryInfo
@@ -67,7 +62,7 @@ fun KwikPhoneNumberField(
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
     label: String,
-    shape: Shape = RoundedCornerShape(8.dp),
+    shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "",
     singleLine: Boolean = true,

@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.dialog.KwikDialog
 import com.isakaro.kwik.textfield.KwikSearchView
+import com.isakaro.kwik.textfield.kwikTextFieldColors
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.KwikCountry
 import com.isakaro.kwik.utils.KwikCountryInfo
@@ -72,6 +73,10 @@ fun KwikCountryCodePicker(
         if(enableSearch && countries.isNotEmpty()){
             KwikSearchView(
                 state = searchQuery,
+                colors = kwikTextFieldColors().copy(
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                ),
                 onTextChange = { query ->
                     if (query.isBlank()) {
                         searchResults.value = countries

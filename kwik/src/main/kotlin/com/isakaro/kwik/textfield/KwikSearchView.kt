@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextRange
@@ -150,7 +151,8 @@ fun KwikSearchView(
     colors: TextFieldColors = kwikTextFieldColors().copy(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent
-    )
+    ),
+    shape: Shape = MaterialTheme.shapes.medium
 ) {
     val queryText = remember { mutableStateOf("") }
     var suggestionsVisible by remember { mutableStateOf(showSuggestions) }
@@ -178,6 +180,8 @@ fun KwikSearchView(
                     suggestionsVisible = false
                     onTextCleared()
                     return@TextField
+                } else {
+                    filteredSuggestions = suggestions.take(10)
                 }
                 if (query.text.length <= maxChars) {
                     state.value = query
@@ -205,7 +209,7 @@ fun KwikSearchView(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(55.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
@@ -237,7 +241,6 @@ fun KwikSearchView(
                                 debounceJob?.cancel()
                                 onTextCleared()
                                 filteredSuggestions = suggestions.take(10)
-                                suggestionsVisible = false
                             }
                         ) {
                             Icon(
@@ -265,7 +268,7 @@ fun KwikSearchView(
             },
             singleLine = true,
             isError = isError,
-            shape = RoundedCornerShape(8.dp),
+            shape = shape,
             colors = colors,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,

@@ -131,7 +131,7 @@ fun KwikOutlinedTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEditable: Boolean = true,
     placeholder: String,
-    shape: Shape = RoundedCornerShape(8.dp),
+    shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "Field is required",
     singleLine: Boolean = true,
@@ -217,7 +217,7 @@ fun KwikOutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
-                .height(if (isBigTextField) 150.dp else 65.dp)
+                .height(if (isBigTextField) 150.dp else 60.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
@@ -402,7 +402,7 @@ fun kwikOutlinedTextFieldColors(
         errorBorderColor = MaterialTheme.colorScheme.error,
         errorLabelColor = MaterialTheme.colorScheme.error,
         errorPlaceholderColor = MaterialTheme.colorScheme.error,
-        errorTextColor = MaterialTheme.colorScheme.error,
+        errorTextColor = MaterialTheme.colorScheme.onSurface,
         errorCursorColor = MaterialTheme.colorScheme.error
     )
 }

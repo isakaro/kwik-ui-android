@@ -103,7 +103,7 @@ fun KwikOutlinedPhoneNumberField(
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
     placeholder: String,
-    shape: Shape = RoundedCornerShape(8.dp),
+    shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "",
     singleLine: Boolean = true,

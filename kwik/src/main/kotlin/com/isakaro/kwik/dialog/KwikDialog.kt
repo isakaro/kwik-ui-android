@@ -99,7 +99,7 @@ object KwikDialog {
             ) {
                 Surface(
                     modifier = Modifier
-                        .padding(horizontal = 12.dp)
+                        .padding(horizontal = 12.dp, vertical = 12.dp)
                         .then(modifier)
                         .clip(shape)
                 ) {

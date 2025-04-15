@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
@@ -19,6 +20,7 @@ import com.isakaro.kwik.carousel.rememberKwikCarouselState
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.utils.KwikConstants
+import com.isakaro.kwik.image.KwikImageLoader
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
@@ -115,7 +117,10 @@ internal fun KwikCarouselScreen(
             KwikCarousel(
                 state = carouselState
             ){ page ->
-                items[page]
+                KwikImageLoader(
+                    url = images[page],
+                    contentScale = ContentScale.Crop
+                )
             }
         }
     }

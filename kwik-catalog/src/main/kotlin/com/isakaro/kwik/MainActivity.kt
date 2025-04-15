@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.avatar.KwikAvatarScreen
@@ -82,6 +83,8 @@ import com.ramcosta.composedestinations.rememberNavHostEngine
 
 class MainActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val installedSplashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         setContent {

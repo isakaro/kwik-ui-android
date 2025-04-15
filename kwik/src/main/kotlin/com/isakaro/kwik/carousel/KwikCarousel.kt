@@ -179,9 +179,8 @@ fun KwikCarousel(
         onPageIndexChange(pagerState.currentPage)
     }
 
-    // Update when item count changes in the state
     LaunchedEffect(state.value.itemCount) {
-        // If current index is out of bounds after item count change, adjust it
+        // If current index is out of bounds after item count change, we adjust it
         if (state.value.currentIndex >= state.value.itemCount && state.value.itemCount > 0) {
             state.value = state.value.copy(currentIndex = state.value.itemCount - 1)
         }
@@ -322,7 +321,7 @@ fun KwikCarousel(
                                 if (pagerState.currentPage < state.value.itemCount - 1) {
                                     pagerState.animateScrollToPage(pagerState.currentPage + 1)
                                 } else if (state.value.loop) {
-                                    // Go to the first page if on last page and looping is enabled
+                                    // We go to the first page if on last page and looping is enabled
                                     pagerState.animateScrollToPage(0)
                                 }
                             }
@@ -336,7 +335,7 @@ fun KwikCarousel(
                                     if (pagerState.currentPage < state.value.itemCount - 1) {
                                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                                     } else if (state.value.loop) {
-                                        // Go to the first page if on last page and looping is enabled
+                                        // We go to the first page if on last page and looping is enabled
                                         pagerState.animateScrollToPage(0)
                                     }
                                 }

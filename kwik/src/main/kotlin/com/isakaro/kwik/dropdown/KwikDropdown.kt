@@ -23,7 +23,7 @@ import java.util.UUID
 @Composable
 fun KwikDropdown(
     state: Boolean,
-    shape: Shape = MaterialTheme.shapes.large,
+    shape: Shape = MaterialTheme.shapes.medium,
     onDismissRequest: () -> Unit,
     items: List<KwikDropdownItemActionState>,
 ) {

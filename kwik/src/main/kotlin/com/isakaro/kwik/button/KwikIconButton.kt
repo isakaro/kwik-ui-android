@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -53,15 +57,17 @@ fun KwikIconTextButton(
 fun KwikIconButton(
     modifier: Modifier = Modifier,
     icon: Any,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     tint: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
 ) {
-    TextButton(
+    IconButton(
         onClick = { onClick() },
         modifier = Modifier,
-        contentPadding = PaddingValues(4.dp),
-        shape = RoundedCornerShape(8.dp),
-        interactionSource = remember { MutableInteractionSource() }
+        interactionSource = remember { MutableInteractionSource() },
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = containerColor
+        )
     ) {
         KwikImageView(
             url = icon,
