@@ -76,10 +76,7 @@ fun KwikOutlinedOTP(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     clearAll: Boolean = false,
     shape: Shape = MaterialTheme.shapes.small,
-    colors: TextFieldColors = kwikOutlinedTextFieldColors().copy(
-        focusedTextColor = Color.White,
-        unfocusedTextColor = Color.White
-    ),
+    colors: TextFieldColors = kwikOutlinedTextFieldColors(),
     onKeyboardDone: () -> Unit = {  }
 ) {
     val focusManager = LocalFocusManager.current

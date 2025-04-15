@@ -85,9 +85,7 @@ fun KwikOTP(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     clearAll: Boolean = false,
     shape: Shape = MaterialTheme.shapes.small,
-    colors: TextFieldColors = kwikTextFieldColors().copy(
-        focusedIndicatorColor = if(isSystemInDarkTheme()) KwikColorFilledTextField else Color.DarkGray
-    ),
+    colors: TextFieldColors = kwikTextFieldColors(),
     onKeyboardDone: () -> Unit = {  }
 ) {
     val focusManager = LocalFocusManager.current

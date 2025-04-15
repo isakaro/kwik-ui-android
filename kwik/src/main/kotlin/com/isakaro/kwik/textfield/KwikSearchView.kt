@@ -194,22 +194,20 @@ fun KwikSearchView(
                     debounceJob?.cancel()
                     debounceJob = coroutineScope.launch {
                         if(delay && delayDuration >= 1L) {
-                            Log.e("started delay at", "${System.currentTimeMillis()}")
                             delay(delayDuration)
-                            Log.e("ended delay at", "${System.currentTimeMillis()}")
-                        }
 
-                        // filter suggestions based on the query
-                        filteredSuggestions = suggestions.filter { suggestion ->
-                            suggestion.contains(query.text, ignoreCase = true)
-                        }
+                            // filter suggestions based on the query
+                            filteredSuggestions = suggestions.filter { suggestion ->
+                                suggestion.contains(query.text, ignoreCase = true)
+                            }
 
-                        // if no results, show all suggestions
-                        if (filteredSuggestions.isEmpty()) {
-                            filteredSuggestions = suggestions.take(10)
-                        }
+                            // if no results, show all suggestions
+                            if (filteredSuggestions.isEmpty()) {
+                                filteredSuggestions = suggestions.take(10)
+                            }
 
-                        onTextChange(queryText.value)
+                            onTextChange(queryText.value)
+                        }
                     }
                 }
             },

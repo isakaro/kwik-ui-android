@@ -115,7 +115,8 @@ fun KwikTagsInput(
     tagsVerticalSpacing: Int = 4,
     tagsHorizontalSpacing: Int = 4,
     quantityCancelText: String = "Cancel",
-    quantityDoneText: String = "Done"
+    quantityDoneText: String = "Done",
+    maxLines: Int = 4
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
@@ -216,7 +217,7 @@ fun KwikTagsInput(
                     verticalArrangement = Arrangement.spacedBy(
                         space = tagsHorizontalSpacing.dp
                     ),
-                    maxLines = 3
+                    maxLines = maxLines
                 ) {
                     selectedItems.forEach { item ->
                         KwikTagChip(

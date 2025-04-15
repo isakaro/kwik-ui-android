@@ -343,7 +343,7 @@ fun KwikOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (hint != null && (hintVisibleOnError && isError || !hintVisibleOnError)) {
-                KwikText.RenderText(
+                KwikText.LabelMedium(
                     text = hint,
                     color = KwikColorHint,
                     textAlign = TextAlign.Start,
@@ -396,7 +396,7 @@ fun kwikOutlinedTextFieldColors(
         unfocusedBorderColor = Color.Gray,
         unfocusedLabelColor = Color.Gray,
         unfocusedPlaceholderColor = Color.Gray,
-        unfocusedTextColor = Color.Black,
+        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
         disabledBorderColor = if(enabled) Color.Unspecified else Color.Gray,
         disabledTextColor = if(enabled) Color.Unspecified else Color.Gray,
         errorBorderColor = MaterialTheme.colorScheme.error,
