@@ -121,7 +121,7 @@ fun KwikTagsInput(
     val keyboardController = LocalSoftwareKeyboardController.current
     val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val selectedItems = remember { mutableStateMapOf<Any, KwikTagsInputItem>() }
-    val suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
+    var suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
     val showSuggestions = remember { mutableStateOf(false) }
     val kwikToastState = rememberKwikToastState()
     var isFocused by remember { mutableStateOf(false) }
@@ -136,42 +136,30 @@ fun KwikTagsInput(
         }
     }
 
-    LaunchedEffect(inputValue.value, items, selectedItems) {
-        if (inputValue.text.isNotEmpty()) {
-            suggestions.clear()
-            suggestions.addAll(
-                items.filter { item ->
-                    item.label.contains(inputValue.text, ignoreCase = true) && !selectedItems.any { it.key == item.id }
-                }
-            )
-            showSuggestions.value = suggestions.isNotEmpty()
-        } else {
-            if(suggestionsAlwaysVisible){
-                suggestions.clear()
-                suggestions.addAll(
-                    items.filter { item ->
-                        !selectedItems.any { it.key == item.id }
-                    }
-                )
-            } else {
-                suggestions.clear()
-                showSuggestions.value = false
+    fun updateSuggestions() {
+        val query = inputValue.value.text
+        suggestions.clear()
+        suggestions.addAll(
+            items.filter { suggestion ->
+                suggestion.label.contains(query, ignoreCase = true) && !selectedItems.containsKey(suggestion.id)
             }
-        }
+        )
     }
 
     fun tagAdded(item: KwikTagsInputItem) {
         if (selectedItems.none { it.key == item.id }) {
             selectedItems[item.id] = item
             inputValue.value = TextFieldValue("")
-            showSuggestions.value = false || suggestionsAlwaysVisible
+            showSuggestions.value = suggestionsAlwaysVisible
             onTagsChanged(selectedItems.map { it.value })
+            updateSuggestions()
         }
     }
 
     fun tagRemoved(item: KwikTagsInputItem) {
         selectedItems.remove(item.id)
         onTagsChanged(selectedItems.map { it.value })
+        updateSuggestions()
     }
 
     fun updateQuantity(id: Any, quantity: Int) {
@@ -238,7 +226,9 @@ fun KwikTagsInput(
 
             KwikTextField(
                 value = inputValue,
-                onValueChange = { inputValue.value = it },
+                onValueChange = {
+                    inputValue.value = it
+                },
                 placeholder = placeholder,
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -268,10 +258,9 @@ fun KwikTagsInput(
                 ),
                 onFocusChanged = { focused ->
                     isFocused = focused
+                    showSuggestions.value = focused || suggestionsAlwaysVisible
                     if (focused) {
-                        showSuggestions.value = suggestions.isNotEmpty()
-                    } else {
-                        showSuggestions.value = false
+                        updateSuggestions()
                     }
                 }
             )
@@ -331,7 +320,11 @@ fun KwikTagChip(
     Surface(
         modifier = Modifier
             .clip(shape)
-            .clickable { showQuantityDialog.value = true },
+            .clickable {
+                if(withQuantity){
+                    showQuantityDialog.value = true
+                }
+            },
         color = MaterialTheme.colorScheme.surface
     ) {
         Row(
