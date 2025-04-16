@@ -9,6 +9,7 @@ import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.text.KwikExpandableText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -61,6 +62,13 @@ fun KwikTypographyScreen(
             KwikText.Quote(
                 text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!",
                 author = "Jack Sparrow"
+            )
+
+            KwikExpandableText(
+                text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!. This is the day you will always remember as the day you almost caught Captain Jack Sparrow!.",
+                readMoreText = "Read more",
+                showLessText = "Show less",
+                maxLines = 3
             )
         }
     }

@@ -291,7 +291,7 @@ fun KwikOutlinedTextField(
             textStyle = textStyle,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
-            } else VisualTransformation.None,
+            } else visualTransformation,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(if(isBigTextField) 150.dp else 65.dp)

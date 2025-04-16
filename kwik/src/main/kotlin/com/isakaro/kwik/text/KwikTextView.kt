@@ -1,23 +1,17 @@
 package com.isakaro.kwik.text
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLayoutInput
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -44,6 +38,7 @@ object KwikText {
      * @param style Text style
      * @param maxLines Maximum number of lines to display
      * @param overflow Text overflow behavior
+     * @param onTextLayout Text layout callback
      *
      * @see [Text]
      *
@@ -61,6 +56,7 @@ object KwikText {
         style: TextStyle = MaterialTheme.typography.bodyLarge,
         maxLines: Int = Int.MAX_VALUE,
         overflow: TextOverflow = TextOverflow.Ellipsis,
+        onTextLayout: (TextLayoutResult) -> Unit = {},
     ) {
         when (text) {
             is String -> Text(
@@ -73,7 +69,10 @@ object KwikText {
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow
+                overflow = overflow,
+                onTextLayout = {
+                    onTextLayout(it)
+                }
             )
             is Int -> Text(
                 text = text.toString(),
@@ -85,7 +84,10 @@ object KwikText {
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow
+                overflow = overflow,
+                onTextLayout = {
+                    onTextLayout(it)
+                }
             )
             is AnnotatedString -> Text(
                 text = text,
@@ -97,7 +99,10 @@ object KwikText {
                 modifier = modifier,
                 textDecoration = textDecoration,
                 maxLines = maxLines,
-                overflow = overflow
+                overflow = overflow,
+                onTextLayout = {
+                    onTextLayout(it)
+                }
             )
         }
     }

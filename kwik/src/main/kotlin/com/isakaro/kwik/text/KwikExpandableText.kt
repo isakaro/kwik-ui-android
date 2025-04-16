@@ -1,7 +1,10 @@
 package com.isakaro.kwik.text
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,83 +19,66 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.button.KwikTextButton
-import com.isakaro.kwik.dialog.KwikDialog
 
+/**
+ * Text view that can be expanded or collapsed.
+ * Initially shows the text with a cutoff of `maxLines` lines.
+ *
+ * @param modifier The modifier to be applied to the text view.
+ * @param text The text to be displayed.
+ * @param maxLines The maximum number of lines to show initially.
+ * */
 @Composable
 fun KwikExpandableText(
-    text: String,
-    title: String,
     modifier: Modifier = Modifier,
-    maxLines: Int = 4
+    text: String,
+    maxLines: Int = 4,
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    style: TextStyle = MaterialTheme.typography.bodyLarge,
+    readMoreText: String = "Read More",
+    showLessText: String = "Show Less"
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var showReadMore by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier.clickable {
-            isExpanded = true
-        }
-    ) {
-        Column {
-            Text(
+    Column(modifier = modifier) {
+        AnimatedContent(
+            targetState = isExpanded,
+            transitionSpec = {
+                fadeIn(tween(300)) togetherWith fadeOut(tween(300))
+            },
+            label = "ExpandableText"
+        ) { targetExpanded ->
+            KwikText.RenderText(
                 text = text,
-                color = Color.DarkGray,
-                style = MaterialTheme.typography.bodyLarge,
+                color = color,
+                style = style,
                 modifier = Modifier.padding(8.dp),
-                overflow = TextOverflow.Ellipsis,
-                maxLines = maxLines,
+                overflow = if (targetExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                maxLines = if (targetExpanded) Int.MAX_VALUE else maxLines,
                 onTextLayout = { textLayoutResult ->
-                    showReadMore = textLayoutResult.hasVisualOverflow
+                    if (!targetExpanded) {
+                        showReadMore = textLayoutResult.hasVisualOverflow
+                    }
                 }
             )
-
-            Spacer(Modifier.height(8.dp))
-
-            if (showReadMore && !isExpanded) {
-                Row {
-                    Spacer(modifier = Modifier.weight(1f))
-                    TextButton(
-                        onClick = { isExpanded = true }
-                    ) {
-                        Text(
-                            text = "Read More",
-                            textDecoration = TextDecoration.Underline
-                        )
-                    }
-                }
-            }
         }
 
-        KwikDialog.ContentDialog(
-            open = isExpanded,
-            title = title,
-            dismiss = { isExpanded = false },
-            cancellable = true,
-            content = {
-                Column(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    KwikText.BodyLarge(
-                        text = text,
-                        color = Color.DarkGray,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        KwikTextButton(
-                            text = "Close"
-                        ){
-                            isExpanded = false
-                        }
-                    }
-                }
+        if (showReadMore) {
+            Spacer(Modifier.height(8.dp))
+
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Spacer(modifier = Modifier.weight(1f))
+                KwikTextButton(
+                    text = if (isExpanded) showLessText else readMoreText,
+                    onClick = { isExpanded = !isExpanded }
+                )
             }
-        )
+        }
     }
 }
+
