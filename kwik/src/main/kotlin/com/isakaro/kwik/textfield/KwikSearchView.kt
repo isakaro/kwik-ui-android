@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -185,10 +186,10 @@ fun KwikSearchView(
 
     Column {
         if(!label.isNullOrBlank()){
-            KwikText.BodyMedium(
+            KwikText.TitleMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
-                color = if (isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
                 textAlign = TextAlign.Start
             )
         }
@@ -226,7 +227,7 @@ fun KwikSearchView(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(55.dp)
+                .heightIn(55.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
@@ -377,6 +378,7 @@ internal enum class LastInputType {
 private fun KwikSearchViewPreview() {
     KwikTheme {
         KwikSearchView(
+            modifier = Modifier.height(55.dp),
             state = remember { mutableStateOf(TextFieldValue("")) },
             onTextChange = {},
             onTextCleared = {}
@@ -389,6 +391,7 @@ private fun KwikSearchViewPreview() {
 private fun KwikSearchViewWithErrorPreview() {
     KwikTheme {
         KwikSearchView(
+            modifier = Modifier.height(55.dp),
             state = remember { mutableStateOf(TextFieldValue("")) },
             onTextChange = {},
             isError = true,

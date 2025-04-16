@@ -104,7 +104,7 @@ internal fun KwikOutlinedTextFieldScreen(
             KwikOutlinedPhoneNumberField(
                 initialCountryInfo = countryList.random(),
                 value = text,
-                placeholder = "Phone number",
+                label = "Phone number",
                 isValid = isPhoneNumberValid,
                 onValueChange = {
                     text.value = it

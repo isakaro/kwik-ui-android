@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -58,10 +60,11 @@ import com.isakaro.kwik.utils.text
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikPhoneNumberField(
+    modifier: Modifier = Modifier,
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
-    label: String,
+    label: String? = null,
     shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "",
@@ -96,14 +99,15 @@ fun KwikPhoneNumberField(
     )
 
     Column {
-        KwikText.TitleMedium(
-            modifier = Modifier.padding(bottom = 4.dp),
-            text = label,
-            color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
-            textAlign = TextAlign.Start
-        )
-
-        Spacer(modifier = Modifier.width(10.dp))
+        if(label != null){
+            KwikText.TitleMedium(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                textAlign = TextAlign.Start
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+        }
 
         val autofill = LocalAutofill.current
         val autofillNode = AutofillNode(
@@ -117,11 +121,7 @@ fun KwikPhoneNumberField(
 
         LocalAutofillTree.current += autofillNode
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-        ) {
+        Box {
             TextField(
                 value = value.value,
                 onValueChange = {
@@ -132,7 +132,7 @@ fun KwikPhoneNumberField(
                 isError = isError,
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->
@@ -143,7 +143,7 @@ fun KwikPhoneNumberField(
                                 cancelAutofillForNode(autofillNode)
                             }
                         }
-                    },
+                    }.then(modifier),
                 singleLine = singleLine,
                 maxLines = maxLines,
                 enabled = enabled,
@@ -172,7 +172,6 @@ fun KwikPhoneNumberField(
             KwikCountryCodeButton(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .height(55.dp)
                     .onGloballyPositioned {
                         countryCodePickerWidth = with(density) {
                             it.size.width.toDp()
@@ -184,8 +183,8 @@ fun KwikPhoneNumberField(
                 showCountryPicker = true
             }
         }
-        Spacer(modifier = Modifier.height(4.dp))
         if(isError){
+            Spacer(modifier = Modifier.height(4.dp))
             KwikText.LabelMedium(
                 text = error,
                 color = MaterialTheme.colorScheme.error,

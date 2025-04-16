@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
@@ -121,12 +123,12 @@ object AllowedChars {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikOutlinedTextField(
-    onKeyboardDone: () -> Unit = { },
+    modifier: Modifier = Modifier,
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
-    isBigTextField: Boolean = false,
-    onActionClick: () -> Unit = { },
-    onFocusChanged: (Boolean) -> Unit = { },
+    onKeyboardDone: () -> Unit = {  },
+    onActionClick: () -> Unit = {  },
+    onFocusChanged: (Boolean) -> Unit = {  },
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEditable: Boolean = true,
     placeholder: String,
@@ -136,7 +138,11 @@ fun KwikOutlinedTextField(
     singleLine: Boolean = true,
     maxLength: Int = 65,
     keyboardType: KeyboardType = KeyboardType.Text,
-    enabled: Boolean = true,
+    keyboardActions: KeyboardActions = KeyboardActions(
+        onDone = {
+            onKeyboardDone()
+        }
+    ),
     maxLines: Int = 1,
     allowedChars: Regex? = AllowedChars.ALL,
     imeAction: ImeAction = ImeAction.Done,
@@ -147,16 +153,16 @@ fun KwikOutlinedTextField(
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
     showClearTextButton: Boolean = false,
-    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     isLoading: Boolean = false,
-    modifier: Modifier = Modifier.apply {
-        if (isBigTextField) height(150.dp) else height(50.dp)
-    },
-    keyboardActions: KeyboardActions = KeyboardActions(
-        onDone = {
-            onKeyboardDone()
-        }
-    ),
+    isBigTextField: Boolean = false,
+    enabled: Boolean = true,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+    suggestionsModifier: Modifier = Modifier,
+    onSuggestionSelected: (String) -> Unit = {},
+    suggestions: List<String> = listOf(),
+    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
+    delay: Boolean = false,
+    delayDuration: Long = 500L,
     colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled)
 ) {
 
@@ -218,6 +224,7 @@ fun KwikOutlinedTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
+                .heightIn(if(isBigTextField) 150.dp else 60.dp)
                 .padding(bottom = 8.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)

@@ -1,11 +1,13 @@
 package com.isakaro.kwik.textfield
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -48,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.countrypicker.KwikCountryCodeButton
 import com.isakaro.kwik.countrypicker.KwikCountryPickerDialog
+import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.theme.KwikTheme
@@ -65,7 +68,7 @@ val allowedChars = Regex("^[0-9]*$")
  * @param value The current value of the field
  * @param onValueChange The callback that is called when the value of the field changes
  * @param onKeyboardDone The callback that is called when the keyboard done button is clicked
- * @param placeholder The placeholder text of the field
+ * @param label The label of the field
  * @param shape The shape of the field
  * @param isError Whether the field is in an error state
  * @param error The error message to show when the field is in an error state
@@ -99,10 +102,11 @@ val allowedChars = Regex("^[0-9]*$")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikOutlinedPhoneNumberField(
+    modifier: Modifier = Modifier,
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit = {  },
-    placeholder: String,
+    label: String? = null,
     shape: Shape = MaterialTheme.shapes.medium,
     isError: Boolean = false,
     error: String = "",
@@ -137,16 +141,15 @@ fun KwikOutlinedPhoneNumberField(
     )
 
     Column {
-        KwikText.BodyMedium(
-            text = placeholder,
-            color = Color.Gray,
-            textAlign = TextAlign.Start,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
-
-        Spacer(modifier = Modifier.width(10.dp))
+        if(label != null){
+            KwikText.TitleMedium(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                textAlign = TextAlign.Start
+            )
+            KwikVSpacer(10)
+        }
 
         val autofill = LocalAutofill.current
         val autofillNode = AutofillNode(
@@ -160,11 +163,7 @@ fun KwikOutlinedPhoneNumberField(
 
         LocalAutofillTree.current += autofillNode
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-        ) {
+        Box {
             OutlinedTextField(
                 value = value.value,
                 onValueChange = {
@@ -175,7 +174,7 @@ fun KwikOutlinedPhoneNumberField(
                 isError = isError,
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->
@@ -186,7 +185,7 @@ fun KwikOutlinedPhoneNumberField(
                                 cancelAutofillForNode(autofillNode)
                             }
                         }
-                    },
+                    }.then(modifier),
                 singleLine = singleLine,
                 maxLines = maxLines,
                 enabled = enabled,
@@ -215,7 +214,6 @@ fun KwikOutlinedPhoneNumberField(
             KwikCountryCodeButton(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .height(55.dp)
                     .onGloballyPositioned {
                         countryCodePickerWidth = with(density) {
                             it.size.width.toDp()
@@ -227,8 +225,8 @@ fun KwikOutlinedPhoneNumberField(
                 showCountryPicker = true
             }
         }
-        Spacer(modifier = Modifier.height(4.dp))
         if(isError){
+            Spacer(modifier = Modifier.height(4.dp))
             KwikText.LabelMedium(
                 text = error,
                 color = MaterialTheme.colorScheme.error,
@@ -251,7 +249,7 @@ private fun KwikOutlinedPhoneNumberFieldPreview() {
             value = value,
             onValueChange = {},
             onKeyboardDone = {},
-            placeholder = "Phone number",
+            label = "Phone number",
             initialCountryInfo = countryList.random()
         )
     }

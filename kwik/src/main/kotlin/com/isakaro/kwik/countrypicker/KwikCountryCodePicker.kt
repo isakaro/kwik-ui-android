@@ -40,6 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.dialog.KwikDialog
+import com.isakaro.kwik.spacer.KwikHSpacer
+import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.textfield.KwikSearchView
 import com.isakaro.kwik.textfield.kwikTextFieldColors
 import com.isakaro.kwik.theme.KwikTheme
@@ -137,7 +139,8 @@ fun KwikCountryPickerDialog(
 
 @Composable
 fun KwikCountryCodeButton(
-    modifier: Modifier = Modifier.height(65.dp),
+    modifier: Modifier = Modifier,
+    showFlags: Boolean = false,
     country: KwikCountryInfo?,
     enabled: Boolean = true,
     onClick: () -> Unit
@@ -154,6 +157,15 @@ fun KwikCountryCodeButton(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            if(showFlags && country != null){
+                Image(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(start = 10.dp),
+                    painter = painterResource(id = country.flag),
+                    contentDescription = country.name
+                )
+            }
             KwikText.TitleMedium(
                 text = country?.code ?: "",
                 modifier = Modifier
@@ -187,6 +199,8 @@ fun CountryCodeItem(
             }) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.align(Alignment.Center)) {
             if(showFlags){
+                KwikHSpacer(10)
+
                 Image(
                     modifier = Modifier
                         .size(40.dp)
@@ -196,7 +210,7 @@ fun CountryCodeItem(
                 )
             }
 
-            Spacer(modifier = Modifier.width(10.dp))
+            KwikHSpacer(10)
 
             KwikText.BodyMedium(
                 modifier = Modifier.weight(1f),
@@ -205,7 +219,7 @@ fun CountryCodeItem(
                 text = country.name
             )
 
-            Spacer(modifier = Modifier.width(10.dp))
+            KwikHSpacer(10)
 
             KwikText.BodyMedium(
                 maxLines = 1,
@@ -235,6 +249,18 @@ private fun KwikCountryCodeButtonPreview(){
     KwikTheme {
         KwikCountryCodeButton(
             country = countryList.random(),
+            onClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun KwikCountryCodeButtonWithFlagsPreview(){
+    KwikTheme {
+        KwikCountryCodeButton(
+            country = countryList.random(),
+            showFlags = true,
             onClick = {}
         )
     }
