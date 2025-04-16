@@ -162,9 +162,19 @@ fun KwikSearchView(
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
     var textFieldPosition by remember { mutableStateOf<Rect?>(null) }
     var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
+    var lastInputType by remember { mutableStateOf(LastInputType.TYPING) }
 
     fun updateSuggestions(suggestion: String){
         filteredSuggestions = filteredSuggestions.filter { it != suggestion }
+        lastInputType = LastInputType.SUGGESTION
+    }
+
+    fun handleTextCleared(){
+        state.value = TextFieldValue("")
+        debounceJob?.cancel()
+        onTextCleared()
+        filteredSuggestions = suggestions.take(10)
+        suggestionsVisible = true
     }
 
     Column {
@@ -181,10 +191,7 @@ fun KwikSearchView(
             value = state.value,
             onValueChange = { query ->
                 if (query.text.isBlank()) {
-                    state.value = TextFieldValue("")
-                    onTextCleared()
-                    filteredSuggestions = suggestions.take(10)
-                    suggestionsVisible = showSuggestions
+                    handleTextCleared()
                     return@TextField
                 } else if (query.text.length <= maxChars) {
                     state.value = query
@@ -201,7 +208,11 @@ fun KwikSearchView(
                             suggestion.contains(query.text, ignoreCase = true)
                         }
 
-                        suggestionsVisible = showSuggestions
+                        if(lastInputType == LastInputType.TYPING){
+                            suggestionsVisible = true
+                        } else {
+                            lastInputType = LastInputType.TYPING
+                        }
 
                         onTextChange(queryText.value)
                     }
@@ -236,11 +247,7 @@ fun KwikSearchView(
                     if (state.value.text.isNotEmpty()) {
                         IconButton(
                             onClick = {
-                                state.value = TextFieldValue("")
-                                queryText.value = ""
-                                debounceJob?.cancel()
-                                onTextCleared()
-                                filteredSuggestions = suggestions.take(10)
+                                handleTextCleared()
                             }
                         ) {
                             Icon(
@@ -330,11 +337,12 @@ fun KwikSearchView(
                                     .height(60.dp)
                                     .padding(horizontal = 4.dp)
                                     .clickable {
+                                        lastInputType = LastInputType.SUGGESTION
                                         state.value = state.value.copy(text = suggestion, selection = TextRange(suggestion.length))
                                         queryText.value = suggestion
-                                        suggestionsVisible = false
                                         onSuggestionSelected(suggestion)
                                         updateSuggestions(suggestion)
+                                        suggestionsVisible = false
                                     },
                                 verticalAlignment = Alignment.CenterVertically
                             ){
@@ -348,6 +356,11 @@ fun KwikSearchView(
             }
         }
     }
+}
+
+private enum class LastInputType {
+    SUGGESTION,
+    TYPING
 }
 
 @Preview
