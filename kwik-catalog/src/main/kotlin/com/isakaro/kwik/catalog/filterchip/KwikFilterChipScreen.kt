@@ -32,7 +32,7 @@ internal fun KwikFilterChipScreen(
             KwikFilterChipOption("Isla de Muerta", 2),
             KwikFilterChipOption("Davy Jones' Locker", 3),
             KwikFilterChipOption("Shipwreck Cove", 4),
-            KwikFilterChipOption("Singapore", 5)
+            KwikFilterChipOption("Fountain of Youth", 5)
         )
 
         ShowCase(

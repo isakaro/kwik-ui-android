@@ -35,7 +35,7 @@ fun KwikTagsInputScreen(
                 KwikTagsInputItem("3", "Davy Jones' Locker"),
                 KwikTagsInputItem("4", "Port Royal"),
                 KwikTagsInputItem("5", "Isla de Muerta"),
-                KwikTagsInputItem("6", "Singapore")
+                KwikTagsInputItem("6", "Fountain of Youth")
             )
         }
 
