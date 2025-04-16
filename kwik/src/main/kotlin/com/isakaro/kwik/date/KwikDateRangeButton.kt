@@ -2,9 +2,7 @@ package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,11 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePickerColors
-import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,8 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.utils.toMMdd
-import java.util.Date
+import com.isakaro.kwik.utils.toFormat
+import java.time.LocalDate
 
 /**
  * A date button with a label and a date. When clicked, a date range picker dialog will be shown.
@@ -58,7 +54,7 @@ import java.util.Date
 fun KwikDateRangeButton(
     modifier: Modifier = Modifier,
     label: String,
-    onDateRangeSelected: (Pair<Date, Date>) -> Unit,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
     showModeToggle: Boolean = false,
@@ -136,7 +132,7 @@ fun KwikDateRangeButton(
                 shape = dialogShape,
                 onDateRangeSelected = { selectedDates ->
                     onDateRangeSelected(selectedDates)
-                    dateDisplay  = "${selectedDates.first.toMMdd()} - ${selectedDates.second.toMMdd()}"
+                    dateDisplay  = "${selectedDates.first.toFormat()} - ${selectedDates.second.toFormat()}"
                 },
                 onDismiss = {
                     showDatePicker = false

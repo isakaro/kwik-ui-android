@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.text.KwikText
-import java.util.Calendar
-import java.util.Date
+import com.isakaro.kwik.utils.toMillis
+import java.time.LocalDate
 
 /**
  * A date range picker dialog that allows the user to select a date range.
@@ -45,22 +45,18 @@ fun KwikDateRangePickerDialog(
     cancelText: String = "Cancel",
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
-    onDateRangeSelected: (Pair<Date, Date>) -> Unit,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
     showModeToggle: Boolean = false,
     colors: DatePickerColors = kwikDatePickerColors(),
     shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {
-    val calendar = Calendar.getInstance()
+    val today = LocalDate.now()
+    val ninetyNineYearsBefore = today.minusYears(99)
+    val ninetyNineYearsLater = today.plusYears(99)
 
-    val ninetyNineYearsBefore = calendar.clone() as Calendar
-    ninetyNineYearsBefore.add(Calendar.YEAR, -99)
-
-    val ninetyNineYearsLater = calendar.clone() as Calendar
-    ninetyNineYearsLater.add(Calendar.YEAR, 99)
-
-    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.timeInMillis
-    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.timeInMillis
+    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.toMillis()
+    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.toMillis()
 
     val dateRangePickerState = rememberDateRangePickerState(
         selectableDates = object: SelectableDates {
@@ -84,8 +80,8 @@ fun KwikDateRangePickerDialog(
                     val endMillis = dateRangePickerState.selectedEndDateMillis
 
                     if (startMillis != null && endMillis != null) {
-                        val startDate = Date(startMillis)
-                        val endDate = Date(endMillis)
+                        val startDate = LocalDate.ofEpochDay(startMillis)
+                        val endDate = LocalDate.ofEpochDay(endMillis)
 
                         onDateRangeSelected(Pair(startDate, endDate))
                     }
