@@ -46,6 +46,7 @@ import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -146,6 +147,7 @@ fun KwikOutlinedTextField(
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
     showClearTextButton: Boolean = false,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     isLoading: Boolean = false,
     modifier: Modifier = Modifier.apply {
         if (isBigTextField) height(150.dp) else height(50.dp)
@@ -210,7 +212,7 @@ fun KwikOutlinedTextField(
             },
             isError = isError,
             enabled = enabled && isEditable,
-            textStyle = MaterialTheme.typography.bodyLarge,
+            textStyle = textStyle,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
             } else VisualTransformation.None,

@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -61,6 +62,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.isakaro.kwik.text.KwikText
@@ -140,6 +142,7 @@ fun KwikSearchView(
     maxChars: Int = 30,
     isError: Boolean = false,
     error: String? = null,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     onTextChange: (String) -> Unit,
     onTextCleared: () -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
@@ -176,13 +179,7 @@ fun KwikSearchView(
         suggestionsVisible = true
     }
 
-    Column(
-        modifier = Modifier
-            .onGloballyPositioned { layoutCoordinates ->
-                textFieldPosition = layoutCoordinates.boundsInParent()
-                textFieldSize = layoutCoordinates.size
-            }
-    ) {
+    Column {
         if(!label.isNullOrBlank()){
             KwikText.BodyMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
@@ -230,8 +227,11 @@ fun KwikSearchView(
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
                     onFocusChanged(focusState.isFocused)
+                }.onGloballyPositioned { layoutCoordinates ->
+                    val position = layoutCoordinates.localToWindow(Offset.Zero)
+                    textFieldPosition = Rect(position, layoutCoordinates.size.toSize())
                 },
-            textStyle = TextStyle(fontSize = 20.sp),
+            textStyle = textStyle,
             leadingIcon = {
                 Icon(
                     Icons.Default.Search,
@@ -312,8 +312,8 @@ fun KwikSearchView(
                 suggestionsVisible = false
             },
             offset = IntOffset(
-                x = textFieldPosition!!.width.toInt(),
-                y = textFieldPosition!!.height.toInt() * 2
+                x = textFieldPosition!!.left.toInt(),
+                y = textFieldPosition!!.bottom.toInt()
             )
         ) {
             AnimatedVisibility(

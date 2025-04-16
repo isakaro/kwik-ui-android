@@ -56,6 +56,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -171,6 +172,7 @@ fun KwikTextField(
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
     colors: TextFieldColors = kwikTextFieldColors(isEditable),
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     suggestionsModifier: Modifier = Modifier,
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
@@ -295,7 +297,7 @@ fun KwikTextField(
                     textAlign = TextAlign.Start
                 )
             },
-            textStyle = MaterialTheme.typography.bodyLarge,
+            textStyle = textStyle,
             visualTransformation = if(visualTransformation is PasswordVisualTransformation) {
                 if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
             } else VisualTransformation.None,
