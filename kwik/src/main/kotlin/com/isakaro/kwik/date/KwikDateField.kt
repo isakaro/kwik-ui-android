@@ -1,14 +1,18 @@
 package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.gestures.awaitEachGesture
-import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
@@ -16,8 +20,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,23 +34,28 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalTextToolbar
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.button.KwikIconButton
+import com.isakaro.kwik.inputfields.AllowedChars
+import com.isakaro.kwik.inputfields.EmptyTextToolbar
+import com.isakaro.kwik.inputfields.kwikTextFieldColors
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.inputfields.KwikOutlinedTextField
-import com.isakaro.kwik.inputfields.KwikTextField
 import com.isakaro.kwik.utils.toFormat
+import java.util.Calendar
 import java.util.Date
 
 private enum class KwikDatePickerMode {
@@ -100,48 +114,12 @@ fun KwikDateField(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if(mode.value == KwikDatePickerMode.Edit){
-            Row(
-                modifier = Modifier.weight(1f)
-            ) {
-                if(outlined){
-                    KwikOutlinedTextField(
-                        value = dateValue,
-                        onValueChange = { dateValue.value = it },
-                        visualTransformation = DateVisualTransformation("yyyy-MM-dd"),
-                        placeholder = placeholder,
-                        singleLine = true,
-                        modifier = Modifier
-                            .pointerInput(selectedDate) {
-                                awaitEachGesture {
-                                    awaitFirstDown(pass = PointerEventPass.Initial)
-                                    val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-                                    if (upEvent != null) {
-                                        showDatePicker = true
-                                    }
-                                }
-                            }
-                    )
-                } else {
-                    KwikTextField(
-                        modifier = Modifier
-                            .pointerInput(selectedDate) {
-                                awaitEachGesture {
-                                    awaitFirstDown(pass = PointerEventPass.Initial)
-                                    val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-                                    if (upEvent != null) {
-                                        showDatePicker = true
-                                    }
-                                }
-                            },
-                        value = dateValue,
-                        label = label,
-                        onValueChange = { dateValue.value = it },
-                        placeholder = placeholder,
-                        singleLine = true,
-                        visualTransformation = DateVisualTransformation("yyyy-MM-dd")
-                    )
+            KwikDateField(
+                modifier = Modifier.weight(1f),
+                onValidDate = {
+
                 }
-            }
+            )
         } else {
             Button(
                 modifier = Modifier
@@ -188,68 +166,164 @@ fun KwikDateField(
     }
 }
 
-class DateVisualTransformation(private val format: String) : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        return dateMaskFilter(text, format)
+@Composable
+fun KwikDateField(
+    modifier: Modifier = Modifier,
+    onValidDate: (String) -> Unit,
+    isError: Boolean = false,
+    error: String = "",
+    shape: Shape = MaterialTheme.shapes.small,
+    colors: TextFieldColors = kwikTextFieldColors(),
+    onKeyboardDone: () -> Unit = {}
+) {
+    val focusManager = LocalFocusManager.current
+    val year = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+    val month = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+    val day = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
+    fun isValidDate(y: Int, m: Int, d: Int): Boolean {
+        return try {
+            val calendar = Calendar.getInstance().apply {
+                isLenient = false
+                set(Calendar.YEAR, y)
+                set(Calendar.MONTH, m - 1)
+                set(Calendar.DAY_OF_MONTH, d)
+                time
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun validateAndReturnDate(): Boolean {
+        val yr = year.value.text
+        val mo = month.value.text
+        val dy = day.value.text
+        val isValid = yr.length == 4 && mo.length == 2 && dy.length == 2 &&
+                try {
+                    isValidDate(yr.toInt(), mo.toInt(), dy.toInt())
+                    true
+                } catch (e: Exception) {
+                    false
+                }
+        if (isValid) {
+            onValidDate("$year-$month-$day")
+        }
+        return isValid
+    }
+
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            DateDigitField(
+                label = "YYYY",
+                value = year,
+                maxLength = 4,
+                isError = isError,
+                onValueChange = {
+                    year.value = it
+                    validateAndReturnDate()
+                    if (it.text.length == 4) focusManager.moveFocus(FocusDirection.Right)
+                },
+                onKeyboardDone = onKeyboardDone,
+                shape = shape,
+                colors = colors
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            DateDigitField(
+                label = "MM",
+                value = month,
+                maxLength = 2,
+                isError = isError,
+                onValueChange = {
+                    month.value = it
+                    validateAndReturnDate()
+                    if (it.text.length == 2) focusManager.moveFocus(FocusDirection.Right)
+                },
+                onKeyboardDone = onKeyboardDone,
+                shape = shape,
+                colors = colors
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            DateDigitField(
+                label = "DD",
+                value = day,
+                maxLength = 2,
+                isError = isError,
+                onValueChange = {
+                    day.value = it
+                    validateAndReturnDate()
+                },
+                onKeyboardDone = onKeyboardDone,
+                shape = shape,
+                colors = colors
+            )
+        }
+        if (isError) {
+            KwikText.LabelMedium(
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                text = error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Start
+            )
+        }
     }
 }
 
-fun dateMaskFilter(text: AnnotatedString, format: String): TransformedText {
-    val regex = Regex("^(d{2}|d{1})[\\W](M{2}|M{1})[\\W](y{4})\$|^(y{4})[\\W](M{2}|M{1})[\\W](d{2}|d{1})\$|^(d{2})[\\W](M{2})[\\W](y{4})\$")
-    if (!regex.matches(format.replace('d', 'd').replace('M', 'M').replace('y', 'y'))) {
-        return TransformedText(text, OffsetMapping.Identity)
+@Composable
+private fun DateDigitField(
+    label: String,
+    value: MutableState<TextFieldValue>,
+    maxLength: Int,
+    isError: Boolean,
+    onValueChange: (TextFieldValue) -> Unit,
+    onKeyboardDone: () -> Unit,
+    shape: Shape,
+    colors: TextFieldColors
+) {
+    val customTextSelectionColors = TextSelectionColors(
+        handleColor = Color.Transparent,
+        backgroundColor = Color.Transparent
+    )
+
+    CompositionLocalProvider(
+        LocalTextToolbar provides EmptyTextToolbar,
+        LocalTextSelectionColors provides customTextSelectionColors
+    ) {
+        TextField(
+            value = value.value,
+            onValueChange = {
+                val sanitized = AllowedChars.NUMBERS.replace(it.text, "").take(maxLength)
+                onValueChange(TextFieldValue(sanitized, selection = TextRange(sanitized.length)))
+            },
+            label = {
+                KwikText.LabelMedium(
+                    text = label
+                )
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { onKeyboardDone() }
+            ),
+            shape = shape,
+            isError = isError,
+            colors = colors,
+            singleLine = true,
+            maxLines = 1,
+            textStyle = LocalTextStyle.current.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier.width(80.dp)
+        )
     }
-
-    // Identify the separator
-    val separator = format.first { !it.isLetterOrDigit() }
-
-    // Parse the structure: [yyyy, MM, dd]
-    val parts = format.split(separator)
-    val lengths = parts.map {
-        when {
-            it.contains("y") -> 4
-            it.contains("M") -> 2
-            it.contains("d") -> 2
-            else -> it.length
-        }
-    }
-    val maxLength = lengths.sum()
-
-    // Sanitize input
-    val raw = text.text.filter { it.isDigit() }.take(maxLength)
-
-    // Construct transformed text
-    val transformed = buildString {
-        var index = 0
-        for ((i, len) in lengths.withIndex()) {
-            val end = (index + len).coerceAtMost(raw.length)
-            append(raw.substring(index, end))
-            if (end < raw.length && i < lengths.lastIndex) append(separator)
-            index = end
-        }
-    }
-
-    // Separator positions for offset mapping
-    val separatorPositions = lengths.dropLast(1).runningReduce(Int::plus)
-
-    val offsetMapping = object : OffsetMapping {
-        override fun originalToTransformed(offset: Int): Int {
-            var shift = 0
-            for (pos in separatorPositions) {
-                if (offset > pos) shift++
-            }
-            return (offset + shift).coerceAtMost(transformed.length)
-        }
-
-        override fun transformedToOriginal(offset: Int): Int {
-            var shift = 0
-            for (pos in separatorPositions) {
-                if (offset > pos + shift) shift++
-            }
-            return (offset - shift).coerceAtMost(raw.length)
-        }
-    }
-
-    return TransformedText(AnnotatedString(transformed), offsetMapping)
 }
+
 
