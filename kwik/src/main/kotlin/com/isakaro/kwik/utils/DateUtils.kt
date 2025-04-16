@@ -1,18 +1,21 @@
 package com.isakaro.kwik.utils
 
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
-fun Date.toMMdd(): String {
-    val formatter = SimpleDateFormat("MMM dd")
-    val formattedDate: String = formatter.format(this)
-    return formattedDate
+fun OffsetDateTime.toFormat(format: String = "MMM dd", locale: Locale = Locale.ENGLISH): String {
+    val formatter = DateTimeFormatter.ofPattern(format, locale)
+    return formatter.format(this)
 }
 
-fun Date.toFormat(
-    format: String = "MMM dd"
-): String {
-    val formatter = SimpleDateFormat(format)
-    val formattedDate: String = formatter.format(this)
-    return formattedDate
+fun LocalDate.toFormat(format: String = "MMM dd", locale: Locale = Locale.ENGLISH): String {
+    val formatter = DateTimeFormatter.ofPattern(format, locale)
+    return formatter.format(this)
+}
+
+fun LocalDate.toMillis(zoneId: ZoneId = ZoneId.systemDefault()): Long {
+    return this.atStartOfDay(zoneId).toInstant().toEpochMilli()
 }

@@ -19,8 +19,10 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.text.KwikText
-import java.util.Calendar
-import java.util.Date
+import com.isakaro.kwik.utils.toMillis
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 /**
  * A date picker dialog that allows the user to select a date range.
@@ -45,35 +47,37 @@ fun KwikDatePickerDialog(
     cancelText: String = "Cancel",
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
-    onDateSelected: (Date) -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
     showModeToggle: Boolean = false,
     confirmOnSelection: Boolean = true,
     colors: DatePickerColors = kwikDatePickerColors(),
     shape: Shape = MaterialTheme.shapes.medium,
     onDismiss: () -> Unit
 ) {
-    val calendar = Calendar.getInstance()
+    val today = LocalDate.now()
 
-    val ninetyNineYearsBefore = calendar.clone() as Calendar
-    ninetyNineYearsBefore.add(Calendar.YEAR, -99)
+    val ninetyNineYearsBefore = today.minusYears(99)
+    val ninetyNineYearsLater = today.plusYears(99)
 
-    val ninetyNineYearsLater = calendar.clone() as Calendar
-    ninetyNineYearsLater.add(Calendar.YEAR, 99)
+    val defaultMin = ninetyNineYearsBefore.toMillis()
+    val defaultMax = ninetyNineYearsLater.toMillis()
 
-    val minSelectable = minSelectableDate ?: ninetyNineYearsBefore.timeInMillis
-    val maxSelectable = maxSelectableDate ?: ninetyNineYearsLater.timeInMillis
+    val minSelectableMillis = minSelectableDate ?: defaultMin
+    val maxSelectableMillis = maxSelectableDate ?: defaultMax
 
     val datePickerState = rememberDatePickerState(
-        selectableDates = object: SelectableDates {
+        selectableDates = object : SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                return utcTimeMillis in minSelectable..maxSelectable
+                return utcTimeMillis in minSelectableMillis..maxSelectableMillis
             }
         }
     )
 
     fun dateSelected(){
         datePickerState.selectedDateMillis?.let {
-            val date = Date(it)
+            val date = Instant.ofEpochMilli(it)
+                .atOffset(ZoneOffset.UTC)
+                .toLocalDate()
             onDateSelected(date)
             onDismiss()
         }

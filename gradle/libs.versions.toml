@@ -58,6 +58,7 @@ google-play-auth-phone = { module = "com.google.android.gms:play-services-auth-a
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 coil = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 biometrics = { module = "androidx.biometric:biometric", version = "1.4.0-alpha03" }
+desugaring = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 [bundles]
 app = [

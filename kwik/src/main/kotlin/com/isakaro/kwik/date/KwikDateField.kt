@@ -1,5 +1,6 @@
 package com.isakaro.kwik.date
 
+import android.view.KeyEvent.KEYCODE_DEL
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalTextToolbar
 import androidx.compose.ui.res.painterResource
@@ -56,8 +58,7 @@ import com.isakaro.kwik.inputfields.EmptyTextToolbar
 import com.isakaro.kwik.inputfields.kwikTextFieldColors
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.utils.toFormat
-import java.util.Calendar
-import java.util.Date
+import java.time.LocalDate
 
 enum class KwikDatePickerMode {
     Display,
@@ -71,7 +72,7 @@ enum class KwikDatePickerMode {
  * @param label: The label for the date field.
  * @param placeholder: The placeholder text for the date field.
  * @param displayFormat: The format to display the date in.
- * @param selected: The callback that is called when a date is selected.
+ * @param selected: The callback that is called when a date is selected. Returns in format: yyyy-MM-dd
  * @param border: The border for the date field.
  * @param shape: The shape for the date field.
  * @param mode: The mode for the date field. Defaults to picker.
@@ -85,10 +86,11 @@ fun KwikDateField(
     label: String? = null,
     placeholder: String = "",
     displayFormat: String = "d MMM yyyy",
-    selected: (Date) -> Unit,
+    selected: (LocalDate) -> Unit,
     border: BorderStroke? = null,
     shape: Shape = MaterialTheme.shapes.medium,
     mode: KwikDatePickerMode = KwikDatePickerMode.Display,
+    onDateParseError: (Exception) -> Unit = {},
     leadingIcon: @Composable (() -> Unit?) = {
         Icon(
             painter = painterResource(id = R.drawable.calendar),
@@ -104,7 +106,7 @@ fun KwikDateField(
         )
     }
 ) {
-    var selectedDate by remember { mutableStateOf<Date?>(null) }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var showDatePicker by remember { mutableStateOf(false) }
     val fieldMode = remember { mutableStateOf(mode) }
     var dateDisplay by remember { mutableStateOf(placeholder) }
@@ -115,7 +117,7 @@ fun KwikDateField(
                 selectedDate = it
                 selected(it)
                 showDatePicker = false
-                dateDisplay  = it.toFormat(displayFormat)
+                dateDisplay = it.toFormat("d MMM yyyy")
             },
             onDismiss = { showDatePicker = false }
         )
@@ -130,15 +132,16 @@ fun KwikDateField(
                 textAlign = TextAlign.Start
             )
         }
+
         Row(
             modifier = modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if(fieldMode.value == KwikDatePickerMode.Edit){
                 KwikDateField(
-                    modifier = Modifier.weight(1f),
+                    value = selectedDate,
                     onValidDate = {
-                        selected(Date(it))
+                        selected(it)
                     }
                 )
             } else {
@@ -173,7 +176,9 @@ fun KwikDateField(
                 }
             }
             KwikIconButton(
-                modifier = Modifier.size(40.dp).padding(horizontal = 6.dp),
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(horizontal = 6.dp),
                 icon = if(fieldMode.value == KwikDatePickerMode.Edit) Icons.Default.Close else Icons.Default.Create,
                 containerColor = Color.Transparent,
                 tint = MaterialTheme.colorScheme.onSurface
@@ -191,7 +196,8 @@ fun KwikDateField(
 @Composable
 fun KwikDateField(
     modifier: Modifier = Modifier,
-    onValidDate: (String) -> Unit,
+    value: LocalDate? = null,
+    onValidDate: (LocalDate) -> Unit,
     isError: Boolean = false,
     error: String = "",
     shape: Shape = MaterialTheme.shapes.small,
@@ -199,19 +205,19 @@ fun KwikDateField(
     onKeyboardDone: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
-    val year = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-    val month = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-    val day = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+    val year = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(value?.year.toString()))
+    }
+    val month = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(value?.monthValue.toString()))
+    }
+    val day = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(value?.dayOfMonth.toString()))
+    }
 
     fun isValidDate(y: Int, m: Int, d: Int): Boolean {
         return try {
-            val calendar = Calendar.getInstance().apply {
-                isLenient = false
-                set(Calendar.YEAR, y)
-                set(Calendar.MONTH, m - 1)
-                set(Calendar.DAY_OF_MONTH, d)
-                time
-            }
+            LocalDate.of(y, m, d)
             true
         } catch (e: Exception) {
             false
@@ -230,7 +236,7 @@ fun KwikDateField(
                     false
                 }
         if (isValid) {
-            onValidDate("$year-$month-$day")
+            onValidDate(LocalDate.of(yr.toInt(), mo.toInt(), dy.toInt()))
         }
         return isValid
     }
@@ -269,6 +275,13 @@ fun KwikDateField(
                         if (it.text.length == 2) focusManager.moveFocus(FocusDirection.Right)
                     } catch (e: Exception){ }
                 },
+                onDelete = {
+                    if(month.value.text.isEmpty()) {
+                        try {
+                            focusManager.moveFocus(FocusDirection.Left)
+                        } catch (e: Exception){}
+                    }
+                },
                 onKeyboardDone = onKeyboardDone,
                 shape = shape,
                 colors = colors
@@ -283,6 +296,13 @@ fun KwikDateField(
                     day.value = it
                     validateAndReturnDate()
                 },
+                onDelete = {
+                    if(day.value.text.isEmpty()) {
+                        try {
+                            focusManager.moveFocus(FocusDirection.Left)
+                        } catch (e: Exception){}
+                    }
+                },
                 onKeyboardDone = onKeyboardDone,
                 shape = shape,
                 colors = colors
@@ -290,7 +310,9 @@ fun KwikDateField(
         }
         if (isError) {
             KwikText.LabelMedium(
-                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp),
                 text = error,
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Start
@@ -308,7 +330,8 @@ private fun KwikDateDigitField(
     onValueChange: (TextFieldValue) -> Unit,
     onKeyboardDone: () -> Unit,
     shape: Shape,
-    colors: TextFieldColors
+    colors: TextFieldColors,
+    onDelete: () -> Unit = {}
 ) {
     val customTextSelectionColors = TextSelectionColors(
         handleColor = Color.Transparent,
@@ -348,7 +371,14 @@ private fun KwikDateDigitField(
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
             ),
-            modifier = Modifier.width(80.dp)
+            modifier = Modifier
+                .width(80.dp)
+                .onKeyEvent {
+                    if (it.nativeKeyEvent.keyCode == KEYCODE_DEL) {
+                        onDelete()
+                    }
+                    false
+                }
         )
     }
 }
