@@ -51,6 +51,9 @@ import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.layout.positionOnScreen
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -162,13 +165,14 @@ fun KwikSearchView(
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
-    var textFieldPosition by remember { mutableStateOf<Rect?>(null) }
+    var textFieldPosition by remember { mutableStateOf<Offset?>(null) }
     var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
     var lastInputType by remember { mutableStateOf(LastInputType.TYPING) }
 
-    fun updateSuggestions(suggestion: String){
-        filteredSuggestions = filteredSuggestions.filter { it != suggestion }
+    fun updateSuggestions(suggestion: String? = null){
+        filteredSuggestions = filteredSuggestions.filter { it.lowercase() != (suggestion ?: queryText.value).lowercase() }
         lastInputType = LastInputType.SUGGESTION
+        suggestionsVisible = filteredSuggestions.isNotEmpty()
     }
 
     fun handleTextCleared(){
@@ -211,7 +215,7 @@ fun KwikSearchView(
                         }
 
                         if(lastInputType == LastInputType.TYPING){
-                            suggestionsVisible = true
+                            updateSuggestions()
                         } else {
                             lastInputType = LastInputType.TYPING
                         }
@@ -226,10 +230,13 @@ fun KwikSearchView(
                 .then(modifier)
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
+                    if(focusState.isFocused){
+                        updateSuggestions()
+                    }
                     onFocusChanged(focusState.isFocused)
                 }.onGloballyPositioned { layoutCoordinates ->
-                    val position = layoutCoordinates.localToWindow(Offset.Zero)
-                    textFieldPosition = Rect(position, layoutCoordinates.size.toSize())
+                    textFieldPosition = layoutCoordinates.positionInParent()
+                    textFieldSize = layoutCoordinates.size
                 },
             textStyle = textStyle,
             leadingIcon = {
@@ -312,8 +319,8 @@ fun KwikSearchView(
                 suggestionsVisible = false
             },
             offset = IntOffset(
-                x = textFieldPosition!!.left.toInt(),
-                y = textFieldPosition!!.bottom.toInt()
+                x = textFieldPosition!!.x.toInt(),
+                y = (textFieldPosition!!.y + (textFieldSize!!.height * 1.6)).toInt()
             )
         ) {
             AnimatedVisibility(
