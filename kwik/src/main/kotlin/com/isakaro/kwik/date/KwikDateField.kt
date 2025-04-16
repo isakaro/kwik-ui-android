@@ -1,6 +1,7 @@
 package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -58,22 +59,36 @@ import com.isakaro.kwik.utils.toFormat
 import java.util.Calendar
 import java.util.Date
 
-private enum class KwikDatePickerMode {
+enum class KwikDatePickerMode {
     Display,
     Edit
 }
 
+/**
+ * Date field that supports picking a date from a date picker dialog or editing the date manually.
+ *
+ * @param modifier: The modifier for the date field.
+ * @param label: The label for the date field.
+ * @param placeholder: The placeholder text for the date field.
+ * @param displayFormat: The format to display the date in.
+ * @param selected: The callback that is called when a date is selected.
+ * @param border: The border for the date field.
+ * @param shape: The shape for the date field.
+ * @param mode: The mode for the date field. Defaults to picker.
+ * @param leadingIcon: The leading icon for the date field.
+ * @param trailingIcon: The trailing icon for the date field.
+ * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KwikDateField(
     modifier: Modifier = Modifier,
-    outlined: Boolean = false,
-    label: String = "Date",
+    label: String? = null,
     placeholder: String = "",
     displayFormat: String = "d MMM yyyy",
     selected: (Date) -> Unit,
     border: BorderStroke? = null,
     shape: Shape = MaterialTheme.shapes.medium,
+    mode: KwikDatePickerMode = KwikDatePickerMode.Display,
     leadingIcon: @Composable (() -> Unit?) = {
         Icon(
             painter = painterResource(id = R.drawable.calendar),
@@ -91,10 +106,7 @@ fun KwikDateField(
 ) {
     var selectedDate by remember { mutableStateOf<Date?>(null) }
     var showDatePicker by remember { mutableStateOf(false) }
-    val dateValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(
-        TextFieldValue("")
-    ) }
-    val mode = remember { mutableStateOf(KwikDatePickerMode.Display) }
+    val fieldMode = remember { mutableStateOf(mode) }
     var dateDisplay by remember { mutableStateOf(placeholder) }
 
     if (showDatePicker) {
@@ -109,58 +121,68 @@ fun KwikDateField(
         )
     }
 
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if(mode.value == KwikDatePickerMode.Edit){
-            KwikDateField(
-                modifier = Modifier.weight(1f),
-                onValidDate = {
-
-                }
+    Column {
+        if(!label.isNullOrBlank()){
+            KwikText.TitleMedium(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                textAlign = TextAlign.Start
             )
-        } else {
-            Button(
-                modifier = Modifier
-                    .weight(1f)
-                    .then(modifier),
-                onClick = {
-                    showDatePicker = true
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                ),
-                border = border,
-                shape = shape
-            ) {
-                Row(
+        }
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if(fieldMode.value == KwikDatePickerMode.Edit){
+                KwikDateField(
+                    modifier = Modifier.weight(1f),
+                    onValidDate = {
+                        selected(Date(it))
+                    }
+                )
+            } else {
+                Button(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .weight(1f)
+                        .then(modifier),
+                    onClick = {
+                        showDatePicker = true
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    border = border,
+                    shape = shape
                 ) {
-                    leadingIcon()
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        leadingIcon()
 
-                    KwikText.BodyMedium(
-                        text = dateDisplay
-                    )
+                        KwikText.BodyMedium(
+                            text = dateDisplay
+                        )
 
-                    trailingIcon()
+                        trailingIcon()
+                    }
                 }
             }
-        }
-        KwikIconButton(
-            modifier = Modifier.size(40.dp).padding(horizontal = 6.dp),
-            icon = if(mode.value == KwikDatePickerMode.Edit) Icons.Default.Close else Icons.Default.Create,
-            containerColor = Color.Transparent,
-            tint = MaterialTheme.colorScheme.onSurface
-        ) {
-            if(mode.value == KwikDatePickerMode.Edit){
-                mode.value = KwikDatePickerMode.Display
-            } else {
-                mode.value = KwikDatePickerMode.Edit
+            KwikIconButton(
+                modifier = Modifier.size(40.dp).padding(horizontal = 6.dp),
+                icon = if(fieldMode.value == KwikDatePickerMode.Edit) Icons.Default.Close else Icons.Default.Create,
+                containerColor = Color.Transparent,
+                tint = MaterialTheme.colorScheme.onSurface
+            ) {
+                if(fieldMode.value == KwikDatePickerMode.Edit){
+                    fieldMode.value = KwikDatePickerMode.Display
+                } else {
+                    fieldMode.value = KwikDatePickerMode.Edit
+                }
             }
         }
     }
@@ -218,38 +240,42 @@ fun KwikDateField(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            DateDigitField(
-                label = "YYYY",
+            KwikDateDigitField(
+                placeholder = "YYYY",
                 value = year,
                 maxLength = 4,
                 isError = isError,
                 onValueChange = {
                     year.value = it
                     validateAndReturnDate()
-                    if (it.text.length == 4) focusManager.moveFocus(FocusDirection.Right)
+                    try {
+                        if (it.text.length == 4) focusManager.moveFocus(FocusDirection.Right)
+                    } catch (e: Exception){ }
                 },
                 onKeyboardDone = onKeyboardDone,
                 shape = shape,
                 colors = colors
             )
             Spacer(modifier = Modifier.width(8.dp))
-            DateDigitField(
-                label = "MM",
+            KwikDateDigitField(
+                placeholder = "MM",
                 value = month,
                 maxLength = 2,
                 isError = isError,
                 onValueChange = {
                     month.value = it
                     validateAndReturnDate()
-                    if (it.text.length == 2) focusManager.moveFocus(FocusDirection.Right)
+                    try {
+                        if (it.text.length == 2) focusManager.moveFocus(FocusDirection.Right)
+                    } catch (e: Exception){ }
                 },
                 onKeyboardDone = onKeyboardDone,
                 shape = shape,
                 colors = colors
             )
             Spacer(modifier = Modifier.width(8.dp))
-            DateDigitField(
-                label = "DD",
+            KwikDateDigitField(
+                placeholder = "DD",
                 value = day,
                 maxLength = 2,
                 isError = isError,
@@ -274,8 +300,8 @@ fun KwikDateField(
 }
 
 @Composable
-private fun DateDigitField(
-    label: String,
+private fun KwikDateDigitField(
+    placeholder: String,
     value: MutableState<TextFieldValue>,
     maxLength: Int,
     isError: Boolean,
@@ -299,9 +325,10 @@ private fun DateDigitField(
                 val sanitized = AllowedChars.NUMBERS.replace(it.text, "").take(maxLength)
                 onValueChange(TextFieldValue(sanitized, selection = TextRange(sanitized.length)))
             },
-            label = {
+            placeholder = {
                 KwikText.LabelMedium(
-                    text = label
+                    text = placeholder,
+                    color = Color.Gray
                 )
             },
             keyboardOptions = KeyboardOptions.Default.copy(
