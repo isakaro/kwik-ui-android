@@ -76,7 +76,11 @@ fun KwikPhoneNumberField(
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
     colors: TextFieldColors = kwikTextFieldColors(),
-    onCountrySelected: (KwikCountryInfo) -> Unit = {}
+    onCountrySelected: (KwikCountryInfo) -> Unit = {},
+    countryPickerTitle: String = "Where are you from?",
+    showFlags: Boolean = false,
+    showCountryCode: Boolean = false,
+    showDialingCode: Boolean = true
 ) {
 
     var countryCodePickerWidth by remember { mutableStateOf(0.dp) }
@@ -86,6 +90,7 @@ fun KwikPhoneNumberField(
     var selectedCountryInfo by remember { mutableStateOf(initialCountryInfo) }
 
     KwikCountryPickerDialog(
+        title = countryPickerTitle,
         open = showCountryPicker,
         countryListState = countryListState,
         onDismiss = {
@@ -133,6 +138,7 @@ fun KwikPhoneNumberField(
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .heightIn(65.dp)
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->
@@ -160,7 +166,7 @@ fun KwikPhoneNumberField(
                     }
                 },
                 leadingIcon = {
-                    Spacer(modifier = Modifier.width(countryCodePickerWidth.value.dp - 12.dp)) // 12 is the padding of CountryCodeButton
+                    Spacer(modifier = Modifier.width(countryCodePickerWidth.value.dp - 8.dp)) // 8 is the padding of KwikCountryCodeButton
                 },
                 colors = colors,
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -178,7 +184,11 @@ fun KwikPhoneNumberField(
                         }
                     },
                 country = selectedCountryInfo,
-                enabled = countrySelectable
+                shape = shape,
+                enabled = countrySelectable,
+                showFlags = showFlags,
+                showCountryCode = showCountryCode,
+                showDialingCode = showDialingCode
             ){
                 showCountryPicker = true
             }
@@ -205,6 +215,24 @@ private fun KwikPhoneNumberFieldPreview() {
     KwikTheme {
         KwikPhoneNumberField(
             value = value,
+            onValueChange = {},
+            onKeyboardDone = {},
+            label = "Phone number",
+            initialCountryInfo = countryList.random()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun KwikPhoneNumberFieldWithFlagPreview() {
+    val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
+
+    KwikTheme {
+        KwikPhoneNumberField(
+            value = value,
+            showFlags = true,
+            showCountryCode = true,
             onValueChange = {},
             onKeyboardDone = {},
             label = "Phone number",

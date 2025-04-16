@@ -118,7 +118,11 @@ fun KwikOutlinedPhoneNumberField(
     enabled: Boolean = true,
     countrySelectable: Boolean = true,
     colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled),
-    onCountrySelected: (KwikCountryInfo) -> Unit = {}
+    onCountrySelected: (KwikCountryInfo) -> Unit = {},
+    countryPickerTitle: String = "Where are you from?",
+    showFlags: Boolean = false,
+    showCountryCode: Boolean = false,
+    showDialingCode: Boolean = true
 ) {
 
     var countryCodePickerWidth by remember { mutableStateOf(0.dp) }
@@ -128,6 +132,7 @@ fun KwikOutlinedPhoneNumberField(
     var selectedCountryInfo by remember { mutableStateOf(initialCountryInfo) }
 
     KwikCountryPickerDialog(
+        title = countryPickerTitle,
         open = showCountryPicker,
         countryListState = countryListState,
         onDismiss = {
@@ -175,6 +180,8 @@ fun KwikOutlinedPhoneNumberField(
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .heightIn(65.dp)
+                    .then(modifier)
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->
@@ -185,7 +192,7 @@ fun KwikOutlinedPhoneNumberField(
                                 cancelAutofillForNode(autofillNode)
                             }
                         }
-                    }.then(modifier),
+                    },
                 singleLine = singleLine,
                 maxLines = maxLines,
                 enabled = enabled,
@@ -220,7 +227,10 @@ fun KwikOutlinedPhoneNumberField(
                         }
                     },
                 country = selectedCountryInfo,
-                enabled = countrySelectable
+                enabled = countrySelectable,
+                showFlags = showFlags,
+                showCountryCode = showCountryCode,
+                showDialingCode = showDialingCode
             ){
                 showCountryPicker = true
             }

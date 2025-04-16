@@ -40,7 +40,6 @@ internal fun KwikTextFieldScreen(
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val kwikToastState = rememberKwikToastState()
-    var isPhoneNumberValid by remember { mutableStateOf(false) }
 
     KwikToast(state = kwikToastState)
 
@@ -95,16 +94,68 @@ internal fun KwikTextFieldScreen(
                 }
             )
         }
-        ShowCase(title = "") {
+        ShowCase(title = "Phone number field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("")
                 )
             }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikPhoneNumberField(
                 initialCountryInfo = countryList.random(),
                 value = text,
+                label = "Phone number",
+                isValid = isPhoneNumberValid,
+                onValueChange = {
+                    text.value = it
+                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
+                    isPhoneNumberValid = it.text.length >= 8
+                },
+                onCountrySelected = { country ->
+                    kwikToastState.showToast("Country selected: ${country.name}")
+                }
+            )
+        }
+
+        ShowCase(title = "With flags") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
+
+            KwikPhoneNumberField(
+                initialCountryInfo = countryList.random(),
+                value = text,
+                showFlags = true,
+                label = "Phone number",
+                isValid = isPhoneNumberValid,
+                onValueChange = {
+                    text.value = it
+                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
+                    isPhoneNumberValid = it.text.length >= 8
+                },
+                onCountrySelected = { country ->
+                    kwikToastState.showToast("Country selected: ${country.name}")
+                }
+            )
+        }
+
+        ShowCase(title = "With flag and country code") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
+
+            KwikPhoneNumberField(
+                initialCountryInfo = countryList.random(),
+                value = text,
+                showFlags = true,
+                showCountryCode = true,
                 label = "Phone number",
                 isValid = isPhoneNumberValid,
                 onValueChange = {

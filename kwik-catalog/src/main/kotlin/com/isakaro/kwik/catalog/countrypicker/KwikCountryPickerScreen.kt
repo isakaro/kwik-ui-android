@@ -28,8 +28,6 @@ internal fun KwikCountryPickerScreen(
 ) {
 
     var showCountryPicker by remember { mutableStateOf(false) }
-    var selectedCountryInfo by remember { mutableStateOf<KwikCountryInfo?>(null) }
-    var selectedCountryInfo2 by remember { mutableStateOf<KwikCountryInfo?>(null) }
 
     ShowCaseContainer(
         title = "Country picker",
@@ -38,6 +36,8 @@ internal fun KwikCountryPickerScreen(
         }
     ) {
         ShowCase(title = "Country code picker") {
+            var selectedCountryInfo by remember { mutableStateOf<KwikCountryInfo?>(null) }
+
             KwikCountryPicker { country ->
                 showCountryPicker = true
                 selectedCountryInfo = country
@@ -57,22 +57,48 @@ internal fun KwikCountryPickerScreen(
             }
         }
 
-        ShowCase(title = "Country code picker with initial country") {
+        ShowCase(title = "Country code picker with flag") {
+            var selectedCountryInfo by remember { mutableStateOf<KwikCountryInfo?>(null) }
+
             KwikCountryPicker(
-                initialCountry = KwikCountry.RW
+                showFlags = true
             ) { country ->
                 showCountryPicker = true
-                selectedCountryInfo2 = country
+                selectedCountryInfo = country
             }
 
             KwikVSpacer(12)
 
-            if(selectedCountryInfo2 != null){
+            if(selectedCountryInfo != null){
                 KwikText.BodyMedium(
                     text = buildAnnotatedString {
                         append("Selected country: ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
-                            append(selectedCountryInfo2?.name ?: "")
+                            append(selectedCountryInfo?.name ?: "")
+                        }
+                    }
+                )
+            }
+        }
+
+        ShowCase(title = "Country code picker with initial country") {
+            var selectedCountryInfo by remember { mutableStateOf<KwikCountryInfo?>(null) }
+
+            KwikCountryPicker(
+                initialCountry = KwikCountry.RW
+            ) { country ->
+                showCountryPicker = true
+                selectedCountryInfo = country
+            }
+
+            KwikVSpacer(12)
+
+            if(selectedCountryInfo != null){
+                KwikText.BodyMedium(
+                    text = buildAnnotatedString {
+                        append("Selected country: ")
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)){
+                            append(selectedCountryInfo?.name ?: "")
                         }
                     }
                 )
