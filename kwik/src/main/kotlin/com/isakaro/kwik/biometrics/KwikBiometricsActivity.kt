@@ -109,7 +109,24 @@ data class KwikBiometricPromptParams(
 /**
  * The contract for biometric authentication.
  *
- * Call this with 
+ * Usage:
+ * ```
+ *     val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { success ->
+ *         if (success) {
+ *             // handle success
+ *         } else {
+ *             // handle error
+ *         }
+ *     }
+ *
+ *     launcher.launch(
+ *                 KwikBiometricPromptParams(
+ *                     title = "Verify Identity",
+ *                     subtitle = "Authentication required to continue",
+ *                     cancelText = "Cancel"
+ *                 )
+ *     )
+ * ```
  * */
 class KwikBiometricsAuthenticationContract: ActivityResultContract<KwikBiometricPromptParams, Boolean>() {
     override fun createIntent(context: Context, input: KwikBiometricPromptParams): Intent {

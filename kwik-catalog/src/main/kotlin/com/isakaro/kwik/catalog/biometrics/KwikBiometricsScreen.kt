@@ -12,6 +12,8 @@ import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.biometrics.KwikBiometricPromptParams
 import com.isakaro.kwik.biometrics.KwikBiometricsAuthenticationContract
 import com.isakaro.kwik.button.KwikIconButton
+import com.isakaro.kwik.catalog.ShowCase
+import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.helpers.KwikCenterColumn
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.text.KwikText
@@ -20,7 +22,6 @@ import com.isakaro.kwik.theme.KwikColorSuccess
 import com.isakaro.kwik.toast.KwikToast
 import com.isakaro.kwik.toast.rememberKwikToastState
 import com.isakaro.kwik.toast.showToast
-import com.isakaro.kwik.utils.activity
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -29,9 +30,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun KwikBiometricsScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
-
-    val activity = (LocalContext.current).activity() as ComponentActivity
     val kwikToastState = rememberKwikToastState()
+
     val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { success ->
         if (success) {
             kwikToastState.showToast("Biometric authentication successful", backgroundColor = KwikColorSuccess)
@@ -42,20 +42,31 @@ fun KwikBiometricsScreen(
 
     KwikToast(state = kwikToastState)
 
-    KwikCenterColumn {
-        KwikText.TitleSmall(text = "Verify your identity")
-
-        KwikIconButton(
-            modifier = Modifier.size(100.dp),
-            icon = R.drawable.biometrics
+    ShowCaseContainer(
+        title = "Radio button",
+        onBackClick = {
+            navigator.navigateUp()
+        }
+    ) {
+        ShowCase(
+            title = "Biometric Authentication"
         ) {
-            launcher.launch(
-                KwikBiometricPromptParams(
-                    title = "Verify Identity",
-                    subtitle = "Authentication required to continue",
-                    cancelText = "Cancel"
-                )
-            )
+            KwikCenterColumn {
+                KwikText.TitleSmall(text = "Verify your identity")
+
+                KwikIconButton(
+                    modifier = Modifier.size(100.dp),
+                    icon = R.drawable.biometrics
+                ) {
+                    launcher.launch(
+                        KwikBiometricPromptParams(
+                            title = "Verify Identity",
+                            subtitle = "Authentication required to continue",
+                            cancelText = "Cancel"
+                        )
+                    )
+                }
+            }
         }
     }
 
