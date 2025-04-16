@@ -24,9 +24,9 @@ import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.toast.rememberKwikToastState
 import com.isakaro.kwik.toast.showToast
-import com.isakaro.kwik.textfield.KwikOTP
-import com.isakaro.kwik.textfield.KwikPhoneNumberField
-import com.isakaro.kwik.textfield.KwikTextField
+import com.isakaro.kwik.inputfields.KwikOTP
+import com.isakaro.kwik.inputfields.KwikPhoneNumberField
+import com.isakaro.kwik.inputfields.KwikTextField
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination

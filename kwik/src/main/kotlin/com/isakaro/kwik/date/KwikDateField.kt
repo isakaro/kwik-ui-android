@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.button.KwikIconButton
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.textfield.KwikOutlinedTextField
-import com.isakaro.kwik.textfield.KwikTextField
+import com.isakaro.kwik.inputfields.KwikOutlinedTextField
+import com.isakaro.kwik.inputfields.KwikTextField
 import com.isakaro.kwik.utils.toFormat
 import java.util.Date
 

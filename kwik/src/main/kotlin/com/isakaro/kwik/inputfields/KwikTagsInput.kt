@@ -427,7 +427,7 @@ private fun KwikQuantitySelection(
             modifier = Modifier
                 .padding(top = 16.dp)
                 .align(Alignment.End),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             KwikTextButton(
@@ -454,7 +454,7 @@ private fun PreviewKwikTagsInput() {
             KwikTagsInputItem("3", "Davy Jones' Locker"),
             KwikTagsInputItem("4", "Port Royal"),
             KwikTagsInputItem("5", "Isla de Muerta"),
-            KwikTagsInputItem("6", "Fountain of Youth")
+            KwikTagsInputItem("6", "Singapore")
         )
     }
 

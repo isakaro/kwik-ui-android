@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.textfield.KwikSearchView
+import com.isakaro.kwik.inputfields.KwikSearchView
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.toast.KwikToast
 import com.isakaro.kwik.spacer.KwikVSpacer

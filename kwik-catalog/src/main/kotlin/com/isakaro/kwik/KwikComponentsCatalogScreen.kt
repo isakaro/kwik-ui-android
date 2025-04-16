@@ -63,7 +63,7 @@ import com.isakaro.kwik.list.KwikListItemActionState
 import com.isakaro.kwik.spacer.KwikHSpacer
 import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.textfield.KwikSearchView
+import com.isakaro.kwik.inputfields.KwikSearchView
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -354,7 +354,7 @@ internal fun KwikComponentsCatalogScreen(
         ),
         KwikListItemActionState.Data(
             KwikListItemAction(
-                title = "Typography",
+                title = "Typography (Text)",
                 description = "Showcases all typography styles in the theme",
                 action = {
                     navigator.navigate(KwikTypographyScreenDestination)

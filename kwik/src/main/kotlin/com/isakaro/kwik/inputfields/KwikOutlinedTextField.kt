@@ -81,6 +81,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 object AllowedChars {
+    val ALPHANUMERIC = Regex("[^A-Za-z0-9 ]")
     val NUMBERS = Regex("[^0-9]")
     val ALL = null
 }

@@ -1,6 +1,5 @@
 package com.isakaro.kwik.catalog.dialog
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,8 +29,8 @@ import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.textfield.KwikPhoneNumberField
-import com.isakaro.kwik.textfield.KwikTextField
+import com.isakaro.kwik.inputfields.KwikPhoneNumberField
+import com.isakaro.kwik.inputfields.KwikTextField
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
