@@ -1,5 +1,11 @@
 package com.isakaro.kwik.textfield
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +34,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,6 +44,7 @@ import androidx.compose.ui.autofill.AutofillNode
 import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -55,7 +63,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import com.isakaro.kwik.loading.KwikCircularLoading
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikColorFilledTextField
@@ -66,6 +78,9 @@ import com.isakaro.kwik.theme.KwikColorFilledTextFieldUnfocused
 import com.isakaro.kwik.theme.KwikColorFilledTextFieldUnfocusedDarkMode
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A versatile filled text field component that can be used to take user input.
@@ -155,8 +170,15 @@ fun KwikTextField(
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
-    colors: TextFieldColors = kwikTextFieldColors(isEditable)
+    colors: TextFieldColors = kwikTextFieldColors(isEditable),
+    suggestionsModifier: Modifier = Modifier,
+    onSuggestionSelected: (String) -> Unit = {},
+    suggestions: List<String> = listOf(),
+    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
+    delay: Boolean = false,
+    delayDuration: Long = 500L
 ) {
+
     val autofillTypes = mutableListOf<AutofillType>()
 
     if(keyboardType == KeyboardType.Password){
@@ -170,6 +192,13 @@ fun KwikTextField(
         autofillTypes.add(AutofillType.PhoneNumberDevice)
         autofillTypes.add(AutofillType.PhoneNumberNational)
     }
+    var suggestionsVisible by remember { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
+    var debounceJob by remember { mutableStateOf<Job?>(null) }
+    var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
+    var textFieldPosition by remember { mutableStateOf<Rect?>(null) }
+    var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
+    var lastInputType by remember { mutableStateOf(LastInputType.TYPING) }
 
     var passwordVisible by remember { mutableStateOf(false) }
     val autofill = LocalAutofill.current
@@ -177,17 +206,40 @@ fun KwikTextField(
         autofillTypes = autofillTypes.toList(),
         onFill = {
             if(it.length <= maxLength){
-                //trim the text to remove any leading or trailing spaces if not password field
-                if(keyboardType == KeyboardType.Password){
-                    onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
-                } else {
-                    onValueChange(value.value.copy(text = it.trim(), selection = TextRange(it.length)))
+                debounceJob?.cancel()
+                debounceJob = coroutineScope.launch {
+                    if(delay && delayDuration >= 1L) {
+                        delay(delayDuration)
+                    }
+
+                    // filter suggestions based on the query
+                    filteredSuggestions = suggestions.filter { suggestion ->
+                        suggestion.contains(it, ignoreCase = true)
+                    }
+
+                    if(lastInputType == LastInputType.TYPING){
+                        suggestionsVisible = true
+                    } else {
+                        lastInputType = LastInputType.TYPING
+                    }
+
+                    //trim the text to remove any leading or trailing spaces if not password field
+                    if(keyboardType == KeyboardType.Password){
+                        onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
+                    } else {
+                        onValueChange(value.value.copy(text = it.trim(), selection = TextRange(it.length)))
+                    }
                 }
             }
         }
     )
 
     LocalAutofillTree.current += autofillNode
+
+    fun updateSuggestions(suggestion: String){
+        filteredSuggestions = filteredSuggestions.filter { it != suggestion }
+        lastInputType = LastInputType.SUGGESTION
+    }
 
     Column(
         modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
@@ -206,9 +258,27 @@ fun KwikTextField(
             onValueChange = {
                 if(!enabled) return@TextField
                 if(it.text.length <= maxLength){
-                    if(allowedChars != null) {
-                        onValueChange(it.copy(allowedChars.replace(it.text, "")))
-                    } else onValueChange(it)
+                    debounceJob?.cancel()
+                    debounceJob = coroutineScope.launch {
+                        if(delay && delayDuration >= 1L) {
+                            delay(delayDuration)
+                        }
+
+                        // filter suggestions based on the query
+                        filteredSuggestions = suggestions.filter { suggestion ->
+                            suggestion.contains(it.text, ignoreCase = true)
+                        }
+
+                        if(lastInputType == LastInputType.TYPING){
+                            suggestionsVisible = true
+                        } else {
+                            lastInputType = LastInputType.TYPING
+                        }
+
+                        if(allowedChars != null) {
+                            onValueChange(it.copy(allowedChars.replace(it.text, "")))
+                        } else onValueChange(it)
+                    }
                 }
             },
             isError = isError,
@@ -234,6 +304,7 @@ fun KwikTextField(
                 }
                 .onFocusChanged { focusState ->
                     onFocusChanged(focusState.isFocused)
+                    suggestionsVisible = focusState.isFocused
                     autofill?.run {
                         if (focusState.isFocused) {
                             requestAutofillForNode(autofillNode)
@@ -241,6 +312,9 @@ fun KwikTextField(
                             cancelAutofillForNode(autofillNode)
                         }
                     }
+                }.onGloballyPositioned { layoutCoordinates ->
+                    textFieldPosition = layoutCoordinates.boundsInWindow()
+                    textFieldSize = layoutCoordinates.size
                 },
             singleLine = singleLine && !isBigTextField,
             maxLines = if(isBigTextField) 8 else maxLines,
@@ -385,6 +459,62 @@ fun KwikTextField(
                             .padding(bottom = 8.dp)
                             .align(Alignment.BottomEnd)
                     )
+                }
+            }
+        }
+    }
+    if(filteredSuggestions.isNotEmpty() && textFieldPosition != null){
+        Popup(
+            properties = PopupProperties(
+                focusable = false,
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            ),
+            onDismissRequest = {
+                suggestionsVisible = false
+            },
+            offset = IntOffset(
+                x = textFieldPosition!!.width.toInt(),
+                y = textFieldPosition!!.height.toInt() * 2 - textFieldSize!!.height / 3
+            )
+        ) {
+            AnimatedVisibility(
+                visible = suggestionsVisible,
+                enter = fadeIn() + slideInVertically { -it },
+                exit = fadeOut() + slideOutVertically { -it }
+            ) {
+                Column(
+                    modifier = suggestionsModifier
+                        .fillMaxWidth()
+                        .background(
+                            color = suggestionsContainerColor,
+                            shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                        )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        filteredSuggestions.forEach { suggestion ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp)
+                                    .padding(horizontal = 4.dp)
+                                    .clickable {
+                                        lastInputType = LastInputType.SUGGESTION
+                                        onValueChange(value.value.copy(text = suggestion, selection = TextRange(suggestion.length)))
+                                        onSuggestionSelected(suggestion)
+                                        updateSuggestions(suggestion)
+                                        suggestionsVisible = false
+                                    },
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                KwikText.BodyMedium(
+                                    text = suggestion
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

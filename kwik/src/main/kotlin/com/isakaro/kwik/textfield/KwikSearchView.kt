@@ -88,7 +88,6 @@ import kotlinx.coroutines.launch
  * @param onSuggestionSelected The callback to be called when a suggestion is selected.
  * @param suggestions The list of suggestions to be displayed.
  * @param suggestionsContainerColor The color of the suggestions container.
- * @param showSuggestions Whether to show the suggestions or not. Useful when you wish to control the visibility of the suggestions manually.
  * @param colors The colors to be used for the text field.
  *
  * Example usage:
@@ -148,7 +147,6 @@ fun KwikSearchView(
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
     suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
-    showSuggestions: Boolean = true,
     colors: TextFieldColors = kwikTextFieldColors().copy(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent
@@ -156,7 +154,7 @@ fun KwikSearchView(
     shape: Shape = MaterialTheme.shapes.medium
 ) {
     val queryText = remember { mutableStateOf("") }
-    var suggestionsVisible by remember { mutableStateOf(showSuggestions) }
+    var suggestionsVisible by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
@@ -358,7 +356,7 @@ fun KwikSearchView(
     }
 }
 
-private enum class LastInputType {
+internal enum class LastInputType {
     SUGGESTION,
     TYPING
 }

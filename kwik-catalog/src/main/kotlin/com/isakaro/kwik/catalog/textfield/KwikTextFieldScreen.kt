@@ -118,6 +118,25 @@ internal fun KwikTextFieldScreen(
             )
         }
 
+        ShowCase(title = "Field with suggestions") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+
+            KwikTextField(
+                value = text,
+                onValueChange = {
+                    text.value = it
+                },
+                label = "Address",
+                placeholder = "Enter address",
+                suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
+                error = "Incorrect address",
+            )
+        }
+
         ShowCase(title = "Field with Error") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
@@ -160,10 +179,7 @@ internal fun KwikTextFieldScreen(
                 maxLength = 35,
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
-                enabled = false,
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                }
+                enabled = false
             )
         }
 
@@ -211,12 +227,7 @@ internal fun KwikTextFieldScreen(
                 label = "Address",
                 placeholder = "Enter address",
                 maxLength = 35,
-                isTextCounterShown = true,
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Text,
-                onKeyboardDone = {
-                    kwikToastState.showToast("keyboard done")
-                }
+                isTextCounterShown = true
             )
         }
         ShowCase(title = "Field with Hint") {
