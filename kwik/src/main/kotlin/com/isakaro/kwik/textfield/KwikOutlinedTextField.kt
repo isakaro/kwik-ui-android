@@ -1,5 +1,11 @@
 package com.isakaro.kwik.textfield
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -29,6 +36,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,11 +46,13 @@ import androidx.compose.ui.autofill.AutofillNode
 import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.res.painterResource
@@ -56,12 +66,20 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import com.isakaro.kwik.loading.KwikCircularLoading
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
 import com.isakaro.kwik.theme.KwikColorHint
 import com.isakaro.kwik.theme.KwikColorSuccess
+import com.isakaro.kwik.utils.text
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object AllowedChars {
     val ALPHANUMERIC = Regex("[^A-Za-z0-9 ]")
@@ -180,17 +198,51 @@ fun KwikOutlinedTextField(
         autofillTypes.add(AutofillType.PhoneNumberNational)
     }
 
+    var suggestionsVisible by remember { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
+    var debounceJob by remember { mutableStateOf<Job?>(null) }
+    var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
+    var textFieldPosition by remember { mutableStateOf<Offset?>(null) }
+    var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
+    var lastInputType by remember { mutableStateOf(LastInputType.TYPING) }
+
+    fun updateSuggestions(suggestion: String? = null){
+        filteredSuggestions = filteredSuggestions.filter { it.lowercase() != (suggestion ?: value.text).lowercase() }
+        lastInputType = LastInputType.SUGGESTION
+        suggestionsVisible = filteredSuggestions.isNotEmpty()
+    }
+
     var passwordVisible by remember { mutableStateOf(false) }
+
     val autofill = LocalAutofill.current
+
     val autofillNode = AutofillNode(
         autofillTypes = autofillTypes.toList(),
         onFill = {
             if(it.length <= maxLength){
-                //trim the text to remove any leading or trailing spaces if not password field
-                if(keyboardType == KeyboardType.Password){
-                    onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
-                } else {
-                    onValueChange(value.value.copy(text = it.trim(), selection = TextRange(it.length)))
+                debounceJob?.cancel()
+                debounceJob = coroutineScope.launch {
+                    if(delay && delayDuration >= 1L) {
+                        delay(delayDuration)
+                    }
+
+                    // filter suggestions based on the query
+                    filteredSuggestions = suggestions.filter { suggestion ->
+                        suggestion.contains(it, ignoreCase = true)
+                    }
+
+                    if(lastInputType == LastInputType.TYPING){
+                        updateSuggestions()
+                    } else {
+                        lastInputType = LastInputType.TYPING
+                    }
+
+                    //trim the text to remove any leading or trailing spaces if not password field
+                    if(keyboardType == KeyboardType.Password){
+                        onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
+                    } else {
+                        onValueChange(value.value.copy(text = it.trim(), selection = TextRange(it.length)))
+                    }
                 }
             }
         }
@@ -224,7 +276,7 @@ fun KwikOutlinedTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(if(isBigTextField) 150.dp else 60.dp)
+                .heightIn(if(isBigTextField) 150.dp else 65.dp)
                 .padding(bottom = 8.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
@@ -240,6 +292,9 @@ fun KwikOutlinedTextField(
                             cancelAutofillForNode(autofillNode)
                         }
                     }
+                }.onGloballyPositioned { layoutCoordinates ->
+                    textFieldPosition = layoutCoordinates.positionInParent()
+                    textFieldSize = layoutCoordinates.size
                 },
             singleLine = singleLine && !isBigTextField,
             maxLines = if(isBigTextField) 8 else maxLines,
@@ -384,6 +439,62 @@ fun KwikOutlinedTextField(
                             .padding(bottom = 8.dp)
                             .align(Alignment.BottomEnd)
                     )
+                }
+            }
+        }
+        if(filteredSuggestions.isNotEmpty() && textFieldPosition != null){
+            Popup(
+                properties = PopupProperties(
+                    focusable = false,
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true
+                ),
+                onDismissRequest = {
+                    suggestionsVisible = false
+                },
+                offset = IntOffset(
+                    x = textFieldPosition!!.x.toInt(),
+                    y = (textFieldPosition!!.y + (textFieldSize!!.height * 1.6)).toInt()
+                )
+            ) {
+                AnimatedVisibility(
+                    visible = suggestionsVisible,
+                    enter = fadeIn() + slideInVertically { -it },
+                    exit = fadeOut() + slideOutVertically { -it }
+                ) {
+                    Column(
+                        modifier = suggestionsModifier
+                            .width(textFieldSize!!.width.dp)
+                            .background(
+                                color = suggestionsContainerColor,
+                                shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                            )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            filteredSuggestions.forEach { suggestion ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(60.dp)
+                                        .padding(horizontal = 4.dp)
+                                        .clickable {
+                                            lastInputType = LastInputType.SUGGESTION
+                                            onValueChange(value.value.copy(text = suggestion, selection = TextRange(suggestion.length)))
+                                            onSuggestionSelected(suggestion)
+                                            updateSuggestions(suggestion)
+                                            suggestionsVisible = false
+                                        },
+                                    verticalAlignment = Alignment.CenterVertically
+                                ){
+                                    KwikText.BodyMedium(
+                                        text = suggestion
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -27,6 +27,8 @@ import com.isakaro.kwik.toast.rememberKwikToastState
 import com.isakaro.kwik.toast.showToast
 import com.isakaro.kwik.textfield.KwikOutlinedPhoneNumberField
 import com.isakaro.kwik.textfield.KwikOutlinedTextField
+import com.isakaro.kwik.textfield.KwikPhoneNumberField
+import com.isakaro.kwik.textfield.KwikTextField
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
@@ -40,7 +42,6 @@ internal fun KwikOutlinedTextFieldScreen(
     val context = LocalContext.current
     val otp = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val kwikToastState = rememberKwikToastState()
-    var isPhoneNumberValid by remember { mutableStateOf(false) }
 
     KwikToast(state = kwikToastState)
 
@@ -94,12 +95,13 @@ internal fun KwikOutlinedTextFieldScreen(
             )
         }
 
-        ShowCase(title = "") {
+        ShowCase(title = "Phone number field") {
             val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("")
                 )
             }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikOutlinedPhoneNumberField(
                 initialCountryInfo = countryList.random(),
@@ -112,8 +114,78 @@ internal fun KwikOutlinedTextFieldScreen(
                     isPhoneNumberValid = it.text.length >= 8
                 },
                 onCountrySelected = { country ->
-                    kwikToastState.showToast("Selected country: ${country.name}")
+                    kwikToastState.showToast("Country selected: ${country.name}")
                 }
+            )
+        }
+
+        ShowCase(title = "With flags") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
+
+            KwikOutlinedPhoneNumberField(
+                initialCountryInfo = countryList.random(),
+                value = text,
+                showFlags = true,
+                label = "Phone number",
+                isValid = isPhoneNumberValid,
+                onValueChange = {
+                    text.value = it
+                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
+                    isPhoneNumberValid = it.text.length >= 8
+                },
+                onCountrySelected = { country ->
+                    kwikToastState.showToast("Country selected: ${country.name}")
+                }
+            )
+        }
+
+        ShowCase(title = "With flag and country code") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+            var isPhoneNumberValid by remember { mutableStateOf(false) }
+
+            KwikOutlinedPhoneNumberField(
+                initialCountryInfo = countryList.random(),
+                value = text,
+                showFlags = true,
+                showCountryCode = true,
+                label = "Phone number",
+                isValid = isPhoneNumberValid,
+                onValueChange = {
+                    text.value = it
+                    // for demo purposes, we'll mark the field as valid if it's 8 digits long or above
+                    isPhoneNumberValid = it.text.length >= 8
+                },
+                onCountrySelected = { country ->
+                    kwikToastState.showToast("Country selected: ${country.name}")
+                }
+            )
+        }
+
+        ShowCase(title = "Field with suggestions") {
+            val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(
+                    TextFieldValue("")
+                )
+            }
+
+            KwikOutlinedTextField(
+                value = text,
+                onValueChange = {
+                    text.value = it
+                },
+                showClearTextButton = true,
+                placeholder = "Enter address",
+                suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
+                error = "Incorrect address",
             )
         }
 

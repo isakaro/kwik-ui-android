@@ -153,7 +153,7 @@ fun KwikOutlinedPhoneNumberField(
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
                 textAlign = TextAlign.Start
             )
-            KwikVSpacer(10)
+            Spacer(modifier = Modifier.width(10.dp))
         }
 
         val autofill = LocalAutofill.current

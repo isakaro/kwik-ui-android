@@ -307,7 +307,7 @@ fun KwikTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(if(isBigTextField) 150.dp else 60.dp)
+                .heightIn(if(isBigTextField) 150.dp else 65.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
