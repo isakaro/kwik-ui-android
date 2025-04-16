@@ -310,9 +310,6 @@ fun KwikTextField(
                 .heightIn(if(isBigTextField) 150.dp else 65.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
-                .onGloballyPositioned {
-                    autofillNode.boundingBox = it.boundsInWindow()
-                }
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
                     autofill?.run {
@@ -327,6 +324,7 @@ fun KwikTextField(
                     }
                     onFocusChanged(focusState.isFocused)
                 }.onGloballyPositioned { layoutCoordinates ->
+                    autofillNode.boundingBox = layoutCoordinates.boundsInWindow()
                     textFieldPosition = layoutCoordinates.positionInParent()
                     textFieldSize = layoutCoordinates.size
                 },
@@ -448,7 +446,7 @@ fun KwikTextField(
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 8.dp)
+                        .padding(top = 4.dp)
                 )
             }
             Box(
@@ -461,7 +459,7 @@ fun KwikTextField(
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 8.dp)
+                            .padding(top = 4.dp)
                             .align(Alignment.BottomStart)
                     )
                 }
@@ -472,7 +470,7 @@ fun KwikTextField(
                         textAlign = TextAlign.End,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 8.dp)
+                            .padding(top = 4.dp)
                             .align(Alignment.BottomEnd)
                     )
                 }
@@ -574,6 +572,20 @@ private fun KwikTextFieldPreview() {
         placeholder = "Enter address",
         keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,
+        imeAction = ImeAction.Done,
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun KwikErrorTextFieldPreview() {
+    KwikTextField(
+        value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
+        onValueChange = {},
+        visualTransformation = VisualTransformation.None,
+        placeholder = "Jack Sparrow",
+        isError = true,
+        keyboardType = KeyboardType.Phone,
         imeAction = ImeAction.Done,
     )
 }

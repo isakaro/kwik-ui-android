@@ -256,9 +256,27 @@ fun KwikOutlinedTextField(
             onValueChange = {
                 if(!enabled) return@OutlinedTextField
                 if(it.text.length <= maxLength){
-                    if(allowedChars != null) {
-                        onValueChange(it.copy(allowedChars.replace(it.text, "")))
-                    } else onValueChange(it)
+                    debounceJob?.cancel()
+                    debounceJob = coroutineScope.launch {
+                        if(delay && delayDuration >= 1L) {
+                            delay(delayDuration)
+                        }
+
+                        // filter suggestions based on the query
+                        filteredSuggestions = suggestions.filter { suggestion ->
+                            suggestion.contains(it.text, ignoreCase = true)
+                        }
+
+                        if(lastInputType == LastInputType.TYPING){
+                            updateSuggestions()
+                        } else {
+                            lastInputType = LastInputType.TYPING
+                        }
+
+                        if(allowedChars != null) {
+                            onValueChange(it.copy(allowedChars.replace(it.text, "")))
+                        } else onValueChange(it)
+                    }
                 }
             },
             label = {
@@ -277,14 +295,10 @@ fun KwikOutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(if(isBigTextField) 150.dp else 65.dp)
-                .padding(bottom = 8.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
-                .onGloballyPositioned {
-                    autofillNode.boundingBox = it.boundsInWindow()
-                }
                 .onFocusChanged { focusState ->
-                    onFocusChanged(focusState.isFocused)
+                    suggestionsVisible = focusState.isFocused
                     autofill?.run {
                         if (focusState.isFocused) {
                             requestAutofillForNode(autofillNode)
@@ -292,7 +306,12 @@ fun KwikOutlinedTextField(
                             cancelAutofillForNode(autofillNode)
                         }
                     }
+                    if(focusState.isFocused){
+                        updateSuggestions()
+                    }
+                    onFocusChanged(focusState.isFocused)
                 }.onGloballyPositioned { layoutCoordinates ->
+                    autofillNode.boundingBox = layoutCoordinates.boundsInWindow()
                     textFieldPosition = layoutCoordinates.positionInParent()
                     textFieldSize = layoutCoordinates.size
                 },
@@ -368,6 +387,8 @@ fun KwikOutlinedTextField(
                                 .padding(end = 4.dp)
                                 .clickable {
                                     onValueChange(TextFieldValue(""))
+                                    filteredSuggestions = suggestions.take(10)
+                                    suggestionsVisible = true
                                 },
                             contentDescription = "Clear text",
                             tint = if(isSystemInDarkTheme()) Color.White else Color.Black
@@ -412,7 +433,7 @@ fun KwikOutlinedTextField(
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 8.dp)
+                        .padding(top = 4.dp)
                 )
             }
             Box(
@@ -425,7 +446,7 @@ fun KwikOutlinedTextField(
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 8.dp)
+                            .padding(top = 4.dp)
                             .align(Alignment.BottomStart)
                     )
                 }
@@ -436,7 +457,7 @@ fun KwikOutlinedTextField(
                         textAlign = TextAlign.End,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 8.dp)
+                            .padding(top = 4.dp)
                             .align(Alignment.BottomEnd)
                     )
                 }
@@ -454,7 +475,7 @@ fun KwikOutlinedTextField(
                 },
                 offset = IntOffset(
                     x = textFieldPosition!!.x.toInt(),
-                    y = (textFieldPosition!!.y + (textFieldSize!!.height * 1.6)).toInt()
+                    y = (textFieldPosition!!.y + (textFieldSize!!.height)).toInt()
                 )
             ) {
                 AnimatedVisibility(
@@ -465,6 +486,7 @@ fun KwikOutlinedTextField(
                     Column(
                         modifier = suggestionsModifier
                             .width(textFieldSize!!.width.dp)
+                            .padding(horizontal = 6.dp)
                             .background(
                                 color = suggestionsContainerColor,
                                 shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)

@@ -155,7 +155,7 @@ fun KwikCountryCodeButton(
 ){
     Button(
         onClick = { onClick() },
-        modifier = modifier.alpha(if (enabled) 1.5f else 0.5f),
+        modifier = modifier.alpha(if (enabled) 1.5f else 0.5f).padding(horizontal = 4.dp),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
         contentPadding = PaddingValues(8.dp),
         shape = shape,
