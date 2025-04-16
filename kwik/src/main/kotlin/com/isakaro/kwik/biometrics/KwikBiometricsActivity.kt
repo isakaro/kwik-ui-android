@@ -29,6 +29,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
+import com.isakaro.kwik.helpers.KwikCenterColumn
+import com.isakaro.kwik.theme.KwikTheme
 
 /**
  * Handles biometric authentication in an activity
@@ -68,32 +70,31 @@ class KwikBiometricActivity : FragmentActivity() {
         biometricPrompt.authenticate(promptInfo)
 
         setContent {
-            Column(
-                modifier = Modifier.fillMaxSize().background(Color.White),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                KwikText.TitleMedium(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    text = "Verify your identity",
-                    textAlign = TextAlign.Center,
-                    color = Color.DarkGray
-                )
-
-                Button(
-                    onClick = {
-                        biometricPrompt.authenticate(promptInfo)
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White
-                    ),
+            KwikTheme {
+                KwikCenterColumn(
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.fingerprint),
-                        contentDescription = "biometrics authentication",
-                        tint = Color.Black,
-                        modifier = Modifier.size(60.dp).padding(end = 4.dp)
+                    KwikText.TitleMedium(
+                        modifier = Modifier.padding(bottom = 4.dp),
+                        text = "Verify your identity",
+                        textAlign = TextAlign.Center
                     )
+
+                    Button(
+                        onClick = {
+                            biometricPrompt.authenticate(promptInfo)
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White
+                        ),
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.fingerprint),
+                            contentDescription = "biometrics authentication",
+                            tint = Color.Black,
+                            modifier = Modifier.size(60.dp).padding(end = 4.dp)
+                        )
+                    }
                 }
             }
         }

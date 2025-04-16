@@ -1,16 +1,21 @@
 package com.isakaro.kwik.catalog.biometrics
 
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.biometrics.KwikBiometricPromptParams
 import com.isakaro.kwik.biometrics.KwikBiometricsAuthenticationContract
+import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.button.KwikIconButton
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
@@ -43,20 +48,17 @@ fun KwikBiometricsScreen(
     KwikToast(state = kwikToastState)
 
     ShowCaseContainer(
-        title = "Radio button",
+        title = "Biometric Authentication",
         onBackClick = {
             navigator.navigateUp()
         }
     ) {
-        ShowCase(
-            title = "Biometric Authentication"
-        ) {
+        ShowCase {
             KwikCenterColumn {
-                KwikText.TitleSmall(text = "Verify your identity")
-
-                KwikIconButton(
-                    modifier = Modifier.size(100.dp),
-                    icon = R.drawable.biometrics
+                KwikButton(
+                    modifier = Modifier.fillMaxWidth().height(55.dp),
+                    text = "Verify your identity",
+                    leadingIcon = painterResource(R.drawable.biometrics)
                 ) {
                     launcher.launch(
                         KwikBiometricPromptParams(

@@ -30,6 +30,7 @@ fun KwikIconButton(
     onClick: () -> Unit
 ) {
     IconButton(
+        modifier = modifier,
         onClick = { onClick() },
         interactionSource = remember { MutableInteractionSource() },
         colors = IconButtonDefaults.iconButtonColors(
@@ -41,5 +42,24 @@ fun KwikIconButton(
             url = icon,
             tint = tint
         )
+    }
+}
+
+@Composable
+fun KwikIconButton(
+    modifier: Modifier = Modifier,
+    icon: @Composable () -> Unit,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    onClick: () -> Unit
+) {
+    IconButton(
+        modifier = modifier,
+        onClick = { onClick() },
+        interactionSource = remember { MutableInteractionSource() },
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = containerColor
+        )
+    ) {
+        icon()
     }
 }
