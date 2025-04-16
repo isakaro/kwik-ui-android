@@ -39,8 +39,8 @@ internal fun KwikDateScreen(
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
             KwikDateField(
-                label = "Birthday",
-                placeholder = "Select your birthday",
+                label = "Date of birth",
+                placeholder = "Enter your date of birth",
                 selected = {
                     selectedDate = it
                 }
@@ -51,9 +51,22 @@ internal fun KwikDateScreen(
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
             KwikDateField(
-                label = "Birthday",
-                placeholder = "Select your birthday",
-                mode = KwikDatePickerMode.Edit,
+                label = "Date of birth",
+                placeholder = "Enter your date of birth",
+                mode = KwikDatePickerMode.Input,
+                selected = {
+                    selectedDate = it
+                }
+            )
+        }
+
+        ShowCase(title = "Date picker in fixed edit mode") {
+            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+            KwikDateField(
+                label = "Date of birth",
+                placeholder = "Enter your date of birth",
+                mode = KwikDatePickerMode.Input,
                 selected = {
                     selectedDate = it
                 }

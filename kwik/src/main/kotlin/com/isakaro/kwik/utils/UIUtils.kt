@@ -19,3 +19,8 @@ tailrec fun Context.activity(): Activity = when (this) {
 fun Context.isPermissionGranted(vararg permission: String): Boolean {
     return permission.map { ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED }.all { it }
 }
+
+fun String?.blankIfNull(): String {
+    if(this == "null" || this == null) return ""
+    return this
+}
