@@ -121,7 +121,7 @@ fun KwikTagsInput(
     val keyboardController = LocalSoftwareKeyboardController.current
     val inputValue = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
     val selectedItems = remember { mutableStateMapOf<Any, KwikTagsInputItem>() }
-    var suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
+    val suggestions = remember { mutableStateListOf<KwikTagsInputItem>() }
     val showSuggestions = remember { mutableStateOf(false) }
     val kwikToastState = rememberKwikToastState()
     var isFocused by remember { mutableStateOf(false) }
