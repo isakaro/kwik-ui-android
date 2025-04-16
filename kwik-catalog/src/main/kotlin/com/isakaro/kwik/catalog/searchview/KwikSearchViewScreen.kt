@@ -76,7 +76,7 @@ internal fun KwikSearchViewScreen(
             )
         }
 
-        ShowCase(title = "Search view suggestions") {
+        ShowCase(title = "Search view with suggestions") {
             val query = rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("")

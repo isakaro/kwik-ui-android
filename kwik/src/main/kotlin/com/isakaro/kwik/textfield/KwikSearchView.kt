@@ -148,7 +148,7 @@ fun KwikSearchView(
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
     suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
-    showSuggestions: Boolean = false,
+    showSuggestions: Boolean = true,
     colors: TextFieldColors = kwikTextFieldColors().copy(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent
@@ -162,6 +162,10 @@ fun KwikSearchView(
     var filteredSuggestions by remember { mutableStateOf(suggestions.take(10)) }
     var textFieldPosition by remember { mutableStateOf<Rect?>(null) }
     var textFieldSize by remember { mutableStateOf<IntSize?>(null) }
+
+    fun updateSuggestions(suggestion: String){
+        filteredSuggestions = filteredSuggestions.filter { it != suggestion }
+    }
 
     Column {
         if(!label.isNullOrBlank()){
@@ -179,15 +183,10 @@ fun KwikSearchView(
                 if (query.text.isBlank()) {
                     state.value = TextFieldValue("")
                     onTextCleared()
-
-                    if(showSuggestions){
-                        filteredSuggestions = suggestions.take(10)
-                        suggestionsVisible = true
-                    }
-
+                    filteredSuggestions = suggestions.take(10)
+                    suggestionsVisible = showSuggestions
                     return@TextField
-                }
-                if (query.text.length <= maxChars) {
+                } else if (query.text.length <= maxChars) {
                     state.value = query
                     queryText.value = query.text
 
@@ -202,10 +201,7 @@ fun KwikSearchView(
                             suggestion.contains(query.text, ignoreCase = true)
                         }
 
-                        // if no results, show all suggestions
-                        if (filteredSuggestions.isEmpty()) {
-                            filteredSuggestions = suggestions.take(10)
-                        }
+                        suggestionsVisible = showSuggestions
 
                         onTextChange(queryText.value)
                     }
@@ -296,7 +292,7 @@ fun KwikSearchView(
             }
         }
     }
-    if(suggestions.isNotEmpty() && textFieldPosition != null){
+    if(filteredSuggestions.isNotEmpty() && textFieldPosition != null){
         Popup(
             properties = PopupProperties(
                 focusable = false,
@@ -338,6 +334,7 @@ fun KwikSearchView(
                                         queryText.value = suggestion
                                         suggestionsVisible = false
                                         onSuggestionSelected(suggestion)
+                                        updateSuggestions(suggestion)
                                     },
                                 verticalAlignment = Alignment.CenterVertically
                             ){
