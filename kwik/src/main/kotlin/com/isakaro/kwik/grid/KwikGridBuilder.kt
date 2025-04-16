@@ -7,19 +7,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.card.KwikWidget
 
+/**
+ * A data class representing a single item in a grid.
+ *
+ * @param colSpan: The number of columns this item spans.
+ * @param rowSpan: The number of rows this item spans.
+ * @param colPosition: The position of this item in the grid, measured in columns.
+ * @param rowPosition: The position of this item in the grid, measured in rows.
+ * @param onClick: The action to perform when this item is clicked.
+ * @param content: The content of this item.
+ * */
 data class KwikDiv(
-    val background: String? = null,
-    val color: Brush? = null,
     val colSpan: Int = 1,
     val rowSpan: Int = 1,
     val colPosition: Int,
     val rowPosition: Int,
-    val title: String,
-    val onClickAction: () -> Unit
+    val onClick: () -> Unit,
+    val content: @Composable () -> Unit
 )
 
 @Composable
@@ -48,8 +54,6 @@ fun BoxWithConstraintsScope.KwikGrid(
         KwikWidget(
             modifier = modifier,
             item = gridItem
-        ) {
-            gridItem.onClickAction()
-        }
+        )
     }
 }

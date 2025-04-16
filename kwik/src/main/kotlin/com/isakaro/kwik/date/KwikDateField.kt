@@ -107,7 +107,7 @@ fun KwikDateField(
                     KwikOutlinedTextField(
                         value = dateValue,
                         onValueChange = { dateValue.value = it },
-                        visualTransformation = DateVisualTransformation(),
+                        visualTransformation = DateVisualTransformation("yyyy-MM-dd"),
                         placeholder = placeholder,
                         singleLine = true,
                         modifier = Modifier
@@ -138,7 +138,7 @@ fun KwikDateField(
                         onValueChange = { dateValue.value = it },
                         placeholder = placeholder,
                         singleLine = true,
-                        visualTransformation = DateVisualTransformation()
+                        visualTransformation = DateVisualTransformation("yyyy-MM-dd")
                     )
                 }
             }
@@ -188,35 +188,68 @@ fun KwikDateField(
     }
 }
 
-class DateVisualTransformation() : VisualTransformation {
+class DateVisualTransformation(private val format: String) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        return maskFilter(text)
+        return dateMaskFilter(text, format)
     }
 }
 
-fun maskFilter(text: AnnotatedString): TransformedText {
-
-    val trimmed = if (text.text.length >= 8) text.text.substring(0..7) else text.text
-    var out = ""
-    for (i in trimmed.indices) {
-        out += trimmed[i]
-        if (i==4) out += "-"
+fun dateMaskFilter(text: AnnotatedString, format: String): TransformedText {
+    val regex = Regex("^(d{2}|d{1})[\\W](M{2}|M{1})[\\W](y{4})\$|^(y{4})[\\W](M{2}|M{1})[\\W](d{2}|d{1})\$|^(d{2})[\\W](M{2})[\\W](y{4})\$")
+    if (!regex.matches(format.replace('d', 'd').replace('M', 'M').replace('y', 'y'))) {
+        return TransformedText(text, OffsetMapping.Identity)
     }
 
-    val numberOffsetTranslator = object : OffsetMapping {
-        override fun originalToTransformed(offset: Int): Int {
-            if (offset <= 4) return offset
-            if (offset <= 8) return offset +1
-            return 9
+    // Identify the separator
+    val separator = format.first { !it.isLetterOrDigit() }
 
+    // Parse the structure: [yyyy, MM, dd]
+    val parts = format.split(separator)
+    val lengths = parts.map {
+        when {
+            it.contains("y") -> 4
+            it.contains("M") -> 2
+            it.contains("d") -> 2
+            else -> it.length
+        }
+    }
+    val maxLength = lengths.sum()
+
+    // Sanitize input
+    val raw = text.text.filter { it.isDigit() }.take(maxLength)
+
+    // Construct transformed text
+    val transformed = buildString {
+        var index = 0
+        for ((i, len) in lengths.withIndex()) {
+            val end = (index + len).coerceAtMost(raw.length)
+            append(raw.substring(index, end))
+            if (end < raw.length && i < lengths.lastIndex) append(separator)
+            index = end
+        }
+    }
+
+    // Separator positions for offset mapping
+    val separatorPositions = lengths.dropLast(1).runningReduce(Int::plus)
+
+    val offsetMapping = object : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int {
+            var shift = 0
+            for (pos in separatorPositions) {
+                if (offset > pos) shift++
+            }
+            return (offset + shift).coerceAtMost(transformed.length)
         }
 
         override fun transformedToOriginal(offset: Int): Int {
-            if (offset <=5) return offset
-            if (offset <=9) return offset -1
-            return 8
+            var shift = 0
+            for (pos in separatorPositions) {
+                if (offset > pos + shift) shift++
+            }
+            return (offset - shift).coerceAtMost(raw.length)
         }
     }
 
-    return TransformedText(AnnotatedString(out), numberOffsetTranslator)
+    return TransformedText(AnnotatedString(transformed), offsetMapping)
 }
+
