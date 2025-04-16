@@ -24,6 +24,7 @@ import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
 import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
+import com.isakaro.kwik.destinations.KwikBiometricsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
@@ -376,6 +377,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Timeline component for showing events in a vertical fashion",
                 action = {
                     navigator.navigate(KwikTimelineScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Biometrics",
+                description = "Component for authenticating users with biometrics. Supports fingerprint, face, iris, PIN...",
+                action = {
+                    navigator.navigate(KwikBiometricsScreenDestination)
                 }
             )
         ),

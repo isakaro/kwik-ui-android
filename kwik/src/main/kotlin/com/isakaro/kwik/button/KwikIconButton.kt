@@ -22,38 +22,6 @@ import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.text.KwikText
 
 @Composable
-fun KwikIconTextButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    icon: Any,
-    color: Color = MaterialTheme.colorScheme.primary,
-    onClick: () -> Unit = {}
-) {
-    TextButton(
-        onClick = { onClick() },
-        modifier = modifier,
-        contentPadding = PaddingValues(4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = Color.White,
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        interactionSource = remember { MutableInteractionSource() }
-    ) {
-        KwikImageView(
-            url = icon,
-            modifier = Modifier.size(35.dp)
-        )
-        KwikText.BodyMedium(
-            modifier = Modifier.padding(end = 8.dp),
-            text = text,
-            textAlign = TextAlign.End,
-            color = color
-        )
-    }
-}
-
-@Composable
 fun KwikIconButton(
     modifier: Modifier = Modifier,
     icon: Any,
@@ -63,13 +31,13 @@ fun KwikIconButton(
 ) {
     IconButton(
         onClick = { onClick() },
-        modifier = modifier,
         interactionSource = remember { MutableInteractionSource() },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = containerColor
         )
     ) {
         KwikImageView(
+            modifier = modifier.padding(4.dp),
             url = icon,
             tint = tint
         )

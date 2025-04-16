@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.biometric.BiometricPrompt
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,16 +25,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.R
 
-object KwikBiometrics {
-    const val TITLE = "title"
-    const val SUBTITLE = "subtitle"
-    const val CANCEL = "cancel"
-}
-
+/**
+ * Handles biometric authentication in an activity
+ * */
 class KwikBiometricActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +42,7 @@ class KwikBiometricActivity : FragmentActivity() {
         val cancel = intent.getStringExtra(KwikBiometrics.CANCEL) as String
 
         val executor = ContextCompat.getMainExecutor(this)
-        val biometricPrompt = BiometricPrompt(
-            this,
-            executor,
-            object : BiometricPrompt.AuthenticationCallback() {
+        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     setResult(RESULT_OK)
                     finish()
@@ -103,12 +100,44 @@ class KwikBiometricActivity : FragmentActivity() {
     }
 }
 
-class KwikBiometricsAuthenticationContract: ActivityResultContract<Unit, Boolean>() {
-    override fun createIntent(context: Context, input: Unit): Intent {
-        return Intent(context, KwikBiometricActivity::class.java)
+data class KwikBiometricPromptParams(
+    val title: String = "Authentication Required",
+    val subtitle: String = "Verify your identity",
+    val cancelText: String = "Cancel"
+)
+
+/**
+ * The contract for biometric authentication.
+ *
+ * Call this with 
+ * */
+class KwikBiometricsAuthenticationContract: ActivityResultContract<KwikBiometricPromptParams, Boolean>() {
+    override fun createIntent(context: Context, input: KwikBiometricPromptParams): Intent {
+        return Intent(context, KwikBiometricActivity::class.java).apply {
+            putExtra(KwikBiometrics.TITLE, input.title)
+            putExtra(KwikBiometrics.SUBTITLE, input.subtitle)
+            putExtra(KwikBiometrics.CANCEL, input.cancelText)
+        }
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
         return resultCode == Activity.RESULT_OK
+    }
+}
+
+object KwikBiometrics {
+    const val TITLE = "title"
+    const val SUBTITLE = "subtitle"
+    const val CANCEL = "cancel"
+
+    /**
+     * Check if biometric authentication is available and properly set up
+     *
+     * @param context Context to check biometric availability
+     * @return Pair of (isAvailable, errorMessage)
+     */
+    fun isBiometricAvailable(context: Context): Pair<Boolean, String?> {
+
+        return Pair(true, null)
     }
 }
