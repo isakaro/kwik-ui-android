@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -57,6 +59,7 @@ import com.isakaro.kwik.inputfields.EmptyTextToolbar
 import com.isakaro.kwik.inputfields.kwikTextFieldColors
 import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.utils.blankIfNull
+import com.isakaro.kwik.utils.text
 import com.isakaro.kwik.utils.toFormat
 import java.time.LocalDate
 
@@ -108,7 +111,7 @@ fun KwikDateField(
 ) {
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var showDatePicker by remember { mutableStateOf(false) }
-    val fieldMode = remember { mutableStateOf(mode) }
+    val fieldMode = remember { mutableStateOf(if(mode == KwikDatePickerMode.Hybrid) KwikDatePickerMode.Picker else mode) }
     var dateDisplay by remember { mutableStateOf(placeholder) }
 
     if (showDatePicker) {
@@ -134,48 +137,52 @@ fun KwikDateField(
         }
 
         Row(
-            modifier = modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if(fieldMode.value == KwikDatePickerMode.Input){
-                KwikDateField(
-                    value = selectedDate,
-                    onValidDate = {
-                        selected(it)
-                    }
-                )
-            } else {
-                Button(
-                    modifier = Modifier
-                        .weight(1f)
-                        .then(modifier),
-                    onClick = {
-                        showDatePicker = true
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    border = border,
-                    shape = shape
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+            when(fieldMode.value){
+                KwikDatePickerMode.Picker -> {
+                    Button(
+                        modifier = modifier
+                            .weight(1f)
+                            .heightIn(55.dp),
+                        onClick = {
+                            showDatePicker = true
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                        border = border,
+                        shape = shape
                     ) {
-                        leadingIcon()
+                        Row(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(horizontal = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            leadingIcon()
 
-                        KwikText.BodyMedium(
-                            text = dateDisplay
-                        )
+                            KwikText.BodyMedium(
+                                text = dateDisplay
+                            )
 
-                        trailingIcon()
+                            trailingIcon()
+                        }
                     }
                 }
+                KwikDatePickerMode.Input -> {
+                    KwikDateField(
+                        modifier = modifier,
+                        value = selectedDate,
+                        onValidDate = {
+                            selected(it)
+                        }
+                    )
+                }
+                else -> {}
             }
-            if(fieldMode.value == KwikDatePickerMode.Hybrid){
+            if(mode == KwikDatePickerMode.Hybrid){
                 KwikIconButton(
                     modifier = Modifier
                         .size(40.dp)
@@ -241,7 +248,7 @@ fun KwikDateField(
     }
 
     fun validateMonth(month: String): Boolean {
-        val valid = month.length == 2 &&
+        val valid = month.length in 1..2 &&
                 month.toIntOrNull() != null &&
                 month.toInt() in 1..12
         monthError = !valid && month.isNotEmpty()
@@ -250,7 +257,7 @@ fun KwikDateField(
     }
 
     fun validateDay(day: String): Boolean {
-        val valid = day.length == 2 &&
+        val valid = day.length in 1..2 &&
                 day.toIntOrNull() != null &&
                 day.toInt() in 1..31
         dayError = !valid && day.isNotEmpty()
@@ -310,7 +317,7 @@ fun KwikDateField(
                 onValueChange = {
                     month.value = it
                     if (it.text.isNotEmpty()) {
-                        if (validateMonth(it.text)) {
+                        if (validateMonth(it.text) && it.text.length == 2) {
                             try {
                                 focusManager.moveFocus(FocusDirection.Right)
                             } catch (e: Exception){}
@@ -327,7 +334,15 @@ fun KwikDateField(
                         } catch (e: Exception){}
                     }
                 },
-                onKeyboardDone = onKeyboardDone,
+                onKeyboardDone = {
+                    if (validateMonth(month.text)) {
+                        try {
+                            focusManager.moveFocus(FocusDirection.Right)
+                        } catch (e: Exception){}
+                        validateAndSubmitDate()
+                    }
+                    onKeyboardDone()
+                },
                 shape = shape,
                 colors = colors
             )
@@ -362,7 +377,6 @@ fun KwikDateField(
         if (yearError) {
             KwikText.LabelMedium(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(top = 4.dp),
                 text = yearErrorText,
                 color = MaterialTheme.colorScheme.error,
@@ -372,7 +386,6 @@ fun KwikDateField(
         if (monthError) {
             KwikText.LabelMedium(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(top = 4.dp),
                 text = monthErrorText,
                 color = MaterialTheme.colorScheme.error,
@@ -382,7 +395,6 @@ fun KwikDateField(
         if (dayError) {
             KwikText.LabelMedium(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(top = 4.dp),
                 text = dayErrorText,
                 color = MaterialTheme.colorScheme.error,

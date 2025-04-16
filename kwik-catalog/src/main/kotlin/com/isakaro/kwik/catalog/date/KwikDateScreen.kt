@@ -1,12 +1,14 @@
 package com.isakaro.kwik.catalog.date
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
@@ -47,20 +49,7 @@ internal fun KwikDateScreen(
             )
         }
 
-        ShowCase(title = "Date picker in manual edit mode") {
-            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-
-            KwikDateField(
-                label = "Date of birth",
-                placeholder = "Enter your date of birth",
-                mode = KwikDatePickerMode.Input,
-                selected = {
-                    selectedDate = it
-                }
-            )
-        }
-
-        ShowCase(title = "Date picker in fixed edit mode") {
+        ShowCase(title = "Date picker in input mode") {
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
             KwikDateField(

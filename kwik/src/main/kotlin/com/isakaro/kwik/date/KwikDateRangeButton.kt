@@ -1,6 +1,7 @@
 package com.isakaro.kwik.date
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.R
@@ -53,7 +55,7 @@ import java.time.LocalDate
 @Composable
 fun KwikDateRangeButton(
     modifier: Modifier = Modifier,
-    label: String,
+    label: String? = null,
     onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit,
     minSelectableDate: Long? = null,
     maxSelectableDate: Long? = null,
@@ -81,45 +83,50 @@ fun KwikDateRangeButton(
     var showDatePicker by remember { mutableStateOf(false) }
     var dateDisplay by remember { mutableStateOf("Select dates") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(65.dp)
-            .then(modifier)
-    ) {
-        KwikText.TitleSmall(
-            text = label,
-            color = Color.Gray
-        )
+    Column {
+        if(!label.isNullOrBlank()){
+            KwikText.TitleMedium(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = label,
+                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
+                textAlign = TextAlign.Start
+            )
+        }
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Button(
-            modifier = Modifier.fillMaxSize(),
-            onClick = {
-                onClick()
-                showDatePicker = true
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-            ),
-            border = border,
-            shape = shape
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            Button(
+                modifier = modifier
+                    .weight(1f)
+                    .heightIn(55.dp),
+                onClick = {
+                    onClick()
+                    showDatePicker = true
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                ),
+                border = border,
+                shape = shape
             ) {
-                leadingIcon()
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    leadingIcon()
 
-                KwikText.BodyMedium(
-                    text = dateDisplay
-                )
+                    KwikText.BodyMedium(
+                        text = dateDisplay
+                    )
 
-                trailingIcon()
+                    trailingIcon()
+                }
             }
         }
 
