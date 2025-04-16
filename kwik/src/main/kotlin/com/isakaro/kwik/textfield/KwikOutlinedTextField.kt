@@ -93,7 +93,7 @@ object AllowedChars {
  * @param hintVisibleOnError: If true, the hint will be visible only when there is an error.
  * @param leadingIcon: The leading icon of the text field.
  * @param trailingIcon: The trailing icon of the text field.
- * @param isClearTextBtnShown: If true, the clear text button will be shown.
+ * @param showClearTextButton: If true, the clear text button will be shown.
  * @param isLoading: If true, the loading indicator will be shown.
  * @param isBigTextField: If true, the text field will be big.
  * @param enabled: If true, the text field will be enabled. Default is true.
@@ -120,12 +120,12 @@ object AllowedChars {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikOutlinedTextField(
-    modifier: Modifier = Modifier,
+    onKeyboardDone: () -> Unit = { },
     value: MutableState<TextFieldValue>,
     onValueChange: (TextFieldValue) -> Unit,
-    onKeyboardDone: () -> Unit = {  },
-    onActionClick: () -> Unit = {  },
-    onFocusChanged: (Boolean) -> Unit = {  },
+    isBigTextField: Boolean = false,
+    onActionClick: () -> Unit = { },
+    onFocusChanged: (Boolean) -> Unit = { },
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEditable: Boolean = true,
     placeholder: String,
@@ -135,11 +135,7 @@ fun KwikOutlinedTextField(
     singleLine: Boolean = true,
     maxLength: Int = 65,
     keyboardType: KeyboardType = KeyboardType.Text,
-    keyboardActions: KeyboardActions = KeyboardActions(
-        onDone = {
-            onKeyboardDone()
-        }
-    ),
+    enabled: Boolean = true,
     maxLines: Int = 1,
     allowedChars: Regex? = AllowedChars.ALL,
     imeAction: ImeAction = ImeAction.Done,
@@ -149,10 +145,16 @@ fun KwikOutlinedTextField(
     hintVisibleOnError: Boolean = false,
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
-    isClearTextBtnShown: Boolean = false,
+    showClearTextButton: Boolean = false,
     isLoading: Boolean = false,
-    isBigTextField: Boolean = false,
-    enabled: Boolean = true,
+    modifier: Modifier = Modifier.apply {
+        if (isBigTextField) height(150.dp) else height(50.dp)
+    },
+    keyboardActions: KeyboardActions = KeyboardActions(
+        onDone = {
+            onKeyboardDone()
+        }
+    ),
     colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled)
 ) {
 
@@ -215,7 +217,6 @@ fun KwikOutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
-                .height(if (isBigTextField) 150.dp else 65.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
@@ -296,7 +297,7 @@ fun KwikOutlinedTextField(
                             passwordVisible = !passwordVisible
                         }
                     }
-                    if(isClearTextBtnShown && value.value.text.isNotEmpty()){
+                    if(showClearTextButton && value.value.text.isNotEmpty()){
                         Icon(
                             imageVector = Icons.Filled.Clear,
                             modifier = Modifier
@@ -429,9 +430,9 @@ private fun KwikOutlinedTextFieldPreview() {
     KwikOutlinedTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
+        visualTransformation = VisualTransformation.None,
         placeholder = "Jack Sparrow",
         keyboardType = KeyboardType.Phone,
-        visualTransformation = VisualTransformation.None,
         imeAction = ImeAction.Done,
     )
 }
@@ -442,10 +443,10 @@ private fun KwikErrorOutlinedTextFieldPreview() {
     KwikOutlinedTextField(
         value = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) },
         onValueChange = {},
-        isError = true,
-        placeholder = "Jack Sparrow",
-        keyboardType = KeyboardType.Phone,
         visualTransformation = VisualTransformation.None,
+        placeholder = "Jack Sparrow",
+        isError = true,
+        keyboardType = KeyboardType.Phone,
         imeAction = ImeAction.Done,
     )
 }

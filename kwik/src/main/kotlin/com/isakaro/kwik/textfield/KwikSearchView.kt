@@ -46,6 +46,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.layout.boundsInParent
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextRange
@@ -127,7 +129,6 @@ import kotlinx.coroutines.launch
  *)
  * ```
  * */
-@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun KwikSearchView(
     modifier: Modifier = Modifier,
@@ -175,7 +176,13 @@ fun KwikSearchView(
         suggestionsVisible = true
     }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .onGloballyPositioned { layoutCoordinates ->
+                textFieldPosition = layoutCoordinates.boundsInParent()
+                textFieldSize = layoutCoordinates.size
+            }
+    ) {
         if(!label.isNullOrBlank()){
             KwikText.BodyMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
@@ -223,9 +230,6 @@ fun KwikSearchView(
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
                     onFocusChanged(focusState.isFocused)
-                }.onGloballyPositioned { layoutCoordinates ->
-                    textFieldPosition = layoutCoordinates.boundsInWindow()
-                    textFieldSize = layoutCoordinates.size
                 },
             textStyle = TextStyle(fontSize = 20.sp),
             leadingIcon = {
@@ -309,7 +313,7 @@ fun KwikSearchView(
             },
             offset = IntOffset(
                 x = textFieldPosition!!.width.toInt(),
-                y = textFieldPosition!!.height.toInt() * 2 - textFieldSize!!.height / 3
+                y = textFieldPosition!!.height.toInt() * 2
             )
         ) {
             AnimatedVisibility(

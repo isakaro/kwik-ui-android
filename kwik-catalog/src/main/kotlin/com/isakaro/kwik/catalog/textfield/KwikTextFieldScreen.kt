@@ -131,6 +131,7 @@ internal fun KwikTextFieldScreen(
                     text.value = it
                 },
                 label = "Address",
+                showClearTextButton = true,
                 placeholder = "Enter address",
                 suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
                 error = "Incorrect address",
@@ -271,7 +272,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 leadingIcon = Icons.Default.Search,
-                isClearTextBtnShown = true,
+                showClearTextButton = true,
                 onKeyboardDone = {
 
                 }
@@ -295,7 +296,7 @@ internal fun KwikTextFieldScreen(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text,
                 isValid = true,
-                isClearTextBtnShown = true,
+                showClearTextButton = true,
                 onKeyboardDone = {
 
                 }
@@ -348,7 +349,7 @@ internal fun KwikTextFieldScreen(
                 isValid = true,
                 isLoading = true,
                 keyboardType = KeyboardType.Text,
-                isClearTextBtnShown = true,
+                showClearTextButton = true,
                 onKeyboardDone = {
 
                 }
@@ -372,7 +373,7 @@ internal fun KwikTextFieldScreen(
                 maxLength = 200,
                 imeAction = ImeAction.Default,
                 keyboardType = KeyboardType.Text,
-                isClearTextBtnShown = true,
+                showClearTextButton = true,
                 isBigTextField = true,
                 onKeyboardDone = {
 

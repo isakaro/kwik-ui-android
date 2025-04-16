@@ -5,7 +5,6 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -106,6 +105,11 @@ fun KwikDateField(
             ) {
                 if(outlined){
                     KwikOutlinedTextField(
+                        value = dateValue,
+                        onValueChange = { dateValue.value = it },
+                        visualTransformation = DateVisualTransformation(),
+                        placeholder = placeholder,
+                        singleLine = true,
                         modifier = Modifier
                             .pointerInput(selectedDate) {
                                 awaitEachGesture {
@@ -115,12 +119,7 @@ fun KwikDateField(
                                         showDatePicker = true
                                     }
                                 }
-                            },
-                        value = dateValue,
-                        onValueChange = { dateValue.value = it },
-                        placeholder = placeholder,
-                        singleLine = true,
-                        visualTransformation = DateVisualTransformation()
+                            }
                     )
                 } else {
                     KwikTextField(

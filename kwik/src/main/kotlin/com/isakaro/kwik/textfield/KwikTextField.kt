@@ -109,7 +109,7 @@ import kotlinx.coroutines.launch
  * @param hintVisibleOnError: If true, the hint will be visible only when there is an error.
  * @param leadingIcon: The leading icon of the text field.
  * @param trailingIcon: The trailing icon of the text field.
- * @param isClearTextBtnShown: If true, the clear text button will be shown.
+ * @param showClearTextButton: If true, the clear text button will be shown.
  * @param isLoading: If true, the loading indicator will be shown.
  * @param isBigTextField: If true, the text field will be big.
  * @param enabled: If true, the text field will be enabled. Default is true.
@@ -166,7 +166,7 @@ fun KwikTextField(
     hintVisibleOnError: Boolean = false,
     leadingIcon: Any? = null,
     trailingIcon: Any? = null,
-    isClearTextBtnShown: Boolean = false,
+    showClearTextButton: Boolean = false,
     isLoading: Boolean = false,
     isBigTextField: Boolean = false,
     enabled: Boolean = true,
@@ -242,7 +242,12 @@ fun KwikTextField(
     }
 
     Column(
-        modifier = Modifier.alpha(alpha = if(enabled) 1f else 0.5f),
+        modifier = Modifier
+            .alpha(alpha = if(enabled) 1f else 0.5f)
+            .onGloballyPositioned { layoutCoordinates ->
+                textFieldPosition = layoutCoordinates.boundsInWindow()
+                textFieldSize = layoutCoordinates.size
+            },
     ) {
         if(!label.isNullOrBlank()){
             KwikText.TitleMedium(
@@ -296,7 +301,6 @@ fun KwikTextField(
             } else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(if (isBigTextField) 150.dp else 65.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onGloballyPositioned {
@@ -312,9 +316,6 @@ fun KwikTextField(
                             cancelAutofillForNode(autofillNode)
                         }
                     }
-                }.onGloballyPositioned { layoutCoordinates ->
-                    textFieldPosition = layoutCoordinates.boundsInWindow()
-                    textFieldSize = layoutCoordinates.size
                 },
             singleLine = singleLine && !isBigTextField,
             maxLines = if(isBigTextField) 8 else maxLines,
@@ -381,13 +382,15 @@ fun KwikTextField(
                             passwordVisible = !passwordVisible
                         }
                     }
-                    if(isClearTextBtnShown && value.value.text.isNotEmpty()){
+                    if(showClearTextButton && value.value.text.isNotEmpty()){
                         Icon(
                             imageVector = Icons.Filled.Clear,
                             modifier = Modifier
                                 .padding(end = 4.dp)
                                 .clickable {
                                     onValueChange(TextFieldValue(""))
+                                    filteredSuggestions = suggestions.take(10)
+                                    suggestionsVisible = true
                                 },
                             contentDescription = "Clear text",
                             tint = if(isSystemInDarkTheme()) Color.White else Color.Black,
@@ -475,7 +478,7 @@ fun KwikTextField(
             },
             offset = IntOffset(
                 x = textFieldPosition!!.width.toInt(),
-                y = textFieldPosition!!.height.toInt() * 2 - textFieldSize!!.height / 3
+                y = textFieldPosition!!.height.toInt()
             )
         ) {
             AnimatedVisibility(
