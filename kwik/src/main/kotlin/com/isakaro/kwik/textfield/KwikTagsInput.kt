@@ -144,6 +144,7 @@ fun KwikTagsInput(
                 suggestion.label.contains(query, ignoreCase = true) && !selectedItems.containsKey(suggestion.id)
             }
         )
+        showSuggestions.value = suggestionsAlwaysVisible || inputValue.text.isNotEmpty()
     }
 
     fun tagAdded(item: KwikTagsInputItem) {
@@ -228,6 +229,7 @@ fun KwikTagsInput(
                 value = inputValue,
                 onValueChange = {
                     inputValue.value = it
+                    updateSuggestions()
                 },
                 placeholder = placeholder,
                 modifier = Modifier.fillMaxWidth(),
@@ -258,7 +260,7 @@ fun KwikTagsInput(
                 ),
                 onFocusChanged = { focused ->
                     isFocused = focused
-                    showSuggestions.value = focused || suggestionsAlwaysVisible
+                    showSuggestions.value = focused && suggestionsAlwaysVisible
                     if (focused) {
                         updateSuggestions()
                     }
