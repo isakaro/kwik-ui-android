@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .kotlin
+.keystore
 .DS_Store
 /build
 /**/build
