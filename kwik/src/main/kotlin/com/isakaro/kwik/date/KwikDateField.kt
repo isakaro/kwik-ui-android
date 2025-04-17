@@ -306,8 +306,8 @@ fun KwikDateField(
                             try {
                                 focusManager.moveFocus(FocusDirection.Right)
                             } catch (e: Exception){}
-                            validateAndSubmitDate()
                         }
+                        validateAndSubmitDate()
                     } else {
                         yearError = false
                     }
@@ -327,11 +327,13 @@ fun KwikDateField(
                 isError = monthError,
                 onValueChange = {
                     month.value = it
-                    if (validateMonth(it.text) && it.text.isNotEmpty()) {
-                        if (it.text.length == 2 || it.text.toInt() > 1) {
-                            try {
-                                focusManager.moveFocus(FocusDirection.Right)
-                            } catch (e: Exception){}
+                    if (it.text.isNotEmpty()) {
+                        if (validateMonth(it.text) && it.text.isNotEmpty()) {
+                            if (it.text.length == 2 || it.text.toInt() > 1) {
+                                try {
+                                    focusManager.moveFocus(FocusDirection.Right)
+                                } catch (e: Exception){}
+                            }
                         }
                         validateAndSubmitDate()
                     } else {
@@ -371,6 +373,7 @@ fun KwikDateField(
                     day.value = it
                     if (it.text.isNotEmpty()) {
                         validateDay(it.text)
+                        validateAndSubmitDate()
                     } else {
                         dayError = false
                     }
