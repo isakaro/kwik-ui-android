@@ -4,12 +4,17 @@ A comprehensive Android UI library designed to accelerate your development proce
 
 ![KwikUI Logo](media/KwikUI.png)
 
-## Features
+## Components
 
 ### Accordion
 Accordion component that can be expanded or collapsed.
 
-![Accordion Light Mode](media/accordion/light1.jpg){ width=400px } ![Accordion Dark Mode](media/accordion/dark1.jpg){ width=400px }
+<table>
+  <tr>
+    <td><img src="media/accordion/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/accordion/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
+  </tr>
+</table>
 
 ```kotlin
 val items = listOf(
