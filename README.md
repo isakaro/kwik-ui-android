@@ -4,7 +4,40 @@ A comprehensive Android UI library designed to accelerate your development proce
 
 ![KwikUI Logo](media/KwikUI.png)
 
-## Components
+## All Components
+
+KwikUI includes a comprehensive collection of components:
+
+- **Accordion** (accordion, accordion group)
+- **Appbar**
+- **Avatar**
+- **Biometrics**
+- **Bottom Tabs**
+- **Button**
+- **Card**
+- **Carousel** (slider)
+- **Checkbox**
+- **Counter**
+- **Country picker**
+- **Date Picker** (date input, date picker, date range picker)
+- **Dialogs** (modals)
+- **Dropdown**
+- **Filter Chips**
+- **Grid** (CSS-like)
+- **Permission Handler**
+- **Progress Bar**
+- **Radio** (group)
+- **Rating Bar**
+- **Search View** with autocomplete and debounce capabilities
+- **Sliders** (range sliders)
+- **Stepper**
+- **Switch**
+- **Tags Input**
+- **Text Fields** (filled, outlined, with suggestions feature and debounce)
+- **Timeline**
+- **Toast** component (modern)
+- **Toggle Button**
+- **Webview**
 
 ### Accordion
 Accordion component that can be expanded or collapsed.
@@ -272,41 +305,6 @@ KwikLinearProgressBar(
 ```
 
 ---
-
-## All Components
-
-KwikUI includes a comprehensive collection of components:
-
-- **Accordion** (accordion, accordion group)
-- **Appbar**
-- **Avatar**
-- **Biometrics**
-- **Bottom Tabs**
-- **Button**
-- **Card**
-- **Carousel** (slider)
-- **Checkbox**
-- **Counter**
-- **Countrypicker**
-- **Date Picker** (date input, date picker, date range picker)
-- **Dialogs** (modals)
-- **Dropdown**
-- **Filter Chips**
-- **Grid** (CSS-like)
-- **Permission Handler**
-- **Progress Bar**
-- **Radio** (group)
-- **Rating Bar**
-- **Search View** with autocomplete and debounce capabilities
-- **Sliders** (range sliders)
-- **Stepper**
-- **Switch**
-- **Tags Input**
-- **Text Fields** (filled, outlined, with suggestions feature and debounce)
-- **Timeline**
-- **Toast** component (modern)
-- **Toggle Button**
-- **Webview**
 
 ## Installation
 
