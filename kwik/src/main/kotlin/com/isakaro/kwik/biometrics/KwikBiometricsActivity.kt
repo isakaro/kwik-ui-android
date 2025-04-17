@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,29 +72,31 @@ class KwikBiometricActivity : FragmentActivity() {
 
         setContent {
             KwikTheme {
-                KwikCenterColumn(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    KwikText.TitleMedium(
-                        modifier = Modifier.padding(bottom = 4.dp),
-                        text = "Verify your identity",
-                        textAlign = TextAlign.Center
-                    )
-
-                    Button(
-                        onClick = {
-                            biometricPrompt.authenticate(promptInfo)
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White
-                        ),
+                Surface {
+                    KwikCenterColumn(
+                        modifier = Modifier.fillMaxSize()
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.fingerprint),
-                            contentDescription = "biometrics authentication",
-                            tint = Color.Black,
-                            modifier = Modifier.size(60.dp).padding(end = 4.dp)
+                        KwikText.TitleMedium(
+                            modifier = Modifier.padding(bottom = 4.dp),
+                            text = "Verify your identity",
+                            textAlign = TextAlign.Center
                         )
+
+                        Button(
+                            onClick = {
+                                biometricPrompt.authenticate(promptInfo)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White
+                            ),
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.fingerprint),
+                                contentDescription = "biometrics authentication",
+                                tint = Color.Black,
+                                modifier = Modifier.size(60.dp).padding(end = 4.dp)
+                            )
+                        }
                     }
                 }
             }

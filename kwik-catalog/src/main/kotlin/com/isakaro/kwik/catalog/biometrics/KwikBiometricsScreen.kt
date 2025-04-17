@@ -56,7 +56,7 @@ fun KwikBiometricsScreen(
         ShowCase {
             KwikCenterColumn {
                 KwikButton(
-                    modifier = Modifier.fillMaxWidth().height(55.dp),
+                    modifier = Modifier.height(55.dp),
                     text = "Verify your identity",
                     leadingIcon = painterResource(R.drawable.biometrics)
                 ) {

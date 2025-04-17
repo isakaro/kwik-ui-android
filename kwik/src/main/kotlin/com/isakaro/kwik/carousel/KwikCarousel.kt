@@ -388,9 +388,17 @@ fun KwikCarousel(
  * @param showNavigation Whether to show the navigation buttons.
  * @param userScrollEnabled Whether the carousel is scrollable by the user.
  * @param showCounter Whether to show the counter.
+ * @param selectedIndicatorColor The color of the selected page indicator.
+ * @param unselectedIndicatorColor The color of the unselected page indicator.
+ * @param indicatorContainerColor The color of the indicator container.
  * @param autoPlay Whether to automatically slide the images.
  * @param autoPlayDelay The delay between auto-play slides in milliseconds.
  * @param onPageIndexChange Callback that is invoked when the current page index changes.
+ * @param shape The shape of the carousel.
+ * @param prevButton Optional composable to replace the default previous button.
+ * @param nextButton Optional composable to replace the default next button.
+ * @param onClick Callback that is invoked when an image is clicked.
+ * @param contentScale The scale to apply to the image content.
  * */
 @Composable
 fun KwikImageCarousel(
@@ -410,7 +418,9 @@ fun KwikImageCarousel(
     onPageIndexChange: (Int) -> Unit = {},
     shape: Shape = MaterialTheme.shapes.large,
     prevButton: @Composable (() -> Unit)? = null,
-    nextButton: @Composable (() -> Unit)? = null
+    nextButton: @Composable (() -> Unit)? = null,
+    onClick: () -> Unit = {},
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     KwikCarousel(
         modifier = modifier,
@@ -432,7 +442,8 @@ fun KwikImageCarousel(
         contentBuilder = { page ->
             KwikImageLoader(
                 url = images[page],
-                contentScale = ContentScale.Crop
+                onClick = onClick,
+                contentScale = contentScale
             )
         }
     )
