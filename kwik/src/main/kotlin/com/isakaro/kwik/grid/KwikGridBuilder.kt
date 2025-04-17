@@ -32,7 +32,7 @@ data class KwikDiv(
 fun BoxWithConstraintsScope.KwikGrid(
     cols: Int = 1,
     rows: Int = 1,
-    padding: Int = 4,
+    gap: Int = 4,
     items: List<KwikDiv>
 ) {
     val cellWidth = this.maxWidth / cols
@@ -49,7 +49,7 @@ fun BoxWithConstraintsScope.KwikGrid(
             )
             .width(columnSpan.dp)
             .height(rowSpan.dp)
-            .padding(padding.dp)
+            .padding(gap.dp)
 
         KwikWidget(
             modifier = modifier,

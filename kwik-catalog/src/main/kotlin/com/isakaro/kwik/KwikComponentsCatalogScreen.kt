@@ -39,6 +39,7 @@ import com.isakaro.kwik.destinations.KwikDateScreenDestination
 import com.isakaro.kwik.destinations.KwikDialogScreenDestination
 import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
 import com.isakaro.kwik.destinations.KwikFilterChipScreenDestination
+import com.isakaro.kwik.destinations.KwikGridScreenDestination
 import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
 import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
 import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
@@ -395,6 +396,15 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Allows the user to input tags. Whether preset or custom",
                 action = {
                     navigator.navigate(KwikTagsInputScreenDestination)
+                }
+            )
+        ),
+        KwikListItemActionState.Data(
+            KwikListItemAction(
+                title = "Grid",
+                description = "Very flexible grid system that can be used to display any content",
+                action = {
+                    navigator.navigate(KwikGridScreenDestination)
                 }
             )
         )
