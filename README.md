@@ -160,6 +160,7 @@ KwikOtpField(
 ### Webview
 Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators, and more.
 
+![Webview](media/webview/vid1.mp4)
 <table>
   <tr>
     <td><img src="media/webview/light1.jpg" alt="Webview Light Mode" width="400"/></td>
