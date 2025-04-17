@@ -149,19 +149,18 @@ fun KwikCarousel(
     nextButton: @Composable (() -> Unit)? = null,
     contentBuilder: @Composable (page: Int) -> Unit
 ) {
-    // Initialize pagerState with the current index from state or initialIndex
     val startingIndex = state.value.currentIndex.takeIf { it >= 0 } ?: initialIndex
 
-    // Calculate midpoint for infinite loop to start from middle of possible pages
-    val infiniteScrollMiddle = if(state.value.loop) state.value.itemCount * 500 else 0
+    // acquire the midpoint for infinite loop to start from middle of possible pages
+    val infiniteScrollMiddlePoint = if(state.value.loop) state.value.itemCount * 500 else 0
 
     val pagerState = rememberPagerState(
-        // Start from middle of infinite range when looping for better balanced scrolling
-        initialPage = if(state.value.loop) infiniteScrollMiddle + startingIndex else startingIndex,
+        // we'll start from middle of infinite range when looping for better balanced scrolling
+        initialPage = if(state.value.loop) infiniteScrollMiddlePoint + startingIndex else startingIndex,
         initialPageOffsetFraction = 0f
     ) {
         if(state.value.loop){
-            // Use large but finite number for "infinite" scrolling
+            // large but finite number for infinite scrolling behavior
             state.value.itemCount * 1000
         } else {
             state.value.itemCount
@@ -170,12 +169,12 @@ fun KwikCarousel(
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    // Sync from state to pager
+    // sync from state to pager
     LaunchedEffect(state.value.currentIndex) {
         if (state.value.currentIndex >= 0 &&
             state.value.currentIndex < state.value.itemCount &&
             state.value.currentIndex != (pagerState.currentPage % state.value.itemCount)) {
-            // When looping, find the closest equivalent page to maintain position
+            // when looping, we'll find the closest equivalent page to maintain position
             val targetPage = if (state.value.loop) {
                 val currentBase = pagerState.currentPage - (pagerState.currentPage % state.value.itemCount)
                 currentBase + state.value.currentIndex
@@ -186,7 +185,7 @@ fun KwikCarousel(
         }
     }
 
-    // Sync from pager to state
+    // sync from pager to state
     LaunchedEffect(pagerState.currentPage) {
         val realPage = pagerState.currentPage % state.value.itemCount
         if (state.value.currentIndex != realPage) {
@@ -200,29 +199,24 @@ fun KwikCarousel(
             )
         }
 
-        // Pass the real page (not the wrapped infinite index)
+        // we pass the real page, and not the wrapped infinite index
         onPageIndexChange(realPage)
     }
 
     LaunchedEffect(state.value.itemCount) {
-        // If current index is out of bounds after item count change, we adjust it
         if (state.value.currentIndex >= state.value.itemCount && state.value.itemCount > 0) {
             state.value = state.value.copy(currentIndex = state.value.itemCount - 1)
         }
     }
 
-    // Autoplay handling
     LaunchedEffect(autoPlay, autoPlayDelay, state.value.itemCount) {
         if (autoPlay && state.value.itemCount > 1) {
             while (true) {
                 delay(autoPlayDelay)
                 if (state.value.itemCount <= 1) continue
-
-                // Always advance to next page during autoplay
+                // we'll always advance to next page during autoplay
                 val nextPage = pagerState.currentPage + 1
                 pagerState.animateScrollToPage(nextPage)
-
-                // No need for special handling with loop - pager handles wraparound with modulo
             }
         }
     }
@@ -276,7 +270,7 @@ fun KwikCarousel(
                                 )
                                 .clickable {
                                     scope.launch {
-                                        // When clicking indicator in loop mode, find closest equivalent page
+                                        // when in loop mode, we need to find the closest equivalent page
                                         val targetPage = if (state.value.loop) {
                                             val currentBase = pagerState.currentPage - (pagerState.currentPage % state.value.itemCount)
                                             currentBase + index
@@ -293,7 +287,7 @@ fun KwikCarousel(
         }
 
         if (showNavigation && state.value.itemCount > 1) {
-            // Always show prev button when looping
+            // we'll always show prev button when looping
             if(pagerState.currentPage > 0 || state.value.loop){
                 Box(
                     modifier = Modifier
@@ -332,7 +326,7 @@ fun KwikCarousel(
                 }
             }
 
-            // Always show next button when looping
+            // we'll always show next button when looping
             if(pagerState.currentPage < pagerState.pageCount - 1 || state.value.loop){
                 Box(
                     modifier = Modifier

@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.isakaro.kwik.R
 import com.isakaro.kwik.button.KwikIconButton
+import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.inputfields.AllowedChars
 import com.isakaro.kwik.inputfields.EmptyTextToolbar
 import com.isakaro.kwik.inputfields.kwikTextFieldColors
@@ -85,7 +86,7 @@ enum class KwikDatePickerMode {
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KwikDateField(
+fun KwikDateFieldButton(
     modifier: Modifier = Modifier,
     label: String? = null,
     placeholder: String = "",
@@ -176,7 +177,9 @@ fun KwikDateField(
                         modifier = modifier,
                         value = selectedDate,
                         onValidDate = {
+                            selectedDate = it
                             selected(it)
+                            dateDisplay = it.toFormat(displayFormat)
                         }
                     )
                 }
@@ -185,11 +188,16 @@ fun KwikDateField(
             if(mode == KwikDatePickerMode.Hybrid){
                 KwikIconButton(
                     modifier = Modifier
-                        .size(40.dp)
-                        .padding(horizontal = 6.dp),
-                    icon = if(fieldMode.value == KwikDatePickerMode.Input) R.drawable.calendar else Icons.Default.Create,
-                    containerColor = Color.Transparent,
-                    tint = MaterialTheme.colorScheme.onSurface
+                        .size(35.dp)
+                        .padding(horizontal = 2.dp),
+                    icon = {
+                        KwikImageView(
+                            modifier = Modifier.fillMaxSize().padding(4.dp),
+                            url = if(fieldMode.value == KwikDatePickerMode.Input) R.drawable.calendar else Icons.Default.Create,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    },
+                    containerColor = Color.Transparent
                 ) {
                     if(fieldMode.value == KwikDatePickerMode.Input){
                         fieldMode.value = KwikDatePickerMode.Picker
@@ -248,7 +256,7 @@ fun KwikDateField(
     }
 
     fun validateMonth(month: String): Boolean {
-        val valid = month.length in 1..2 &&
+        val valid = month.isNotEmpty() &&
                 month.toIntOrNull() != null &&
                 month.toInt() in 1..12
         monthError = !valid && month.isNotEmpty()
@@ -257,7 +265,7 @@ fun KwikDateField(
     }
 
     fun validateDay(day: String): Boolean {
-        val valid = day.length in 1..2 &&
+        val valid = day.isNotEmpty() &&
                 day.toIntOrNull() != null &&
                 day.toInt() in 1..31
         dayError = !valid && day.isNotEmpty()
@@ -304,7 +312,10 @@ fun KwikDateField(
                         yearError = false
                     }
                 },
-                onKeyboardDone = onKeyboardDone,
+                onKeyboardDone = {
+                    validateAndSubmitDate()
+                    onKeyboardDone()
+                },
                 shape = shape,
                 colors = colors
             )
@@ -316,13 +327,13 @@ fun KwikDateField(
                 isError = monthError,
                 onValueChange = {
                     month.value = it
-                    if (it.text.isNotEmpty()) {
-                        if (validateMonth(it.text) && it.text.length == 2) {
+                    if (validateMonth(it.text) && it.text.isNotEmpty()) {
+                        if (it.text.length == 2 || it.text.toInt() > 1) {
                             try {
                                 focusManager.moveFocus(FocusDirection.Right)
                             } catch (e: Exception){}
-                            validateAndSubmitDate()
                         }
+                        validateAndSubmitDate()
                     } else {
                         monthError = false
                     }
@@ -335,7 +346,7 @@ fun KwikDateField(
                     }
                 },
                 onKeyboardDone = {
-                    if (validateMonth(month.text)) {
+                    if (validateMonth(month.value.text)) {
                         try {
                             focusManager.moveFocus(FocusDirection.Right)
                         } catch (e: Exception){}
@@ -352,12 +363,14 @@ fun KwikDateField(
                 value = day,
                 maxLength = 2,
                 isError = dayError,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
                 onValueChange = {
                     day.value = it
                     if (it.text.isNotEmpty()) {
-                        if (validateDay(it.text)) {
-                            validateAndSubmitDate()
-                        }
+                        validateDay(it.text)
                     } else {
                         dayError = false
                     }
@@ -369,7 +382,10 @@ fun KwikDateField(
                         } catch (e: Exception){}
                     }
                 },
-                onKeyboardDone = onKeyboardDone,
+                onKeyboardDone = {
+                    validateAndSubmitDate()
+                    onKeyboardDone()
+                },
                 shape = shape,
                 colors = colors
             )
@@ -424,6 +440,10 @@ private fun KwikDateDigitField(
     onKeyboardDone: () -> Unit,
     shape: Shape,
     colors: TextFieldColors,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
+        keyboardType = KeyboardType.Number,
+        imeAction = ImeAction.Next
+    ),
     onDelete: () -> Unit = {}
 ) {
     val customTextSelectionColors = TextSelectionColors(
@@ -447,10 +467,7 @@ private fun KwikDateDigitField(
                     color = Color.Gray
                 )
             },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
+            keyboardOptions = keyboardOptions,
             keyboardActions = KeyboardActions(
                 onDone = { onKeyboardDone() }
             ),

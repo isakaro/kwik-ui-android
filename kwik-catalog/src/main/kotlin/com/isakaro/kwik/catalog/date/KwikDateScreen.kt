@@ -14,9 +14,12 @@ import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.date.KwikDateField
+import com.isakaro.kwik.date.KwikDateFieldButton
 import com.isakaro.kwik.date.KwikDatePickerMode
 import com.isakaro.kwik.date.KwikDateRangeButton
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.spacer.KwikVSpacer
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -40,19 +43,23 @@ internal fun KwikDateScreen(
         ShowCase(title = "Date Picker") {
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
-            KwikDateField(
+            KwikDateFieldButton(
                 label = "Date of birth",
                 placeholder = "Enter your date of birth",
                 selected = {
                     selectedDate = it
                 }
             )
+
+            KwikVSpacer(8)
+
+            KwikText.BodyMedium(text = "Selected date: ${selectedDate?.toString() ?: "No date selected"}")
         }
 
-        ShowCase(title = "Date picker in input mode") {
+        ShowCase(title = "") {
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
-            KwikDateField(
+            KwikDateFieldButton(
                 label = "Date of birth",
                 placeholder = "Enter your date of birth",
                 mode = KwikDatePickerMode.Input,
@@ -60,6 +67,10 @@ internal fun KwikDateScreen(
                     selectedDate = it
                 }
             )
+
+            KwikVSpacer(8)
+
+            KwikText.BodyMedium(text = "Selected date: ${selectedDate?.toString() ?: "No date selected"}")
         }
 
         ShowCase(title = "Date Range Picker") {
