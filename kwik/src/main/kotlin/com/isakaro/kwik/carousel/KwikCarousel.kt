@@ -61,6 +61,11 @@ data class KwikCarouselState(
     var loop: Boolean = false
 )
 
+/**
+ * State holder for the carousel
+ *
+ * @param state: The state of the carousel.
+ * */
 @Composable
 fun rememberKwikCarouselState(
     state: KwikCarouselState
@@ -147,12 +152,17 @@ fun KwikCarousel(
     // Initialize pagerState with the current index from state or initialIndex
     val startingIndex = state.value.currentIndex.takeIf { it >= 0 } ?: initialIndex
 
+    // Calculate midpoint for infinite loop to start from middle of possible pages
+    val infiniteScrollMiddle = if(state.value.loop) state.value.itemCount * 500 else 0
+
     val pagerState = rememberPagerState(
-        initialPage = if(state.value.loop) state.value.itemCount * 50000 else startingIndex,
+        // Start from middle of infinite range when looping for better balanced scrolling
+        initialPage = if(state.value.loop) infiniteScrollMiddle + startingIndex else startingIndex,
         initialPageOffsetFraction = 0f
     ) {
         if(state.value.loop){
-            state.value.itemCount * 100000
+            // Use large but finite number for "infinite" scrolling
+            state.value.itemCount * 1000
         } else {
             state.value.itemCount
         }
@@ -160,27 +170,38 @@ fun KwikCarousel(
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
+    // Sync from state to pager
     LaunchedEffect(state.value.currentIndex) {
         if (state.value.currentIndex >= 0 &&
             state.value.currentIndex < state.value.itemCount &&
-            state.value.currentIndex != pagerState.currentPage) {
-            pagerState.animateScrollToPage(state.value.currentIndex)
+            state.value.currentIndex != (pagerState.currentPage % state.value.itemCount)) {
+            // When looping, find the closest equivalent page to maintain position
+            val targetPage = if (state.value.loop) {
+                val currentBase = pagerState.currentPage - (pagerState.currentPage % state.value.itemCount)
+                currentBase + state.value.currentIndex
+            } else {
+                state.value.currentIndex
+            }
+            pagerState.animateScrollToPage(targetPage)
         }
     }
 
+    // Sync from pager to state
     LaunchedEffect(pagerState.currentPage) {
-        if (state.value.currentIndex != pagerState.currentPage) {
-            state.value = state.value.copy(currentIndex = pagerState.currentPage)
+        val realPage = pagerState.currentPage % state.value.itemCount
+        if (state.value.currentIndex != realPage) {
+            state.value = state.value.copy(currentIndex = realPage)
         }
 
         if (state.value.itemCount > 0) {
             listState.scrollToItem(
-                index = pagerState.currentPage,
+                index = realPage, // Use actual page index for indicator
                 scrollOffset = -listState.layoutInfo.viewportSize.width / 2
             )
         }
 
-        onPageIndexChange(pagerState.currentPage)
+        // Pass the real page (not the wrapped infinite index)
+        onPageIndexChange(realPage)
     }
 
     LaunchedEffect(state.value.itemCount) {
@@ -190,18 +211,18 @@ fun KwikCarousel(
         }
     }
 
+    // Autoplay handling
     LaunchedEffect(autoPlay, autoPlayDelay, state.value.itemCount) {
         if (autoPlay && state.value.itemCount > 1) {
             while (true) {
                 delay(autoPlayDelay)
-                val nextPage = if (pagerState.currentPage < state.value.itemCount - 1) {
-                    pagerState.currentPage + 1
-                } else if (state.value.loop) {
-                    0 // we start over
-                } else {
-                    continue
-                }
+                if (state.value.itemCount <= 1) continue
+
+                // Always advance to next page during autoplay
+                val nextPage = pagerState.currentPage + 1
                 pagerState.animateScrollToPage(nextPage)
+
+                // No need for special handling with loop - pager handles wraparound with modulo
             }
         }
     }
@@ -249,13 +270,20 @@ fun KwikCarousel(
                                 .clip(CircleShape)
                                 .size(7.dp)
                                 .background(
-                                    color = if (pagerState.currentPage == index)
+                                    color = if ((pagerState.currentPage % state.value.itemCount) == index)
                                         selectedIndicatorColor
                                     else unselectedIndicatorColor
                                 )
                                 .clickable {
                                     scope.launch {
-                                        pagerState.animateScrollToPage(index)
+                                        // When clicking indicator in loop mode, find closest equivalent page
+                                        val targetPage = if (state.value.loop) {
+                                            val currentBase = pagerState.currentPage - (pagerState.currentPage % state.value.itemCount)
+                                            currentBase + index
+                                        } else {
+                                            index
+                                        }
+                                        pagerState.animateScrollToPage(targetPage)
                                     }
                                 }
                         )
@@ -265,6 +293,7 @@ fun KwikCarousel(
         }
 
         if (showNavigation && state.value.itemCount > 1) {
+            // Always show prev button when looping
             if(pagerState.currentPage > 0 || state.value.loop){
                 Box(
                     modifier = Modifier
@@ -274,12 +303,7 @@ fun KwikCarousel(
                     if (prevButton != null) {
                         Box(modifier = Modifier.clickable {
                             scope.launch {
-                                if (pagerState.currentPage > 0) {
-                                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                                } else if (state.value.loop) {
-                                    // Go to the last page if on first page and looping is enabled
-                                    pagerState.animateScrollToPage(state.value.itemCount - 1)
-                                }
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         }) {
                             prevButton()
@@ -288,12 +312,7 @@ fun KwikCarousel(
                         IconButton(
                             onClick = {
                                 scope.launch {
-                                    if (pagerState.currentPage > 0) {
-                                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                                    } else if (state.value.loop) {
-                                        // Go to the last page if on first page and looping is enabled
-                                        pagerState.animateScrollToPage(state.value.itemCount - 1)
-                                    }
+                                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
                                 }
                             },
                             modifier = Modifier
@@ -313,7 +332,8 @@ fun KwikCarousel(
                 }
             }
 
-            if(pagerState.currentPage < state.value.itemCount - 1 || state.value.loop){
+            // Always show next button when looping
+            if(pagerState.currentPage < pagerState.pageCount - 1 || state.value.loop){
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
@@ -322,12 +342,7 @@ fun KwikCarousel(
                     if (nextButton != null) {
                         Box(modifier = Modifier.clickable {
                             scope.launch {
-                                if (pagerState.currentPage < state.value.itemCount - 1) {
-                                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                                } else if (state.value.loop) {
-                                    // We go to the first page if on last page and looping is enabled
-                                    pagerState.animateScrollToPage(0)
-                                }
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         }) {
                             nextButton()
@@ -336,12 +351,7 @@ fun KwikCarousel(
                         IconButton(
                             onClick = {
                                 scope.launch {
-                                    if (pagerState.currentPage < state.value.itemCount - 1) {
-                                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                                    } else if (state.value.loop) {
-                                        // We go to the first page if on last page and looping is enabled
-                                        pagerState.animateScrollToPage(0)
-                                    }
+                                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
                                 }
                             },
                             modifier = Modifier
@@ -372,7 +382,7 @@ fun KwikCarousel(
                     ).align(Alignment.BottomEnd)
             ) {
                 KwikText.TitleSmall(
-                    text = "${pagerState.currentPage + 1}/${state.value.itemCount}",
+                    text = "${(pagerState.currentPage % state.value.itemCount) + 1}/${state.value.itemCount}",
                     color = Color.White,
                     modifier = Modifier.padding(4.dp)
                 )
