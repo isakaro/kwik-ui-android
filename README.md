@@ -13,6 +13,7 @@ Accordion component that can be expanded or collapsed.
   <tr>
     <td><img src="media/accordion/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
     <td><img src="media/accordion/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
+    <td><img src="media/accordion/dark2.jpg" alt="Accordion Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -36,31 +37,91 @@ KwikAccordionGroup(
 
 [Accordion docs](https://isakaro.com)
 
+### Bottom tabs
+Bottoms tabs component that can display multiple tabs.
+
+<table>
+  <tr>
+    <td><img src="media/bottomtabs/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/bottomtabs/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+ val navItems = listOf(
+    KwikTabItem(
+        title = "Home",
+        icon = Icons.Rounded.Home,
+        content = {
+            Content("Home")
+        }
+    ),
+    KwikTabItem(
+        title = "Discover",
+        icon = Icons.Rounded.LocationOn,
+        content = {
+            Content("Discover")
+        }
+    )
+)
+
+val pagerState = rememberPagerState(
+    initialPage = 0,
+    initialPageOffsetFraction = 0f
+) {
+    navItems.size
+}
+
+KwikBottomTabs(
+    modifier = Modifier.height(100.dp).padding(4.dp),
+    shape = MaterialTheme.shapes.large,
+    elevation = 8,
+    tabs = navItems,
+    pagerState = pagerState
+)
+```
+[Bottom tabs docs](https://isakaro.com)
+
 ### Buttons
 Easily create various button styles with customizable colors, shapes, and sizes. Supports different states like enabled, disabled, and loading.
 
-![Button Light Mode](media/button-light.png) ![Button Dark Mode](media/button-night.png) 
+<table>
+  <tr>
+    <td><img src="media/button/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/button/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="media/button/light2.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/button/dark2.jpg" alt="Accordion Dark Mode" width="400"/></td>
+  </tr>
+</table>
 
 ```kotlin
-@Composable
-fun ButtonExample() {
-    KwikButton(
-        text = "Submit",
-        style = KwikButtonStyle.Filled,
-        cornerRadius = 8.dp,
-        onClick = {
-            // Handle click event
-        }
-    )
-    
-    // Loading state button
-    KwikButton(
-        text = "Loading",
-        isLoading = true,
-        style = KwikButtonStyle.Outlined
-    )
-}
+KwikButton(
+    text = "Submit",
+    onClick = {
+        // Handle click event
+    }
+)
+
+// Loading state button
+KwikButton(
+    text = "Loading",
+    isLoading = true,
+    style = KwikButtonStyle.Outlined
+)
+
+// Button with trailing icon
+KwikButton(
+    text = "Action",
+    trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
+    onClick = {  }
+)
 ```
+[Button docs](https://isakaro.com)
 
 ### Text Fields
 KwikUI offers a range of text field styles to suit your needs:
@@ -74,7 +135,7 @@ KwikUI offers a range of text field styles to suit your needs:
 @Composable
 fun TextFieldExample() {
     var email by remember { mutableStateOf("") }
-    
+
     KwikTextField(
         value = email,
         onValueChange = { email = it },
@@ -82,10 +143,10 @@ fun TextFieldExample() {
         hint = "Email Address",
         keyboardType = KeyboardType.Email
     )
-    
+
     // OTP Field
     var otpValue by remember { mutableStateOf("") }
-    
+
     KwikOtpField(
         value = otpValue,
         onValueChange = { otpValue = it },
@@ -98,22 +159,20 @@ fun TextFieldExample() {
 ### Webview
 Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators and more.
 
-![Webview Light Mode](media/webview-light.png) ![Webview Dark Mode](media/webview-night.png)
+<table>
+  <tr>
+    <td><img src="media/webview/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <video width="400" controls>
+        <source src="media/webview/vid1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+  </tr>
+</table>
 
 ```kotlin
-@Composable
-fun WebviewExample() {
-    KwikWebview(
-        url = "https://example.com",
-        showProgressIndicator = true,
-        onJavascriptMessage = { message ->
-            // Handle messages from JavaScript
-        },
-        onPageFinished = { url ->
-            // Page finished loading
-        }
-    )
-}
+KwikWebview(
+    url = "https://example.com"
+)
 ```
 
 ### Permission Handlers
@@ -134,7 +193,7 @@ Create and manage radio button groups effortlessly. Customize the appearance and
 @Composable
 fun RadioGroupExample() {
     var selectedOption by remember { mutableStateOf("option1") }
-    
+
     KwikRadioGroup(
         selectedOption = selectedOption,
         onOptionSelected = { selectedOption = it },
@@ -165,7 +224,7 @@ Implement rating input with customizable rating bars. Supports different icons a
 @Composable
 fun RatingBarExample() {
     var rating by remember { mutableStateOf(3.5f) }
-    
+
     KwikRatingBar(
         rating = rating,
         onRatingChanged = { rating = it },
@@ -188,14 +247,14 @@ fun ProgressBarExample() {
         progress = 0.75f,
         color = MaterialTheme.colorScheme.primary
     )
-    
+
     // Circular progress bar
     KwikCircularProgressBar(
         progress = 0.75f,
         color = MaterialTheme.colorScheme.primary,
         size = 48.dp
     )
-    
+
     // Indeterminate progress bar
     KwikLinearProgressBar(
         isIndeterminate = true

@@ -39,7 +39,7 @@ import com.isakaro.kwik.theme.KwikTheme
 import kotlinx.coroutines.launch
 
 /**
- * Bottoms tabs component that supports content
+ * Bottoms tabs component that can display multiple tabs.
  *
  * @param modifier Modifier to be applied to the component
  * @param shape Shape to be applied to the component
