@@ -65,7 +65,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = project.property("GROUP_ID") as String
             artifactId = project.property("ARTIFACT_ID") as String
-            version = System.getenv("CI_COMMIT_TAG") ?: project.property("VERSION_NAME") as String
+            version = project.property("VERSION_NAME") as String
 
             afterEvaluate {
                 from(components["release"])
