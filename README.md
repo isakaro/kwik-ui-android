@@ -9,7 +9,7 @@ A comprehensive Android UI library designed to accelerate your development proce
 ### Accordion
 Accordion component that can be expanded or collapsed.
 
-![Accordion Light Mode](media/accordion/light1.jpg) ![Accordion Dark Mode](media/accordion/dark1.jpg)
+![Accordion Light Mode](media/accordion/light1.jpg){ width=400px } ![Accordion Dark Mode](media/accordion/dark1.jpg){ width=400px }
 
 ```kotlin
 val items = listOf(
@@ -34,7 +34,7 @@ KwikAccordionGroup(
 ### Buttons
 Easily create various button styles with customizable colors, shapes, and sizes. Supports different states like enabled, disabled, and loading.
 
-![Button Light Mode](media/button-light.png) ![Button Dark Mode](media/button-night.png)
+![Button Light Mode](media/button-light.png) ![Button Dark Mode](media/button-night.png) 
 
 ```kotlin
 @Composable
