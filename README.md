@@ -33,9 +33,9 @@ KwikUI includes a comprehensive collection of components:
 - **Stepper**
 - **Switch**
 - **Tags Input**
-- **Text Fields** (filled, outlined, with suggestions feature and debounce)
+- **Text Fields** (filled, outlined with suggestions feature and debounce)
 - **Timeline**
-- **Toast** component (modern)
+- **Toast**
 - **Toggle Button**
 - **Webview**
 
