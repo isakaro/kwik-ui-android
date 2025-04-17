@@ -427,7 +427,7 @@ private fun KwikQuantitySelection(
             modifier = Modifier
                 .padding(top = 16.dp)
                 .align(Alignment.End),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             KwikTextButton(
