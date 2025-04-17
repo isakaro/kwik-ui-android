@@ -108,8 +108,7 @@ KwikButton(
 // Loading state button
 KwikButton(
     text = "Loading",
-    isLoading = true,
-    style = KwikButtonStyle.Outlined
+    isLoading = true
 )
 
 // Button with trailing icon
@@ -272,6 +271,41 @@ KwikLinearProgressBar(
 ```
 
 ---
+
+## All Components
+
+KwikUI includes a comprehensive collection of components:
+
+- **Accordion** (accordion, accordion group)
+- **Appbar**
+- **Avatar**
+- **Biometrics**
+- **Bottom Tabs**
+- **Button**
+- **Card**
+- **Carousel** (slider)
+- **Checkbox**
+- **Counter**
+- **Countrypicker**
+- **Date Picker** (date input, date picker, date range picker)
+- **Dialogs** (modals)
+- **Dropdown**
+- **Filter Chips**
+- **Grid** (CSS-like)
+- **Permission Handler**
+- **Progress Bar**
+- **Radio** (group)
+- **Rating Bar**
+- **Search View** with autocomplete and debounce capabilities
+- **Sliders** (range sliders)
+- **Stepper**
+- **Switch**
+- **Tags Input**
+- **Text Fields** (filled, outlined, with suggestions feature and debounce)
+- **Timeline**
+- **Toast** component (modern)
+- **Toggle Button**
+- **Webview**
 
 ## Installation
 
