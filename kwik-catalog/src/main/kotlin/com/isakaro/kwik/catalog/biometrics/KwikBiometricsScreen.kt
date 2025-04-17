@@ -2,11 +2,7 @@ package com.isakaro.kwik.catalog.biometrics
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.biometric.BiometricManager
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.isakaro.Kwik.catalog.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.biometrics.KwikBiometricPromptParams
@@ -38,7 +34,7 @@ fun KwikBiometricsScreen(
             KwikBiometricsResult.FAILED -> kwikToastState.showToast("Biometric authentication failed", backgroundColor = KwikColorError)
             KwikBiometricsResult.ERROR -> kwikToastState.showToast("Biometric authentication error", backgroundColor = KwikColorError)
             KwikBiometricsResult.CANCELED -> kwikToastState.showToast("Biometric authentication canceled")
-            KwikBiometricsResult.NO_HARDWARE -> kwikToastState.showToast("No biometric hardware found", backgroundColor = KwikColorError)
+            KwikBiometricsResult.NOT_SET -> kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
         }
     }
 
@@ -60,8 +56,7 @@ fun KwikBiometricsScreen(
                         KwikBiometricPromptParams(
                             title = "Verify Identity",
                             subtitle = "Authentication required to continue",
-                            cancelText = "Cancel",
-                            biometricsLevel = BiometricManager.Authenticators.IDENTITY_CHECK
+                            cancelText = "Cancel"
                         )
                     )
                 }

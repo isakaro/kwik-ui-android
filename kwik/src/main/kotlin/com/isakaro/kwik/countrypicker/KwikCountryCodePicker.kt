@@ -54,7 +54,6 @@ fun KwikCountryCodePicker(
     includeOnlyCountries: List<KwikCountry> = emptyList(),
     omitCountries: List<KwikCountry> = emptyList(),
     enableSearch: Boolean = true,
-    showFlags: Boolean = true,
     noCountryFoundMessage: String = "No country found",
     onSelect: (KwikCountryInfo) -> Unit
 ){
@@ -103,8 +102,7 @@ fun KwikCountryCodePicker(
         LazyColumn(state = state, modifier = Modifier.fillMaxSize().weight(1f)) {
             itemsIndexed(searchResults.value) { index, country ->
                 KwikCountryCodeItem(
-                    country = country,
-                    showFlags = showFlags
+                    country = country
                 ){
                     onSelect(country)
                 }
@@ -118,7 +116,6 @@ fun KwikCountryCodePicker(
 fun KwikCountryPickerDialog(
     open: Boolean,
     title: String,
-    showFlags: Boolean = true,
     countryListState: LazyListState,
     onSelect: (KwikCountryInfo) -> Unit,
     onDismiss: () -> Unit
@@ -131,7 +128,6 @@ fun KwikCountryPickerDialog(
     ) {
         KwikCountryCodePicker(
             state = countryListState,
-            showFlags = showFlags,
             onSelect = { onSelect(it) },
         )
     }

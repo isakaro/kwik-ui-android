@@ -29,6 +29,7 @@ import com.isakaro.kwik.utils.getCountryInfo
  * ```
  * KwikCountryPicker(
  *     initialCountry = KwikCountry.RW,
+ *     title = "Select your country",
  *     countryPicked = { countryInfo ->
  *      // Handle the selected country information
  *     }
@@ -38,6 +39,7 @@ import com.isakaro.kwik.utils.getCountryInfo
 fun KwikCountryPicker(
     initialCountry: KwikCountry? = null,
     showFlags: Boolean = false,
+    title: String = "Select your country",
     countryPicked: (KwikCountryInfo) -> Unit
 ) {
 
@@ -47,10 +49,9 @@ fun KwikCountryPicker(
     val countryListState = rememberLazyListState()
 
     KwikCountryPickerDialog(
-        title = "Where are you from?",
+        title = title,
         open = showCountryPicker,
         countryListState = countryListState,
-        showFlags = showFlags,
         onDismiss = {
             showCountryPicker = false
         },
