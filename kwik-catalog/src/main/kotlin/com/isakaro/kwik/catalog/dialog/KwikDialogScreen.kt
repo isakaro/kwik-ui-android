@@ -124,7 +124,7 @@ internal fun KwikDialogScreen(
                             )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
+                                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End)
                             ) {
                                 KwikTextButton(text = "Cancel", onClick = { openDialog = false })
                                 KwikButton(text = "Confirm", onClick = { openDialog = false })
