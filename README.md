@@ -37,18 +37,20 @@ KwikAccordionGroup(
 
 [Accordion docs](https://isakaro.com)
 
-### Bottom tabs
-Bottoms tabs component that can display multiple tabs.
+---
+
+### Bottom Tabs
+Bottom tabs component that can display multiple tabs.
 
 <table>
   <tr>
-    <td><img src="media/bottomtabs/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
-    <td><img src="media/bottomtabs/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
+    <td><img src="media/bottomtabs/light1.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/bottomtabs/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
 
 ```kotlin
- val navItems = listOf(
+val navItems = listOf(
     KwikTabItem(
         title = "Home",
         icon = Icons.Rounded.Home,
@@ -80,22 +82,18 @@ KwikBottomTabs(
     pagerState = pagerState
 )
 ```
-[Bottom tabs docs](https://isakaro.com)
+
+[Bottom Tabs docs](https://isakaro.com)
+
+---
 
 ### Buttons
 Easily create various button styles with customizable colors, shapes, and sizes. Supports different states like enabled, disabled, and loading.
 
 <table>
   <tr>
-    <td><img src="media/button/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
-    <td><img src="media/button/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td><img src="media/button/light2.jpg" alt="Accordion Light Mode" width="400"/></td>
-    <td><img src="media/button/dark2.jpg" alt="Accordion Dark Mode" width="400"/></td>
+    <td><img src="media/button/light1.jpg" alt="Button Light Mode" width="400"/></td>
+    <td><img src="media/button/dark1.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -121,7 +119,10 @@ KwikButton(
     onClick = {  }
 )
 ```
+
 [Button docs](https://isakaro.com)
+
+---
 
 ### Text Fields
 KwikUI offers a range of text field styles to suit your needs:
@@ -132,36 +133,37 @@ KwikUI offers a range of text field styles to suit your needs:
 ![Text Field Light Mode](media/textfield-light.png) ![Text Field Dark Mode](media/textfield-night.png)
 
 ```kotlin
-@Composable
-fun TextFieldExample() {
-    var email by remember { mutableStateOf("") }
+var email by remember { mutableStateOf("") }
 
-    KwikTextField(
-        value = email,
-        onValueChange = { email = it },
-        style = KwikTextFieldStyle.Outlined,
-        hint = "Email Address",
-        keyboardType = KeyboardType.Email
-    )
+KwikTextField(
+    value = email,
+    onValueChange = { email = it },
+    style = KwikTextFieldStyle.Outlined,
+    hint = "Email Address",
+    keyboardType = KeyboardType.Email
+)
 
-    // OTP Field
-    var otpValue by remember { mutableStateOf("") }
+// OTP Field
+var otpValue by remember { mutableStateOf("") }
 
-    KwikOtpField(
-        value = otpValue,
-        onValueChange = { otpValue = it },
-        length = 6,
-        autoFocus = true
-    )
-}
+KwikOtpField(
+    value = otpValue,
+    onValueChange = { otpValue = it },
+    length = 6,
+    autoFocus = true
+)
 ```
 
+[Button docs](https://isakaro.com)
+
+---
+
 ### Webview
-Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators and more.
+Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators, and more.
 
 <table>
   <tr>
-    <td><img src="media/webview/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/webview/light1.jpg" alt="Webview Light Mode" width="400"/></td>
     <video width="400" controls>
         <source src="media/webview/vid1.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -175,14 +177,26 @@ KwikWebview(
 )
 ```
 
+---
+
 ### Permission Handlers
-Simplify permission management with easy-to-use handlers. Request permissions with clear callbacks for granted and denied scenarios. Additionally, handle multiple permissions in a single request, as well as know if you can show rationale for permissions.
+Simplify permission management with easy-to-use handlers. Request permissions with clear callbacks for granted and denied scenarios.
 
 ![Permission Handler Light Mode](media/permission-light.png) ![Permission Handler Dark Mode](media/permission-night.png)
 
 ```kotlin
-
+KwikPermissionHandler(
+    permissions = listOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE),
+    onGranted = {
+        // Handle granted permissions
+    },
+    onDenied = {
+        // Handle denied permissions
+    }
+)
 ```
+
+---
 
 ### Radio Groups
 Create and manage radio button groups effortlessly. Customize the appearance and handle selection changes with minimal code.
@@ -190,30 +204,29 @@ Create and manage radio button groups effortlessly. Customize the appearance and
 ![Radio Group Light Mode](media/radiogroup-light.png) ![Radio Group Dark Mode](media/radiogroup-night.png)
 
 ```kotlin
-@Composable
-fun RadioGroupExample() {
-    var selectedOption by remember { mutableStateOf("option1") }
+var selectedOption by remember { mutableStateOf("option1") }
 
-    KwikRadioGroup(
-        selectedOption = selectedOption,
-        onOptionSelected = { selectedOption = it },
-        orientation = Orientation.Vertical
-    ) {
-        KwikRadioOption(
-            value = "option1",
-            text = "Option 1"
-        )
-        KwikRadioOption(
-            value = "option2",
-            text = "Option 2"
-        )
-        KwikRadioOption(
-            value = "option3",
-            text = "Option 3"
-        )
-    }
+KwikRadioGroup(
+    selectedOption = selectedOption,
+    onOptionSelected = { selectedOption = it },
+    orientation = Orientation.Vertical
+) {
+    KwikRadioOption(
+        value = "option1",
+        text = "Option 1"
+    )
+    KwikRadioOption(
+        value = "option2",
+        text = "Option 2"
+    )
+    KwikRadioOption(
+        value = "option3",
+        text = "Option 3"
+    )
 }
 ```
+
+---
 
 ### Rating Bars
 Implement rating input with customizable rating bars. Supports different icons and sizes.
@@ -221,18 +234,17 @@ Implement rating input with customizable rating bars. Supports different icons a
 ![Rating Bar Light Mode](media/ratingbar-light.png) ![Rating Bar Dark Mode](media/ratingbar-night.png)
 
 ```kotlin
-@Composable
-fun RatingBarExample() {
-    var rating by remember { mutableStateOf(3.5f) }
+var rating by remember { mutableStateOf(3.5f) }
 
-    KwikRatingBar(
-        rating = rating,
-        onRatingChanged = { rating = it },
-        maxRating = 5,
-        iconSize = 24.dp
-    )
-}
+KwikRatingBar(
+    rating = rating,
+    onRatingChanged = { rating = it },
+    maxRating = 5,
+    iconSize = 24.dp
+)
 ```
+
+---
 
 ### Progress Bars
 Display progress indicators with various styles and customization options, including linear and circular progress bars.
@@ -240,66 +252,30 @@ Display progress indicators with various styles and customization options, inclu
 ![Progress Bar Light Mode](media/progressbar-light.png) ![Progress Bar Dark Mode](media/progressbar-night.png)
 
 ```kotlin
-@Composable
-fun ProgressBarExample() {
-    // Linear progress bar
-    KwikLinearProgressBar(
-        progress = 0.75f,
-        color = MaterialTheme.colorScheme.primary
-    )
+// Linear progress bar
+KwikLinearProgressBar(
+    progress = 0.75f,
+    color = MaterialTheme.colorScheme.primary
+)
 
-    // Circular progress bar
-    KwikCircularProgressBar(
-        progress = 0.75f,
-        color = MaterialTheme.colorScheme.primary,
-        size = 48.dp
-    )
+// Circular progress bar
+KwikCircularProgressBar(
+    progress = 0.75f,
+    color = MaterialTheme.colorScheme.primary,
+    size = 48.dp
+)
 
-    // Indeterminate progress bar
-    KwikLinearProgressBar(
-        isIndeterminate = true
-    )
-}
+// Indeterminate progress bar
+KwikLinearProgressBar(
+    isIndeterminate = true
+)
 ```
 
-## All Components
-
-KwikUI includes a comprehensive collection of components:
-
-- **Accordion** (accordion, accordion group)
-- **Appbar**
-- **Avatar**
-- **Biometrics**
-- **Bottom Tabs**
-- **Button**
-- **Card**
-- **Carousel** (slider)
-- **Checkbox**
-- **Counter**
-- **Countrypicker**
-- **Date Picker** (date input, date picker, date range picker)
-- **Dialogs** (modals)
-- **Dropdown**
-- **Filter Chips**
-- **Grid** (CSS-like)
-- **Permission Handler**
-- **Progress Bar**
-- **Radio** (group)
-- **Rating Bar**
-- **Search View** with autocomplete and debounce capabilities
-- **Sliders** (range sliders)
-- **Stepper**
-- **Switch**
-- **Tags Input**
-- **Text Fields** (filled, outlined, with suggestions feature and debounce)
-- **Timeline**
-- **Toast** component (modern)
-- **Toggle Button**
-- **Webview**
+---
 
 ## Installation
 
-Add KwikUI to your project by including the following in your app's build.gradle file:
+Add KwikUI to your project by including the following in your app's `build.gradle` file:
 
 ```kotlin
 dependencies {
