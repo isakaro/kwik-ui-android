@@ -6,6 +6,31 @@ A comprehensive Android UI library designed to accelerate your development proce
 
 ## Features
 
+### Accordion
+Accordion component that can be expanded or collapsed.
+
+![Accordion Light Mode](media/accordion/light1.jpg) ![Accordion Dark Mode](media/accordion/dark1.jpg)
+
+```kotlin
+val items = listOf(
+    KwikAccordionItem("Tortuga", "A lawless island for pirates to hide and do business"),
+    KwikAccordionItem("Isla de Muerta", "Can only be found by those who already know where it is"),
+    KwikAccordionItem("Davy Jones' Locker", "You don't want to end up there, trust me"),
+)
+
+KwikAccordionGroup(
+    items = items,
+    titleProvider = { it.title },
+    elevation = 2,
+    errorProvider = { it.hasError },
+    content = { item ->
+        KwikText.BodyMedium(text = item.content, modifier = Modifier.padding(16.dp))
+    }
+)
+```
+
+[Accordion docs](https://isakaro.com)
+
 ### Buttons
 Easily create various button styles with customizable colors, shapes, and sizes. Supports different states like enabled, disabled, and loading.
 
