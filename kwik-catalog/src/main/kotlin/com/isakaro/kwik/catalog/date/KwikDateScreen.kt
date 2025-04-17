@@ -40,7 +40,7 @@ internal fun KwikDateScreen(
             navigator.navigateUp()
         }
     ) {
-        ShowCase(title = "Date Picker") {
+        ShowCase(title = "Date Picker with manual input support") {
             var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
             KwikDateFieldButton(

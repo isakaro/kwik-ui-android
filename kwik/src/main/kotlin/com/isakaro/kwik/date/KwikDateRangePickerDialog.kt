@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.button.KwikButton
 import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.utils.toLocalDate
 import com.isakaro.kwik.utils.toMillis
 import java.time.LocalDate
 
@@ -80,9 +81,8 @@ fun KwikDateRangePickerDialog(
                     val endMillis = dateRangePickerState.selectedEndDateMillis
 
                     if (startMillis != null && endMillis != null) {
-                        val startDate = LocalDate.ofEpochDay(startMillis)
-                        val endDate = LocalDate.ofEpochDay(endMillis)
-
+                        val startDate = startMillis.toLocalDate()
+                        val endDate = endMillis.toLocalDate()
                         onDateRangeSelected(Pair(startDate, endDate))
                     }
                     onDismiss()

@@ -464,10 +464,12 @@ private fun KwikDateDigitField(
                 val sanitized = AllowedChars.NUMBERS.replace(it.text, "").take(maxLength)
                 onValueChange(TextFieldValue(sanitized, selection = TextRange(sanitized.length)))
             },
-            placeholder = {
+            label = {
                 KwikText.LabelMedium(
+                    modifier = Modifier.fillMaxWidth(),
                     text = placeholder,
-                    color = Color.Gray
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center
                 )
             },
             keyboardOptions = keyboardOptions,
