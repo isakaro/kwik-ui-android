@@ -148,10 +148,14 @@ fun KwikCarousel(
     val startingIndex = state.value.currentIndex.takeIf { it >= 0 } ?: initialIndex
 
     val pagerState = rememberPagerState(
-        initialPage = startingIndex,
+        initialPage = if(state.value.loop) state.value.itemCount * 50000 else startingIndex,
         initialPageOffsetFraction = 0f
     ) {
-        state.value.itemCount
+        if(state.value.loop){
+            state.value.itemCount * 100000
+        } else {
+            state.value.itemCount
+        }
     }
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -197,7 +201,6 @@ fun KwikCarousel(
                 } else {
                     continue
                 }
-
                 pagerState.animateScrollToPage(nextPage)
             }
         }
@@ -214,7 +217,7 @@ fun KwikCarousel(
                 Orientation.Horizontal
             ),
             pageContent = { page ->
-                contentBuilder(page)
+                contentBuilder(page % state.value.itemCount)
             }
         )
 
