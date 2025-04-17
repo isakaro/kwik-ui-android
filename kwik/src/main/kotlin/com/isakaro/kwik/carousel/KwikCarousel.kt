@@ -417,7 +417,7 @@ fun KwikImageCarousel(
     unselectedIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
     indicatorContainerColor: Color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
     autoPlay: Boolean = false,
-    autoPlayDelay: Long = 3000L,
+    autoPlayDelay: Long = 4000L,
     onPageIndexChange: (Int) -> Unit = {},
     shape: Shape = MaterialTheme.shapes.large,
     prevButton: @Composable (() -> Unit)? = null,
