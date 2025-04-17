@@ -1,18 +1,29 @@
 package com.isakaro.kwik.catalog.grid
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.card.KwikCard
 import com.isakaro.kwik.card.KwikImageCard
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.grid.KwikDiv
 import com.isakaro.kwik.grid.KwikGrid
+import com.isakaro.kwik.helpers.KwikCenterColumn
+import com.isakaro.kwik.image.KwikImageView
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -33,42 +44,84 @@ fun KwikGridScreen(
         val items = listOf(
             KwikDiv(
                 colSpan = 3,
-                rowSpan = 0,
                 colPosition = 0,
                 rowPosition = 0,
                 onClick = {},
                 content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
                     )
                 }
             ),
             KwikDiv(
-                colSpan = 1,
-                rowSpan = 1,
                 colPosition = 3,
                 rowPosition = 0,
                 onClick = {},
                 content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
+                    )
+                }
+            ),
+            KwikDiv(
+                colPosition = 0,
+                rowPosition = 1,
+                onClick = {},
+                content = {
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
+                    )
+                }
+            ),
+            KwikDiv(
+                colPosition = 1,
+                rowPosition = 1,
+                onClick = {},
+                content = {
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
+                    )
+                }
+            ),
+            KwikDiv(
+                colPosition = 0,
+                rowPosition = 2,
+                colSpan = 2,
+                onClick = {},
+                content = {
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
+                    )
+                }
+            ),
+            KwikDiv(
+                colPosition = 2,
+                rowPosition = 1,
+                colSpan = 2,
+                rowSpan = 2,
+                onClick = {},
+                content = {
+                    KwikImageView(
+                        modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                        url = KwikConstants.SAMPLE_IMAGE
                     )
                 }
             )
-
         )
 
         ShowCase {
-            BoxWithConstraints(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                KwikGrid(
-                    cols = 4,
-                    rows = 4,
-                    gap = 4,
-                    items = items
-                )
-            }
+            KwikGrid(
+                modifier = Modifier.fillMaxSize().height(300.dp),
+                cols = 4,
+                rows = 3,
+                gap = 4,
+                items = items
+            )
         }
     }
 
