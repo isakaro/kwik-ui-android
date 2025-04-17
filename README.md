@@ -92,41 +92,7 @@ Simplify permission management with easy-to-use handlers. Request permissions wi
 ![Permission Handler Light Mode](media/permission-light.png) ![Permission Handler Dark Mode](media/permission-night.png)
 
 ```kotlin
-@Composable
-fun PermissionHandlerExample() {
-    val permissionState = rememberKwikPermissionState(
-        permission = android.Manifest.permission.CAMERA
-    )
-    
-    LaunchedEffect(permissionState.status) {
-        when (permissionState.status) {
-            is PermissionStatus.Granted -> {
-                // Permission granted
-            }
-            is PermissionStatus.Denied -> {
-                // Permission denied
-            }
-        }
-    }
-    
-    KwikButton(
-        text = "Request Camera Permission",
-        onClick = { permissionState.request() }
-    )
-    
-    // Multiple permissions
-    val multiplePermissions = rememberKwikMultiplePermissionsState(
-        permissions = listOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.ACCESS_FINE_LOCATION
-        )
-    )
-    
-    KwikButton(
-        text = "Request Multiple Permissions",
-        onClick = { multiplePermissions.requestAll() }
-    )
-}
+
 ```
 
 ### Radio Groups
@@ -248,7 +214,7 @@ Add KwikUI to your project by including the following in your app's build.gradle
 
 ```kotlin
 dependencies {
-    implementation("com.kwikui:kwikui:1.0.0")
+    implementation("com.isakaro:kwikui:1.0.0")
 }
 ```
 
