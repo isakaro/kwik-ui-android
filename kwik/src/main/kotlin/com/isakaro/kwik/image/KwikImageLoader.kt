@@ -2,6 +2,7 @@ package com.isakaro.kwik.image
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
@@ -53,6 +54,7 @@ fun KwikImageLoader(
             .data(url)
             .build(),
         modifier = modifier
+            .fillMaxSize()
             .clickable { onClick() }
             .placeholder(
                 visible = loadingState[url] == ImageLoaderState.LOADING,

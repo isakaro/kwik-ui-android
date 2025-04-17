@@ -1,12 +1,10 @@
 package com.isakaro.kwik.catalog.grid
 
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.card.KwikImageCard
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
@@ -34,117 +32,39 @@ fun KwikGridScreen(
 
         val items = listOf(
             KwikDiv(
-                colSpan = 2,
-                rowSpan = 1,
+                colSpan = 3,
+                rowSpan = 0,
                 colPosition = 0,
                 rowPosition = 0,
                 onClick = {},
                 content = {
                     KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
+                        image = KwikConstants.SAMPLE_IMAGE
                     )
                 }
             ),
             KwikDiv(
                 colSpan = 1,
                 rowSpan = 1,
-                colPosition = 2,
+                colPosition = 3,
                 rowPosition = 0,
                 onClick = {},
                 content = {
                     KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            ),
-            KwikDiv(
-                colSpan = 1,
-                rowSpan = 1,
-                colPosition = 0,
-                rowPosition = 1,
-                onClick = {},
-                content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            ),
-            KwikDiv(
-                colSpan = 1,
-                rowSpan = 1,
-                colPosition = 1,
-                rowPosition = 1,
-                onClick = {},
-                content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            ),
-            KwikDiv(
-                colSpan = 1,
-                rowSpan = 1,
-                colPosition = 2,
-                rowPosition = 1,
-                onClick = {},
-                content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            ),
-            KwikDiv(
-                colSpan = 1,
-                rowSpan = 1,
-                colPosition = 0,
-                rowPosition = 2,
-                onClick = {},
-                content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            ),
-            KwikDiv(
-                colSpan = 2,
-                rowSpan = 2,
-                colPosition = 1,
-                rowPosition = 2,
-                onClick = {},
-                content = {
-                    KwikImageCard(
-                        image = KwikConstants.SAMPLE_IMAGE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
+                        image = KwikConstants.SAMPLE_IMAGE
                     )
                 }
             )
+
         )
 
         ShowCase {
-            BoxWithConstraints {
+            BoxWithConstraints(
+                modifier = Modifier.fillMaxSize()
+            ) {
                 KwikGrid(
-                    cols = 3,
-                    rows = 3,
+                    cols = 4,
+                    rows = 4,
                     gap = 4,
                     items = items
                 )
