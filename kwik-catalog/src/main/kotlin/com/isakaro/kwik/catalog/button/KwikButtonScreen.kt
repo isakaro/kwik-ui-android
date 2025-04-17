@@ -3,6 +3,8 @@ package com.isakaro.kwik.catalog.button
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,6 +41,8 @@ internal fun KwikButtonScreen(
         }
     ) {
         NormalButton()
+        ButtonWithLeadingIcon()
+        ButtonWithTrailingIcon()
         NormalMaxWidthButton()
         OutlinedButton()
         NormalMaxWidthOutlinedButton()
@@ -64,6 +68,32 @@ private fun NormalButton() {
             text = "Action",
             onClick = {}
         )
+    }
+}
+
+@Composable
+private fun ButtonWithLeadingIcon() {
+    ShowCase("Button with leading icon") {
+        KwikTheme {
+            KwikButton(
+                text = "Action",
+                leadingIcon = Icons.Default.Settings,
+                onClick = {  }
+            )
+        }
+    }
+}
+
+@Composable
+private fun ButtonWithTrailingIcon() {
+    ShowCase("Button with trailing icon") {
+        KwikTheme {
+            KwikButton(
+                text = "Action",
+                trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
+                onClick = {  }
+            )
+        }
     }
 }
 

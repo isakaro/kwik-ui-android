@@ -1,5 +1,6 @@
 package com.isakaro.kwik.toast
 
+import androidx.annotation.RestrictTo
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -58,6 +59,7 @@ enum class KwikToastType {
  * @param duration: The duration to display the toast. Default is 4 seconds.
  * @param backgroundColor: The background color of the toast. Default is [MaterialTheme.colorScheme.primary].
  * */
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 data class KwikToastState(
     val id: UUID = UUID.randomUUID(),
     val message: String = "",

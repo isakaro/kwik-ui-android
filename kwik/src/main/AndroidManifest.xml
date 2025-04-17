@@ -4,6 +4,9 @@
     <application>
         <activity
             android:name=".biometrics.KwikBiometricActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Kwik"
+            android:launchMode="singleTop"
+            />
     </application>
 </manifest>

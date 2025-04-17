@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.biometric.BiometricPrompt
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.biometric.BiometricManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,27 +39,42 @@ import com.isakaro.kwik.theme.KwikTheme
  * Handles biometric authentication in an activity
  * */
 class KwikBiometricActivity : FragmentActivity() {
+
+    private val biometricManager by lazy { BiometricManager.from(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val title = intent.getStringExtra(KwikBiometrics.TITLE) as String
         val subtitle = intent.getStringExtra(KwikBiometrics.SUBTITLE) as String
         val cancel = intent.getStringExtra(KwikBiometrics.CANCEL) as String
+        val biometricsLevel = intent.getIntExtra(KwikBiometrics.BIOMETRICS_LEVEL, BiometricManager.Authenticators.BIOMETRIC_STRONG)
+        var failedCount = 0
+
+        if(!biometricManager.hasBiometricsCapability(biometricsLevel)){
+            setResult(KwikBiometricsResult.NO_HARDWARE)
+            finish()
+        }
 
         val executor = ContextCompat.getMainExecutor(this)
         val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    setResult(RESULT_OK)
+                    setResult(KwikBiometricsResult.SUCCESS)
                     finish()
                 }
-
                 override fun onAuthenticationFailed() {
-                    setResult(RESULT_CANCELED)
-                    finish()
+                    if(failedCount >= 3){
+                        setResult(KwikBiometricsResult.FAILED)
+                        finish()
+                    }
+                    failedCount+=1
                 }
-
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    setResult(RESULT_CANCELED)
+                    if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON){
+                        setResult(KwikBiometricsResult.CANCELED)
+                    } else {
+                        setResult(KwikBiometricsResult.ERROR)
+                    }
                     finish()
                 }
             })
@@ -102,12 +119,17 @@ class KwikBiometricActivity : FragmentActivity() {
             }
         }
     }
+
+    private fun BiometricManager.hasBiometricsCapability(biometricsLevel: Int = BiometricManager.Authenticators.BIOMETRIC_STRONG): Boolean {
+        return this.canAuthenticate(biometricsLevel) == BiometricManager.BIOMETRIC_SUCCESS
+    }
 }
 
 data class KwikBiometricPromptParams(
     val title: String = "Authentication Required",
     val subtitle: String = "Verify your identity",
-    val cancelText: String = "Cancel"
+    val cancelText: String = "Cancel",
+    val biometricsLevel: Int = BiometricManager.Authenticators.BIOMETRIC_STRONG
 )
 
 /**
@@ -132,17 +154,17 @@ data class KwikBiometricPromptParams(
  *     )
  * ```
  * */
-class KwikBiometricsAuthenticationContract: ActivityResultContract<KwikBiometricPromptParams, Boolean>() {
+class KwikBiometricsAuthenticationContract: ActivityResultContract<KwikBiometricPromptParams, Int>() {
     override fun createIntent(context: Context, input: KwikBiometricPromptParams): Intent {
         return Intent(context, KwikBiometricActivity::class.java).apply {
             putExtra(KwikBiometrics.TITLE, input.title)
             putExtra(KwikBiometrics.SUBTITLE, input.subtitle)
             putExtra(KwikBiometrics.CANCEL, input.cancelText)
+            putExtra(KwikBiometrics.BIOMETRICS_LEVEL, input.biometricsLevel)
         }
     }
-
-    override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
-        return resultCode == Activity.RESULT_OK
+    override fun parseResult(resultCode: Int, intent: Intent?): Int {
+        return resultCode
     }
 }
 
@@ -150,15 +172,13 @@ object KwikBiometrics {
     const val TITLE = "title"
     const val SUBTITLE = "subtitle"
     const val CANCEL = "cancel"
+    const val BIOMETRICS_LEVEL = "biometrics_level"
+}
 
-    /**
-     * Check if biometric authentication is available and properly set up
-     *
-     * @param context Context to check biometric availability
-     * @return Pair of (isAvailable, errorMessage)
-     */
-    fun isBiometricAvailable(context: Context): Pair<Boolean, String?> {
-
-        return Pair(true, null)
-    }
+object KwikBiometricsResult {
+    const val SUCCESS = -1
+    const val CANCELED = 0
+    const val FAILED = 401
+    const val ERROR = 400
+    const val NO_HARDWARE = 404
 }

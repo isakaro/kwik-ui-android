@@ -149,7 +149,7 @@ internal fun KwikDialogScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     KwikText.TitleSmall(
-                        text = "",
+                        text = "The only rules that really matter are these: what a man can do and what a man can’t do.",
                     )
                 }
             }
@@ -175,7 +175,7 @@ internal fun KwikDialogScreen(
                 ) {
                     KwikImageView(
                         url = R.drawable.kwikui_logo,
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier.size(100.dp).padding(bottom = 4.dp)
                     )
                     KwikText.TitleSmall(
                         text = "Sorry mate, you must accept the terms and conditions to continue, savvy?",
