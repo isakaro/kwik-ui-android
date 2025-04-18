@@ -79,46 +79,6 @@ data class KwikIndicatorProps(
  * @param indicatorColor The color of the indicator
  * @param divider The divider to display between tabs
  * @param selectedContentColor The color of the selected tab
- * @param unselectedContentColor The color of the unselected tab
- *
- * */
-@Composable
-fun KwikHorizontalTabs(
-    tabs: List<KwikTabItem>, pagerState: PagerState,
-    containerColor: Color = MaterialTheme.colorScheme.surface,
-    indicatorColor: Color = MaterialTheme.colorScheme.primary,
-    kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
-    divider: @Composable () -> Unit = {},
-    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContentColor: Color = Color.Gray,
-    userScrollEnabled: Boolean = true
-){
-    KwikHorizontalTab(
-        tabs = tabs,
-        pagerState = pagerState,
-        containerColor = containerColor,
-        indicatorColor = indicatorColor,
-        kwikIndicatorProps = kwikIndicatorProps,
-        divider = divider,
-        selectedContentColor = selectedContentColor,
-        unselectedContentColor = unselectedContentColor
-    )
-    KwikTabsContent(
-        tabs = tabs,
-        pagerState = pagerState
-    )
-}
-
-/**
- * A versatile horizontal tab pager capable of displaying any content.
- *
- * @param tabs List of tabs to display
- * @param pagerState The state of the pager
- * @param kwikIndicatorProps The properties of the indicator. Refer to [KwikIndicatorProps] for more details.
- * @param containerColor The background color of the tab row
- * @param indicatorColor The color of the indicator
- * @param divider The divider to display between tabs
- * @param selectedContentColor The color of the selected tab
  * */
 @Composable
 fun KwikHorizontalTab(
@@ -259,6 +219,46 @@ fun KwikTabItemView(
         )
     }
 
+}
+
+/**
+ * A versatile horizontal tab pager capable of displaying any content. Can be used independently or with a pager.
+ *
+ * @param tabs List of tabs to display
+ * @param pagerState The state of the pager
+ * @param kwikIndicatorProps The properties of the indicator. Refer to [KwikIndicatorProps] for more details.
+ * @param containerColor The background color of the tab row
+ * @param indicatorColor The color of the indicator
+ * @param divider The divider to display between tabs
+ * @param selectedContentColor The color of the selected tab
+ * @param unselectedContentColor The color of the unselected tab
+ *
+ * */
+@Composable
+fun KwikHorizontalTabs(
+    tabs: List<KwikTabItem>, pagerState: PagerState,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
+    indicatorColor: Color = MaterialTheme.colorScheme.primary,
+    kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
+    divider: @Composable () -> Unit = {},
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedContentColor: Color = Color.Gray,
+    userScrollEnabled: Boolean = true
+){
+    KwikHorizontalTab(
+        tabs = tabs,
+        pagerState = pagerState,
+        containerColor = containerColor,
+        indicatorColor = indicatorColor,
+        kwikIndicatorProps = kwikIndicatorProps,
+        divider = divider,
+        selectedContentColor = selectedContentColor,
+        unselectedContentColor = unselectedContentColor
+    )
+    KwikTabsContent(
+        tabs = tabs,
+        pagerState = pagerState
+    )
 }
 
 @Preview

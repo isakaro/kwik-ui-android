@@ -711,38 +711,366 @@ Tabs component for displaying multiple tabs. Supports different styles and custo
   </tr>
 </table>
 
-### Text Fields
-KwikUI offers a range of text field styles to suit your needs:
-- **Filled Text Fields:** Standard text fields with a filled background.
-- **Outlined Text Fields:** Text fields with an outlined border.
-- **OTP Fields:** Specialized text fields for collecting One-Time Passcodes (OTP). Provides features like automatic focus and input masking.
-
-![Text Field Light Mode](media/textfield-light.png) ![Text Field Dark Mode](media/textfield-night.png)
-
 ```kotlin
-var email by remember { mutableStateOf("") }
+ val tabs = listOf(
+        KwikTabItem(
+            title = "Muraho",
+            counter = 3
+        ){
+            Content(text = "Muraho")
+        },
+        KwikTabItem(
+            title = "Hello",
+        ){
+            Content(text = "Hello")
+        },
+        KwikTabItem(
+            title = "Jambo",
+            counter = 1
+        ){
+            Content(text = "Jambo")
+        }
+    )
 
-KwikTextField(
-    value = email,
-    onValueChange = { email = it },
-    style = KwikTextFieldStyle.Outlined,
-    hint = "Email Address",
-    keyboardType = KeyboardType.Email
-)
-
-// OTP Field
-var otpValue by remember { mutableStateOf("") }
-
-KwikOtpField(
-    value = otpValue,
-    onValueChange = { otpValue = it },
-    length = 6,
-    autoFocus = true
+KwikHorizontalTab(
+    tabs = tabs,
+    pagerState = pagerState
 )
 ```
 
-[Button docs](https://isakaro.com)
+[Tabs docs](https://isakaro.com)
 
+---
+
+### Tags Input
+Tags input component for entering multiple tags. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/tagsinput/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/tagsinput/dark1.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val tags = remember {
+            listOf(
+                KwikTagsInputItem("1", "Tortuga"),
+                KwikTagsInputItem("2", "Shipwreck Cove"),
+                KwikTagsInputItem("3", "Davy Jones' Locker"),
+                KwikTagsInputItem("4", "Port Royal"),
+                KwikTagsInputItem("5", "Isla de Muerta"),
+                KwikTagsInputItem("6", "Fountain of Youth")
+            )
+        }
+
+var currentTags by remember { mutableStateOf<List<KwikTagsInputItem>>(emptyList()) }
+
+KwikTagsInput(
+    items = sampleTags,
+    placeholder = "Enter or select your destination",
+    withQuantity = true,
+    onTagsChanged = { newTags ->
+        currentTags = newTags
+    }
+)
+```
+
+[Tags Input docs](https://isakaro.com)
+
+---
+
+### Text fields (Text input)
+KwikUI provides a variety of text field styles to suit your needs:
+- **Filled Text Fields:** Standard text fields with a filled background.
+- **OTP Fields:** Specialized text fields for collecting One-Time Passcodes (OTP). Provides features like automatic focus and input masking.
+- **Phone Number Fields:** Text fields specifically designed for entering phone numbers, with formatting and validation.
+- **Outlined Text Fields:** Text fields with an outlined border.
+- **Text Input with Suggestions:** Text fields that provide suggestions as the user types, with debounce functionality to optimize performance.
+- **Text Input with Debounce:** Text fields that delay the input processing until the user stops typing for a specified duration.
+- **Text Input with Suggestions and Debounce:** A combination of both features for optimal performance and user experience.
+- **Text Input with Leading Icon:** Text fields that include a leading icon for added context or branding.
+
+<table>
+  <tr>
+    <td><img src="media/textfield/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/dark1.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/textfield/light2.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/dark2.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/textfield/light3.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/dark3.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/textfield/light4.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/dark4.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/textfield/light6.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/dark6.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+## Standard Text Field
+```kotlin
+val username = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
+KwikTextField(
+    value = username,
+    onValueChange = {
+        username.value = it 
+    },
+    label = "Username",
+    placeholder = "Enter email or phone",
+    maxLength = 35,
+    imeAction = ImeAction.Done,
+    keyboardType = KeyboardType.Text,
+    onKeyboardDone = {
+        // Handle keyboard done action
+    }
+)
+```
+
+## Password Text Field
+```kotlin
+val password = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
+KwikTextField(
+    value = password,
+    onValueChange = {
+        password.value = it 
+    },
+    label = "Password",
+    placeholder = "Enter password",
+    imeAction = ImeAction.Done,
+    keyboardType = KeyboardType.Password,
+    visualTransformation = PasswordVisualTransformation(),
+    onKeyboardDone = {
+        // Handle keyboard done action
+    }
+)
+```
+
+## Text Field with Suggestions
+```kotlin
+ val text = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    mutableStateOf(
+        TextFieldValue("")
+    )
+}
+
+KwikTextField(
+    value = text,
+    onValueChange = {
+        text.value = it
+    },
+    label = "Address",
+    showClearTextButton = true,
+    placeholder = "Enter address",
+    suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker"),
+    error = "Incorrect address",
+)
+```
+
+## OTP Field
+```kotlin
+var otp = remember { mutableStateOf("") }
+
+KwikOTP(
+    onValidOTP = {
+        otp = it
+    },
+    error = "Invalid OTP",
+)
+```
+
+## Phone Number Field
+```kotlin
+val phoneNumber = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    mutableStateOf(
+        TextFieldValue("")
+    )
+}
+var isPhoneNumberValid by remember { mutableStateOf(false) }
+
+KwikPhoneNumberField(
+    initialCountryInfo = countryList.random(),
+    value = phoneNumber,
+    label = "Phone number",
+    isValid = isPhoneNumberValid,
+    onValueChange = {
+        phoneNumber.value = it
+        // Validate phone number
+    },
+    onCountrySelected = { country ->
+        // Handle country selection
+    }
+)
+```
+
+[Text field docs](https://isakaro.com)
+
+---
+
+### Text view
+
+## With body medium
+```kotlin
+KwikText.BodyMedium(
+    text = "I'm headed for Tortuga, the place where the pirates are"
+)
+```
+
+## With custom text color
+```kotlin
+KwikText.RenderText(
+    text = (stepIndex + 1).toString(),
+    color = Color.White,
+    style = if (stepsCount > 5) MaterialTheme.typography.bodySmall else MaterialTheme.typography.titleMedium
+)
+```
+
+## Expandable text
+```kotlin
+KwikExpandableText(
+    text = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow!.",
+    readMoreText = "Read more",
+    showLessText = "Show less",
+    maxLines = 3
+)
+```
+
+---
+
+### Timeline
+Timeline component for displaying events in a chronological order. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/timeline/vid1.gif" alt="Timeline Light Mode" width="400"/></td>
+    <td><img src="media/timeline/vid2.gif" alt="Timeline Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/timeline/light1.jpg" alt="Timeline Light Mode" width="400"/></td>
+    <td><img src="media/timeline/dark1.jpg" alt="Timeline Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val timelineEntries = listOf(
+    KwikTimelineEntry(
+        content = {
+            // Content for the entry
+        }
+    ),
+    KwikTimelineEntry(
+        id = 0,
+        title = "The Curse of the Black Pearl (2003)",
+        description = "Captain Jack Sparrow teams up with Will Turner to save Elizabeth Swann from cursed pirates.",
+        onClick = {
+            // Handle click event
+        },
+        content = {
+            // optional content
+        }
+    )
+)
+
+ KwikVerticalTimeline(
+    entries = timelineEntries,
+    clickable = true,
+    currentStepIndex = completedIndex,
+    modifier = Modifier.padding(6.dp),
+    onClick = {
+        // Handle click event
+    }
+)
+```
+
+[Timeline docs](https://isakaro.com)
+
+---
+
+### Toast
+Toast component for displaying brief messages to the user. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/toast/light1.jpg" alt="Timeline Light Mode" width="400"/></td>
+    <td><img src="media/toast/light2.jpg" alt="Timeline Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val kwikToastState = rememberKwikToastState()
+
+KwikToast(state = kwikToastState)
+```
+
+```kotlin
+// show toast
+kwikToastState.showToast("I am a toast")
+```
+
+## With custom background color
+```kotlin
+// show toast
+kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
+```
+
+## With style
+```kotlin
+kwikToastState.showToast("Verified successfully", type = KwikToastType.SUCCESS)
+```
+
+[Toast docs](https://isakaro.com)
+
+---
+
+### Toggle Button
+Toggle button component for toggling between two states. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/togglebutton/light1.jpg" alt="Toggle Button Light Mode" width="400"/></td>
+    <td><img src="media/togglebutton/vid1.gif" alt="Toggle Button Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val (value, onValueChange) = remember { mutableStateOf("") }
+
+KwikToggleGroup(
+    options = listOf(
+        KwikToggleGroupOption("Tortuga", "Tortuga"),
+        KwikToggleGroupOption("Fountain of Youth", "Fountain of Youth"),
+        KwikToggleGroupOption("Port Royal", "Port Royal")
+    ),
+    selectedOption = 2,
+    onOptionSelected = {
+        onValueChange(it.toString())
+    }
+)
+```
+
+### Typography
+KwikUI provides a variety of typography styles to suit your needs:
+- **Display (Small, Medium, Large):** Display text styles in small, medium, and large sizes.
+- **Headline (Small, Medium, Large):** Headline text styles in small, medium, and large sizes.
+- **Title (Small, Medium, Large):** Title text styles in small, medium, and large sizes.
+- **Body (Small, Medium, Large):** Body text styles in small, medium, and large sizes.
+- **Label (Small, Medium, Large):** Label text styles in small, medium, and large sizes.
+- **Quote:** Quote text style for displaying quotes or important messages.
+
+<table>
+  <tr>
+    <td><img src="media/typography/light1.jpg" alt="Typography Light Mode" width="400"/></td>
+    <td><img src="media/typography/dark1.jpg" alt="Typography Dark Mode" width="400"/></td>
+  </tr>
+</table>
 ---
 
 ### Webview
@@ -753,100 +1081,6 @@ Integrate web content seamlessly with the pre-configured webview. Includes featu
 ```kotlin
 KwikWebview(
     url = "https://example.com"
-)
-```
-
----
-
-### Permission Handlers
-Simplify permission management with easy-to-use handlers. Request permissions with clear callbacks for granted and denied scenarios.
-
-![Permission Handler Light Mode](media/permission-light.png) ![Permission Handler Dark Mode](media/permission-night.png)
-
-```kotlin
-KwikPermissionHandler(
-    permissions = listOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE),
-    onGranted = {
-        // Handle granted permissions
-    },
-    onDenied = {
-        // Handle denied permissions
-    }
-)
-```
-
----
-
-### Radio Groups
-Create and manage radio button groups effortlessly. Customize the appearance and handle selection changes with minimal code.
-
-![Radio Group Light Mode](media/radiogroup-light.png) ![Radio Group Dark Mode](media/radiogroup-night.png)
-
-```kotlin
-var selectedOption by remember { mutableStateOf("option1") }
-
-KwikRadioGroup(
-    selectedOption = selectedOption,
-    onOptionSelected = { selectedOption = it },
-    orientation = Orientation.Vertical
-) {
-    KwikRadioOption(
-        value = "option1",
-        text = "Option 1"
-    )
-    KwikRadioOption(
-        value = "option2",
-        text = "Option 2"
-    )
-    KwikRadioOption(
-        value = "option3",
-        text = "Option 3"
-    )
-}
-```
-
----
-
-### Rating Bars
-Implement rating input with customizable rating bars. Supports different icons and sizes.
-
-![Rating Bar Light Mode](media/ratingbar-light.png) ![Rating Bar Dark Mode](media/ratingbar-night.png)
-
-```kotlin
-var rating by remember { mutableStateOf(3.5f) }
-
-KwikRatingBar(
-    rating = rating,
-    onRatingChanged = { rating = it },
-    maxRating = 5,
-    iconSize = 24.dp
-)
-```
-
----
-
-### Progress Bars
-Display progress indicators with various styles and customization options, including linear and circular progress bars.
-
-![Progress Bar Light Mode](media/progressbar-light.png) ![Progress Bar Dark Mode](media/progressbar-night.png)
-
-```kotlin
-// Linear progress bar
-KwikLinearProgressBar(
-    progress = 0.75f,
-    color = MaterialTheme.colorScheme.primary
-)
-
-// Circular progress bar
-KwikCircularProgressBar(
-    progress = 0.75f,
-    color = MaterialTheme.colorScheme.primary,
-    size = 48.dp
-)
-
-// Indeterminate progress bar
-KwikLinearProgressBar(
-    isIndeterminate = true
 )
 ```
 

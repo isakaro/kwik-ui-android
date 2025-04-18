@@ -127,21 +127,18 @@ internal fun KwikTabScreen(
                 tabs = tabsWithIcons,
                 pagerState = pagerStateWithIcons
             )
-            KwikTabsContent(tabs = tabsWithIcons, pagerState = pagerStateWithIcons)
         }
         ShowCase(title = "Tabs without icons") {
             KwikHorizontalTab(
                 tabs = tabsWithoutIcons,
                 pagerState = pagerStateWithoutIcons
             )
-            KwikTabsContent(tabs = tabsWithoutIcons, pagerState = pagerStateWithoutIcons)
         }
         ShowCase(title = "Tabs with counters") {
             KwikHorizontalTab(
                 tabs = tabsWithCounters,
                 pagerState = pagerStateWithCounters
             )
-            KwikTabsContent(tabs = tabsWithCounters, pagerState = pagerStateWithCounters)
         }
     }
 }
