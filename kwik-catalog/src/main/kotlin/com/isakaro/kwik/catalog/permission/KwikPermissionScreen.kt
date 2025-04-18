@@ -65,17 +65,14 @@ internal fun KwikPermissionsScreen(
             permissions = when {
                 Build.VERSION.SDK_INT >= 33 -> {
                     listOf(
-                        KwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
-                        KwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
+                        KwikPermissionDto(Manifest.permission.POST_NOTIFICATIONS, "Allow app to post notifications."),
                     )
                 }
                 else -> {
-                    listOf(
-                        KwikPermissionDto(Manifest.permission.READ_EXTERNAL_STORAGE, "Allow app to access your photos and videos to use while creating a listing.")
-                    )
+                    listOf()
                 }
             },
-            title = "Media access required",
+            title = "Permissions required",
             logo = {
                 KwikImageView(
                     modifier = Modifier.size(50.dp),
