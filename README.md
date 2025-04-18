@@ -123,6 +123,10 @@ Easily create various button styles with customizable colors, shapes, and sizes.
 
 <table>
   <tr>
+    <td><img src="media/button/vid1.gif" alt="Button Light Mode" width="400"/></td>
+    <td><img src="media/button/vid2.gif" alt="Button Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
     <td><img src="media/button/light1.jpg" alt="Button Light Mode" width="400"/></td>
     <td><img src="media/button/dark1.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
@@ -795,6 +799,10 @@ KwikUI provides a variety of text field styles to suit your needs:
   <tr>
     <td><img src="media/textfield/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
     <td><img src="media/textfield/dark1.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/textfield/vid1.gif" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/vid2.gif" alt="Tags Input Dark Mode" width="400"/></td>
   </tr>
   <tr>
     <td><img src="media/textfield/light2.jpg" alt="Tags Input Light Mode" width="400"/></td>
