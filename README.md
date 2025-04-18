@@ -42,12 +42,7 @@ Accordion component that can be expanded or collapsed.
 
 <img src="media/accordion/vid1.gif" alt="Accordion Light Mode" width="400"/>
 
-<table>
-  <tr>
-    <td><img src="media/accordion/vid2.gif" alt="Accordion Dark Mode" width="400"/></td>
-    <td><img src="media/accordion/light1.jpg" alt="Accordion Dark Mode" width="400"/></td>
-  </tr>
-</table>
+<img src="media/accordion/vid2.gif" alt="Accordion Dark Mode" width="400"/><
 
 ```kotlin
 val items = listOf(
