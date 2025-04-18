@@ -261,15 +261,12 @@ Date picker component for selecting dates. Supports different styles and formats
 
 <table>
   <tr>
-    <td><img src="media/date/vid1.gif" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/vid2.gif" alt="Bottom Tabs Dark Mode" width="400"/></td>
     <td><img src="media/date/light3.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/date/vid2.gif" alt="Bottom Tabs Dark Mode" width="400"/></td>
-    <td><img src="media/date/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
     <td><img src="media/date/dark4.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/date/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
 
