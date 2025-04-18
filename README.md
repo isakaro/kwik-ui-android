@@ -965,10 +965,6 @@ Timeline component for displaying events in a chronological order. Supports diff
 <table>
   <tr>
     <td><img src="media/timeline/vid1.gif" alt="Timeline Light Mode" width="400"/></td>
-    <td><img src="media/timeline/vid2.gif" alt="Timeline Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/timeline/light1.jpg" alt="Timeline Light Mode" width="400"/></td>
     <td><img src="media/timeline/dark1.jpg" alt="Timeline Dark Mode" width="400"/></td>
   </tr>
 </table>
