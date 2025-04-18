@@ -1003,7 +1003,7 @@ Toast component for displaying brief messages to the user. Supports different st
 <table>
   <tr>
     <td><img src="media/toast/vid1.gif" alt="Timeline Light Mode" width="400"/></td>
-    <td><img src="media/toast/vid1.gif" alt="Timeline Dark Mode" width="400"/></td>
+    <td><img src="media/toast/vid2.gif" alt="Timeline Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -1071,9 +1071,10 @@ KwikUI provides a variety of typography styles to suit your needs:
 <table>
   <tr>
     <td><img src="media/typography/light1.jpg" alt="Typography Light Mode" width="400"/></td>
-    <td><img src="media/typography/dark1.jpg" alt="Typography Dark Mode" width="400"/></td>
+    <td><img src="media/typography/vid2.gif" alt="Typography Dark Mode" width="400"/></td>
   </tr>
 </table>
+
 ---
 
 ### Webview
