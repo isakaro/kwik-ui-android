@@ -62,7 +62,7 @@ KwikAccordionGroup(
 )
 ```
 
-[Accordion docs](https://isakaro.com)
+[Accordion docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -110,7 +110,7 @@ KwikBottomTabs(
 )
 ```
 
-[Bottom Tabs docs](https://isakaro.com)
+[Bottom Tabs docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -150,7 +150,7 @@ KwikButton(
 )
 ```
 
-[Button docs](https://isakaro.com)
+[Button docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -163,7 +163,7 @@ KwikCard(){
 }
 ```
 
-[Card docs](https://isakaro.com)
+[Card docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -193,7 +193,7 @@ KwikImageCarousel(
 )
 ```
 
-[Carousel docs](https://isakaro.com)
+[Carousel docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -213,7 +213,7 @@ KwikCheckBox(
 )
 ```
 
-[Checkbox docs](https://isakaro.com)
+[Checkbox docs](https://isakaro.github.io/kwik-ui-android/)
 
 ### Counter
 Counter component for incrementing or decrementing values. Supports different styles and sizes.
@@ -237,7 +237,7 @@ KwikCounter(
 )
 ```
 
-[Counter docs](https://isakaro.com)
+[Counter docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -252,7 +252,7 @@ KwikCountryCodePicker(
     },
 )
 ```
-[Country Picker docs](https://isakaro.com)
+[Country Picker docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -312,7 +312,7 @@ KwikDateFieldButton(
 )
 ```
 
-[Date Picker docs](https://isakaro.com)
+[Date Picker docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -348,7 +348,7 @@ KwikDialog.ConfirmDialog(
 }
 ```
 
-[Dialog docs](https://isakaro.com)
+[Dialog docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -390,7 +390,7 @@ KwikDropdown(
 )
 ```
 
-[Dropdown docs](https://isakaro.com)
+[Dropdown docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -425,7 +425,7 @@ KwikTheme {
 }
 ```
 
-[Filter Chips docs](https://isakaro.com)
+[Filter Chips docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -464,7 +464,7 @@ KwikGrid(
 )
 ```
 
-[Grid docs](https://isakaro.com)
+[Grid docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -501,7 +501,7 @@ KwikPermissionsRequest(
         )
 ```
 
-[Permission Handlers docs](https://isakaro.com)
+[Permission Handlers docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -527,7 +527,7 @@ KwikLinearLoading(
 )
 ```
 
-[Progress docs](https://isakaro.com)
+[Progress docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -554,7 +554,7 @@ KwikRadioButtonGroup(
 )
 ```
 
-[Radio Group docs](https://isakaro.com)
+[Radio Group docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -583,7 +583,7 @@ KwikRatingBar(
 )
 ```
 
-[Rating Bar docs](https://isakaro.com)
+[Rating Bar docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -614,7 +614,7 @@ KwikSearchView(
 )
 ```
 
-[Search View docs](https://isakaro.com)
+[Search View docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -652,7 +652,7 @@ KwikSlider(
 )
 ```
 
-[Slider docs](https://isakaro.com)
+[Slider docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -693,7 +693,7 @@ kwikStepperState.clearAll() // Move to the next step
 kwikStepperState.moveToStep() // Move to a specific step
 ```
 
-[Stepper docs](https://isakaro.com)
+[Stepper docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -712,7 +712,7 @@ KwikSwitch(
 )
 ```
 
-[Switch docs](https://isakaro.com)
+[Switch docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -753,7 +753,7 @@ KwikHorizontalTab(
 )
 ```
 
-[Tabs docs](https://isakaro.com)
+[Tabs docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -791,7 +791,7 @@ KwikTagsInput(
 )
 ```
 
-[Tags Input docs](https://isakaro.com)
+[Tags Input docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -918,7 +918,7 @@ KwikPhoneNumberField(
 )
 ```
 
-[Text field docs](https://isakaro.com)
+[Text field docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -993,7 +993,7 @@ val timelineEntries = listOf(
 )
 ```
 
-[Timeline docs](https://isakaro.com)
+[Timeline docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -1029,7 +1029,7 @@ kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
 kwikToastState.showToast("Verified successfully", type = KwikToastType.SUCCESS)
 ```
 
-[Toast docs](https://isakaro.com)
+[Toast docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -1102,7 +1102,7 @@ dependencies {
 
 ## Documentation
 
-For detailed documentation and more examples, visit our [official documentation](https://kwikui.dev/docs).
+For detailed documentation and more examples, visit our [official documentation](https://isakaro.github.io/kwik-ui-android/).
 
 ## License
 
