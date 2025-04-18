@@ -73,3 +73,37 @@ publishing {
         }
     }
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name = "KwikUI"
+                description = "A Jetpack Compose library for building UI components."
+                url = "http://www.example.com/library"
+                properties = mapOf(
+                    "myProp" to "value",
+                    "prop.with.dots" to "anotherValue"
+                )
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "charlesganza"
+                        name = "Charles Lwanga"
+                        email = "ganza@isakaro.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://example.com/my-library.git"
+                    developerConnection = "scm:git:ssh://example.com/my-library.git"
+                    url = "http://gith.com/my-library/"
+                }
+            }
+        }
+    }
+}
