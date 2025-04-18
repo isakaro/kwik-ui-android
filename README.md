@@ -42,9 +42,9 @@ Accordion component that can be expanded or collapsed.
 
 <table>
   <tr>
-    <td><img src="media/accordion/light1.jpg" alt="Accordion Light Mode" width="400"/></td>
-    <td><img src="media/accordion/dark1.jpg" alt="Accordion Dark Mode" width="400"/></td>
-    <td><img src="media/accordion/dark2.jpg" alt="Accordion Dark Mode" width="400"/></td>
+    <td><img src="media/accordion/vid1.gif" alt="Accordion Light Mode" width="400"/></td>
+    <td><img src="media/accordion/vid2.gif" alt="Accordion Dark Mode" width="400"/></td>
+    <td><img src="media/accordion/light1.jpg" alt="Accordion Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -123,11 +123,11 @@ Easily create various button styles with customizable colors, shapes, and sizes.
 
 <table>
   <tr>
-    <td><img src="media/button/vid1.gif" alt="Button Light Mode" width="400"/></td>
-    <td><img src="media/button/vid2.gif" alt="Button Dark Mode" width="400"/></td>
+    <td><img src="media/button/vid1.gif" alt="Mode" width="400"/></td>
+    <td><img src="media/button/light3.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/button/light1.jpg" alt="Button Light Mode" width="400"/></td>
+    <td><img src="media/button/light1.jpg" alt="Mode" width="400"/></td>
     <td><img src="media/button/dark1.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
 </table>
@@ -174,6 +174,13 @@ KwikCard(){
 ### Carousel (Slider)
 Carousel component for displaying images or other content in a sliding format. Supports looping and autoplay features.
 
+<table>
+  <tr>
+    <td><img src="media/carousel/vid1.gif" alt="Mode" width="400"/></td>
+    <td><img src="media/carousel/light1.jpg" alt="Button Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
 ```kotlin
 val carouselState = rememberKwikCarouselState(
     KwikCarouselState(
@@ -197,6 +204,8 @@ KwikImageCarousel(
 ### Checkbox
 Checkbox component for selecting options. Supports different states like checked, unchecked, and indeterminate.
 
+<img src="media/checkbox/vid1.gif" alt="Mode" width="400"/>
+
 ```kotlin
  var checked by remember { mutableStateOf(true) }
 
@@ -212,6 +221,13 @@ KwikCheckBox(
 
 ### Counter
 Counter component for incrementing or decrementing values. Supports different styles and sizes.
+
+<table>
+  <tr>
+    <td><img src="media/counter/vid1.gif" alt="Tabs Light Mode" width="400"/></td>
+    <td><img src="media/counter/dark1.jpg" alt="Tabs Dark Mode" width="400"/></td>
+  </tr>
+</table>
 
 ```kotlin
 var counterState by remember { mutableStateOf(0) }
@@ -652,6 +668,10 @@ Stepper component for incrementing or decrementing values. Supports different st
 
 <table>
   <tr>
+    <td><img src="media/stepper/vid1.gif" alt="Stepper Light Mode" width="400"/></td>
+    <td><img src="media/stepper/vid2.gif" alt="Stepper Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
     <td><img src="media/stepper/light1.jpg" alt="Stepper Light Mode" width="400"/></td>
     <td><img src="media/stepper/dark1.jpg" alt="Stepper Dark Mode" width="400"/></td>
   </tr>
@@ -686,6 +706,8 @@ kwikStepperState.moveToStep() // Move to a specific step
 
 ### Switch
 Switch component for toggling between two states. Supports different styles and customizable appearance.
+
+<img src="media/switch/vid1.gif" alt="Mode" width="400"/>
 
 ```kotlin
 val checkedState = remember { mutableStateOf(true) }
@@ -803,18 +825,6 @@ KwikUI provides a variety of text field styles to suit your needs:
   <tr>
     <td><img src="media/textfield/light2.jpg" alt="Tags Input Light Mode" width="400"/></td>
     <td><img src="media/textfield/dark2.jpg" alt="Tags Input Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/textfield/light3.jpg" alt="Tags Input Light Mode" width="400"/></td>
-    <td><img src="media/textfield/dark3.jpg" alt="Tags Input Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/textfield/light4.jpg" alt="Tags Input Light Mode" width="400"/></td>
-    <td><img src="media/textfield/dark4.jpg" alt="Tags Input Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/textfield/light6.jpg" alt="Tags Input Light Mode" width="400"/></td>
-    <td><img src="media/textfield/dark6.jpg" alt="Tags Input Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -1003,8 +1013,8 @@ Toast component for displaying brief messages to the user. Supports different st
 
 <table>
   <tr>
-    <td><img src="media/toast/light1.jpg" alt="Timeline Light Mode" width="400"/></td>
-    <td><img src="media/toast/light2.jpg" alt="Timeline Dark Mode" width="400"/></td>
+    <td><img src="media/toast/vid1.gif" alt="Timeline Light Mode" width="400"/></td>
+    <td><img src="media/toast/vid1.gif" alt="Timeline Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -1039,7 +1049,7 @@ Toggle button component for toggling between two states. Supports different styl
 
 <table>
   <tr>
-    <td><img src="media/togglebutton/light1.jpg" alt="Toggle Button Light Mode" width="400"/></td>
+    <td><img src="media/togglebutton/light1.jpg" alt="Toggle Mode" width="400"/></td>
     <td><img src="media/togglebutton/vid1.gif" alt="Toggle Button Dark Mode" width="400"/></td>
   </tr>
 </table>
