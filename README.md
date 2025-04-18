@@ -769,7 +769,7 @@ Tags input component for entering multiple tags. Supports different styles and c
 
 <table>
   <tr>
-    <td><img src="media/tagsinput/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/tagsinput/vid1.gif" alt="Tags Input Light Mode" width="400"/></td>
     <td><img src="media/tagsinput/dark1.jpg" alt="Tags Input Dark Mode" width="400"/></td>
   </tr>
 </table>
@@ -815,16 +815,16 @@ KwikUI provides a variety of text field styles to suit your needs:
 
 <table>
   <tr>
-    <td><img src="media/textfield/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
+    <td><img src="media/textfield/vid1.gif" alt="Tags Input Light Mode" width="400"/></td>
     <td><img src="media/textfield/dark1.jpg" alt="Tags Input Dark Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/textfield/vid1.gif" alt="Tags Input Light Mode" width="400"/></td>
-    <td><img src="media/textfield/vid2.gif" alt="Tags Input Dark Mode" width="400"/></td>
+    <td><img src="media/textfield/dark2.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+    <td><img src="media/textfield/light1.jpg" alt="Tags Input Light Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/textfield/light2.jpg" alt="Tags Input Light Mode" width="400"/></td>
-    <td><img src="media/textfield/dark2.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+    <td><img src="media/textfield/dark3.jpg" alt="Tags Input Dark Mode" width="400"/></td>
+    <td><img src="media/textfield/light5.jpg" alt="Tags Input Dark Mode" width="400"/></td>
   </tr>
 </table>
 
