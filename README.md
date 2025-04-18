@@ -119,12 +119,12 @@ Easily create various button styles with customizable colors, shapes, and sizes.
 
 <table>
   <tr>
+    <td><img src="media/button/light1.jpg" alt="Mode" width="400"/></td>
     <td><img src="media/button/vid1.gif" alt="Mode" width="400"/></td>
-    <td><img src="media/button/light3.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/button/light1.jpg" alt="Mode" width="400"/></td>
     <td><img src="media/button/dark1.jpg" alt="Button Dark Mode" width="400"/></td>
+    <td><img src="media/button/light3.jpg" alt="Button Dark Mode" width="400"/></td>
   </tr>
 </table>
 
