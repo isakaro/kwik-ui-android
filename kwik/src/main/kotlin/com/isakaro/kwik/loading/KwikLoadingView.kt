@@ -3,6 +3,7 @@ package com.isakaro.kwik.loading
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,6 +34,19 @@ fun KwikLoadingView(
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Composable
+fun KwikLinearLoading(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.primary,
+    trackColor: Color = Color.Transparent
+) {
+    LinearProgressIndicator(
+        modifier = modifier,
+        color = color,
+        trackColor = trackColor
+    )
 }
 
 @Composable

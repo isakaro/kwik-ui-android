@@ -43,6 +43,85 @@ internal fun KwikDropDownScreen(
     ) {
         ShowCase(title = "DropDown") {
             var state by remember { mutableStateOf(false) }
+            val items = listOf(
+                KwikDropdownItemActionState.Header("Account"),
+                KwikDropdownItemActionState.Data(
+                    KwikDropdownItem(
+                        text = {
+                            KwikText.BodyMedium(text = "Profile")
+                        },
+                        leadingIcon = {
+                            KwikImageView(
+                                url = Icons.Default.AccountCircle
+                            )
+                        },
+                        onClick = {
+
+                        }
+                    )
+                ),
+                KwikDropdownItemActionState.Data(
+                    KwikDropdownItem(
+                        text = {
+                            KwikText.BodyMedium(text = "Settings")
+                        },
+                        leadingIcon = {
+                            KwikImageView(
+                                url = Icons.Default.Settings
+                            )
+                        },
+                        onClick = {
+
+                        }
+                    )
+                ),
+                KwikDropdownItemActionState.Data(
+                    KwikDropdownItem(
+                        text = {
+                            KwikText.BodyMedium(text = "Logout")
+                        },
+                        leadingIcon = {
+                            KwikImageView(
+                                url = Icons.AutoMirrored.Filled.ExitToApp
+                            )
+                        },
+                        onClick = {
+
+                        }
+                    )
+                ),
+                KwikDropdownItemActionState.Header("System"),
+                KwikDropdownItemActionState.Data(
+                    KwikDropdownItem(
+                        text = {
+                            KwikText.BodyMedium(text = "Dark mode")
+                        },
+                        leadingIcon = {
+                            KwikImageView(
+                                url = Icons.Default.Settings
+                            )
+                        },
+                        onClick = {
+
+                        }
+                    )
+                ),
+                KwikDropdownItemActionState.Data(
+                    KwikDropdownItem(
+                        text = {
+                            KwikText.BodyMedium(text = "Feedback")
+                        },
+                        leadingIcon = {
+                            KwikImageView(
+                                url = Icons.AutoMirrored.Filled.Send
+                            )
+                        },
+                        onClick = {
+
+                        }
+                    )
+                )
+            )
 
             Box(
                 modifier = Modifier
@@ -58,85 +137,7 @@ internal fun KwikDropDownScreen(
                 KwikDropdown(
                     state = state,
                     onDismissRequest = { state = false },
-                    items = listOf(
-                        KwikDropdownItemActionState.Header("Account"),
-                        KwikDropdownItemActionState.Data(
-                            KwikDropdownItem(
-                                text = {
-                                    KwikText.BodyMedium(text = "Profile")
-                                },
-                                leadingIcon = {
-                                    KwikImageView(
-                                        url = Icons.Default.AccountCircle
-                                    )
-                                },
-                                onClick = {
-
-                                }
-                            )
-                        ),
-                        KwikDropdownItemActionState.Data(
-                            KwikDropdownItem(
-                                text = {
-                                    KwikText.BodyMedium(text = "Settings")
-                                },
-                                leadingIcon = {
-                                    KwikImageView(
-                                        url = Icons.Default.Settings
-                                    )
-                                },
-                                onClick = {
-
-                                }
-                            )
-                        ),
-                        KwikDropdownItemActionState.Data(
-                            KwikDropdownItem(
-                                text = {
-                                    KwikText.BodyMedium(text = "Logout")
-                                },
-                                leadingIcon = {
-                                    KwikImageView(
-                                        url = Icons.AutoMirrored.Filled.ExitToApp
-                                    )
-                                },
-                                onClick = {
-
-                                }
-                            )
-                        ),
-                        KwikDropdownItemActionState.Header("System"),
-                        KwikDropdownItemActionState.Data(
-                            KwikDropdownItem(
-                                text = {
-                                    KwikText.BodyMedium(text = "Dark mode")
-                                },
-                                leadingIcon = {
-                                    KwikImageView(
-                                        url = Icons.Default.Settings
-                                    )
-                                },
-                                onClick = {
-
-                                }
-                            )
-                        ),
-                        KwikDropdownItemActionState.Data(
-                            KwikDropdownItem(
-                                text = {
-                                    KwikText.BodyMedium(text = "Feedback")
-                                },
-                                leadingIcon = {
-                                    KwikImageView(
-                                        url = Icons.AutoMirrored.Filled.Send
-                                    )
-                                },
-                                onClick = {
-
-                                }
-                            )
-                        )
-                    )
+                    items = items
                 )
             }
         }

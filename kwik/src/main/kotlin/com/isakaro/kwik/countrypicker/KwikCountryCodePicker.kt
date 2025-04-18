@@ -238,7 +238,9 @@ private fun KwikCountryCodePickerPreview(){
     KwikTheme {
         KwikCountryCodePicker(
             state = rememberLazyListState(),
-            onSelect = {},
+            onSelect = {
+
+            },
         )
     }
 }

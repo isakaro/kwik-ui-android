@@ -9,8 +9,6 @@ A comprehensive Android UI library designed to accelerate your development proce
 KwikUI includes a comprehensive collection of components:
 
 - **Accordion** (accordion, accordion group)
-- **Appbar**
-- **Avatar**
 - **Biometrics**
 - **Bottom Tabs**
 - **Button**
@@ -156,6 +154,563 @@ KwikButton(
 
 ---
 
+### Cards
+Cards with customizable colors, shapes, and sizes. Includes ready-to-use components such as image cards...
+
+```kotlin
+KwikCard(){
+    // content
+}
+```
+
+[Card docs](https://isakaro.com)
+
+---
+
+### Carousel (Slider)
+Carousel component for displaying images or other content in a sliding format. Supports looping and autoplay features.
+
+```kotlin
+val carouselState = rememberKwikCarouselState(
+    KwikCarouselState(
+        itemCount = images.size,
+        loop = true
+    )
+)
+
+KwikImageCarousel(
+    modifier = Modifier.height(200.dp),
+    state = carouselState,
+    autoPlay = true,
+    images = images
+)
+```
+
+[Carousel docs](https://isakaro.com)
+
+---
+
+### Checkbox
+Checkbox component for selecting options. Supports different states like checked, unchecked, and indeterminate.
+
+```kotlin
+ var checked by remember { mutableStateOf(true) }
+
+KwikCheckBox(
+    checked = checked,
+    onCheckedChange = {
+        checked = it
+    }
+)
+```
+
+[Checkbox docs](https://isakaro.com)
+
+### Counter
+Counter component for incrementing or decrementing values. Supports different styles and sizes.
+
+```kotlin
+var counterState by remember { mutableStateOf(0) }
+
+KwikCounter(
+    label = "Counter",
+    initialValue = 2,
+    onValueChange = {
+        counterState = it
+    }
+)
+```
+
+[Counter docs](https://isakaro.com)
+
+---
+
+### Country Picker
+Country picker component for selecting countries. Supports search functionality and customizable appearance.
+
+```kotlin
+KwikCountryCodePicker(
+    state = rememberLazyListState(),
+    onSelect = {
+        // handle selected country
+    },
+)
+```
+[Country Picker docs](https://isakaro.com)
+
+---
+
+### Date Picker
+Date picker component for selecting dates. Supports different styles and formats.
+
+<table>
+  <tr>
+    <td><img src="media/date/light1.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/date/light2.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/dark2.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/date/light3.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/dark3.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+## Date Picker (Input)
+```kotlin
+var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+KwikDateFieldButton(
+    label = "Date of birth",
+    placeholder = "Enter your date of birth",
+    mode = KwikDatePickerMode.Input,
+    selected = {
+        selectedDate = it
+    }
+)
+```
+
+## Date Picker (Picker)
+```kotlin
+var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+KwikDateFieldButton(
+    label = "Date of birth",
+    placeholder = "Enter your date of birth",
+    mode = KwikDatePickerMode.Picker,
+    selected = {
+        selectedDate = it
+    }
+)
+```
+
+## Date Range Picker
+```kotlin
+var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+KwikDateFieldButton(
+    label = "Date of birth",
+    placeholder = "Enter your date of birth",
+    mode = KwikDatePickerMode.Input,
+    selected = {
+        selectedDate = it
+    }
+)
+```
+
+[Date Picker docs](https://isakaro.com)
+
+---
+
+### Dialogs
+Dialogs for displaying messages or prompts. Supports different styles and customizable content.
+
+<table>
+  <tr>
+    <td><img src="media/dialog/light1.jpg" alt="Dialog Light Mode" width="400"/></td>
+    <td><img src="media/dialog/dark1.jpg" alt="Dialog Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val openDialog = remember { mutableStateOf(false) }
+
+KwikDialog.ConfirmDialog(
+    open = openConfirmDialog,
+    onConfirm = {
+        openConfirmDialog = false
+    },
+    dismiss = {
+        openConfirmDialog = false
+    }
+){
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        KwikText.TitleSmall(
+            text = "The only rules that really matter are these: what a man can do and what a man can’t do.",
+        )
+    }
+}
+```
+
+[Dialog docs](https://isakaro.com)
+
+---
+
+### Dropdown
+Dropdown component for selecting options from a list. Supports search functionality and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/dropdown/light1.jpg" alt="Dialog Light Mode" width="400"/></td>
+    <td><img src="media/dropdown/dark1.jpg" alt="Dialog Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+var selectedOption by remember { mutableStateOf("") }
+
+val items = listOf(
+    KwikDropdownItemActionState.Data(
+        KwikDropdownItem(
+            text = {
+                KwikText.BodyMedium(text = "Profile")
+            },
+            leadingIcon = {
+                KwikImageView(
+                    url = Icons.Default.AccountCircle
+                )
+            },
+            onClick = {
+                // Handle click event
+            }
+        )
+    )
+)
+
+KwikDropdown(
+    state = state,
+    onDismissRequest = { state = false },
+    items = items
+)
+```
+
+[Dropdown docs](https://isakaro.com)
+
+---
+
+### Filter Chips
+Filter chips for filtering content based on selected options. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/filterchip/light1.jpg" alt="Filter Chips Light Mode" width="400"/></td>
+    <td><img src="media/filterchip/dark1.jpg" alt="Filter Chips Dark Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/filterchip/light2.jpg" alt="Filter Chips Light Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val filters = listOf(
+    KwikFilterChipOption("Option 1", "1"),
+    KwikFilterChipOption("Option 2", "2"),
+    KwikFilterChipOption("Option 3", "3"),
+    KwikFilterChipOption("Option 4", "4"),
+    KwikFilterChipOption("Option 5", "5")
+)
+
+var selected by remember { mutableStateOf(filters) }
+
+KwikTheme {
+    KwikFilterChips(
+        filters = filters,
+        flowLayout = true,
+        preSelection = setOf(filters.random()),
+        filtersUpdated = { selected = it }
+    )
+}
+```
+
+[Filter Chips docs](https://isakaro.com)
+
+---
+
+### Grid
+Grid component for displaying items in a grid layout. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/grid/light1.jpg" alt="Grid Light Mode" width="400"/></td>
+    <td><img src="media/grid/dark1.jpg" alt="Grid Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val items = listOf(
+    KwikDiv(
+        colSpan = 3,
+        colPosition = 0,
+        rowPosition = 0,
+        onClick = {},
+        content = {
+            KwikImageView(
+                modifier = Modifier.background(color = Color.Transparent, shape = MaterialTheme.shapes.medium),
+                url = KwikConstants.SAMPLE_IMAGE
+            )
+        }
+    )
+)
+
+KwikGrid(
+    modifier = Modifier.fillMaxSize().height(300.dp),
+    cols = 4,
+    rows = 3,
+    gap = 4,
+    items = items
+)
+```
+
+[Grid docs](https://isakaro.com)
+
+---
+
+### Permission Handlers
+Permission handlers for managing app permissions. Supports different styles and customizable appearance.
+
+```kotlin
+val permissionState = rememberKwikPermissionState()
+
+KwikPermissionsRequest(
+            state = permissionState.value,
+            permissions = listOf(
+                KwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
+                KwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
+            ),
+            title = "Media access required",
+            image = { // optional image to show
+                KwikImageView(
+                    modifier = Modifier.size(120.dp),
+                    url = Icons.Default.Build,
+                    tint = Color.Gray
+                )
+            },
+            onGrantAction = { 
+                // action to perform when permissions are granted
+                granted = true
+            },
+            onDeniedAction = {
+                // action to perform when permissions are denied
+            },
+            onCancel = {
+                // action to perform when user cancels the permission request
+            }
+        )
+```
+
+[Permission Handlers docs](https://isakaro.com)
+
+---
+
+### Progress
+Progress component for displaying loading indicators. Supports different styles and customizable appearance.
+
+## Loading View with text
+```kotlin
+KwikLoadingView(
+    text = "Loading... Please Wait..."
+)
+```
+
+## Circular Loading
+```kotlin
+KwikCircularLoading()
+```
+
+## Linear Loading and custom track color
+```kotlin
+KwikLinearLoading(
+    trackColor = Color.White
+)
+```
+
+[Progress docs](https://isakaro.com)
+
+---
+
+### Radio Groups
+Radio groups for selecting options. Supports different styles and customizable appearance.
+
+<img src="media/radio/light1.jpg" alt="Radio Group Light Mode" width="400"/>
+
+```kotlin
+val options = listOf(
+    KwikRadioItem("Captain Jack Sparrow", 1),
+    KwikRadioItem("Captain Hector Barbossa", 2),
+    KwikRadioItem("Calypso", 3),
+    KwikRadioItem("Davy Jones", 4),
+)
+
+val (selectedOption, onOptionSelected) = remember { mutableStateOf<KwikRadioItem<Int>?>(null) }
+
+KwikRadioButtonGroup(
+    options = options,
+    onOptionSelected = {
+        onOptionSelected(it)
+    }
+)
+```
+
+[Radio Group docs](https://isakaro.com)
+
+---
+
+### Rating Bars
+Rating bars for displaying and selecting ratings. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/rating/light1.jpg" alt="Rating Bar Light Mode" width="400"/></td>
+    <td><img src="media/rating/dark1.jpg" alt="Rating Bar Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+var userRating by remember { mutableIntStateOf(0) }
+
+KwikRatingBar(
+    stars = 5,
+    rating = userRating.toDouble(),
+    clickable = true,
+    showBadge = false,
+    starSize = 60.dp,
+    onClick = { rating ->
+        userRating = rating
+    }
+)
+```
+
+[Rating Bar docs](https://isakaro.com)
+
+---
+
+### Search View
+Search view component for searching content. Supports different styles, customizable appearance and suggestions.
+
+<table>
+  <tr>
+    <td><img src="media/searchview/light1.jpg" alt="Search View Light Mode" width="400"/></td>
+    <td><img src="media/searchview/dark1.jpg" alt="Search View Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val query = rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    mutableStateOf(
+        TextFieldValue("")
+    )
+}
+
+KwikSearchView(
+    state = query,
+    placeholder = "Enter address...",
+    onTextChange = { query ->
+
+    },
+    suggestions = listOf("Tortuga", "Isla de Muerta", "Shipwreck Cove", "Davy Jones' Locker")
+)
+```
+
+[Search View docs](https://isakaro.com)
+
+---
+
+### Sliders
+Sliders for selecting values within a range. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/slider/light1.jpg" alt="Slider Light Mode" width="400"/></td>
+    <td><img src="media/slider/dark1.jpg" alt="Slider Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+## Range slider
+```kotlin
+var sliderPosition by remember { mutableStateOf(20f..80f) }
+
+KwikRangeSlider(
+    value = sliderPosition,
+    onValueChange = { range ->
+        sliderPosition = range
+    }
+)
+```
+
+## Single slider
+```kotlin
+var sliderPosition by remember { mutableFloatStateOf(0f) }
+
+KwikSlider(
+    value = sliderPosition,
+    onValueChange = { range ->
+        sliderPosition = range
+    }
+)
+```
+
+[Slider docs](https://isakaro.com)
+
+---
+
+### Stepper
+Stepper component for incrementing or decrementing values. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/stepper/light1.jpg" alt="Stepper Light Mode" width="400"/></td>
+    <td><img src="media/stepper/dark1.jpg" alt="Stepper Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
+```kotlin
+val kwikStepperState = rememberKwikStepperState(
+    steps = listOf("Request", "Verify", "Dispatch", "Delivered")
+)
+
+KwikStepper(
+    state = kwikStepperState
+)
+```
+
+## Controlling the Stepper
+```kotlin
+kwikStepperState.moveForward() // Move to the next step
+
+kwikStepperState.moveBackward() // Move to the next step
+
+kwikStepperState.completeAll() // Move to the next step
+
+kwikStepperState.clearAll() // Move to the next step
+
+kwikStepperState.moveToStep() // Move to a specific step
+```
+
+[Stepper docs](https://isakaro.com)
+
+---
+
+### Switch
+Switch component for toggling between two states. Supports different styles and customizable appearance.
+
+```kotlin
+val checkedState = remember { mutableStateOf(true) }
+
+KwikSwitch(
+    text = { KwikText.BodyMedium(text = "Control the lights") },
+    checked = checkedState.value,
+    onCheckedChange = { checkedState.value = it }
+)
+```
+
+[Switch docs](https://isakaro.com)
+
+---
+
+### Tabs
+Tabs component for displaying multiple tabs. Supports different styles and customizable appearance.
+
+<table>
+  <tr>
+    <td><img src="media/tabs/light1.jpg" alt="Tabs Light Mode" width="400"/></td>
+    <td><img src="media/tabs/dark1.jpg" alt="Tabs Dark Mode" width="400"/></td>
+  </tr>
+</table>
+
 ### Text Fields
 KwikUI offers a range of text field styles to suit your needs:
 - **Filled Text Fields:** Standard text fields with a filled background.
@@ -194,15 +749,6 @@ KwikOtpField(
 Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators, and more.
 
 ![Webview](media/webview/vid1.gif)
-<table>
-  <tr>
-    <td><img src="media/webview/light1.jpg" alt="Webview Light Mode" width="400"/></td>
-    <video width="400" controls>
-        <source src="media/webview/vid1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-  </tr>
-</table>
 
 ```kotlin
 KwikWebview(

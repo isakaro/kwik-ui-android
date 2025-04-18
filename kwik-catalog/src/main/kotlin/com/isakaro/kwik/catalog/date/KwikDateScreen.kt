@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
-import com.isakaro.kwik.date.KwikDateField
 import com.isakaro.kwik.date.KwikDateFieldButton
 import com.isakaro.kwik.date.KwikDatePickerMode
 import com.isakaro.kwik.date.KwikDateRangeButton
