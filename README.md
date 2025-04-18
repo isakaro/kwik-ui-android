@@ -225,7 +225,7 @@ Counter component for incrementing or decrementing values. Supports different st
 <table>
   <tr>
     <td><img src="media/counter/vid1.gif" alt="Tabs Light Mode" width="400"/></td>
-    <td><img src="media/counter/dark1.jpg" alt="Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/counter/vid2.gif" alt="Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
 
