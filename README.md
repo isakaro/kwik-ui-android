@@ -75,8 +75,8 @@ Bottom tabs component that can display multiple tabs.
 
 <table>
   <tr>
-    <td><img src="media/bottomtabs/light1.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
-    <td><img src="media/bottomtabs/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/bottomtabs/vid1.gif" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/bottomtabs/vid2.gif" alt="Bottom Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -249,16 +249,15 @@ Date picker component for selecting dates. Supports different styles and formats
 
 <table>
   <tr>
-    <td><img src="media/date/light1.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/vid1.gif" alt="Bottom Tabs Light Mode" width="400"/></td>
+    <td><img src="media/date/light3.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="media/date/vid2.gif" alt="Bottom Tabs Dark Mode" width="400"/></td>
     <td><img src="media/date/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/date/light2.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
-    <td><img src="media/date/dark2.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/date/light3.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
-    <td><img src="media/date/dark3.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/date/dark4.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -391,11 +390,8 @@ Filter chips for filtering content based on selected options. Supports different
 
 <table>
   <tr>
-    <td><img src="media/filterchip/light1.jpg" alt="Filter Chips Light Mode" width="400"/></td>
+    <td><img src="media/filterchip/vid1.gif" alt="Filter Chips Light Mode" width="400"/></td>
     <td><img src="media/filterchip/dark1.jpg" alt="Filter Chips Dark Mode" width="400"/></td>
-  </tr>
-  <tr>
-    <td><img src="media/filterchip/light2.jpg" alt="Filter Chips Light Mode" width="400"/></td>
   </tr>
 </table>
 
@@ -710,7 +706,7 @@ Tabs component for displaying multiple tabs. Supports different styles and custo
 
 <table>
   <tr>
-    <td><img src="media/tabs/light1.jpg" alt="Tabs Light Mode" width="400"/></td>
+    <td><img src="media/tabs/vid1.gif" alt="Tabs Light Mode" width="400"/></td>
     <td><img src="media/tabs/dark1.jpg" alt="Tabs Dark Mode" width="400"/></td>
   </tr>
 </table>
