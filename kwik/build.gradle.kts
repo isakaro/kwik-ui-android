@@ -104,8 +104,8 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
-                    developerConnection = "scm:git:ssh://github.com/isakaro/kwik-ui-android.git"
+                    connection = "scm:git:https://github.com/isakaro/kwik-ui-android.git"
+                    developerConnection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
                     url = "https://github.com/isakaro/kwik-ui-android"
                 }
             }
@@ -117,14 +117,15 @@ publishing {
             name = "MavenCentral"
             url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username =  secretsPropertiesFile["ossrhUsername"].toString()
-                password =  secretsPropertiesFile["ossrhPassword"].toString()
+                username = secretsPropertiesFile["ossrhUsername"].toString()
+                password = secretsPropertiesFile["ossrhPassword"].toString()
             }
         }
     }
 }
 
 signing {
+    useGpgCmd()
     sign(publishing.publications["kwikUiRelease"])
 }
 
