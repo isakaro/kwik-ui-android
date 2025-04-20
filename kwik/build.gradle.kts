@@ -1,3 +1,7 @@
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.Properties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +11,20 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.documentation.plugin)
 }
+
+val secretsProperties = rootProject.file("secrets.properties")
+val secretsPropertiesFile = Properties()
+secretsPropertiesFile.load(FileInputStream(secretsProperties))
+
+val versionProperties = rootProject.file("version.properties")
+val versionPropertiesFile = Properties()
+versionPropertiesFile.load(FileInputStream(versionProperties))
+
+var appVersionCode = Integer.parseInt(versionPropertiesFile["versionCode"].toString())
+var major = Integer.parseInt(versionPropertiesFile["major"].toString())
+var minor = Integer.parseInt(versionPropertiesFile["minor"].toString())
+var patch = Integer.parseInt(versionPropertiesFile["patch"].toString())
+var libVersion = "$major.$minor.$patch"
 
 android {
     namespace = "com.isakaro.kwik"
@@ -63,29 +81,15 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("release") {
-            groupId = project.property("GROUP_ID") as String
-            artifactId = project.property("ARTIFACT_ID") as String
-            version = project.property("VERSION_NAME") as String
+        create<MavenPublication>("kwikUiRelease") {
+            groupId = "com.isakaro"
+            artifactId = "kwik-ui"
+            version = libVersion
 
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
             pom {
                 name = "KwikUI"
                 description = "A Jetpack Compose library for building UI components."
-                url = "http://www.example.com/library"
-                properties = mapOf(
-                    "myProp" to "value",
-                    "prop.with.dots" to "anotherValue"
-                )
+                url = "https://github.com/isakaro/kwik-ui-android"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -102,7 +106,7 @@ publishing {
                 scm {
                     connection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
                     developerConnection = "scm:git:ssh://github.com/isakaro/kwik-ui-android.git"
-                    url = "https://github.com/isakaro/kwik-ui-android.git"
+                    url = "https://github.com/isakaro/kwik-ui-android"
                 }
             }
         }
@@ -110,16 +114,85 @@ publishing {
 
     repositories {
         maven {
-            name = "OSSRH"
+            name = "MavenCentral"
             url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = project.findProperty("ossrhUsername") as String?
-                password = project.findProperty("ossrhPassword") as String?
+                username =  secretsPropertiesFile["ossrhUsername"].toString()
+                password =  secretsPropertiesFile["ossrhPassword"].toString()
             }
         }
     }
 }
 
 signing {
-    sign(publishing.publications["mavenJava"])
+    sign(publishing.publications["kwikUiRelease"])
+}
+
+task("updateVersionCode") {
+    doFirst {
+        appVersionCode++
+        versionPropertiesFile.setProperty("versionCode", "$appVersionCode")
+    }
+}
+
+task("getVersion") {
+    val type = properties["type"].toString()
+
+    when(type) {
+        "code" -> println("$appVersionCode")
+        "name" -> println("$major.$minor.$patch")
+    }
+}
+
+/*
+ * [commitMessage] is passed as argument to this gradle task in command line
+ * for example: gradle updateVersion -PcommitMessage="[major]"
+ * patch will be incremented if no commitMessage is specified
+ * */
+tasks.register("updateVersion") {
+    val commitMessage = properties["commitMessage"].toString()
+
+    if (!commitMessage.contains("[skip-version-code]")) {
+        dependsOn("updateVersionCode")
+    }
+
+    doFirst {
+        if (!commitMessage.contains("[skip-version-name]")) {
+            when {
+                commitMessage.contains("[major]") -> {
+                    major++; versionPropertiesFile.setProperty("major", "$major")
+                    minor = 0; versionPropertiesFile.setProperty("minor", "$minor")
+                    patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
+                }
+
+                commitMessage.contains("[minor]") -> {
+                    if (minor + 1 > 999) {
+                        major++; versionPropertiesFile.setProperty("major", "$major")
+                        minor = 0; versionPropertiesFile.setProperty("minor", "$minor")
+                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
+                    } else {
+                        minor++; versionPropertiesFile.setProperty("minor", "$minor")
+                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
+                    }
+                }
+
+                else -> {
+                    if (patch + 1 > 999) {
+                        minor++; versionPropertiesFile.setProperty("minor", "$minor")
+                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
+                    } else {
+                        patch++; versionPropertiesFile.setProperty("patch", "$patch")
+                    }
+                }
+            }
+        }
+        versionPropertiesFile.store(
+            FileOutputStream(rootProject.file("version.properties")),
+            "v$major.$minor.$patch | code=$appVersionCode"
+        )
+    }
+
+    doLast {
+        println("$major.$minor.$patch")
+    }
 }
