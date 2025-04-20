@@ -1,5 +1,5 @@
 import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -12,9 +12,17 @@ plugins {
     alias(libs.plugins.android.documentation.plugin)
 }
 
-val secretsProperties = rootProject.file("secrets.properties")
-val secretsPropertiesFile = Properties()
-secretsPropertiesFile.load(FileInputStream(secretsProperties))
+object Meta {
+    const val Descripton = "A Jetpack Compose library for building UI components."
+    const val License = "Apache-2.0"
+    const val GithubRepository = "isakaro/kwik-ui-android"
+    const val Release = "https://s01.oss.sonatype.org/service/local/"
+    const val Snapshot = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+}
+
+val secretsPropertiesFile = rootProject.file("secrets.properties")
+val secretsProperties = Properties()
+secretsProperties.load(FileInputStream(secretsPropertiesFile))
 
 val versionProperties = rootProject.file("version.properties")
 val versionPropertiesFile = Properties()
@@ -79,17 +87,72 @@ dependencies {
     coreLibraryDesugaring(libs.desugaring)
 }
 
+val sonatypeUsername = secretsProperties["ossrhUsername"].toString()
+val sonatypePassword = secretsProperties["ossrhPassword"].toString()
+val signingKeyId = secretsProperties["signing.keyId"].toString()
+val signingPassword = secretsProperties["signing.password"].toString()
+val signingKey = secretsProperties["signing.key"].toString()
+
+tasks.register<Zip>("bundleForMavenCentral") {
+    group = "publishing"
+    description = "Creates a bundle zip file for uploading to Maven Central"
+    archiveFileName.set("central-bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("distributions"))
+    dependsOn("publishToMavenLocal")
+
+    from(layout.buildDirectory.dir("publications")) {
+        include("**/*.pom")
+        include("**/*.jar")
+        include("**/*.aar")
+        include("**/*.module")
+        include("**/*.asc")
+    }
+}
+
+tasks.register<Exec>("uploadToMavenCentral") {
+    group = "publishing"
+    description = "Uploads the bundle to Maven Central"
+    dependsOn("bundleForMavenCentral")
+
+    commandLine(
+        "curl",
+        "--request", "POST",
+        "--verbose",
+        "--header", "Authorization: Bearer ${sonatypeUsername}:${sonatypePassword}".toBase64(),
+        "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
+        "https://central.sonatype.com/api/v1/publisher/upload"
+    )
+}
+
+fun String.toBase64(): String {
+    return Base64.getEncoder().encodeToString(this.toByteArray())
+}
+
+val dokkaJavadoc by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+
+tasks.register<Jar>("javadocJar") {
+    archiveClassifier.set("javadoc")
+    dependsOn(dokkaJavadoc)
+    from(dokkaJavadoc.outputDirectory)
+}
+
+tasks.register<Jar>("sourcesJar") {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
 publishing {
     publications {
-        register<MavenPublication>("release") {
+        create<MavenPublication>("release") {
             groupId = "com.isakaro"
             artifactId = "kwik-ui"
             version = libVersion
 
             pom {
                 name = "KwikUI"
-                description = "A Jetpack Compose library for building UI components."
-                url = "https://github.com/isakaro/kwik-ui-android"
+                description = ""
+                url = "https://github.com/${Meta.GithubRepository}"
+                inceptionYear = "2020"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -101,28 +164,18 @@ publishing {
                         id = "isakaro"
                         name = "Isakaro"
                         email = "ganza@isakaro.com"
+                        organizationUrl = "https://isakaro.com"
                     }
                 }
                 scm {
-                    connection = "scm:git:https://github.com/isakaro/kwik-ui-android.git"
-                    developerConnection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
-                    url = "https://github.com/isakaro/kwik-ui-android"
+                    connection = "scm:git:git://github.com/${Meta.GithubRepository}.git"
+                    developerConnection = "scm:git:ssh://git@github.com/${Meta.GithubRepository}.git"
+                    url = "https://github.com/${Meta.GithubRepository}"
                 }
-            }
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = secretsPropertiesFile["ossrhUsername"].toString()
-                password = secretsPropertiesFile["ossrhPassword"].toString()
+                issueManagement {
+                    system.set("GitHub")
+                    url = "https://github.com/${Meta.GithubRepository}/issues"
+                }
             }
         }
     }
@@ -131,73 +184,4 @@ publishing {
 signing {
     useGpgCmd()
     sign(publishing.publications["release"])
-}
-
-task("updateVersionCode") {
-    doFirst {
-        appVersionCode++
-        versionPropertiesFile.setProperty("versionCode", "$appVersionCode")
-    }
-}
-
-task("getVersion") {
-    val type = properties["type"].toString()
-
-    when(type) {
-        "code" -> println("$appVersionCode")
-        "name" -> println("$major.$minor.$patch")
-    }
-}
-
-/*
- * [commitMessage] is passed as argument to this gradle task in command line
- * for example: gradle updateVersion -PcommitMessage="[major]"
- * patch will be incremented if no commitMessage is specified
- * */
-tasks.register("updateVersion") {
-    val commitMessage = properties["commitMessage"].toString()
-
-    if (!commitMessage.contains("[skip-version-code]")) {
-        dependsOn("updateVersionCode")
-    }
-
-    doFirst {
-        if (!commitMessage.contains("[skip-version-name]")) {
-            when {
-                commitMessage.contains("[major]") -> {
-                    major++; versionPropertiesFile.setProperty("major", "$major")
-                    minor = 0; versionPropertiesFile.setProperty("minor", "$minor")
-                    patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
-                }
-
-                commitMessage.contains("[minor]") -> {
-                    if (minor + 1 > 999) {
-                        major++; versionPropertiesFile.setProperty("major", "$major")
-                        minor = 0; versionPropertiesFile.setProperty("minor", "$minor")
-                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
-                    } else {
-                        minor++; versionPropertiesFile.setProperty("minor", "$minor")
-                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
-                    }
-                }
-
-                else -> {
-                    if (patch + 1 > 999) {
-                        minor++; versionPropertiesFile.setProperty("minor", "$minor")
-                        patch = 0; versionPropertiesFile.setProperty("patch", "$patch")
-                    } else {
-                        patch++; versionPropertiesFile.setProperty("patch", "$patch")
-                    }
-                }
-            }
-        }
-        versionPropertiesFile.store(
-            FileOutputStream(rootProject.file("version.properties")),
-            "v$major.$minor.$patch | code=$appVersionCode"
-        )
-    }
-
-    doLast {
-        println("$major.$minor.$patch")
-    }
 }
