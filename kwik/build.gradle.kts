@@ -81,7 +81,7 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("kwikUiRelease") {
+        register<MavenPublication>("release") {
             groupId = "com.isakaro"
             artifactId = "kwik-ui"
             version = libVersion
@@ -109,6 +109,10 @@ publishing {
                     url = "https://github.com/isakaro/kwik-ui-android"
                 }
             }
+
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 
@@ -126,7 +130,7 @@ publishing {
 
 signing {
     useGpgCmd()
-    sign(publishing.publications["kwikUiRelease"])
+    sign(publishing.publications["release"])
 }
 
 task("updateVersionCode") {
