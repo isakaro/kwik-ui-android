@@ -11,6 +11,7 @@
 .kotlin
 .keystore
 .DS_Store
+secrets.properties
 /build
 /**/build
 Kwik-catalog/build/

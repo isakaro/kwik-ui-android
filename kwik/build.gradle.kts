@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("maven-publish")
+    id("signing")
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.documentation.plugin)
 }
@@ -93,17 +94,32 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = "charlesganza"
-                        name = "Charles Lwanga"
+                        id = "isakaro"
+                        name = "Isakaro"
                         email = "ganza@isakaro.com"
                     }
                 }
                 scm {
-                    connection = "scm:git:git://example.com/my-library.git"
-                    developerConnection = "scm:git:ssh://example.com/my-library.git"
-                    url = "http://gith.com/my-library/"
+                    connection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
+                    developerConnection = "scm:git:ssh://github.com/isakaro/kwik-ui-android.git"
+                    url = "https://github.com/isakaro/kwik-ui-android.git"
                 }
             }
         }
     }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername") as String?
+                password = project.findProperty("ossrhPassword") as String?
+            }
+        }
+    }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
 }
