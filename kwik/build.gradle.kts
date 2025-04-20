@@ -1,5 +1,6 @@
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -12,9 +13,17 @@ plugins {
     alias(libs.plugins.android.documentation.plugin)
 }
 
-val secretsProperties = rootProject.file("secrets.properties")
-val secretsPropertiesFile = Properties()
-secretsPropertiesFile.load(FileInputStream(secretsProperties))
+object Meta {
+    const val Descripton = "A Jetpack Compose library for building UI components."
+    const val License = "Apache-2.0"
+    const val GithubRepository = "isakaro/kwik-ui-android"
+    const val Release = "https://s01.oss.sonatype.org/service/local/"
+    const val Snapshot = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+}
+
+val secretsPropertiesFile = rootProject.file("secrets.properties")
+val secretsProperties = Properties()
+secretsProperties.load(FileInputStream(secretsPropertiesFile))
 
 val versionProperties = rootProject.file("version.properties")
 val versionPropertiesFile = Properties()
@@ -79,17 +88,59 @@ dependencies {
     coreLibraryDesugaring(libs.desugaring)
 }
 
+val sonatypeUsername = secretsProperties["ossrhUsername"].toString()
+val sonatypePassword = secretsProperties["ossrhPassword"].toString()
+val signingKeyId = secretsProperties["signing.keyId"].toString()
+val signingPassword = secretsProperties["signing.password"].toString()
+val signingKey = secretsProperties["signing.key"].toString()
+
+tasks.register<Zip>("bundleForMavenCentral") {
+    group = "publishing"
+    description = "Creates a bundle zip file for uploading to Maven Central"
+    archiveFileName.set("central-bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("distributions"))
+    dependsOn("publishToMavenLocal")
+
+    from(layout.buildDirectory.dir("publications")) {
+        include("**/*.pom")
+        include("**/*.jar")
+        include("**/*.aar")
+        include("**/*.module")
+        include("**/*.asc")
+    }
+}
+
+tasks.register<Exec>("uploadToMavenCentral") {
+    group = "publishing"
+    description = "Uploads the bundle to Maven Central"
+    dependsOn("bundleForMavenCentral")
+
+    commandLine(
+        "curl",
+        "--request", "POST",
+        "--verbose",
+        "--header", "Authorization: Bearer ${sonatypeUsername}:${sonatypePassword}".toBase64(),
+        "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
+        "https://central.sonatype.com/api/v1/publisher/upload"
+    )
+}
+
+fun String.toBase64(): String {
+    return Base64.getEncoder().encodeToString(this.toByteArray())
+}
+
 publishing {
     publications {
-        create<MavenPublication>("kwikUiRelease") {
+        create<MavenPublication>("release") {
             groupId = "com.isakaro"
             artifactId = "kwik-ui"
             version = libVersion
 
             pom {
                 name = "KwikUI"
-                description = "A Jetpack Compose library for building UI components."
-                url = "https://github.com/isakaro/kwik-ui-android"
+                description = ""
+                url = "https://github.com/${Meta.GithubRepository}"
+                inceptionYear = "2020"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -101,31 +152,25 @@ publishing {
                         id = "isakaro"
                         name = "Isakaro"
                         email = "ganza@isakaro.com"
+                        organizationUrl = "https://isakaro.com"
                     }
                 }
                 scm {
-                    connection = "scm:git:git@github.com/isakaro/kwik-ui-android.git"
-                    developerConnection = "scm:git:ssh://github.com/isakaro/kwik-ui-android.git"
-                    url = "https://github.com/isakaro/kwik-ui-android"
+                    connection = "scm:git:git://github.com/${Meta.GithubRepository}.git"
+                    developerConnection = "scm:git:ssh://git@github.com/${Meta.GithubRepository}.git"
+                    url = "https://github.com/${Meta.GithubRepository}"
                 }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username =  secretsPropertiesFile["ossrhUsername"].toString()
-                password =  secretsPropertiesFile["ossrhPassword"].toString()
+                issueManagement {
+                    system.set("GitHub")
+                    url = "https://github.com/${Meta.GithubRepository}/issues"
+                }
             }
         }
     }
 }
 
 signing {
-    sign(publishing.publications["kwikUiRelease"])
+    sign(publishing.publications["release"])
 }
 
 task("updateVersionCode") {
