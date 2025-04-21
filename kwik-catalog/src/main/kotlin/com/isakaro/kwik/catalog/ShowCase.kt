@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.ui.appbar.KwikAppBar
+import com.isakaro.kwik.catalog.appabr.KwikAppBar
 import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
 
