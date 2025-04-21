@@ -1,7 +1,6 @@
 package com.isakaro.kwik.catalog.biometrics
 
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.biometric.BiometricManager
 import androidx.compose.runtime.Composable
 import com.isakaro.kwik.catalog.R
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
