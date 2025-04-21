@@ -1,6 +1,5 @@
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -9,7 +8,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("maven-publish")
     id("signing")
-    id("com.vanniktech.maven.publish") version "0.31.0"
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.documentation.plugin)
 }
@@ -63,12 +61,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/*"
-        }
-    }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -93,41 +85,6 @@ val signingKeyId = secretsProperties["signing.keyId"].toString()
 val signingPassword = secretsProperties["signing.password"].toString()
 val signingKey = secretsProperties["signing.key"].toString()
 
-tasks.register<Zip>("bundleForMavenCentral") {
-    group = "publishing"
-    description = "Creates a bundle zip file for uploading to Maven Central"
-    archiveFileName.set("central-bundle.zip")
-    destinationDirectory.set(layout.buildDirectory.dir("distributions"))
-    dependsOn("publishToMavenLocal")
-
-    from(layout.buildDirectory.dir("publications")) {
-        include("**/*.pom")
-        include("**/*.jar")
-        include("**/*.aar")
-        include("**/*.module")
-        include("**/*.asc")
-    }
-}
-
-tasks.register<Exec>("uploadToMavenCentral") {
-    group = "publishing"
-    description = "Uploads the bundle to Maven Central"
-    dependsOn("bundleForMavenCentral")
-
-    commandLine(
-        "curl",
-        "--request", "POST",
-        "--verbose",
-        "--header", "Authorization: Bearer " + "${mavenUsername}:${mavenToken}".toBase64(),
-        "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
-        "https://central.sonatype.com/api/v1/publisher/upload"
-    )
-}
-
-fun String.toBase64(): String {
-    return Base64.getEncoder().encodeToString(this.toByteArray())
-}
-
 publishing {
     publications {
         create<MavenPublication>("release") {
@@ -137,7 +94,7 @@ publishing {
 
             pom {
                 name = "KwikUI"
-                description = ""
+                description = Meta.Descripton
                 url = "https://github.com/${Meta.GithubRepository}"
                 inceptionYear = "2025"
                 licenses {
@@ -149,7 +106,7 @@ publishing {
                 developers {
                     developer {
                         id = "isakaro"
-                        name = "Isakaro"
+                        name = "Isakaro Real Estate"
                         email = "ganza@isakaro.com"
                         organizationUrl = "https://isakaro.com"
                     }

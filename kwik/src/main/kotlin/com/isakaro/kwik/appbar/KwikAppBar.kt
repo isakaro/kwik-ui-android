@@ -22,7 +22,7 @@ import com.isakaro.kwik.text.KwikText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-public fun KwikAppBar(
+fun KwikAppBar(
     title: String,
     subtitle: String? = null,
     navigationIcon: Any = Icons.AutoMirrored.Filled.ArrowBack,
