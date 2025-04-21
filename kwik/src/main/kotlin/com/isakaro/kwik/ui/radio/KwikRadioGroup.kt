@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 @Composable
 fun <T> ColumnScope.KwikRadioButtonGroup(
@@ -91,15 +90,13 @@ private fun KwikRadioButtonGroupPreview() {
         KwikRadioItem("Shipwreck Cove", 141)
     )
 
-    KwikTheme {
-        Column {
-            KwikRadioButtonGroup(
-                options = colorOptions,
-                initialSelectedValue = 123,
-                onOptionSelected = {
+    Column {
+        KwikRadioButtonGroup(
+            options = colorOptions,
+            initialSelectedValue = 123,
+            onOptionSelected = {
 
-                }
-            )
-        }
+            }
+        )
     }
 }

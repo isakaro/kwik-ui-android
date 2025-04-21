@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
 * RadioButton composable that uses KwikText.BodyText for the text
@@ -49,11 +48,9 @@ fun KwikRadioButton(
 @Preview
 @Composable
 private fun KwikRadioButtonPreview(){
-    KwikTheme {
-        KwikRadioButton(
-            text = "Tortuga",
-            selected = true,
-            onClick = {}
-        )
-    }
+    KwikRadioButton(
+        text = "Tortuga",
+        selected = true,
+        onClick = {}
+    )
 }

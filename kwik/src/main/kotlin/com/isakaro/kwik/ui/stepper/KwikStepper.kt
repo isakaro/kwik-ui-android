@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * The state of the stepper
@@ -261,13 +260,11 @@ private fun KwikStepperItem(
 @Preview
 @Composable
 private fun KwikStepperPreview() {
-    KwikTheme {
-        val state = rememberKwikStepperState(
-            listOf("Step 1", "Step 2", "Step 3", "Step 4")
-        )
+    val state = rememberKwikStepperState(
+        listOf("Step 1", "Step 2", "Step 3", "Step 4")
+    )
 
-        KwikStepper(
-            state = state
-        )
-    }
+    KwikStepper(
+        state = state
+    )
 }

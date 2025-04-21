@@ -7,8 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.rating.KwikRatingBar
-import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.ui.rating.KwikRatingBar
+import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer

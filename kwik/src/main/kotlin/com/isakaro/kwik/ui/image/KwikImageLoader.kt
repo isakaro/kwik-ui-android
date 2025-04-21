@@ -17,7 +17,7 @@ import coil.request.ImageRequest
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 
 /**
  * An image loader that uses Coil to load images.

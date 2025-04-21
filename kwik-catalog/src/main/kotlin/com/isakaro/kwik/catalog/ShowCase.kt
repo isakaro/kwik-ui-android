@@ -17,9 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.appbar.KwikAppBar
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.ui.appbar.KwikAppBar
+import com.isakaro.kwik.ui.spacer.KwikVSpacer
+import com.isakaro.kwik.ui.text.KwikText
 
 @Composable
 internal fun ShowCase(

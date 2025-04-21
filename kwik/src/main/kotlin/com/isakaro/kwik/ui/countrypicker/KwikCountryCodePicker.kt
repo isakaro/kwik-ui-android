@@ -41,7 +41,6 @@ import com.isakaro.kwik.ui.dialog.KwikDialog
 import com.isakaro.kwik.ui.spacer.KwikHSpacer
 import com.isakaro.kwik.ui.inputfields.KwikSearchView
 import com.isakaro.kwik.ui.inputfields.kwikTextFieldColors
-import com.isakaro.kwik.ui.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.KwikCountry
 import com.isakaro.kwik.ui.utils.KwikCountryInfo
 import com.isakaro.kwik.ui.utils.countryList
@@ -235,37 +234,31 @@ fun KwikCountryCodeItem(
 @Preview
 @Composable
 private fun KwikCountryCodePickerPreview(){
-    KwikTheme {
-        KwikCountryCodePicker(
-            state = rememberLazyListState(),
-            onSelect = {
+    KwikCountryCodePicker(
+        state = rememberLazyListState(),
+        onSelect = {
 
-            },
-        )
-    }
+        },
+    )
 }
 
 @Preview
 @Composable
 private fun KwikCountryCodeButtonPreview(){
-    KwikTheme {
-        KwikCountryCodeButton(
-            country = countryList.random(),
-            onClick = {}
-        )
-    }
+    KwikCountryCodeButton(
+        country = countryList.random(),
+        onClick = {}
+    )
 }
 
 @Preview
 @Composable
 private fun KwikCountryCodeButtonWithFlagsPreview(){
-    KwikTheme {
-        KwikCountryCodeButton(
-            country = countryList.random(),
-            showFlags = true,
-            showDialingCode = true,
-            showCountryCode = true,
-            onClick = {}
-        )
-    }
+    KwikCountryCodeButton(
+        country = countryList.random(),
+        showFlags = true,
+        showDialingCode = true,
+        showCountryCode = true,
+        onClick = {}
+    )
 }

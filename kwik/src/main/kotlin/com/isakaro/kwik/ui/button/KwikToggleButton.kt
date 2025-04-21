@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.card.KwikCard
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -209,15 +208,13 @@ data class KwikToggleGroupOption<T>(
 @Preview
 @Composable
 private fun KwikToggleGroupPreview() {
-    KwikTheme {
-        KwikToggleGroup(
-            options = listOf(
-                KwikToggleGroupOption("Option 1", 1),
-                KwikToggleGroupOption("Option 2", 2),
-                KwikToggleGroupOption("Option 3", 3),
-            ),
-            selectedOption = 2,
-            onOptionSelected = {}
-        )
-    }
+    KwikToggleGroup(
+        options = listOf(
+            KwikToggleGroupOption("Option 1", 1),
+            KwikToggleGroupOption("Option 2", 2),
+            KwikToggleGroupOption("Option 3", 3),
+        ),
+        selectedOption = 2,
+        onOptionSelected = {}
+    )
 }

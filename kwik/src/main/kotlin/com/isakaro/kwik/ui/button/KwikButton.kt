@@ -39,12 +39,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.loading.KwikCircularLoading
 import com.isakaro.kwik.ui.spacer.KwikHSpacer
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 enum class KwikButtonLoadingStyle {
     CIRCULAR,
@@ -373,34 +372,28 @@ fun KwikFloatingActionButton(
 @Preview
 @Composable
 fun KwikButtonPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            onClick = {  }
-        )
-    }
+    KwikButton(
+        text = "Click me",
+        onClick = {  }
+    )
 }
 
 @Preview
 @Composable
 fun KwikButtonWithLeadingIconPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            leadingIcon = R.drawable.shield,
-            onClick = {  }
-        )
-    }
+    KwikButton(
+        text = "Click me",
+        leadingIcon = Icons.AutoMirrored.Filled.ArrowForward,
+        onClick = {  }
+    )
 }
 
 @Preview
 @Composable
 fun KwikButtonWithTrailingIconPreview() {
-    KwikTheme {
-        KwikButton(
-            text = "Click me",
-            trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
-            onClick = {  }
-        )
-    }
+    KwikButton(
+        text = "Click me",
+        trailingIcon = Icons.AutoMirrored.Filled.ArrowForward,
+        onClick = {  }
+    )
 }

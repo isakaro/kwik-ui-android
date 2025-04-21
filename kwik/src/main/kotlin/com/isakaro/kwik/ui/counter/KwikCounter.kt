@@ -26,9 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * A counter component that allows the user to increment or decrement a value.
@@ -148,11 +147,9 @@ fun KwikCounter(
 @Preview
 @Composable
 private fun KwikCounterPreview() {
-    KwikTheme {
-        KwikCounter(
-            label = "Counter",
-            initialValue = 2,
-            onValueChange = {}
-        )
-    }
+    KwikCounter(
+        label = "Counter",
+        initialValue = 2,
+        onValueChange = {}
+    )
 }

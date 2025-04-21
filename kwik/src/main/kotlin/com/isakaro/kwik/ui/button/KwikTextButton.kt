@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.loading.KwikCircularLoading
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
 * Simple text button
@@ -128,7 +127,5 @@ fun KwikTextButton(
 @Preview
 @Composable
 private fun KwikTextButtonPreview() {
-    KwikTheme {
-        KwikTextButton(text = "Button")
-    }
+    KwikTextButton(text = "Button")
 }

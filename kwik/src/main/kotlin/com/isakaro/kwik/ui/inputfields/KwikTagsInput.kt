@@ -45,7 +45,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 import com.isakaro.kwik.ui.button.KwikButton
 import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.counter.KwikCounter
@@ -56,7 +56,6 @@ import com.isakaro.kwik.ui.theme.KwikColorFilledTextFieldFocused
 import com.isakaro.kwik.ui.theme.KwikColorFilledTextFieldFocusedDarkMode
 import com.isakaro.kwik.ui.theme.KwikColorFilledTextFieldUnfocused
 import com.isakaro.kwik.ui.theme.KwikColorFilledTextFieldUnfocusedDarkMode
-import com.isakaro.kwik.ui.theme.KwikTheme
 import com.isakaro.kwik.ui.toast.KwikToast
 import com.isakaro.kwik.ui.toast.rememberKwikToastState
 import com.isakaro.kwik.ui.toast.showToast
@@ -464,15 +463,13 @@ private fun PreviewKwikTagsInput() {
 
     var currentTags by remember { mutableStateOf(initialTags) }
 
-    KwikTheme {
-        KwikTagsInput(
-            items = sampleTags,
-            placeholder = "Enter or select your destination",
-            initialValues = initialTags,
-            withQuantity = true,
-            onTagsChanged = { newTags ->
-                currentTags = newTags
-            }
-        )
-    }
+    KwikTagsInput(
+        items = sampleTags,
+        placeholder = "Enter or select your destination",
+        initialValues = initialTags,
+        withQuantity = true,
+        onTagsChanged = { newTags ->
+            currentTags = newTags
+        }
+    )
 }

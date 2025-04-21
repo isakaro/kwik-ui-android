@@ -8,10 +8,8 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
-import com.isakaro.kwik.catalog.appbar.KwikAppBarScreen
 import com.isakaro.kwik.catalog.avatar.KwikAvatarScreen
 import com.isakaro.kwik.catalog.biometrics.KwikBiometricsScreen
-import com.isakaro.kwik.catalog.bottomsheet.KwikBottomSheetScreen
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreen
 import com.isakaro.kwik.catalog.bottomtabs.KwikBottomTabsScreenStyled
 import com.isakaro.kwik.catalog.button.KwikButtonScreen
@@ -43,10 +41,8 @@ import com.isakaro.kwik.catalog.toast.KwikToastScreen
 import com.isakaro.kwik.catalog.typography.KwikTypographyScreen
 import com.isakaro.kwik.catalog.webview.KwikWebViewScreen
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
-import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
 import com.isakaro.kwik.destinations.KwikBiometricsScreenDestination
-import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
@@ -78,7 +74,7 @@ import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
 import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.ui.theme.KwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
@@ -119,9 +115,6 @@ class MainActivity: ComponentActivity() {
                         composable(KwikAccordionScreenDestination) {
                             KwikAccordionScreen()
                         }
-                        composable(KwikAppBarScreenDestination) {
-                            KwikAppBarScreen()
-                        }
                         composable(KwikButtonScreenDestination) {
                             KwikButtonScreen()
                         }
@@ -142,9 +135,6 @@ class MainActivity: ComponentActivity() {
                         }
                         composable(KwikDropDownScreenDestination) {
                             KwikDropDownScreen()
-                        }
-                        composable(KwikBottomSheetScreenDestination) {
-                            KwikBottomSheetScreen()
                         }
                         composable(KwikTabScreenDestination) {
                             KwikTabScreen()

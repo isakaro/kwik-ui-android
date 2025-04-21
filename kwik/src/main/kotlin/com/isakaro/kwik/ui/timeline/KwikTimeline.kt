@@ -41,7 +41,6 @@ import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.card.KwikCard
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * Data class representing a single entry in the timeline
@@ -272,10 +271,8 @@ private fun KwikTimelineExample() {
         )
     )
 
-    KwikTheme {
-        KwikVerticalTimeline(
-            entries = timelineEntries,
-            currentStepIndex = 1
-        )
-    }
+    KwikVerticalTimeline(
+        entries = timelineEntries,
+        currentStepIndex = 1
+    )
 }

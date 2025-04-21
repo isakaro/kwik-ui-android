@@ -6,13 +6,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.counter.KwikCounter
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.ui.counter.KwikCounter
+import com.isakaro.kwik.ui.text.KwikText
+import com.isakaro.kwik.ui.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

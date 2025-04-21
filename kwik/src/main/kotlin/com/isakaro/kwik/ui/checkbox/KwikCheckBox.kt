@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 @Composable
 fun KwikCheckBox(
@@ -103,13 +102,11 @@ fun KwikTriStateCheckBox(
 @Preview
 @Composable
 private fun KwikCheckboxPreview() {
-    KwikTheme {
-        KwikCheckBox(
-            checked = true,
-            onCheckedChange = {},
-            text = "Checkbox"
-        )
-    }
+    KwikCheckBox(
+        checked = true,
+        onCheckedChange = {},
+        text = "Checkbox"
+    )
 }
 
 @Preview

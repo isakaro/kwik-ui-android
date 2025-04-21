@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -21,7 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
+import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.text.KwikText
 
 /**
@@ -49,7 +52,7 @@ fun KwikDropDownButton(
     modifier: Modifier = Modifier,
     label: String = "",
     text: String,
-    @DrawableRes leadingIcon: Int? = null,
+    leadingIcon: Any? = null,
     onClick: () -> Unit
 ) {
     Column(
@@ -84,10 +87,9 @@ fun KwikDropDownButton(
                     .padding(horizontal = 8.dp),
             ) {
                 if(leadingIcon != null){
-                    Icon(
-                        painter = painterResource(id = leadingIcon),
+                    KwikImageView(
+                        url = leadingIcon,
                         tint = Color.DarkGray,
-                        contentDescription = null,
                     )
                 }
 
@@ -98,7 +100,7 @@ fun KwikDropDownButton(
 
                 Icon(
                     modifier = Modifier.align(Alignment.CenterEnd),
-                    painter = painterResource(id = R.drawable.arrow_down),
+                    imageVector = Icons.Default.KeyboardArrowDown,
                     tint = Color.DarkGray,
                     contentDescription = null,
                 )
@@ -112,7 +114,7 @@ fun KwikDropDownButton(
 private fun KwikDropDownButtonPreview() {
     KwikDropDownButton(
         label = "Language",
-        leadingIcon = R.drawable.shield,
+        leadingIcon = Icons.Default.KeyboardArrowDown,
         text = "Kinyarwanda",
         onClick = {}
     )

@@ -42,7 +42,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.image.KwikImageLoader
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -459,33 +458,31 @@ fun KwikImageCarousel(
 @Preview
 @Composable
 private fun KwikCarouselPreview() {
-    KwikTheme {
-        val kwikCarouselState = rememberKwikCarouselState(
-            KwikCarouselState(
-                itemCount = 3,
-                initialIndex = 0
-            )
+    val kwikCarouselState = rememberKwikCarouselState(
+        KwikCarouselState(
+            itemCount = 3,
+            initialIndex = 0
         )
+    )
 
-        KwikCarousel(
-            state = kwikCarouselState,
-            showNavigation = true,
-            contentBuilder = { page ->
-                Box(
-                    modifier = Modifier
-                        .size(200.dp)
-                        .background(
-                            when (page) {
-                                0 -> Color.Red
-                                1 -> Color.Green
-                                else -> Color.Blue
-                            }
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    KwikText.TitleSmall(text = "Page ${page + 1}", color = Color.White)
-                }
+    KwikCarousel(
+        state = kwikCarouselState,
+        showNavigation = true,
+        contentBuilder = { page ->
+            Box(
+                modifier = Modifier
+                    .size(200.dp)
+                    .background(
+                        when (page) {
+                            0 -> Color.Red
+                            1 -> Color.Green
+                            else -> Color.Blue
+                        }
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                KwikText.TitleSmall(text = "Page ${page + 1}", color = Color.White)
             }
-        )
-    }
+        }
+    )
 }

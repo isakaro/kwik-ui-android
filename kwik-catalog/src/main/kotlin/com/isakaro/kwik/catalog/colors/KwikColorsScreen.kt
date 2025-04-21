@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.helpers.KwikCenterColumn
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.spacer.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.ui.helpers.KwikCenterColumn
+import com.isakaro.kwik.ui.spacer.KwikVSpacer
+import com.isakaro.kwik.ui.text.KwikText
+import com.isakaro.kwik.ui.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

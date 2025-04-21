@@ -12,18 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.button.KwikButton
-import com.isakaro.kwik.button.KwikIconButton
-import com.isakaro.kwik.stepper.KwikStepper
+import com.isakaro.kwik.ui.button.KwikButton
+import com.isakaro.kwik.ui.button.KwikIconButton
+import com.isakaro.kwik.ui.stepper.KwikStepper
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
-import com.isakaro.kwik.stepper.clearAll
-import com.isakaro.kwik.stepper.completeAll
-import com.isakaro.kwik.stepper.moveBackward
-import com.isakaro.kwik.stepper.moveForward
+import com.isakaro.kwik.ui.stepper.clearAll
+import com.isakaro.kwik.ui.stepper.completeAll
+import com.isakaro.kwik.ui.stepper.moveBackward
+import com.isakaro.kwik.ui.stepper.moveForward
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.stepper.rememberKwikStepperState
+import com.isakaro.kwik.ui.stepper.rememberKwikStepperState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

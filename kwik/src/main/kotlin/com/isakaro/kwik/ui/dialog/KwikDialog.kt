@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.isakaro.R
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.ui.button.KwikTextButton
-import com.isakaro.kwik.catalog.R
 import com.isakaro.kwik.ui.button.KwikButton
 
 /**

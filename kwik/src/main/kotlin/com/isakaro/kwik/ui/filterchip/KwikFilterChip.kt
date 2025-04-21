@@ -31,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import java.util.UUID
 
 /**
@@ -278,13 +277,11 @@ private fun PreviewKwikFilterChips() {
 
     var selected by remember { mutableStateOf(filters) }
 
-    KwikTheme {
-        KwikFilterChips(
-            filters = filters,
-            preSelection = setOf(filters.random()),
-            filtersUpdated = { selected = it }
-        )
-    }
+    KwikFilterChips(
+        filters = filters,
+        preSelection = setOf(filters.random()),
+        filtersUpdated = { selected = it }
+    )
 }
 
 @Preview
@@ -300,12 +297,10 @@ private fun PreviewKwikFilterChipsInFlowLayout() {
 
     var selected by remember { mutableStateOf(filters) }
 
-    KwikTheme {
-        KwikFilterChips(
-            filters = filters,
-            flowLayout = true,
-            preSelection = setOf(filters.random()),
-            filtersUpdated = { selected = it }
-        )
-    }
+    KwikFilterChips(
+        filters = filters,
+        flowLayout = true,
+        preSelection = setOf(filters.random()),
+        filtersUpdated = { selected = it }
+    )
 }

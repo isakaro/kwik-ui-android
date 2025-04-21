@@ -15,18 +15,18 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.inputfields.KwikSearchView
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.toast.KwikToast
-import com.isakaro.kwik.spacer.KwikVSpacer
+import com.isakaro.kwik.ui.inputfields.KwikSearchView
+import com.isakaro.kwik.ui.text.KwikText
+import com.isakaro.kwik.ui.toast.KwikToast
+import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.toast.rememberKwikToastState
-import com.isakaro.kwik.toast.showToast
-import com.isakaro.kwik.theme.KwikTheme
-import com.isakaro.kwik.utils.text
+import com.isakaro.kwik.ui.toast.rememberKwikToastState
+import com.isakaro.kwik.ui.toast.showToast
+import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.ui.utils.text
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

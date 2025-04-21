@@ -59,7 +59,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -362,28 +361,24 @@ internal enum class LastInputType {
 @Preview
 @Composable
 private fun KwikSearchViewPreview() {
-    KwikTheme {
-        KwikSearchView(
-            modifier = Modifier.height(55.dp),
-            state = remember { mutableStateOf(TextFieldValue("")) },
-            onTextChange = {},
-            onTextCleared = {}
-        )
-    }
+    KwikSearchView(
+        modifier = Modifier.height(55.dp),
+        state = remember { mutableStateOf(TextFieldValue("")) },
+        onTextChange = {},
+        onTextCleared = {}
+    )
 }
 
 @Preview
 @Composable
 private fun KwikSearchViewWithErrorPreview() {
-    KwikTheme {
-        KwikSearchView(
-            modifier = Modifier.height(55.dp),
-            state = remember { mutableStateOf(TextFieldValue("")) },
-            onTextChange = {},
-            isError = true,
-            error = "This field is required",
-            onTextCleared = {}
-        )
-    }
+    KwikSearchView(
+        modifier = Modifier.height(55.dp),
+        state = remember { mutableStateOf(TextFieldValue("")) },
+        onTextChange = {},
+        isError = true,
+        error = "This field is required",
+        onTextCleared = {}
+    )
 }
 

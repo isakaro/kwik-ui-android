@@ -50,7 +50,6 @@ import com.isakaro.kwik.ui.countrypicker.KwikCountryCodeButton
 import com.isakaro.kwik.ui.countrypicker.KwikCountryPickerDialog
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.ui.theme.KwikColorSuccess
-import com.isakaro.kwik.ui.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.KwikCountryInfo
 import com.isakaro.kwik.ui.utils.countryList
 import com.isakaro.kwik.ui.utils.text
@@ -251,13 +250,11 @@ fun KwikOutlinedPhoneNumberField(
 private fun KwikOutlinedPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
-    KwikTheme {
-        KwikOutlinedPhoneNumberField(
-            value = value,
-            onValueChange = {},
-            onKeyboardDone = {},
-            label = "Phone number",
-            initialCountryInfo = countryList.random()
-        )
-    }
+    KwikOutlinedPhoneNumberField(
+        value = value,
+        onValueChange = {},
+        onKeyboardDone = {},
+        label = "Phone number",
+        initialCountryInfo = countryList.random()
+    )
 }

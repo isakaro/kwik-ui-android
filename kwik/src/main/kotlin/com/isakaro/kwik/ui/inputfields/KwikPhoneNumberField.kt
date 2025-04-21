@@ -50,7 +50,6 @@ import com.isakaro.kwik.ui.countrypicker.KwikCountryCodeButton
 import com.isakaro.kwik.ui.countrypicker.KwikCountryPickerDialog
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.ui.theme.KwikColorSuccess
-import com.isakaro.kwik.ui.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.KwikCountryInfo
 import com.isakaro.kwik.ui.utils.countryList
 import com.isakaro.kwik.ui.utils.text
@@ -210,15 +209,13 @@ fun KwikPhoneNumberField(
 private fun KwikPhoneNumberFieldPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
-    KwikTheme {
-        KwikPhoneNumberField(
-            value = value,
-            onValueChange = {},
-            onKeyboardDone = {},
-            label = "Phone number",
-            initialCountryInfo = countryList.random()
-        )
-    }
+    KwikPhoneNumberField(
+        value = value,
+        onValueChange = {},
+        onKeyboardDone = {},
+        label = "Phone number",
+        initialCountryInfo = countryList.random()
+    )
 }
 
 @Preview
@@ -226,15 +223,13 @@ private fun KwikPhoneNumberFieldPreview() {
 private fun KwikPhoneNumberFieldWithFlagPreview() {
     val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
 
-    KwikTheme {
-        KwikPhoneNumberField(
-            value = value,
-            showFlags = true,
-            showCountryCode = true,
-            onValueChange = {},
-            onKeyboardDone = {},
-            label = "Phone number",
-            initialCountryInfo = countryList.random()
-        )
-    }
+    KwikPhoneNumberField(
+        value = value,
+        showFlags = true,
+        showCountryCode = true,
+        onValueChange = {},
+        onKeyboardDone = {},
+        label = "Phone number",
+        initialCountryInfo = countryList.random()
+    )
 }

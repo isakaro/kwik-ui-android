@@ -18,10 +18,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.helpers.KwikCenterColumn
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * Handles biometric authentication in an activity
@@ -76,29 +75,27 @@ class KwikBiometricActivity : FragmentActivity() {
         biometricPrompt.authenticate(promptInfo)
 
         setContent {
-            KwikTheme {
-                Surface {
-                    KwikCenterColumn(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.fingerprint),
-                            contentDescription = "biometrics authentication",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier
-                                .size(60.dp)
-                                .padding(bottom = 4.dp)
-                        )
+            Surface {
+                KwikCenterColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.fingerprint),
+                        contentDescription = "biometrics authentication",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier
+                            .size(60.dp)
+                            .padding(bottom = 4.dp)
+                    )
 
-                        KwikTextButton(
-                            text = "Cancel Verification",
-                            onClick = {
-                                intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                                startActivity(intent)
-                                finish()
-                            }
-                        )
-                    }
+                    KwikTextButton(
+                        text = "Cancel Verification",
+                        onClick = {
+                            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                            startActivity(intent)
+                            finish()
+                        }
+                    )
                 }
             }
         }

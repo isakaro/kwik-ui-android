@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.catalog.R
 
 /**
  * An image view that can load images from resources, urls or vectors
@@ -68,12 +67,4 @@ fun KwikImageView(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun KwikImageViewPreview(){
-    KwikImageView(
-        url = painterResource(id = R.drawable.shield)
-    )
 }

@@ -14,18 +14,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.button.KwikButton
-import com.isakaro.kwik.button.KwikButtonLoadingStyle
-import com.isakaro.kwik.button.KwikExtendedFloatingActionButton
-import com.isakaro.kwik.button.KwikFloatingActionButton
-import com.isakaro.kwik.text.KwikText
-import com.isakaro.kwik.button.KwikTextButton
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.R
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.ui.button.KwikButton
+import com.isakaro.kwik.ui.button.KwikButtonLoadingStyle
+import com.isakaro.kwik.ui.button.KwikExtendedFloatingActionButton
+import com.isakaro.kwik.ui.button.KwikFloatingActionButton
+import com.isakaro.kwik.ui.button.KwikTextButton
+import com.isakaro.kwik.ui.text.KwikText
+import com.isakaro.kwik.ui.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -148,7 +148,7 @@ private fun ButtonWithIcon() {
     ShowCase("Icon Button") {
         KwikButton(
             text = "Action",
-            leadingIcon = R.drawable.kwikui_logo,
+            leadingIcon = R.drawable.qr_code_scanner,
             onClick = {}
         )
     }

@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.spacer.KwikHSpacer
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -293,12 +292,10 @@ private fun KwikTabsPreview() {
         list.size
     }
 
-    KwikTheme {
-        KwikHorizontalTab(
-            tabs = list,
-            pagerState = pagerState
-        )
-    }
+    KwikHorizontalTab(
+        tabs = list,
+        pagerState = pagerState
+    )
 }
 
 @Preview
@@ -334,10 +331,8 @@ private fun KwikTabsWithCounterPreview() {
         list.size
     }
 
-    KwikTheme {
-        KwikHorizontalTabs(
-            tabs = list,
-            pagerState = pagerState
-        )
-    }
+    KwikHorizontalTabs(
+        tabs = list,
+        pagerState = pagerState
+    )
 }

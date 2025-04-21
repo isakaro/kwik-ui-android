@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * A range slider component
@@ -106,12 +105,10 @@ fun KwikRangeSlider(
 fun KwikRangeSliderPreview() {
     var sliderPosition by remember { mutableStateOf(20f..80f) }
 
-    KwikTheme {
-        KwikRangeSlider(
-            value = sliderPosition,
-            onValueChange = { range ->
-                sliderPosition = range
-            }
-        )
-    }
+    KwikRangeSlider(
+        value = sliderPosition,
+        onValueChange = { range ->
+            sliderPosition = range
+        }
+    )
 }

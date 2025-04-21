@@ -17,16 +17,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.dropdown.KwikDropdown
-import com.isakaro.kwik.dropdown.KwikDropdownItem
-import com.isakaro.kwik.dropdown.KwikDropdownItemActionState
-import com.isakaro.kwik.button.KwikIconButton
-import com.isakaro.kwik.image.KwikImageView
-import com.isakaro.kwik.text.KwikText
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.ui.dropdown.KwikDropdown
+import com.isakaro.kwik.ui.dropdown.KwikDropdownItem
+import com.isakaro.kwik.ui.dropdown.KwikDropdownItemActionState
+import com.isakaro.kwik.ui.button.KwikIconButton
+import com.isakaro.kwik.ui.image.KwikImageView
+import com.isakaro.kwik.ui.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

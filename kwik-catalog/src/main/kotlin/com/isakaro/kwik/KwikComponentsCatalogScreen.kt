@@ -22,10 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.catalog.R
 import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
-import com.isakaro.kwik.destinations.KwikAppBarScreenDestination
 import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
 import com.isakaro.kwik.destinations.KwikBiometricsScreenDestination
-import com.isakaro.kwik.destinations.KwikBottomSheetScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
 import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
 import com.isakaro.kwik.destinations.KwikButtonScreenDestination
@@ -58,14 +56,14 @@ import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
 import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
-import com.isakaro.kwik.image.KwikImageView
-import com.isakaro.kwik.inputfields.KwikSearchView
-import com.isakaro.kwik.list.KwikLazyList
-import com.isakaro.kwik.list.KwikListItemAction
-import com.isakaro.kwik.list.KwikListItemActionState
-import com.isakaro.kwik.spacer.KwikHSpacer
-import com.isakaro.kwik.spacer.KwikVSpacer
-import com.isakaro.kwik.text.KwikText
+import com.isakaro.kwik.ui.image.KwikImageView
+import com.isakaro.kwik.ui.inputfields.KwikSearchView
+import com.isakaro.kwik.ui.list.KwikLazyList
+import com.isakaro.kwik.ui.list.KwikListItemAction
+import com.isakaro.kwik.ui.list.KwikListItemActionState
+import com.isakaro.kwik.ui.spacer.KwikHSpacer
+import com.isakaro.kwik.ui.spacer.KwikVSpacer
+import com.isakaro.kwik.ui.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -75,15 +73,6 @@ internal fun KwikComponentsCatalogScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
     val components = listOf(
-        KwikListItemActionState.Data(
-            KwikListItemAction(
-                title = "AppBar",
-                description = "Top app bar",
-                action = {
-                    navigator.navigate(KwikAppBarScreenDestination)
-                }
-            )
-        ),
         KwikListItemActionState.Data(
             KwikListItemAction(
                 title = "Permissions",
@@ -108,15 +97,6 @@ internal fun KwikComponentsCatalogScreen(
                 description = "Modern tab layout with support for counts and more",
                 action = {
                     navigator.navigate(KwikTabScreenDestination)
-                }
-            )
-        ),
-        KwikListItemActionState.Data(
-            KwikListItemAction(
-                title = "BottomSheet",
-                description = "Bottom sheet with support for multiple states",
-                action = {
-                    navigator.navigate(KwikBottomSheetScreenDestination)
                 }
             )
         ),

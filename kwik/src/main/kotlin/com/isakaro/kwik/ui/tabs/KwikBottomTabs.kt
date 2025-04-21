@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.helpers.KwikCenterColumn
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -239,11 +238,9 @@ private fun KwikBottomTabsWithCounterPreview() {
         navItems.size
     }
 
-    KwikTheme {
-        KwikBottomTabs(
-            modifier = Modifier.height(70.dp),
-            tabs = navItems,
-            pagerState = pagerState
-        )
-    }
+    KwikBottomTabs(
+        modifier = Modifier.height(70.dp),
+        tabs = navItems,
+        pagerState = pagerState
+    )
 }

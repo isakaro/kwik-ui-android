@@ -6,11 +6,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.avatar.KwikAvatar
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.ui.avatar.KwikAvatar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

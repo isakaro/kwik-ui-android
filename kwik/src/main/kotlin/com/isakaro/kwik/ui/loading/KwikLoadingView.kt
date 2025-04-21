@@ -13,7 +13,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 @Composable
 fun KwikLoadingView(
@@ -65,17 +64,13 @@ fun KwikCircularLoading(
 @Composable
 @Preview(showBackground = true)
 private fun KwikLoadingViewPreview() {
-    KwikTheme {
-        KwikLoadingView(
-            text = "Loading... Please Wait..."
-        )
-    }
+    KwikLoadingView(
+        text = "Loading... Please Wait..."
+    )
 }
 
 @Composable
 @Preview(showBackground = true)
 private fun KwikLoadingPreview() {
-    KwikTheme {
-        KwikCircularLoading()
-    }
+    KwikCircularLoading()
 }

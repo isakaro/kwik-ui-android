@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.isakaro.kwik.ui.theme.KwikTheme
 
 /**
  * A slider component
@@ -99,12 +98,10 @@ fun KwikSlider(
 private fun KwikSliderPreview() {
     var sliderPosition by remember { mutableFloatStateOf(10f) }
 
-    KwikTheme {
-        KwikSlider(
-            value = sliderPosition,
-            onValueChange = { value ->
-                sliderPosition = value
-            }
-        )
-    }
+    KwikSlider(
+        value = sliderPosition,
+        onValueChange = { value ->
+            sliderPosition = value
+        }
+    )
 }

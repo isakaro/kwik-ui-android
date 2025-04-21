@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,7 +53,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.kwik.catalog.R
+import com.isakaro.R
 import com.isakaro.kwik.ui.button.KwikIconButton
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.inputfields.AllowedChars
@@ -103,7 +104,7 @@ fun KwikDateFieldButton(
     },
     trailingIcon: @Composable (() -> Unit?) = {
         Icon(
-            painter = painterResource(id = R.drawable.arrow_down),
+            imageVector = Icons.Default.KeyboardArrowDown,
             tint = MaterialTheme.colorScheme.onSurface,
             contentDescription = null,
         )
