@@ -1,4 +1,5 @@
 [versions]
+kwik-ui = "1.0.0"
 sdk-min = "23"
 sdk-target = "35"
 build-tools-version = "35.0.0"
@@ -49,6 +50,7 @@ accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeho
 coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
 coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine" }
 junit = { module = "junit:junit", version.ref = "junit" }
+kwik-ui = { module = "com.isakaro:kwik.ui", version.ref = "kwik-ui" }
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime" }
 constraint-layout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraint-layout" }
 compose-destinations = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "compose-destinations"  }

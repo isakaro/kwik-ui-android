@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+    implementation(libs.kwik.ui)
     implementation(libs.bundles.app)
     implementation(libs.bundles.app.theming)
     implementation(libs.splashscreen)
