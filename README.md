@@ -1096,7 +1096,7 @@ Add KwikUI to your project by including the following in your app's `build.gradl
 
 ```kotlin
 dependencies {
-    implementation("com.isakaro:kwik-ui:1.0.0")
+    implementation("com.isakaro:kwik.ui:1.0.0")
 }
 ```
 
