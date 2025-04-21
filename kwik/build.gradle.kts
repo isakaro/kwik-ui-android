@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.Base64
@@ -9,6 +10,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("maven-publish")
     id("signing")
+    id("com.vanniktech.maven.publish") version "0.31.0"
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.documentation.plugin)
 }
@@ -33,8 +35,13 @@ var minor = Integer.parseInt(versionPropertiesFile["minor"].toString())
 var patch = Integer.parseInt(versionPropertiesFile["patch"].toString())
 var libVersion = "$major.$minor.$patch"
 
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+}
+
 android {
-    namespace = "com.isakaro.kwik"
+    namespace = "com.isakaro"
     compileSdk = libs.versions.sdk.target.get().toInt()
     buildToolsVersion = libs.versions.build.tools.version.get()
 
@@ -62,12 +69,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
     }
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
 }
 
 dependencies {
@@ -82,52 +83,9 @@ dependencies {
 
 val mavenUsername = secretsProperties["mavenUsername"].toString()
 val mavenToken = secretsProperties["mavenToken"].toString()
-val signingId = secretsProperties["signingId"].toString()
-val signingPassword = secretsProperties["signingPassword"].toString()
-val signingKey = secretsProperties["signingKey"].toString()
-
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "com.isakaro"
-            artifactId = "kwik-ui"
-            version = libVersion
-
-            pom {
-                name = "KwikUI"
-                description = Meta.Descripton
-                url = "https://github.com/${Meta.GithubRepository}"
-                inceptionYear = "2025"
-                licenses {
-                    license {
-                        name = "The Apache License, Version 2.0"
-                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
-                    }
-                }
-                developers {
-                    developer {
-                        id = "isakaro"
-                        name = "Isakaro Real Estate"
-                        email = "ganza@isakaro.com"
-                        organizationUrl = "https://isakaro.com"
-                    }
-                }
-                scm {
-                    connection = "scm:git:git://github.com/${Meta.GithubRepository}.git"
-                    developerConnection = "scm:git:ssh://git@github.com/${Meta.GithubRepository}.git"
-                    url = "https://github.com/${Meta.GithubRepository}"
-                }
-                issueManagement {
-                    system.set("GitHub")
-                    url = "https://github.com/${Meta.GithubRepository}/issues"
-                }
-            }
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-}
+val signingKeyId = secretsProperties["signing.keyId"].toString()
+val signingPassword = secretsProperties["signing.password"].toString()
+val signingKey = secretsProperties["signing.key"].toString()
 
 tasks.register<Zip>("bundleForMavenCentral") {
     group = "publishing"
@@ -164,8 +122,51 @@ fun String.toBase64(): String {
     return Base64.getEncoder().encodeToString(this.toByteArray())
 }
 
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.isakaro"
+            artifactId = "kwik.ui"
+            version = libVersion
+
+            pom {
+                name = "KwikUI"
+                description = Meta.Descripton
+                url = "https://github.com/${Meta.GithubRepository}"
+                inceptionYear = "2025"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "isakaro"
+                        name = "Isakaro"
+                        email = "ganza@isakaro.com"
+                        organizationUrl = "https://isakaro.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/${Meta.GithubRepository}.git"
+                    developerConnection = "scm:git:ssh://git@github.com/${Meta.GithubRepository}.git"
+                    url = "https://github.com/${Meta.GithubRepository}"
+                }
+                issueManagement {
+                    system.set("GitHub")
+                    url = "https://github.com/${Meta.GithubRepository}/issues"
+                }
+            }
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
+
 signing {
-    useInMemoryPgpKeys(signingId, signingKey, signingPassword)
+    useGpgCmd()
     sign(publishing.publications["release"])
 }
 
@@ -237,3 +238,4 @@ tasks.register("updateVersion") {
         println("$major.$minor.$patch")
     }
 }
+

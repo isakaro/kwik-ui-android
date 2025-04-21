@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.bsh.commands.dir
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,12 +7,12 @@ plugins {
 }
 
 android {
-    namespace = "com.isakaro.Kwik.catalog"
+    namespace = "com.isakaro.kwik.catalog"
     compileSdk = libs.versions.sdk.target.get().toInt()
     buildToolsVersion = libs.versions.build.tools.version.get()
 
     defaultConfig {
-        applicationId = "com.isakaro.Kwik.catalog"
+        applicationId = "com.isakaro.kwik.catalog"
         minSdk = libs.versions.sdk.min.get().toInt()
         targetSdk = libs.versions.sdk.target.get().toInt()
         versionCode = 1
