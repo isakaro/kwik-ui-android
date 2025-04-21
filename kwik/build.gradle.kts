@@ -9,6 +9,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("maven-publish")
     id("signing")
+    id("com.vanniktech.maven.publish") version "0.31.0"
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.documentation.plugin)
 }
@@ -17,8 +18,6 @@ object Meta {
     const val Descripton = "A Jetpack Compose library for building UI components."
     const val License = "Apache-2.0"
     const val GithubRepository = "isakaro/kwik-ui-android"
-    const val Release = "https://s01.oss.sonatype.org/service/local/"
-    const val Snapshot = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 }
 
 val secretsPropertiesFile = rootProject.file("secrets.properties")
@@ -88,8 +87,8 @@ dependencies {
     coreLibraryDesugaring(libs.desugaring)
 }
 
-val sonatypeUsername = secretsProperties["ossrhUsername"].toString()
-val sonatypePassword = secretsProperties["ossrhPassword"].toString()
+val mavenUsername = secretsProperties["mavenUsername"].toString()
+val mavenToken = secretsProperties["mavenToken"].toString()
 val signingKeyId = secretsProperties["signing.keyId"].toString()
 val signingPassword = secretsProperties["signing.password"].toString()
 val signingKey = secretsProperties["signing.key"].toString()
@@ -119,7 +118,7 @@ tasks.register<Exec>("uploadToMavenCentral") {
         "curl",
         "--request", "POST",
         "--verbose",
-        "--header", "Authorization: Bearer ${sonatypeUsername}:${sonatypePassword}".toBase64(),
+        "--header", "Authorization: Bearer " + "${mavenUsername}:${mavenToken}".toBase64(),
         "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
         "https://central.sonatype.com/api/v1/publisher/upload"
     )
@@ -140,7 +139,7 @@ publishing {
                 name = "KwikUI"
                 description = ""
                 url = "https://github.com/${Meta.GithubRepository}"
-                inceptionYear = "2020"
+                inceptionYear = "2025"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -165,11 +164,15 @@ publishing {
                     url = "https://github.com/${Meta.GithubRepository}/issues"
                 }
             }
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
 
 signing {
+    useGpgCmd()
     sign(publishing.publications["release"])
 }
 

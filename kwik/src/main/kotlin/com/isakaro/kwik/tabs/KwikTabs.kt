@@ -81,7 +81,7 @@ data class KwikIndicatorProps(
  * @param selectedContentColor The color of the selected tab
  * */
 @Composable
-fun KwikHorizontalTab(
+internal fun KwikHorizontalTab(
     tabs: List<KwikTabItem>, pagerState: PagerState,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     indicatorColor: Color = MaterialTheme.colorScheme.primary,
@@ -126,7 +126,7 @@ fun KwikHorizontalTab(
 }
 
 @Composable
-fun KwikTabsContent(
+public fun KwikTabsContent(
     modifier: Modifier = Modifier,
     tabs: List<KwikTabItem>,
     pagerState: PagerState,
@@ -235,30 +235,31 @@ fun KwikTabItemView(
  *
  * */
 @Composable
-fun KwikHorizontalTabs(
+public fun KwikHorizontalTabs(
     tabs: List<KwikTabItem>, pagerState: PagerState,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     indicatorColor: Color = MaterialTheme.colorScheme.primary,
     kwikIndicatorProps: KwikIndicatorProps = KwikIndicatorProps(),
     divider: @Composable () -> Unit = {},
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedContentColor: Color = Color.Gray,
-    userScrollEnabled: Boolean = true
+    unselectedContentColor: Color = Color.Gray
 ){
-    KwikHorizontalTab(
-        tabs = tabs,
-        pagerState = pagerState,
-        containerColor = containerColor,
-        indicatorColor = indicatorColor,
-        kwikIndicatorProps = kwikIndicatorProps,
-        divider = divider,
-        selectedContentColor = selectedContentColor,
-        unselectedContentColor = unselectedContentColor
-    )
-    KwikTabsContent(
-        tabs = tabs,
-        pagerState = pagerState
-    )
+    Column {
+        KwikHorizontalTab(
+            tabs = tabs,
+            pagerState = pagerState,
+            containerColor = containerColor,
+            indicatorColor = indicatorColor,
+            kwikIndicatorProps = kwikIndicatorProps,
+            divider = divider,
+            selectedContentColor = selectedContentColor,
+            unselectedContentColor = unselectedContentColor
+        )
+        KwikTabsContent(
+            tabs = tabs,
+            pagerState = pagerState
+        )
+    }
 }
 
 @Preview
@@ -334,7 +335,7 @@ private fun KwikTabsWithCounterPreview() {
     }
 
     KwikTheme {
-        KwikHorizontalTab(
+        KwikHorizontalTabs(
             tabs = list,
             pagerState = pagerState
         )

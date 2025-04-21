@@ -8,13 +8,12 @@ import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.isakaro.kwik.tabs.KwikHorizontalTab
 import com.isakaro.kwik.tabs.KwikTabItem
-import com.isakaro.kwik.tabs.KwikTabsContent
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.tabs.KwikHorizontalTabs
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -123,19 +122,19 @@ internal fun KwikTabScreen(
         }
     ) {
         ShowCase(title = "Tabs with icons") {
-            KwikHorizontalTab(
+            KwikHorizontalTabs(
                 tabs = tabsWithIcons,
                 pagerState = pagerStateWithIcons
             )
         }
         ShowCase(title = "Tabs without icons") {
-            KwikHorizontalTab(
+            KwikHorizontalTabs(
                 tabs = tabsWithoutIcons,
                 pagerState = pagerStateWithoutIcons
             )
         }
         ShowCase(title = "Tabs with counters") {
-            KwikHorizontalTab(
+            KwikHorizontalTabs(
                 tabs = tabsWithCounters,
                 pagerState = pagerStateWithCounters
             )
