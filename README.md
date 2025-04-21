@@ -1084,7 +1084,7 @@ Integrate web content seamlessly with the pre-configured webview. Includes featu
 
 ```kotlin
 KwikWebview(
-    url = "https://example.com"
+    url = "https://google.com"
 )
 ```
 
