@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/white" />
+    <item
+        android:width="130dp"
+        android:height="55dp"
+        android:gravity="center"
+        android:drawable="@drawable/kwikui_text" >
+    </item>
+</layer-list>

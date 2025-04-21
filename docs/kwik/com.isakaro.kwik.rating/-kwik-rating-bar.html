@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>KwikRatingBar</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../index.html">
+                    kwik
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":kwik:dokkaHtml/release">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":kwik:dokkaHtml/release"
+                                       data-filter=":kwik:dokkaHtml/release"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    kwik
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="kwik::com.isakaro.kwik.rating//KwikRatingBar/#androidx.compose.ui.Modifier#kotlin.Double#kotlin.Int#androidx.compose.ui.graphics.Color#androidx.compose.ui.unit.Dp#androidx.compose.ui.unit.Dp#kotlin.Boolean#androidx.compose.ui.graphics.Color#androidx.compose.ui.graphics.Color#kotlin.Boolean#kotlin.Function1[kotlin.Int,kotlin.Unit]/PointingToDeclaration//-998062784">
+  <div class="breadcrumbs"><a href="../../index.html">kwik</a><span class="delimiter">/</span><a href="index.html">com.isakaro.kwik.rating</a><span class="delimiter">/</span><span class="current">KwikRatingBar</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Kwik</span><wbr></wbr><span>Rating</span><wbr></wbr><span><span>Bar</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kwik:dokkaHtml/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-kwik-rating-bar.html"><span class="token function">KwikRatingBar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">rating<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token operator"> = </span><span class="token constant">0.0</span><span class="token punctuation">, </span></span><span class="parameter ">stars<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">5</span><span class="token punctuation">, </span></span><span class="parameter ">starsColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>KwikColorYellow<span class="token punctuation">, </span></span><span class="parameter ">starSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>24.dp<span class="token punctuation">, </span></span><span class="parameter ">spacing<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token operator"> = </span>2.dp<span class="token punctuation">, </span></span><span class="parameter ">showBadge<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">badgeContainerColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>determineRatingColor(rating)<span class="token punctuation">, </span></span><span class="parameter ">badgeContentColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token operator"> = </span>Color.DarkGray<span class="token punctuation">, </span></span><span class="parameter ">clickable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">onClick<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><p class="paragraph">A rating bar that displays and optionally allows setting a rating using stars.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The modifier to apply to this layout.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>rating</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The initial rating to display (0.0 when clickable mode is enabled).</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>stars</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total number of stars to display.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>stars</span><wbr></wbr><span><span>Color</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The color of the filled stars.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>star</span><wbr></wbr><span><span>Size</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The size of each star icon.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>spacing</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The spacing between stars.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>show</span><wbr></wbr><span><span>Badge</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether to show a badge displaying the numerical rating.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>badge</span><wbr></wbr><span>Container</span><wbr></wbr><span><span>Color</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the badge, determined by rating by default.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>badge</span><wbr></wbr><span>Content</span><wbr></wbr><span><span>Color</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The text color of the badge.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>clickable</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether stars can be clicked to set a rating.</p></div></div></div></div><div class="table-row" data-filterable-current=":kwik:dokkaHtml/release" data-filterable-set=":kwik:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>on</span><wbr></wbr><span><span>Click</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Callback function that receives the selected rating (1-5) when a star is clicked.</p><p class="paragraph">Example usage:</p><p class="paragraph">Display-only mode:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">KwikRatingBar(<br>    stars = 5,<br>    rating = 4.5,<br>    showBadge = true<br>)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Clickable mode:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">var userRating by remember { mutableStateOf(0) }<br>KwikRatingBar(<br>    stars = 5,<br>    rating = userRating.toDouble(),<br>    clickable = true,<br>    onClick = { selectedRating -&gt;<br>        userRating = selectedRating<br>    }<br>)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

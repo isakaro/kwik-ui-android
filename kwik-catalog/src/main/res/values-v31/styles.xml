@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SplashTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.Kwik</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_view</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+</resources>
