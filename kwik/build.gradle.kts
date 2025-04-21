@@ -1,5 +1,6 @@
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -81,9 +82,9 @@ dependencies {
 
 val mavenUsername = secretsProperties["mavenUsername"].toString()
 val mavenToken = secretsProperties["mavenToken"].toString()
-val signingKeyId = secretsProperties["signing.keyId"].toString()
-val signingPassword = secretsProperties["signing.password"].toString()
-val signingKey = secretsProperties["signing.key"].toString()
+val signingId = secretsProperties["signingId"].toString()
+val signingPassword = secretsProperties["signingPassword"].toString()
+val signingKey = secretsProperties["signingKey"].toString()
 
 publishing {
     publications {
@@ -128,8 +129,43 @@ publishing {
     }
 }
 
+tasks.register<Zip>("bundleForMavenCentral") {
+    group = "publishing"
+    description = "Creates a bundle zip file for uploading to Maven Central"
+    archiveFileName.set("central-bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("distributions"))
+    dependsOn("publishToMavenLocal")
+
+    from(layout.buildDirectory.dir("publications")) {
+        include("**/*.pom")
+        include("**/*.jar")
+        include("**/*.aar")
+        include("**/*.module")
+        include("**/*.asc")
+    }
+}
+
+tasks.register<Exec>("uploadToMavenCentral") {
+    group = "publishing"
+    description = "Uploads the bundle to Maven Central"
+    dependsOn("bundleForMavenCentral")
+
+    commandLine(
+        "curl",
+        "--request", "POST",
+        "--verbose",
+        "--header", "Authorization: Bearer " + "${mavenUsername}:${mavenToken}".toBase64(),
+        "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
+        "https://central.sonatype.com/api/v1/publisher/upload"
+    )
+}
+
+fun String.toBase64(): String {
+    return Base64.getEncoder().encodeToString(this.toByteArray())
+}
+
 signing {
-    useGpgCmd()
+    useInMemoryPgpKeys(signingId, signingKey, signingPassword)
     sign(publishing.publications["release"])
 }
 

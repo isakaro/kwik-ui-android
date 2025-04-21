@@ -32,6 +32,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import com.isakaro.kwik.loading.KwikCircularLoading
 
+/**
+ * Settings for the KwikWebView.
+ * */
 data class KwikWebViewSettings(
     val userAgent: String = "Kwik-Android-WebView",
     val cookies: List<KwikCookie> = emptyList(),
@@ -46,6 +49,18 @@ data class KwikWebViewSettings(
     val supportMultipleWindows: Boolean = true
 )
 
+/**
+ * A web view component that allows you to load a URL and interact with it.
+ *
+ * @param modifier The modifier to be applied to the web view.
+ * @param url The URL to be loaded in the web view.
+ * @param javaScriptBridge An optional JavaScript bridge object to be used for communication between the web view and the app.
+ * @param javaScriptBridgeName The name of the JavaScript bridge object.
+ * @param hideProgressAfterLoading Whether to hide the progress bar after the page has loaded.
+ * @param pageLoaded A callback function to be called when the page has finished loading.
+ * @param failedToOpenLink A callback function to be called when a link fails to open.
+ * @param webViewSettings A lambda function to configure the web view settings.
+ * */
 @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
 @Composable
 fun KwikWebView(
