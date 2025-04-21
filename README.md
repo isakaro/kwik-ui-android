@@ -4,38 +4,43 @@ A comprehensive Android UI library designed to accelerate your development proce
 
 ![KwikUI Logo](media/KwikUI.png)
 
+## Quick Start📋
+- [Components](#all-components)
+- [Installation](#installation)
+
 ## All Components
 
 KwikUI includes a comprehensive collection of components:
 
-- **Accordion** (accordion, accordion group)
-- **Biometrics**
-- **Bottom Tabs**
-- **Button**
-- **Card**
-- **Carousel** (slider)
-- **Checkbox**
-- **Counter**
-- **Country picker**
-- **Date Picker** (date input, date picker, date range picker)
-- **Dialogs** (modals)
-- **Dropdown**
-- **Filter Chips**
-- **Grid** (CSS-like)
-- **Permission Handler**
-- **Progress Bar**
-- **Radio** (group)
-- **Rating Bar**
-- **Search View** with autocomplete and debounce capabilities
-- **Sliders** (range sliders)
-- **Stepper**
-- **Switch**
-- **Tags Input**
-- **Text Fields** (filled, outlined with suggestions feature and debounce)
-- **Timeline**
-- **Toast**
-- **Toggle Button**
-- **Webview**
+- **[Accordion](#accordion)** (accordion, accordion group)
+- **[Biometrics](#biometrics-authentication)**
+- **[Bottom Tabs](#bottom-tabs)**
+- **[Button](#buttons)**
+- **[Card](#cards)**
+- **[Carousel](#carousel-slider)** (slider)
+- **[Checkbox](#checkbox)**
+- **[Counter](#counter)**
+- **[Country picker](#country-picker)**
+- **[Date Picker](#date-picker)** (date input, date picker, date range picker)
+- **[Dialogs](#dialogs)** (modals)
+- **[Dropdown](#dropdown)**
+- **[Filter Chips](#filter-chips)**
+- **[Grid](#grid)** (CSS-like)
+- **[Permission Handler](#permission-handlers)**
+- **[Progress Bar](#progress)**
+- **[Radio](#radio-groups)** (group)
+- **[Rating Bar](#rating-bars)**
+- **[Search View](#search-view)** with autocomplete and debounce capabilities
+- **[Sliders](#sliders)** (range sliders)
+- **[Stepper](#stepper)**
+- **[Switch](#switch)**
+- **[Tags Input](#tags-input)**
+- **[Text Fields](#text-fields-text-input)** (filled, outlined with suggestions feature and debounce)
+- **[Timeline](#timeline)**
+- **[Toast](#toast)**
+- **[Toggle Button](#toggle-button)**
+- **[Webview](#webview)**
+
 
 ### Accordion
 Accordion component that can be expanded or collapsed.
@@ -60,6 +65,43 @@ KwikAccordionGroup(
         KwikText.BodyMedium(text = item.content, modifier = Modifier.padding(16.dp))
     }
 )
+```
+
+[Accordion docs](https://isakaro.github.io/kwik-ui-android/)
+
+---
+
+### Biometrics authentication
+Effortlessly integrate biometric authentication into your app with the KwikBiometricsAuthenticationContract. This contract simplifies the process of requesting and handling biometric authentication, making it easy to implement secure user verification.
+
+```kotlin
+val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { result ->
+    when(result){
+        // all possible results
+        KwikBiometricsResult.SUCCESS -> kwikToastState.showToast("Biometric authentication successful", backgroundColor = KwikColorSuccess)
+        KwikBiometricsResult.FAILED -> kwikToastState.showToast("Biometric authentication failed", backgroundColor = KwikColorError)
+        KwikBiometricsResult.ERROR -> kwikToastState.showToast("Biometric authentication error", backgroundColor = KwikColorError)
+        KwikBiometricsResult.CANCELED -> kwikToastState.showToast("Biometric authentication canceled")
+        KwikBiometricsResult.NOT_SET -> kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
+    }
+}
+```
+
+Then launch the biometrics authentication when needed:
+
+```kotlin
+KwikButton(
+    text = "VERIFY YOUR IDENTITY",
+    leadingIcon = R.drawable.biometrics
+) {
+    launcher.launch(
+        KwikBiometricPromptParams(
+            title = "Verify Identity",
+            subtitle = "Authentication required to continue",
+            cancelText = "Cancel"
+        )
+    )
+}
 ```
 
 [Accordion docs](https://isakaro.github.io/kwik-ui-android/)
