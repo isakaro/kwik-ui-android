@@ -1134,12 +1134,18 @@ KwikWebview(
 
 ## Installation
 
-Add KwikUI to your project by including the following in your app's `build.gradle` file:
+Add KwikUI to your project by including the following in your module level `build.gradle.kts` file:
+
+**Gradle (Kotlin)**
 
 ```kotlin
-dependencies {
-    implementation("com.isakaro:kwik.ui:1.0.0")
-}
+implementation("com.isakaro:kwik.ui:1.0.0")
+```
+
+**Gradle (Groovy)**
+
+```groovy
+implementation 'com.isakaro:kwik.ui:1.0.0'
 ```
 
 ## Documentation
