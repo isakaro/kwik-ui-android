@@ -104,7 +104,7 @@ KwikButton(
 }
 ```
 
-[Accordion docs](https://isakaro.github.io/kwik-ui-android/)
+[Biometrics docs](https://isakaro.github.io/kwik-ui-android/)
 
 ---
 
@@ -724,13 +724,13 @@ KwikStepper(
 
 ## Controlling the Stepper
 ```kotlin
-kwikStepperState.moveForward() // Move to the next step
+kwikStepperState.moveForward() // Move to next step
 
-kwikStepperState.moveBackward() // Move to the next step
+kwikStepperState.moveBackward() // Move to previous step
 
-kwikStepperState.completeAll() // Move to the next step
+kwikStepperState.completeAll() // Complete all steps
 
-kwikStepperState.clearAll() // Move to the next step
+kwikStepperState.clearAll() // Clear all steps
 
 kwikStepperState.moveToStep() // Move to a specific step
 ```
