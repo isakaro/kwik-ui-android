@@ -342,16 +342,36 @@ KwikDateFieldButton(
 
 ## Date Range Picker
 ```kotlin
-var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+var selectedDateRange by remember { mutableStateOf<Pair<LocalDate, LocalDate>?>(null) }
 
-KwikDateFieldButton(
-    label = "Date of birth",
-    placeholder = "Enter your date of birth",
-    mode = KwikDatePickerMode.Input,
-    selected = {
-        selectedDate = it
-    }
+KwikDateRangeButton(
+    label = "Check-in",
+    onDateRangeSelected = {
+        selectedDateRange = it
+    },
+    onClick = {}
 )
+```
+
+Or use date range dialog directly
+
+```kotlin
+var selectedDateRange by remember { mutableStateOf<Pair<LocalDate, LocalDate>?>(null) }
+var showDatePicker by remember { mutableStateOf(false) }
+
+if(showDatePicker){
+    KwikDateRangePickerDialog(
+        colors = colors,
+        minSelectableDate = minSelectableDate,
+        maxSelectableDate = maxSelectableDate,
+        onDateRangeSelected = { selectedDates ->
+            selectedDateRange = it
+        },
+        onDismiss = {
+            showDatePicker = false
+        }
+    )
+}
 ```
 
 [Date Picker docs](https://isakaro.github.io/kwik-ui-android/)
