@@ -158,6 +158,8 @@ fun KwikWebView(
                                     /**
                                      * image / * uses gallery picker which sometimes causes ERR_UPLOAD_FILE_CHANGED issue on some devices
                                      * we'll use * / * for now
+                                     *
+                                     * See <a href="https://issues.chromium.org/issues/40123366">https://issues.chromium.org/issues/40123366</a>
                                      */
                                     val mimeType = if (fileChooserParams.acceptTypes.all { it.lowercase() in listOf(".jpg", ".jpeg", ".png") }) {
                                         "image/*"
