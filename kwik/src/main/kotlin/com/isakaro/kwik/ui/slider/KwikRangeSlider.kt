@@ -102,7 +102,7 @@ fun KwikRangeSlider(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun KwikRangeSliderPreview() {
+private fun KwikRangeSliderPreview() {
     var sliderPosition by remember { mutableStateOf(20f..80f) }
 
     KwikRangeSlider(

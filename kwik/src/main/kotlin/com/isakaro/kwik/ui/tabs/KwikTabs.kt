@@ -125,7 +125,7 @@ internal fun KwikHorizontalTab(
 }
 
 @Composable
-public fun KwikTabsContent(
+fun KwikTabsContent(
     modifier: Modifier = Modifier,
     tabs: List<KwikTabItem>,
     pagerState: PagerState,
@@ -232,9 +232,44 @@ fun KwikTabItemView(
  * @param selectedContentColor The color of the selected tab
  * @param unselectedContentColor The color of the unselected tab
  *
+ * Usage example:
+ * ```
+ * val list = listOf(
+ *         KwikTabItem(
+ *             title = "Muraho",
+ *             content = {
+ *                 Text(text = "Muraho")
+ *             }
+ *         ),
+ *         KwikTabItem(
+ *             title = "Hello",
+ *             content = {
+ *                 Text(text = "Hello")
+ *             }
+ *         ),
+ *         KwikTabItem(
+ *             title = "Jambo",
+ *             content = {
+ *                 Text(text = "Jambo")
+ *             }
+ *         )
+ *     )
+ *
+ *     val pagerState = rememberPagerState(
+ *         initialPage = 0,
+ *         initialPageOffsetFraction = 0f
+ *     ) {
+ *         list.size
+ *     }
+ *
+ *     KwikHorizontalTab(
+ *         tabs = list,
+ *         pagerState = pagerState
+ *     )
+ *     ```
  * */
 @Composable
-public fun KwikHorizontalTabs(
+fun KwikHorizontalTabs(
     tabs: List<KwikTabItem>, pagerState: PagerState,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     indicatorColor: Color = MaterialTheme.colorScheme.primary,

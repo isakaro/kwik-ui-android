@@ -122,11 +122,13 @@ data class KwikBiometricPromptParams(
  *
  * Usage:
  * ```
- *     val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { success ->
- *         if (success) {
- *             // handle success
- *         } else {
- *             // handle error
+ *     val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { result ->
+ *         when(result){
+ *             KwikBiometricsResult.SUCCESS -> kwikToastState.showToast("Biometric authentication successful", backgroundColor = KwikColorSuccess)
+ *             KwikBiometricsResult.FAILED -> kwikToastState.showToast("Biometric authentication failed", backgroundColor = KwikColorError)
+ *             KwikBiometricsResult.ERROR -> kwikToastState.showToast("Biometric authentication error", backgroundColor = KwikColorError)
+ *             KwikBiometricsResult.CANCELED -> kwikToastState.showToast("Biometric authentication canceled")
+ *             KwikBiometricsResult.NOT_SET -> kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
  *         }
  *     }
  *

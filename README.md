@@ -67,7 +67,7 @@ KwikAccordionGroup(
 )
 ```
 
-[Accordion docs](https://isakaro.github.io/kwik-ui-android/)
+[Accordion docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.accordion/index.html)
 
 ---
 
@@ -104,7 +104,7 @@ KwikButton(
 }
 ```
 
-[Biometrics docs](https://isakaro.github.io/kwik-ui-android/)
+[Biometrics docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.biometrics/-kwik-biometrics-authentication-contract/index.html)
 
 ---
 
@@ -152,7 +152,7 @@ KwikBottomTabs(
 )
 ```
 
-[Bottom Tabs docs](https://isakaro.github.io/kwik-ui-android/)
+[Bottom Tabs docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.tabs/-kwik-bottom-tabs.html)
 
 ---
 
@@ -192,7 +192,7 @@ KwikButton(
 )
 ```
 
-[Button docs](https://isakaro.github.io/kwik-ui-android/)
+[Button docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.button/index.html)
 
 ---
 
@@ -205,7 +205,7 @@ KwikCard(){
 }
 ```
 
-[Card docs](https://isakaro.github.io/kwik-ui-android/)
+[Card docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.card/index.html)
 
 ---
 
@@ -235,7 +235,7 @@ KwikImageCarousel(
 )
 ```
 
-[Carousel docs](https://isakaro.github.io/kwik-ui-android/)
+[Carousel docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.carousel/index.html)
 
 ---
 
@@ -255,7 +255,7 @@ KwikCheckBox(
 )
 ```
 
-[Checkbox docs](https://isakaro.github.io/kwik-ui-android/)
+[Checkbox docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.checkbox/index.html)
 
 ### Counter
 Counter component for incrementing or decrementing values. Supports different styles and sizes.
@@ -279,7 +279,7 @@ KwikCounter(
 )
 ```
 
-[Counter docs](https://isakaro.github.io/kwik-ui-android/)
+[Counter docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.counter/-kwik-counter.html)
 
 ---
 
@@ -294,7 +294,7 @@ KwikCountryCodePicker(
     },
 )
 ```
-[Country Picker docs](https://isakaro.github.io/kwik-ui-android/)
+[Country Picker docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.countrypicker/-kwik-country-picker.html)
 
 ---
 
@@ -303,12 +303,12 @@ Date picker component for selecting dates. Supports different styles and formats
 
 <table>
   <tr>
-    <td><img src="media/date/vid2.gif" alt="Bottom Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/date/vid2.gif" alt="date picker" width="400"/></td>
     <td><img src="media/date/light3.jpg" alt="Bottom Tabs Light Mode" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="media/date/dark4.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
-    <td><img src="media/date/dark1.jpg" alt="Bottom Tabs Dark Mode" width="400"/></td>
+    <td><img src="media/date/dark4.jpg" alt="date picker" width="400"/></td>
+    <td><img src="media/date/dark1.jpg" alt="date picker" width="400"/></td>
   </tr>
 </table>
 
@@ -374,7 +374,7 @@ if(showDatePicker){
 }
 ```
 
-[Date Picker docs](https://isakaro.github.io/kwik-ui-android/)
+[Date Picker docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.date/index.html)
 
 ---
 
@@ -410,12 +410,12 @@ KwikDialog.ConfirmDialog(
 }
 ```
 
-[Dialog docs](https://isakaro.github.io/kwik-ui-android/)
+[Dialog docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.dialog/-kwik-dialog/index.html)
 
 ---
 
 ### Dropdown
-Dropdown component for selecting options from a list. Supports search functionality and customizable appearance.
+Dropdown component for selecting options from a list. Supports customizable appearance.
 
 <table>
   <tr>
@@ -452,7 +452,7 @@ KwikDropdown(
 )
 ```
 
-[Dropdown docs](https://isakaro.github.io/kwik-ui-android/)
+[Dropdown docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.dropdown/index.html)
 
 ---
 
@@ -487,7 +487,7 @@ KwikTheme {
 }
 ```
 
-[Filter Chips docs](https://isakaro.github.io/kwik-ui-android/)
+[Filter Chips docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.filterchip/index.html)
 
 ---
 
@@ -526,7 +526,7 @@ KwikGrid(
 )
 ```
 
-[Grid docs](https://isakaro.github.io/kwik-ui-android/)
+[Grid docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.grid/index.html)
 
 ---
 
@@ -563,7 +563,7 @@ KwikPermissionsRequest(
         )
 ```
 
-[Permission Handlers docs](https://isakaro.github.io/kwik-ui-android/)
+[Permission Handlers docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.permissions/index.html)
 
 ---
 
@@ -589,7 +589,7 @@ KwikLinearLoading(
 )
 ```
 
-[Progress docs](https://isakaro.github.io/kwik-ui-android/)
+[Progress docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.loading/index.html)
 
 ---
 
@@ -616,7 +616,7 @@ KwikRadioButtonGroup(
 )
 ```
 
-[Radio Group docs](https://isakaro.github.io/kwik-ui-android/)
+[Radio Group docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.radio/index.html)
 
 ---
 
@@ -645,7 +645,7 @@ KwikRatingBar(
 )
 ```
 
-[Rating Bar docs](https://isakaro.github.io/kwik-ui-android/)
+[Rating Bar docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.rating/-kwik-rating-bar.html)
 
 ---
 
@@ -676,7 +676,7 @@ KwikSearchView(
 )
 ```
 
-[Search View docs](https://isakaro.github.io/kwik-ui-android/)
+[Search View docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.inputfields/-kwik-search-view.html)
 
 ---
 
@@ -714,7 +714,7 @@ KwikSlider(
 )
 ```
 
-[Slider docs](https://isakaro.github.io/kwik-ui-android/)
+[Slider docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.slider/index.html)
 
 ---
 
@@ -755,7 +755,7 @@ kwikStepperState.clearAll() // Clear all steps
 kwikStepperState.moveToStep() // Move to a specific step
 ```
 
-[Stepper docs](https://isakaro.github.io/kwik-ui-android/)
+[Stepper docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.stepper/index.html)
 
 ---
 
@@ -774,7 +774,7 @@ KwikSwitch(
 )
 ```
 
-[Switch docs](https://isakaro.github.io/kwik-ui-android/)
+[Switch docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.switch/index.html)
 
 ---
 
@@ -815,7 +815,7 @@ KwikHorizontalTab(
 )
 ```
 
-[Tabs docs](https://isakaro.github.io/kwik-ui-android/)
+[Tabs docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.tabs/-kwik-horizontal-tabs.html)
 
 ---
 
@@ -853,7 +853,7 @@ KwikTagsInput(
 )
 ```
 
-[Tags Input docs](https://isakaro.github.io/kwik-ui-android/)
+[Tags Input docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.inputfields/-kwik-tags-input.html)
 
 ---
 
@@ -980,7 +980,7 @@ KwikPhoneNumberField(
 )
 ```
 
-[Text field docs](https://isakaro.github.io/kwik-ui-android/)
+[Text field docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.inputfields/index.html)
 
 ---
 
@@ -1011,6 +1011,8 @@ KwikExpandableText(
     maxLines = 3
 )
 ```
+
+[Text view docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.text/-kwik-text/index.html)
 
 ---
 
@@ -1055,7 +1057,7 @@ val timelineEntries = listOf(
 )
 ```
 
-[Timeline docs](https://isakaro.github.io/kwik-ui-android/)
+[Timeline docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.timeline/index.html)
 
 ---
 
@@ -1091,7 +1093,7 @@ kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
 kwikToastState.showToast("Verified successfully", type = KwikToastType.SUCCESS)
 ```
 
-[Toast docs](https://isakaro.github.io/kwik-ui-android/)
+[Toast docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.toast/index.html)
 
 ---
 
@@ -1139,6 +1141,10 @@ KwikUI provides a variety of typography styles to suit your needs:
 
 ---
 
+[Typography docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.text/index.html)
+
+---
+
 ### Webview
 Integrate web content seamlessly with the pre-configured webview. Includes features like file upload handling, native bridge communication, Javascript support, multi-window support, progress indicators, and more.
 
@@ -1149,6 +1155,8 @@ KwikWebview(
     url = "https://google.com"
 )
 ```
+
+[Webview docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.webview/index.html)
 
 ---
 
