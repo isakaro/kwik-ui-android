@@ -53,7 +53,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.isakaro.R
+import com.isakaro.kwik.R
 import com.isakaro.kwik.ui.button.KwikIconButton
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.inputfields.AllowedChars

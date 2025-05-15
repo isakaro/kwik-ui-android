@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Context.TELEPHONY_SERVICE
 import android.telephony.TelephonyManager
 import androidx.annotation.DrawableRes
-import com.isakaro.R
+import com.isakaro.kwik.R
 import java.util.Locale
 
 val countryList = listOf(

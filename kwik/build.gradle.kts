@@ -41,7 +41,7 @@ mavenPublishing {
 }
 
 android {
-    namespace = "com.isakaro"
+    namespace = "com.isakaro.kwik"
     compileSdk = libs.versions.sdk.target.get().toInt()
     buildToolsVersion = libs.versions.build.tools.version.get()
 
