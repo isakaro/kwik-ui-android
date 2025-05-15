@@ -70,7 +70,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.isakaro.R
+import com.isakaro.kwik.R
 import com.isakaro.kwik.ui.loading.KwikCircularLoading
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.ui.theme.KwikColorHint

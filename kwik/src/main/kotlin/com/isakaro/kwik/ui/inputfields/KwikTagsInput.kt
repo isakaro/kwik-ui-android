@@ -45,7 +45,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+import com.isakaro.kwik.R
 import com.isakaro.kwik.ui.button.KwikButton
 import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.counter.KwikCounter

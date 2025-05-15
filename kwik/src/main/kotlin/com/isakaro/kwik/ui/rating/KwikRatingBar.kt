@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.isakaro.R
+import com.isakaro.kwik.R
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.ui.theme.KwikColorError
 import com.isakaro.kwik.ui.theme.KwikColorSuccess

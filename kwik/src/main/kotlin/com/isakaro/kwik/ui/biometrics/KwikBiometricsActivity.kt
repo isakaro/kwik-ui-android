@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.isakaro.R
+import com.isakaro.kwik.R
 import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.helpers.KwikCenterColumn
 
