@@ -537,30 +537,30 @@ Permission handlers for managing app permissions. Supports different styles and 
 val permissionState = rememberKwikPermissionState()
 
 KwikPermissionsRequest(
-            state = permissionState.value,
-            permissions = listOf(
-                KwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
-                KwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
-            ),
-            title = "Media access required",
-            image = { // optional image to show
-                KwikImageView(
-                    modifier = Modifier.size(120.dp),
-                    url = Icons.Default.Build,
-                    tint = Color.Gray
-                )
-            },
-            onGrantAction = { 
-                // action to perform when permissions are granted
-                granted = true
-            },
-            onDeniedAction = {
-                // action to perform when permissions are denied
-            },
-            onCancel = {
-                // action to perform when user cancels the permission request
-            }
+    state = permissionState.value,
+    permissions = listOf(
+        KwikPermissionDto(Manifest.permission.READ_MEDIA_IMAGES, "Allow app to access your photos and videos to use while creating a listing."),
+        KwikPermissionDto(Manifest.permission.READ_MEDIA_VIDEO, "Allow app to access your photos and videos to use while creating a listing.")
+    ),
+    title = "Media access required",
+    image = { // optional image to show
+        KwikImageView(
+            modifier = Modifier.size(120.dp),
+            url = Icons.Default.Build,
+            tint = Color.Gray
         )
+    },
+    onGrantAction = {
+        // action to perform when permissions are granted
+        granted = true
+    },
+    onDeniedAction = {
+        // action to perform when permissions are denied
+    },
+    onCancel = {
+        // action to perform when user cancels the permission request
+    }
+)
 ```
 
 [Permission Handlers docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.permissions/index.html)
@@ -790,24 +790,24 @@ Tabs component for displaying multiple tabs. Supports different styles and custo
 
 ```kotlin
  val tabs = listOf(
-        KwikTabItem(
-            title = "Muraho",
-            counter = 3
-        ){
-            Content(text = "Muraho")
-        },
-        KwikTabItem(
-            title = "Hello",
-        ){
-            Content(text = "Hello")
-        },
-        KwikTabItem(
-            title = "Jambo",
-            counter = 1
-        ){
-            Content(text = "Jambo")
-        }
-    )
+    KwikTabItem(
+        title = "Muraho",
+        counter = 3
+    ){
+        Content(text = "Muraho")
+    },
+    KwikTabItem(
+        title = "Hello",
+    ){
+        Content(text = "Hello")
+    },
+    KwikTabItem(
+        title = "Jambo",
+        counter = 1
+    ){
+        Content(text = "Jambo")
+    }
+)
 
 KwikHorizontalTab(
     tabs = tabs,
@@ -831,15 +831,15 @@ Tags input component for entering multiple tags. Supports different styles and c
 
 ```kotlin
 val tags = remember {
-            listOf(
-                KwikTagsInputItem("1", "Tortuga"),
-                KwikTagsInputItem("2", "Shipwreck Cove"),
-                KwikTagsInputItem("3", "Davy Jones' Locker"),
-                KwikTagsInputItem("4", "Port Royal"),
-                KwikTagsInputItem("5", "Isla de Muerta"),
-                KwikTagsInputItem("6", "Fountain of Youth")
-            )
-        }
+    listOf(
+        KwikTagsInputItem("1", "Tortuga"),
+        KwikTagsInputItem("2", "Shipwreck Cove"),
+        KwikTagsInputItem("3", "Davy Jones' Locker"),
+        KwikTagsInputItem("4", "Port Royal"),
+        KwikTagsInputItem("5", "Isla de Muerta"),
+        KwikTagsInputItem("6", "Fountain of Youth")
+    )
+}
 
 var currentTags by remember { mutableStateOf<List<KwikTagsInputItem>>(emptyList()) }
 
@@ -890,7 +890,7 @@ val username = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStat
 KwikTextField(
     value = username,
     onValueChange = {
-        username.value = it 
+        username.value = it
     },
     label = "Username",
     placeholder = "Enter email or phone",
@@ -910,7 +910,7 @@ val password = rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStat
 KwikTextField(
     value = password,
     onValueChange = {
-        password.value = it 
+        password.value = it
     },
     label = "Password",
     placeholder = "Enter password",
@@ -1046,7 +1046,7 @@ val timelineEntries = listOf(
     )
 )
 
- KwikVerticalTimeline(
+KwikVerticalTimeline(
     entries = timelineEntries,
     clickable = true,
     currentStepIndex = completedIndex,
@@ -1167,14 +1167,53 @@ Add KwikUI to your project by including the following in your module level `buil
 **Gradle (Kotlin)**
 
 ```kotlin
-implementation("com.isakaro:kwik.ui:1.0.0")
+implementation("com.isakaro:kwik.ui:1.0.1")
 ```
 
 **Gradle (Groovy)**
 
 ```groovy
-implementation 'com.isakaro:kwik.ui:1.0.0'
+implementation 'com.isakaro:kwik.ui:1.0.1'
 ```
+
+👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽
+> Desugaring is required so that you can use the latest Java 8+ APIs on Android API levels lower than 26. This is especially important for using features like `java.time`.
+
+First, enable core desugaring in your module/app level `build.gradle.kts` file:
+
+```kotlin
+android {
+    ...
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+        ...
+    }
+}
+```
+
+Then, add the core library desugaring dependency:
+
+In your module/app level `build.gradle.kts` file, add the following dependencies:
+
+**Gradle (Kotlin)**
+
+```kotlin
+dependencies {
+    ...
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+}
+```
+
+**Gradle (Groovy)**
+
+```groovy
+dependencies {
+    ...
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+}
+```
+
+Sync your project and now KwikUI is locked and loaded! Enjoy!
 
 ## Documentation
 
