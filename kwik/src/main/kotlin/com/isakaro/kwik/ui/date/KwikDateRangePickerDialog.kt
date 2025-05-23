@@ -74,7 +74,7 @@ fun KwikDateRangePickerDialog(
         confirmButton = {
             KwikButton(
                 text = confirmText,
-                shape = MaterialTheme.shapes.large,
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     val startMillis = dateRangePickerState.selectedStartDateMillis
                     val endMillis = dateRangePickerState.selectedEndDateMillis

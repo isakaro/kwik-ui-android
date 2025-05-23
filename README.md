@@ -1167,13 +1167,13 @@ Add KwikUI to your project by including the following in your module level `buil
 **Gradle (Kotlin)**
 
 ```kotlin
-implementation("com.isakaro:kwik.ui:1.0.1")
+implementation("com.isakaro:kwik.ui:1.0.3")
 ```
 
 **Gradle (Groovy)**
 
 ```groovy
-implementation 'com.isakaro:kwik.ui:1.0.1'
+implementation 'com.isakaro:kwik.ui:1.0.3'
 ```
 
 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽

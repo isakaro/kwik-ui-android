@@ -34,6 +34,11 @@ fun KwikSwitch(
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if(text != null){
+            KwikText.LabelMedium(
+                text = text
+            )
+        }
         Switch(
             checked = checked,
             onCheckedChange = { enabled ->
@@ -41,11 +46,6 @@ fun KwikSwitch(
             },
             colors = colors
         )
-        if(text != null){
-            KwikText.LabelMedium(
-                text = text
-            )
-        }
     }
 }
 
