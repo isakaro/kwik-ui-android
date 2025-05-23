@@ -12,7 +12,7 @@ import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.inputfields.KwikTagsInput
 import com.isakaro.kwik.ui.inputfields.KwikTagsInputItem
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

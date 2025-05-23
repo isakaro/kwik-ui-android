@@ -27,7 +27,7 @@ import com.isakaro.kwik.ui.toast.rememberKwikToastState
 import com.isakaro.kwik.ui.toast.showToast
 import com.isakaro.kwik.ui.inputfields.KwikOutlinedPhoneNumberField
 import com.isakaro.kwik.ui.inputfields.KwikOutlinedTextField
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

@@ -1,9 +1,13 @@
 package com.isakaro.kwik.catalog.togglebutton
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
 import com.isakaro.kwik.ui.button.KwikToggleGroup
 import com.isakaro.kwik.ui.button.KwikToggleGroupOption
@@ -12,7 +16,7 @@ import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -53,6 +57,7 @@ internal fun KwikToggleButtonScreen(
             val (value, onValueChange) = remember { mutableStateOf("") }
 
             KwikToggleGroup(
+                modifier = Modifier.height(45.dp),
                 options = listOf(
                     KwikToggleGroupOption("Dark", "Dark"),
                     KwikToggleGroupOption("Light", "Light"),

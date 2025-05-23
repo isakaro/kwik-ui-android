@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SplashTheme" parent="Theme.SplashScreen">
+    <style name="SplashTheme" parent="Theme.Kwik">
         <item name="windowSplashScreenBackground">@android:color/black</item>
         <item name="postSplashScreenTheme">@style/Theme.Kwik</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/splash_view</item>
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorAccent">@android:color/black</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 </resources>

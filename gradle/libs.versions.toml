@@ -1,22 +1,22 @@
 [versions]
-kwik-ui = "1.0.0"
+kwik-ui = "1.0.1"
 sdk-min = "23"
 sdk-target = "35"
 build-tools-version = "35.0.0"
-androidx-core = "1.15.0"
+androidx-core = "1.16.0"
 androidx-arch-core-testing = "2.2.0"
 androidx-junit = "1.2.1"
 androidx-core-test = "1.6.1"
 androidx-test-truth = "1.6.0"
-androidx-navigation = "2.8.9"
-compose = "1.7.8"
+androidx-navigation = "2.9.0"
+compose = "1.8.2"
 compose-activity = "1.10.1"
-compose-material3 = "1.3.1"
+material3 = "1.3.2"
 compose-destinations = "1.11.6"
 coroutine = "1.9.0"
 junit = "4.13.2"
 kotlin = "2.0.20"
-lifecycle-runtime = "2.8.7"
+lifecycle-runtime = "2.9.0"
 plugin-agp = "8.3.2"
 plugin-kotlinter = "3.11.1"
 plugin-ksp = "2.0.20-1.0.25"
@@ -26,7 +26,7 @@ accompanist-placeholder = "0.32.0"
 splashscreen = "1.0.1"
 androidx-security = "1.0.0"
 google-play-auth-phone = "18.2.0"
-compose-bom = "2025.03.01"
+compose-bom = "2025.05.01"
 android-documentation-plugin = "2.0.0"
 
 [libraries]
@@ -40,7 +40,7 @@ androidx-navigation = { module = "androidx.navigation:navigation-compose", versi
 androidx-test-truth = { module = "androidx.test.ext:truth", version.ref = "androidx-test-truth" }
 androidx-security = { module = "androidx.security:security-crypto", version.ref = "androidx-security" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -59,8 +59,9 @@ splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "spla
 google-play-auth-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "google-play-auth-phone" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 coil = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
-biometrics = { module = "androidx.biometric:biometric", version = "1.4.0-alpha03" }
+biometrics = { module = "androidx.biometric:biometric", version = "1.4.0-alpha04" }
 desugaring = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
+material = { module = "com.google.android.material:material", version = "1.12.0" }
 
 [bundles]
 app = [
@@ -77,14 +78,16 @@ app = [
     "accompanist-system-ui-controller",
     "google-play-auth-phone",
     "coil",
-    "biometrics"
+    "biometrics",
+    "compose-bom"
 ]
 
 app-theming = [
     "compose-ui",
     "compose-ui-tooling-preview",
     "compose-material",
-    "compose-material3"
+    "material3",
+    "material"
 ]
 
 test = [

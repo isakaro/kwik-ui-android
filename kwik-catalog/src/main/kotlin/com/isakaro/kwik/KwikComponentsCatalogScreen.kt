@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -395,57 +397,62 @@ internal fun KwikComponentsCatalogScreen(
     val searchResults = remember { mutableStateOf(components) }
 
     Scaffold(
-        modifier = Modifier.background(MaterialTheme.colorScheme.surface)
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(12.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        topBar = {
+            Column(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .statusBarsPadding()
+                    .fillMaxWidth()
             ) {
-                KwikImageView(
-                    modifier = Modifier.size(40.dp),
-                    url = R.drawable.kwikui_logo
-                )
+                Column(
+                    modifier = Modifier.padding(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        KwikImageView(
+                            modifier = Modifier.size(40.dp),
+                            url = R.drawable.kwikui_logo
+                        )
 
-                KwikHSpacer(8)
+                        KwikHSpacer(8)
 
-                KwikText.HeadlineMedium(
-                    text = "Kwik Components Catalog"
-                )
-            }
-
-            KwikVSpacer(24)
-
-            KwikSearchView(
-                modifier = Modifier.height(60.dp),
-                state = searchQuery,
-                placeholder = "Search components...",
-                onTextChange = { query ->
-                    if (query.isBlank()) {
-                        searchResults.value = components
+                        KwikText.HeadlineMedium(
+                            text = "Kwik Components Catalog"
+                        )
                     }
-                    searchResults.value = components.filter { component ->
-                        val searchTerm = query.trim().lowercase()
-                        component.action.title.lowercase().contains(searchTerm) || component.action.description.contains(searchTerm)
-                    }
-                },
-                onTextCleared = {
-                    searchResults.value = components
+
+                    KwikVSpacer(8)
+
+                    KwikSearchView(
+                        modifier = Modifier.height(55.dp),
+                        state = searchQuery,
+                        placeholder = "Search components...",
+                        onTextChange = { query ->
+                            if (query.isBlank()) {
+                                searchResults.value = components
+                            }
+                            searchResults.value = components.filter { component ->
+                                val searchTerm = query.trim().lowercase()
+                                component.action.title.lowercase().contains(searchTerm) || component.action.description.contains(searchTerm)
+                            }
+                        },
+                        onTextCleared = {
+                            searchResults.value = components
+                        }
+                    )
                 }
-            )
-
-            KwikVSpacer(24)
-
-            KwikLazyList(
-                state = listState,
-                items = searchResults.value
-            )
+            }
         }
+    ) { paddingValues ->
+        KwikLazyList(
+            modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp),
+            contentPadding = paddingValues,
+            state = listState,
+            items = searchResults.value
+        )
     }
 }
 

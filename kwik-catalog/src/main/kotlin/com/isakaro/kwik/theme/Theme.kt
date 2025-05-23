@@ -1,4 +1,4 @@
-package com.isakaro.kwik.ui.theme
+package com.isakaro.kwik.theme
 
 import android.app.Activity
 import android.os.Build
@@ -15,6 +15,11 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.isakaro.kwik.ui.theme.KwikColorError
+import com.isakaro.kwik.ui.theme.KwikColorPrimary
+import com.isakaro.kwik.ui.theme.KwikColorSecondary
+import com.isakaro.kwik.ui.theme.KwikColorTertiary
+import com.isakaro.kwik.ui.theme.Typography
 
 private val DarkBackground = Color(0xFF121212)
 private val DarkSurface = Color(0xFF1E1E1E)
@@ -69,8 +74,14 @@ fun KwikTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+                window.isStatusBarContrastEnforced = false
+            }
+            window.statusBarColor = Color.Transparent.toArgb()
+            window.navigationBarColor = Color.Transparent.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
 

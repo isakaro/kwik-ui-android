@@ -1,5 +1,7 @@
 package com.isakaro.kwik.ui.date
 
+import android.R.attr.label
+import android.R.attr.onClick
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +67,7 @@ fun KwikDateRangeButton(
     onClick: () -> Unit = {},
     border: BorderStroke? = null,
     shape: Shape = MaterialTheme.shapes.medium,
+    datePlaceholder: String = "Select dates",
     leadingIcon: @Composable (() -> Unit?) = {
         Icon(
             painter = painterResource(id = R.drawable.calendar),
@@ -81,7 +84,7 @@ fun KwikDateRangeButton(
     }
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
-    var dateDisplay by remember { mutableStateOf("Select dates") }
+    var dateDisplay by remember { mutableStateOf(datePlaceholder) }
 
     Column {
         if(!label.isNullOrBlank()){

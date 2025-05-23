@@ -25,7 +25,7 @@ import com.isakaro.kwik.ui.button.KwikExtendedFloatingActionButton
 import com.isakaro.kwik.ui.button.KwikFloatingActionButton
 import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

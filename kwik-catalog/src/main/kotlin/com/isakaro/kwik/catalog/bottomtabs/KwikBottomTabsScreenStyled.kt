@@ -21,7 +21,7 @@ import com.isakaro.kwik.ui.helpers.KwikCenterColumn
 import com.isakaro.kwik.ui.tabs.KwikBottomTabs
 import com.isakaro.kwik.ui.tabs.KwikTabItem
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

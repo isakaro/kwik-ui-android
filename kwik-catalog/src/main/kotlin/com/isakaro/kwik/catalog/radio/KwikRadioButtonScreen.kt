@@ -13,7 +13,7 @@ import com.isakaro.kwik.ui.radio.KwikRadioButtonGroup
 import com.isakaro.kwik.ui.radio.KwikRadioItem
 import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

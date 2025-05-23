@@ -7,6 +7,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.isakaro.kwik.catalog.accordion.KwikAccordionScreen
 import com.isakaro.kwik.catalog.avatar.KwikAvatarScreen
 import com.isakaro.kwik.catalog.biometrics.KwikBiometricsScreen
@@ -74,7 +75,7 @@ import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
 import com.isakaro.kwik.destinations.KwikToastScreenDestination
 import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
 import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
@@ -83,6 +84,8 @@ import com.ramcosta.composedestinations.rememberNavHostEngine
 
 class MainActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         val installedSplashScreen = installSplashScreen()
 
         super.onCreate(savedInstanceState)

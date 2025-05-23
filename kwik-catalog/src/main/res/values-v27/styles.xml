@@ -5,9 +5,10 @@
         <item name="windowSplashScreenBackground">@color/colorPrimary</item>
         <item name="postSplashScreenTheme">@style/Theme.Kwik</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>

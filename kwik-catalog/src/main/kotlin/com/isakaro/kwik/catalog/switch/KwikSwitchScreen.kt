@@ -13,7 +13,7 @@ import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.theme.KwikColorError
 import com.isakaro.kwik.ui.theme.KwikColorSuccess
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -32,11 +32,7 @@ internal fun KwikSwitchScreen(
             val checkedState = remember { mutableStateOf(true) }
 
             KwikSwitch(
-                text = {
-                    KwikText.BodyMedium(
-                        text = "Control the lights"
-                    )
-                },
+                text = "Control the lights",
                 checked = checkedState.value,
                 onCheckedChange = { checkedState.value = it }
             )

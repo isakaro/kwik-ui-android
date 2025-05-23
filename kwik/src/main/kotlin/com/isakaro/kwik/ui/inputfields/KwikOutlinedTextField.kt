@@ -292,7 +292,7 @@ fun KwikOutlinedTextField(
             } else visualTransformation,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(if(isBigTextField) 150.dp else 65.dp)
+                .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onFocusChanged { focusState ->

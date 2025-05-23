@@ -241,26 +241,62 @@ private fun KwikFilterChip(
     )
 }
 
+/**
+ * A chip component
+ *
+ * @param text String text to be displayed
+ * @param isSelected Boolean if the chip is selected or not
+ * @param onClick () -> Unit called when the chip is clicked
+ * @param onLongPress () -> Unit called when the chip is long pressed
+ * @param selectedContainerColor Color of the chip when selected
+ * @param unselectedContainerColor Color of the chip when unselected
+ * @param selectedContentColor Color of the text when selected
+ * @param unselectedContentColor Color of the text when unselected
+ * @param border BorderStroke? border stroke of the chip
+ * @param shape Shape shape of the chip
+ * */
 @Composable
 fun KwikChip(
     text: String,
-    onClick: () -> Unit
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    onLongPress: (Boolean) -> Unit = {},
+    selectedContainerColor: Color,
+    unselectedContainerColor: Color,
+    selectedContentColor: Color,
+    unselectedContentColor: Color,
+    border: BorderStroke? = null,
+    shape: Shape,
+    leadingIcon: @Composable (() -> Unit?)
 ) {
     FilterChip(
-        selected = false,
+        modifier = Modifier
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = { onLongPress(!isSelected) },
+                    onTap = { onClick() }
+                )
+            },
+        selected = isSelected,
         onClick = {
             onClick()
         },
+        shape = shape,
+        border = if(!isSelected) border else null,
         label = {
             KwikText.TitleSmall(
                 text = text,
-                color = Color.Black
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                color = if (isSelected) selectedContentColor else unselectedContentColor
             )
         },
         colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = MaterialTheme.colorScheme.primary,
-            containerColor = Color.White
-        )
+            selectedContainerColor = selectedContainerColor,
+            containerColor = unselectedContainerColor
+        ),
+        leadingIcon = {
+            leadingIcon.invoke()
+        }
     )
 }
 

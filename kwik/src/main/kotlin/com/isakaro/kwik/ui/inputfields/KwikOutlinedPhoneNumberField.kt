@@ -176,7 +176,7 @@ fun KwikOutlinedPhoneNumberField(
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(65.dp)
+                    .heightIn(45.dp)
                     .then(modifier)
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()

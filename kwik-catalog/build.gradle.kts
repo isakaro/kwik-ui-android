@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.kwik.ui)
+    implementation(project(":kwik"))
     implementation(libs.bundles.app)
     implementation(libs.bundles.app.theming)
     implementation(libs.splashscreen)

@@ -167,8 +167,7 @@ fun KwikTabItemView(
     ) {
         Column(modifier = Modifier
             .align(Alignment.TopCenter)
-            .height(70.dp)
-            .padding(top = 8.dp)
+            .height(40.dp)
             .clickable(
                 onClick = { onClick() },
             ),

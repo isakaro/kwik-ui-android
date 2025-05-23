@@ -135,7 +135,7 @@ fun KwikPhoneNumberField(
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(65.dp)
+                    .heightIn(45.dp)
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->

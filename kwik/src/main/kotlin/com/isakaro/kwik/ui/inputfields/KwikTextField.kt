@@ -301,7 +301,7 @@ fun KwikTextField(
             } else visualTransformation,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(if(isBigTextField) 150.dp else 65.dp)
+                .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
                 .onFocusChanged { focusState ->
@@ -530,13 +530,18 @@ fun KwikTextField(
 }
 
 @Composable
+fun kwikFilledColorResolver(): Color {
+    return if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused
+}
+
+@Composable
 fun kwikTextFieldColors(
     isEditable: Boolean = true
 ): TextFieldColors {
     return OutlinedTextFieldDefaults.colors(
         focusedTextColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
         cursorColor = MaterialTheme.colorScheme.primary,
-        focusedContainerColor = if(isSystemInDarkTheme()) KwikColorFilledTextFieldFocusedDarkMode else KwikColorFilledTextFieldFocused,
+        focusedContainerColor = kwikFilledColorResolver(),
         focusedLabelColor = Color.Gray,
         focusedBorderColor = Color.Transparent,
         unfocusedBorderColor = Color.Transparent,

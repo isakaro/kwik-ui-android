@@ -139,7 +139,7 @@ fun KwikSearchView(
     suggestionsModifier: Modifier = Modifier,
     onSuggestionSelected: (String) -> Unit = {},
     suggestions: List<String> = listOf(),
-    suggestionsContainerColor: Color = MaterialTheme.colorScheme.surface,
+    suggestionsContainerColor: Color = kwikFilledColorResolver(),
     colors: TextFieldColors = kwikTextFieldColors().copy(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent
@@ -212,7 +212,7 @@ fun KwikSearchView(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(55.dp)
+                .heightIn(45.dp)
                 .then(modifier)
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused

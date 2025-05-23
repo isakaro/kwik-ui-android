@@ -6,7 +6,9 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -75,7 +77,12 @@ fun <T> KwikToggleGroup(
     selectedOption: T,
     onOptionSelected: (T) -> Unit,
     elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-    shape: Shape = MaterialTheme.shapes.medium
+    shape: Shape = MaterialTheme.shapes.medium,
+    selectedOptionColor: Color = MaterialTheme.colorScheme.primary,
+    selectedOptionShape: Shape = MaterialTheme.shapes.small,
+    selectedOptionTextColor: Color = Color.White,
+    unselectedOptionTextColor: Color = Color.Gray,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     val buttonOffsets = remember { mutableStateListOf<Offset>().apply { repeat(options.size){ add(Offset.Zero) } } }
@@ -129,8 +136,7 @@ fun <T> KwikToggleGroup(
     }
 
     KwikCard(
-        modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = containerColor,
         elevation = elevation,
         shape = shape
     ) {
@@ -147,13 +153,15 @@ fun <T> KwikToggleGroup(
                         }
                         .width(with(LocalDensity.current) { animatedWidth.value.toDp() })
                         .height(with(LocalDensity.current) { animatedHeight.value.toDp() })
-                        .clip(shape)
-                        .background(MaterialTheme.colorScheme.primary)
+                        .clip(selectedOptionShape)
+                        .background(selectedOptionColor)
                 )
             }
 
             SingleChoiceSegmentedButtonRow(
-                modifier = Modifier.padding(4.dp)
+                modifier = modifier
+                    .padding(4.dp)
+                    .heightIn(30.dp)
             ) {
                 options.forEachIndexed { index, item ->
                     SegmentedButton(
@@ -162,7 +170,7 @@ fun <T> KwikToggleGroup(
                                 buttonOffsets[index] = it.positionInParent()
                                 buttonSizes[index] = it.size
                             },
-                        shape = shape,
+                        shape = MaterialTheme.shapes.extraSmall,
                         onClick = {
                             selectedIndex = index
                             onOptionSelected(item.value)
@@ -178,13 +186,13 @@ fun <T> KwikToggleGroup(
                             activeContentColor = Color.Transparent
                         ),
                         label = {
-                            KwikText.LabelMedium(
+                            KwikText.LabelSmall(
                                 modifier = Modifier.animateContentSize(),
                                 text = item.label,
                                 textAlign = TextAlign.Center,
                                 fontWeight = if (index == selectedIndex) FontWeight.Bold else null,
                                 maxLines = 2,
-                                color = if (index == selectedIndex) Color.White else Color.Gray
+                                color = if (index == selectedIndex) selectedOptionTextColor else unselectedOptionTextColor
                             )
                         }
                     )

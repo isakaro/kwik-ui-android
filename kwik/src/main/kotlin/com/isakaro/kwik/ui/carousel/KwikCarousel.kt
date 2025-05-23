@@ -1,5 +1,6 @@
 package com.isakaro.kwik.ui.carousel
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -95,6 +96,24 @@ fun MutableState<KwikCarouselState>.previous() {
             initialIndex = this.value.initialIndex,
             currentIndex = if(this.value.currentIndex - 1 < 0) this.value.itemCount - 1 else this.value.currentIndex - 1
         )
+    }
+}
+
+/**
+ * Slide to a specific page
+ * */
+fun MutableState<KwikCarouselState>.slideTo(
+    index: Int
+) {
+    if(index >= 0 && index < this.value.itemCount) {
+        Log.e("KwikCarouselState", "Called: $index")
+        this.value = KwikCarouselState(
+            itemCount = this.value.itemCount,
+            initialIndex = this.value.initialIndex,
+            currentIndex = index
+        )
+    } else {
+        Log.e("KwikCarouselState", "Invalid index: $index")
     }
 }
 

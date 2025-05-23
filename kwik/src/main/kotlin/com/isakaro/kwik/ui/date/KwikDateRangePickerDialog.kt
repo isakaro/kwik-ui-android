@@ -69,13 +69,12 @@ fun KwikDateRangePickerDialog(
 
     DatePickerDialog(
         onDismissRequest = onDismiss,
-        colors = DatePickerDefaults.colors().copy(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
+        colors = colors,
         shape = shape,
         confirmButton = {
             KwikButton(
                 text = confirmText,
+                shape = MaterialTheme.shapes.large,
                 onClick = {
                     val startMillis = dateRangePickerState.selectedStartDateMillis
                     val endMillis = dateRangePickerState.selectedEndDateMillis

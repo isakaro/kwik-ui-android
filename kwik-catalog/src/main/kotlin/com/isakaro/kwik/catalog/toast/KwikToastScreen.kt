@@ -14,7 +14,7 @@ import com.isakaro.kwik.ui.toast.rememberKwikToastState
 import com.isakaro.kwik.ui.toast.showToast
 import com.isakaro.kwik.ui.theme.KwikColorError
 import com.isakaro.kwik.ui.theme.KwikColorWarning
-import com.isakaro.kwik.ui.theme.KwikTheme
+import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch

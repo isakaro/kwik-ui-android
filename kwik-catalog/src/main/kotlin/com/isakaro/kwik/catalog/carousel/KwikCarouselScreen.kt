@@ -7,6 +7,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +21,7 @@ import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.navigator
+import com.isakaro.kwik.ui.button.KwikButton
 import com.isakaro.kwik.ui.button.KwikIconButton
 import com.isakaro.kwik.ui.card.KwikCard
 import com.isakaro.kwik.ui.carousel.KwikCarousel
@@ -24,6 +30,7 @@ import com.isakaro.kwik.ui.carousel.KwikImageCarousel
 import com.isakaro.kwik.ui.carousel.next
 import com.isakaro.kwik.ui.carousel.previous
 import com.isakaro.kwik.ui.carousel.rememberKwikCarouselState
+import com.isakaro.kwik.ui.carousel.slideTo
 import com.isakaro.kwik.ui.helpers.KwikCenterColumn
 import com.isakaro.kwik.ui.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
@@ -150,6 +157,32 @@ internal fun KwikCarouselScreen(
                 contentBuilder = { page ->
                     content[page].invoke()
                 }
+            )
+        }
+
+        ShowCase(title = "Image carousel with slide to specific index") {
+            val carouselState = rememberKwikCarouselState(KwikCarouselState(itemCount = images.size))
+            var currentIndex by remember { mutableIntStateOf(0) }
+
+            KwikImageCarousel(
+                modifier = Modifier.height(200.dp),
+                state = carouselState,
+                images = images
+            )
+
+            KwikButton(
+                text = "Slide randomly",
+                onClick = {
+                    currentIndex = images.indexOf(images.random())
+                }
+            )
+
+            LaunchedEffect(currentIndex) {
+                carouselState.slideTo(currentIndex)
+            }
+
+            KwikText.BodyMedium(
+                text = "Current index: $currentIndex"
             )
         }
     }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +31,7 @@ import com.isakaro.R
  * @param loading The action to perform when the image is loading.
  * @param success The action to perform when the image has loaded successfully.
  * @param error The action to perform when the image has failed to load.
+ * @param colorFilter The color filter to apply to the image.
  * @param onClick The action to perform when the image is clicked.
  * */
 @Composable
@@ -43,6 +45,7 @@ fun KwikImageLoader(
     loading: () -> Unit = {},
     success: () -> Unit = {},
     error: () -> Unit = {},
+    colorFilter: ColorFilter? = null,
     onClick: () -> Unit = {}
 ) {
     val loadingState = remember {
@@ -65,6 +68,7 @@ fun KwikImageLoader(
                     clip(shape)
                 }
             },
+        colorFilter = colorFilter,
         contentDescription = contentDescription,
         contentScale = contentScale,
         error = painterResource(placeholder),
