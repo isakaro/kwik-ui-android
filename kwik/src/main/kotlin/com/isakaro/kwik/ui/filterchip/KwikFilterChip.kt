@@ -1,5 +1,7 @@
 package com.isakaro.kwik.ui.filterchip
 
+import android.R.attr.onClick
+import android.R.attr.text
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -203,42 +205,27 @@ private fun KwikFilterChip(
     shape: Shape,
     showCheckedIcon: Boolean = true
 ) {
-    FilterChip(
-        modifier = Modifier
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onLongPress = { onLongPress(!isSelected) },
-                    onTap = { onClick(!isSelected) }
-                )
-            },
-        selected = isSelected,
-        onClick = {
-            onClick(!isSelected)
-        },
-        shape = shape,
-        border = if(!isSelected) border else null,
-        label = {
-            KwikText.TitleSmall(
-                text = text,
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (isSelected) selectedContentColor else unselectedContentColor
+    KwikChip(
+        text = text,
+        isSelected = isSelected,
+        onClick = { onClick(isSelected) },
+        onLongPress = { onLongPress(isSelected) },
+        selectedContainerColor = selectedContainerColor,
+        unselectedContainerColor = unselectedContainerColor,
+        selectedContentColor = selectedContentColor,
+        unselectedContentColor = unselectedContentColor,
+        border = border,
+        shape = shape
+    ) {
+        if (isSelected && showCheckedIcon) {
+            Icon(
+                imageVector = Icons.Default.Done,
+                contentDescription = null,
+                modifier = Modifier.size(16.dp),
+                tint = selectedContentColor
             )
-        },
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = selectedContainerColor,
-            containerColor = unselectedContainerColor
-        ),
-        leadingIcon = if (isSelected && showCheckedIcon) {
-            {
-                Icon(
-                    imageVector = Icons.Filled.Done,
-                    contentDescription = "checked",
-                    tint = selectedContentColor,
-                    modifier = Modifier.size(FilterChipDefaults.IconSize)
-                )
-            }
-        } else null
-    )
+        }
+    }
 }
 
 /**
@@ -258,15 +245,15 @@ private fun KwikFilterChip(
 @Composable
 fun KwikChip(
     text: String,
-    isSelected: Boolean,
-    onClick: () -> Unit,
+    isSelected: Boolean = false,
+    onClick: () -> Unit = {},
     onLongPress: (Boolean) -> Unit = {},
-    selectedContainerColor: Color,
-    unselectedContainerColor: Color,
-    selectedContentColor: Color,
-    unselectedContentColor: Color,
+    selectedContainerColor: Color = MaterialTheme.colorScheme.surface,
+    unselectedContainerColor: Color = if(isSystemInDarkTheme()) Color.DarkGray else Color.LightGray,
+    selectedContentColor: Color = Color.White,
+    unselectedContentColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
     border: BorderStroke? = null,
-    shape: Shape,
+    shape: Shape = MaterialTheme.shapes.extraLarge,
     leadingIcon: @Composable (() -> Unit?)
 ) {
     FilterChip(
@@ -340,3 +327,4 @@ private fun PreviewKwikFilterChipsInFlowLayout() {
         filtersUpdated = { selected = it }
     )
 }
+
