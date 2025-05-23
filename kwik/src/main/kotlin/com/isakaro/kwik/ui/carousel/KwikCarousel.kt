@@ -1,6 +1,7 @@
 package com.isakaro.kwik.ui.carousel
 
 import android.util.Log
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -9,7 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -106,7 +109,6 @@ fun MutableState<KwikCarouselState>.slideTo(
     index: Int
 ) {
     if(index >= 0 && index < this.value.itemCount) {
-        Log.e("KwikCarouselState", "Called: $index")
         this.value = KwikCarouselState(
             itemCount = this.value.itemCount,
             initialIndex = this.value.initialIndex,
@@ -199,12 +201,16 @@ fun KwikCarousel(
             } else {
                 state.value.currentIndex
             }
-            pagerState.animateScrollToPage(targetPage)
+            pagerState.requestScrollToPage(
+                page = targetPage
+            )
         }
     }
 
     // sync from pager to state
     LaunchedEffect(pagerState.currentPage) {
+        Log.e("Called", "State: ${pagerState.currentPage}")
+
         val realPage = pagerState.currentPage % state.value.itemCount
         if (state.value.currentIndex != realPage) {
             state.value = state.value.copy(currentIndex = realPage)
@@ -490,12 +496,13 @@ private fun KwikCarouselPreview() {
         contentBuilder = { page ->
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .fillMaxWidth()
+                    .height(200.dp)
                     .background(
                         when (page) {
                             0 -> Color.Red
-                            1 -> Color.Green
-                            else -> Color.Blue
+                            1 -> Color.Black
+                            else -> Color.DarkGray
                         }
                     ),
                 contentAlignment = Alignment.Center

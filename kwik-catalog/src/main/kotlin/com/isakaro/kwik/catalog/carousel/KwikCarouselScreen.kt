@@ -1,5 +1,6 @@
 package com.isakaro.kwik.catalog.carousel
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -161,29 +162,26 @@ internal fun KwikCarouselScreen(
         }
 
         ShowCase(title = "Image carousel with slide to specific index") {
-            val carouselState = rememberKwikCarouselState(KwikCarouselState(itemCount = images.size))
+            val carouselStateRandom = rememberKwikCarouselState(KwikCarouselState(itemCount = images.size))
             var currentIndex by remember { mutableIntStateOf(0) }
 
             KwikImageCarousel(
                 modifier = Modifier.height(200.dp),
-                state = carouselState,
+                state = carouselStateRandom,
                 images = images
             )
 
             KwikButton(
                 text = "Slide randomly",
                 onClick = {
-                    currentIndex = images.indexOf(images.random())
+                    val value = (0..images.size - 1).random()
+                    currentIndex = value
                 }
             )
 
             LaunchedEffect(currentIndex) {
-                carouselState.slideTo(currentIndex)
+                carouselStateRandom.slideTo(currentIndex)
             }
-
-            KwikText.BodyMedium(
-                text = "Current index: $currentIndex"
-            )
         }
     }
 }
