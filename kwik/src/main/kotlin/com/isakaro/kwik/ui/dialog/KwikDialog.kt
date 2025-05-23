@@ -257,14 +257,12 @@ object KwikDialog {
                         .padding(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(
                         space = 8.dp,
-                        alignment = Alignment.CenterHorizontally
+                        alignment = Alignment.End
                     ),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if(cancellable){
                         KwikTextButton(
-                            modifier = Modifier
-                                .weight(0.4f),
                             text = "Cancel",
                             onClick = {
                                 onCancel()
@@ -275,8 +273,6 @@ object KwikDialog {
 
                     if(confirmButtonVisible){
                         KwikButton(
-                            modifier = Modifier
-                                .weight(0.6f),
                             text = confirmText ?: "Confirm",
                             containerColor = confirmColor,
                             isLoading = isLoading

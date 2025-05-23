@@ -156,6 +156,7 @@ fun KwikTabsContent(
 
 @Composable
 fun KwikTabItemView(
+    modifier: Modifier = Modifier,
     selected: Boolean,
     containerColor: Color = MaterialTheme.colorScheme.primary,
     selectedContentColor: Color = MaterialTheme.colorScheme.primary,
@@ -166,7 +167,7 @@ fun KwikTabItemView(
     Box(
         modifier = Modifier.fillMaxSize().background(containerColor)
     ) {
-        Column(modifier = Modifier
+        Column(modifier = modifier
             .align(Alignment.TopCenter)
             .heightIn(45.dp)
             .clickable(
