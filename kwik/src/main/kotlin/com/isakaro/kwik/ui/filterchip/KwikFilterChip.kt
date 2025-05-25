@@ -50,20 +50,20 @@ data class KwikFilterChipOption<T>(
 /**
  * A filter chip component with multi-selection support
  *
- * @param filters List of filter options to display
- * @param preSelection Set of pre-selected options
- * @param filtersUpdated Callback when filter options are updated
- * @param multiSelection Boolean if multiple options can be selected
- * @param selectedContainerColor Color of the chip when selected
- * @param unselectedContainerColor Color of the chip when unselected
- * @param selectedContentColor Color of the text when selected
- * @param unselectedContentColor Color of the text when unselected
- * @param border BorderStroke? border stroke of the chip
- * @param shape Shape shape of the chip
- * @param showCheckedIcon Boolean if the checked icon should be shown
- * @param flowLayout Boolean if the chips should be displayed in a flow layout
- * @param flowLayoutVerticalArrangement Int vertical arrangement of the flow layout
- * @param flowLayoutHorizontalArrangement Int horizontal arrangement of the flow layout
+ * @param filters [List] of filter options to display
+ * @param preSelection Optional [Set] of options that can be pre-selected.
+ * @param filtersUpdated [Unit] Callback when filter options are updated. Returns a list of selected values of type [T]
+ * @param multiSelection [Boolean] if multiple options can be selected
+ * @param selectedContainerColor [Color] of the chip when selected
+ * @param unselectedContainerColor [Color] of the chip when unselected
+ * @param selectedContentColor [Color] of the text when selected
+ * @param unselectedContentColor [Color] of the text when unselected
+ * @param border [BorderStroke] border stroke of the chip
+ * @param shape [Shape] shape of the chip
+ * @param showCheckedIcon [Boolean] if the checked icon should be shown
+ * @param flowLayout [Boolean] if the chips should be displayed in a flow layout
+ * @param flowLayoutVerticalArrangement [Int] vertical arrangement of the flow layout
+ * @param flowLayoutHorizontalArrangement [Int] horizontal arrangement of the flow layout
  * */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
