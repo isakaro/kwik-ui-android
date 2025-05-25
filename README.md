@@ -1154,6 +1154,20 @@ KwikWebview(
 )
 ```
 
+Set cookies for the WebView:
+
+```kotlin
+KwikWebview(
+    url = "https://app.domain.com",
+    webViewSettings = {
+        cookies = mapOf(
+            "cookieName" to "cookieValue",
+            "anotherCookie" to "anotherValue"
+        )
+    }
+)
+```
+
 [Webview docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.webview/index.html)
 
 ---

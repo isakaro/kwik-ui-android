@@ -34,23 +34,51 @@ import com.isakaro.kwik.ui.loading.KwikCircularLoading
 
 /**
  * Settings for the KwikWebView.
- * */
+ *
+ * @property userAgent The user agent string to be used by the WebView.
+ * @property cookies A list of [KwikCookie] objects to be set as cookies in the WebView.
+ * @property debug Whether to enable WebView debugging, default is false.
+ * @property javaScriptEnabled Whether to enable JavaScript in the WebView, default is true.
+ * @property domStorageEnabled Whether to enable DOM storage in the WebView, default is true.
+ * @property allowFileAccess Whether to allow file access in the WebView, default is true.
+ * @property allowContentAccess Whether to allow content access in the WebView, default is true.
+ * @property allowFileAccessFromFileURLs Whether to allow file access from file URLs, default is false.
+ * @property allowUniversalAccessFromFileURLs Whether to allow universal access from file URLs, default is false.
+ * @property javaScriptCanOpenWindowsAutomatically Whether to allow JavaScript to open windows automatically, default is true.
+ * @property supportMultipleWindows Whether to support multiple windows in the WebView, default is true.
+ *
+ * Example usage:
+ *
+ * ```
+* KwikWebview(
+*   url = "https://app.domain.com",
+*   webViewSettings = {
+*        cookies = mapOf(
+*            "cookieName" to "cookieValue",
+*            "anotherCookie" to "anotherValue"
+*        ),
+ *       userAgent = "Running on Kwik Android WebView"
+*    }
+* )
+* ```
+* */
 data class KwikWebViewSettings(
-    val userAgent: String = "Kwik-Android-WebView",
-    val cookies: List<KwikCookie> = emptyList(),
-    val debug: Boolean = false,
-    val javaScriptEnabled: Boolean = true,
-    val domStorageEnabled: Boolean = true,
-    val allowFileAccess: Boolean = true,
-    val allowContentAccess: Boolean = true,
-    val allowFileAccessFromFileURLs: Boolean = false,
-    val allowUniversalAccessFromFileURLs: Boolean = false,
-    val javaScriptCanOpenWindowsAutomatically: Boolean = true,
-    val supportMultipleWindows: Boolean = true
+    var userAgent: String = "Kwik-Android-WebView",
+    var cookies: List<KwikCookie> = emptyList(),
+    var debug: Boolean = false,
+    var javaScriptEnabled: Boolean = true,
+    var domStorageEnabled: Boolean = true,
+    var allowFileAccess: Boolean = true,
+    var allowContentAccess: Boolean = true,
+    var allowFileAccessFromFileURLs: Boolean = false,
+    var allowUniversalAccessFromFileURLs: Boolean = false,
+    var javaScriptCanOpenWindowsAutomatically: Boolean = true,
+    var supportMultipleWindows: Boolean = true
 )
 
 /**
  * A web view component that allows you to load a URL and interact with it.
+ * Supports JavaScript, file access, and custom settings such as cookies and user agent parameters.
  *
  * @param modifier The modifier to be applied to the web view.
  * @param url The URL to be loaded in the web view.
@@ -236,26 +264,41 @@ fun KwikWebView(
     }
 }
 
-fun WebView.setCookie(cookies: List<KwikCookie>){
+/**
+ * This function sets cookies for the WebView using the provided list of `KwikCookie` objects.
+ *
+ * @param cookies A list of [KwikCookie]` objects to be set as cookies in the [WebView].
+ * */
+fun WebView.setCookie(
+    cookies: List<KwikCookie>
+){
     val cookieManager = CookieManager.getInstance()
     cookieManager.acceptCookie()
     cookies.forEach { cookie ->
-        cookieManager.setCookie(cookie.domain, "${cookie.name}=${cookie.value}; path=${cookie.path}; expires=${cookie.expires}; name=${cookie.name}")
+        cookieManager.setCookie(cookie.domain, "${cookie.name}=${cookie.value}; path=${cookie.path}; expires=${cookie.expires ?: 0}; name=${cookie.name}")
     }
     cookieManager.flush()
     cookieManager.setAcceptThirdPartyCookies(this, true)
 }
 
+/**
+ * Cookie data class for KwikWebView.
+ *
+ * @property name The name of the cookie.
+ * @property value The value of the cookie.
+ * @property domain The domain for which the cookie is valid.
+ * @property path The path for which the cookie is valid, default is "/".
+ * @property expires The expiration date of the cookie in milliseconds.
+ * @property secure Whether the cookie is secure (only sent over HTTPS), default is true.
+ * @property httpOnly Whether the cookie is HTTP only (not accessible via JavaScript), default is false.
+ * Wouldn't make sense to set it to true since we're running these cookies are set from the app, not from the web server.
+ * */
 data class KwikCookie(
     val name: String,
     val value: String,
     val domain: String,
     val path: String = "/",
-    val expires: String = (30 * 24 * 60 * 60).toString() // 30 days
+    val expires: Int? = null,
+    val secure: Boolean = true,
+    val httpOnly: Boolean = false
 )
-
-@Preview
-@Composable
-private fun KwikWebViewPreview() {
-    KwikWebView(url = "https://www.google.com")
-}

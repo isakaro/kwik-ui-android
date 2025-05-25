@@ -2,7 +2,6 @@ package com.isakaro.kwik.catalog.webview
 
 import androidx.compose.runtime.Composable
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
-import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.catalog.ShowCaseContainer
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.webview.KwikWebView
@@ -21,7 +20,7 @@ internal fun KwikWebViewScreen(
         }
     ) {
         KwikWebView(
-            url = "https://www.wikipedia.org"
+            url = "https://wikipedia.org",
         )
     }
 }
