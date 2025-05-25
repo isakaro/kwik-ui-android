@@ -604,7 +604,7 @@ val options = listOf(
     KwikRadioItem("Davy Jones", 4),
 )
 
-val (selectedOption, onOptionSelected) = remember { mutableStateOf<KwikRadioItem<Int>?>(null) }
+val (selectedOption, onOptionSelected) = remember { mutableStateOf<Int?>(null) }
 
 KwikRadioButtonGroup(
     options = options,
