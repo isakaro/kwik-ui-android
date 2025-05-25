@@ -477,14 +477,12 @@ val filters = listOf(
 
 var selected by rememberSaveable { mutableStateOf(listOf(1, 2)) } // values 1 and 2 will be selected initially (pre-selection)
 
-KwikTheme {
-    KwikFilterChips(
-        filters = filters,
-        preSelection = selected.toSet(),
-        filtersUpdated = { selected = it },
-        multiSelection = true
-    )
-}
+KwikFilterChips(
+    filters = filters,
+    preSelection = selected.toSet(),
+    filtersUpdated = { selected = it },
+    multiSelection = true
+)
 ```
 
 [Filter Chips docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.filterchip/index.html)
@@ -1167,13 +1165,13 @@ Add KwikUI to your project by including the following in your module level `buil
 **Gradle (Kotlin)**
 
 ```kotlin
-implementation("com.isakaro:kwik.ui:1.0.3")
+implementation("com.isakaro:kwik.ui:1.0.4")
 ```
 
 **Gradle (Groovy)**
 
 ```groovy
-implementation 'com.isakaro:kwik.ui:1.0.3'
+implementation 'com.isakaro:kwik.ui:1.0.4'
 ```
 
 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽
