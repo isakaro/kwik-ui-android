@@ -24,12 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
+import java.io.Serializable
 
 @Composable
 fun <T> ColumnScope.KwikRadioButtonGroup(
     options: List<KwikRadioItem<T>>,
     initialSelectedValue: T? = null,
-    onOptionSelected: (KwikRadioItem<T>) -> Unit
+    onOptionSelected: (T) -> Unit
 ) {
     var selectedIndex by remember { mutableIntStateOf(-1) }
 
@@ -51,7 +52,7 @@ fun <T> ColumnScope.KwikRadioButtonGroup(
                     .fillMaxWidth()
                     .clickable {
                         selectedIndex = index
-                        onOptionSelected(item)
+                        onOptionSelected(item.value)
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -63,7 +64,7 @@ fun <T> ColumnScope.KwikRadioButtonGroup(
                     ),
                     onClick = {
                         selectedIndex = index
-                        onOptionSelected(item)
+                        onOptionSelected(item.value)
                     }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -79,7 +80,7 @@ fun <T> ColumnScope.KwikRadioButtonGroup(
 data class KwikRadioItem<T>(
     val label: String,
     val value: T
-)
+): Serializable
 
 @Preview
 @Composable
