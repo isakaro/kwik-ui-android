@@ -468,21 +468,21 @@ Filter chips for filtering content based on selected options. Supports different
 
 ```kotlin
 val filters = listOf(
-    KwikFilterChipOption("Option 1", "1"),
-    KwikFilterChipOption("Option 2", "2"),
-    KwikFilterChipOption("Option 3", "3"),
-    KwikFilterChipOption("Option 4", "4"),
-    KwikFilterChipOption("Option 5", "5")
+    KwikFilterChipOption("Option 1", 1),
+    KwikFilterChipOption("Option 2", 2),
+    KwikFilterChipOption("Option 3", 3),
+    KwikFilterChipOption("Option 4", 4),
+    KwikFilterChipOption("Option 5", 5)
 )
 
-var selected by remember { mutableStateOf(filters) }
+var selected by rememberSaveable { mutableStateOf(listOf(1, 2)) } // values 1 and 2 will be selected initially (pre-selection)
 
 KwikTheme {
     KwikFilterChips(
         filters = filters,
-        flowLayout = true,
-        preSelection = setOf(filters.random()),
-        filtersUpdated = { selected = it }
+        preSelection = selected.toSet(),
+        filtersUpdated = { selected = it },
+        multiSelection = true
     )
 }
 ```
