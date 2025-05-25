@@ -3,7 +3,7 @@ package com.isakaro.kwik.catalog.filterchip
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.isakaro.kwik.ui.filterchip.KwikFilterChipOption
@@ -38,11 +38,11 @@ internal fun KwikFilterChipScreen(
         ShowCase(
             title = "Kwik filter chip",
         ) {
-            var selected by remember { mutableStateOf(filters) }
+            var selected by rememberSaveable { mutableStateOf(listOf(filters.first().value)) }
 
             KwikFilterChips(
                 filters = filters,
-                preSelection = setOf(filters.first()),
+                preSelection = selected.toSet(),
                 filtersUpdated = { selected = it }
             )
         }
@@ -50,12 +50,12 @@ internal fun KwikFilterChipScreen(
         ShowCase(
             title = "Kwik filter chip with multi-selection and hidden checked icon",
         ) {
-            var selected by remember { mutableStateOf(filters) }
+            var selected by rememberSaveable { mutableStateOf(filters.map { it.value }.take(2)) }
 
             KwikTheme {
                 KwikFilterChips(
                     filters = filters,
-                    preSelection = setOf(filters.first()),
+                    preSelection = selected.toSet(),
                     filtersUpdated = { selected = it },
                     multiSelection = true,
                     showCheckedIcon = false
@@ -66,13 +66,13 @@ internal fun KwikFilterChipScreen(
         ShowCase(
             title = "Kwik filter chips in flow layout",
         ) {
-            var selected by remember { mutableStateOf(filters) }
+            var selected by rememberSaveable { mutableStateOf(filters.map { it.value }.take(3)) }
 
             KwikFilterChips(
                 filters = filters,
                 flowLayout = true,
                 multiSelection = true,
-                preSelection = setOf(filters.first()),
+                preSelection = selected.toSet(),
                 filtersUpdated = { selected = it }
             )
         }

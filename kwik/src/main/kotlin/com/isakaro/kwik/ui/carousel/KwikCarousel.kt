@@ -209,8 +209,6 @@ fun KwikCarousel(
 
     // sync from pager to state
     LaunchedEffect(pagerState.currentPage) {
-        Log.e("Called", "State: ${pagerState.currentPage}")
-
         val realPage = pagerState.currentPage % state.value.itemCount
         if (state.value.currentIndex != realPage) {
             state.value = state.value.copy(currentIndex = realPage)

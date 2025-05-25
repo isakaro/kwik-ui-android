@@ -1,7 +1,5 @@
 package com.isakaro.kwik.ui.filterchip
 
-import android.R.attr.onClick
-import android.R.attr.text
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -21,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
+import java.io.Serializable
 import java.util.UUID
 
 /**
@@ -45,14 +45,14 @@ data class KwikFilterChipOption<T>(
     val label: String,
     val value: T,
     val id: UUID = UUID.randomUUID()
-)
+): Serializable
 
 /**
  * A filter chip component with multi-selection support
  *
  * @param filters List of filter options to display
  * @param preSelection Set of pre-selected options
- * @param filtersUpdated Callback when the filter options are updated
+ * @param filtersUpdated Callback when filter options are updated
  * @param multiSelection Boolean if multiple options can be selected
  * @param selectedContainerColor Color of the chip when selected
  * @param unselectedContainerColor Color of the chip when unselected
@@ -69,8 +69,8 @@ data class KwikFilterChipOption<T>(
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
-    preSelection: Set<KwikFilterChipOption<T>> = mutableSetOf(),
-    filtersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
+    preSelection: Set<T> = mutableSetOf(),
+    filtersUpdated: (List<T>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
     unselectedContainerColor: Color = if(isSystemInDarkTheme()) Color.DarkGray else Color.LightGray,
@@ -87,14 +87,14 @@ fun <T> KwikFilterChips(
     flowLayoutHorizontalArrangement: Int = 2
 ) {
     val selectedOptions = rememberSaveable {
-        mutableStateOf(preSelection.toSet())
+        mutableStateOf(preSelection)
     }
 
     val listState = rememberLazyListState()
 
     fun handleSelection(
-        onFiltersUpdated: (List<KwikFilterChipOption<T>>) -> Unit,
-        option: KwikFilterChipOption<T>,
+        onFiltersUpdated: (List<T>) -> Unit,
+        option: T,
         isSelected: Boolean
     ) {
         if(multiSelection){
@@ -125,10 +125,10 @@ fun <T> KwikFilterChips(
             filters.forEach { option ->
                 KwikFilterChip(
                     text = option.label,
-                    isSelected = selectedOptions.value.contains(option),
+                    isSelected = selectedOptions.value.contains(option.value),
                     onClick = { isSelected ->
                         handleSelection(
-                            option = option,
+                            option = option.value,
                             isSelected = isSelected,
                             onFiltersUpdated = filtersUpdated
                         )
@@ -156,10 +156,10 @@ fun <T> KwikFilterChips(
 
                 KwikFilterChip(
                     text = option.label,
-                    isSelected = selectedOptions.value.contains(option),
+                    isSelected = selectedOptions.value.contains(option.value),
                     onClick = { isSelected ->
                         handleSelection(
-                            option = option,
+                            option = option.value,
                             isSelected = isSelected,
                             onFiltersUpdated = filtersUpdated
                         )
@@ -291,18 +291,18 @@ fun KwikChip(
 @Composable
 private fun PreviewKwikFilterChips() {
     val filters = listOf(
-        KwikFilterChipOption("Option 1", "1"),
-        KwikFilterChipOption("Option 2", "2"),
-        KwikFilterChipOption("Option 3", "3"),
-        KwikFilterChipOption("Option 4", "4"),
-        KwikFilterChipOption("Option 5", "5")
+        KwikFilterChipOption("Option 1", 1),
+        KwikFilterChipOption("Option 2", 2),
+        KwikFilterChipOption("Option 3", 3),
+        KwikFilterChipOption("Option 4", 4),
+        KwikFilterChipOption("Option 5", 5)
     )
 
-    var selected by remember { mutableStateOf(filters) }
+    var selected by remember { mutableStateOf(filters.map { it.value }) }
 
     KwikFilterChips(
         filters = filters,
-        preSelection = setOf(filters.random()),
+        preSelection = setOf(filters.map { it.value }.random()),
         filtersUpdated = { selected = it }
     )
 }
@@ -311,19 +311,19 @@ private fun PreviewKwikFilterChips() {
 @Composable
 private fun PreviewKwikFilterChipsInFlowLayout() {
     val filters = listOf(
-        KwikFilterChipOption("Option 1", "1"),
-        KwikFilterChipOption("Option 2", "2"),
-        KwikFilterChipOption("Option 3", "3"),
-        KwikFilterChipOption("Option 4", "4"),
-        KwikFilterChipOption("Option 5", "5")
+        KwikFilterChipOption("Option 1", 1),
+        KwikFilterChipOption("Option 2", 2),
+        KwikFilterChipOption("Option 3", 3),
+        KwikFilterChipOption("Option 4", 4),
+        KwikFilterChipOption("Option 5", 5)
     )
 
-    var selected by remember { mutableStateOf(filters) }
+    var selected by remember { mutableStateOf(filters.map { it.value }) }
 
     KwikFilterChips(
         filters = filters,
         flowLayout = true,
-        preSelection = setOf(filters.random()),
+        preSelection = setOf(filters.map { it.value }.random()),
         filtersUpdated = { selected = it }
     )
 }
