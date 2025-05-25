@@ -2,6 +2,7 @@ package com.isakaro.kwik.catalog.radio
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,12 +37,12 @@ internal fun KwikRadioButtonScreen(
                 KwikRadioItem("Shipwreck Cove", 141),
             )
 
-            val (selectedOption, onOptionSelected) = remember { mutableStateOf(options[0]) }
+            val (selectedOption, onOptionSelected) = remember { mutableIntStateOf(options[0].value) }
 
             Column {
                 KwikRadioButtonGroup(
                     options = options,
-                    initialSelectedValue = selectedOption.value,
+                    initialSelectedValue = selectedOption,
                     onOptionSelected = {
                         onOptionSelected(it)
                     }
@@ -50,7 +51,7 @@ internal fun KwikRadioButtonScreen(
                 KwikVSpacer(12)
 
                 KwikText.TitleMedium(
-                    text = "Selected option: ${selectedOption.label}"
+                    text = "Selected option: ${options.first { it.value == selectedOption }.label}"
                 )
             }
         }
@@ -63,7 +64,7 @@ internal fun KwikRadioButtonScreen(
                 KwikRadioItem("Davy Jones", 141),
             )
 
-            val (selectedOption, onOptionSelected) = remember { mutableStateOf<KwikRadioItem<Int>?>(null) }
+            val (selectedOption, onOptionSelected) = remember { mutableStateOf<Int?>(null) }
 
             Column {
                 KwikRadioButtonGroup(
@@ -77,7 +78,7 @@ internal fun KwikRadioButtonScreen(
 
                 if(selectedOption != null){
                     KwikText.TitleMedium(
-                        text = "Selected option: ${selectedOption.label}"
+                        text = "Selected option: ${options.first { it.value == selectedOption }.label}"
                     )
                 }
             }
