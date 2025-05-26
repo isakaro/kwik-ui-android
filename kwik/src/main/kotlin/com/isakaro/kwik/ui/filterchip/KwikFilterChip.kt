@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -69,7 +68,7 @@ data class KwikFilterChipOption<T>(
 @Composable
 fun <T> KwikFilterChips(
     filters: List<KwikFilterChipOption<T>>,
-    preSelection: Set<T> = mutableSetOf(),
+    preSelection: Set<T>,
     filtersUpdated: (List<T>) -> Unit,
     multiSelection: Boolean = false,
     selectedContainerColor: Color = MaterialTheme.colorScheme.primary,
@@ -94,8 +93,7 @@ fun <T> KwikFilterChips(
 
     fun handleSelection(
         onFiltersUpdated: (List<T>) -> Unit,
-        option: T,
-        isSelected: Boolean
+        option: T
     ) {
         if(multiSelection){
             if(selectedOptions.value.contains(option)){
@@ -103,13 +101,13 @@ fun <T> KwikFilterChips(
             } else {
                 selectedOptions.value += option
             }
+            onFiltersUpdated(selectedOptions.value.toList())
         } else {
             if(!selectedOptions.value.contains(option)){
                 selectedOptions.value = setOf(option)
+                onFiltersUpdated(selectedOptions.value.toList())
             }
         }
-
-        onFiltersUpdated(selectedOptions.value.toList())
     }
 
     if(flowLayout){
@@ -129,7 +127,6 @@ fun <T> KwikFilterChips(
                     onClick = { isSelected ->
                         handleSelection(
                             option = option.value,
-                            isSelected = isSelected,
                             onFiltersUpdated = filtersUpdated
                         )
                     },
@@ -160,7 +157,6 @@ fun <T> KwikFilterChips(
                     onClick = { isSelected ->
                         handleSelection(
                             option = option.value,
-                            isSelected = isSelected,
                             onFiltersUpdated = filtersUpdated
                         )
                     },
@@ -254,7 +250,7 @@ fun KwikChip(
     unselectedContentColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
     border: BorderStroke? = null,
     shape: Shape = MaterialTheme.shapes.extraLarge,
-    leadingIcon: @Composable (() -> Unit?)
+    leadingIcon: @Composable (() -> Unit?) = { null }
 ) {
     FilterChip(
         modifier = Modifier
