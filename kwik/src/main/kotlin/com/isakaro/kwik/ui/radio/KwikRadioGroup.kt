@@ -26,6 +26,30 @@ import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.ui.text.KwikText
 import java.io.Serializable
 
+/**
+ * A radio button group component that allows users to select one option from a list of options.
+ *
+ * @param options A list of [KwikRadioItem] representing the options available in the radio button group.
+ * @param initialSelectedValue The initial value that should be selected when the component is first displayed. If null, no option is selected initially.
+ * @param onOptionSelected A callback function that is invoked when an option is selected. It receives the value of the selected option as a parameter.
+ *
+ * Usage:
+ * ```
+ *  val destinations = listOf(
+ *         KwikRadioItem("Tortuga", 404),
+ *         KwikRadioItem("Isla de Muerta", 300),
+ *         KwikRadioItem("Shipwreck Cove", 141)
+ *     )
+ *
+ *  KwikRadioButtonGroup(
+ *      options = destinations,
+ *      initialSelectedValue = 404,
+ *      onOptionSelected = { option ->
+ *         // handle the selected option
+ *      }
+ *  )
+ *```
+ */
 @Composable
 fun <T> ColumnScope.KwikRadioButtonGroup(
     options: List<KwikRadioItem<T>>,

@@ -1,5 +1,6 @@
 package com.isakaro.kwik.ui.inputfields
 
+import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -43,6 +44,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.AutofillNode
 import androidx.compose.ui.autofill.AutofillType
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
@@ -82,6 +84,8 @@ import kotlinx.coroutines.launch
 
 object AllowedChars {
     val NUMBERS = Regex("[^0-9]")
+    val ALPHABETS = Regex("[^a-zA-Z]")
+    val ALPHANUMERIC = Regex("[^a-zA-Z0-9]")
     val ALL = null
 }
 
@@ -181,21 +185,33 @@ fun KwikOutlinedTextField(
     delayDuration: Long = 500L,
     colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled)
 ) {
-
+    var fieldContentType by remember { mutableStateOf<ContentType?>(null) }
     val autofillTypes = mutableListOf<AutofillType>()
 
     if(keyboardType == KeyboardType.Password){
-        autofillTypes.add(AutofillType.Password)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.Password
+        } else {
+            autofillTypes.add(AutofillType.Password)
+        }
     }
     if(keyboardType == KeyboardType.Email){
-        autofillTypes.add(AutofillType.EmailAddress)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.EmailAddress + ContentType.Username
+        } else {
+            autofillTypes.add(AutofillType.EmailAddress)
+            autofillTypes.add(AutofillType.Username)
+        }
     }
     if(keyboardType == KeyboardType.Phone){
-        autofillTypes.add(AutofillType.PhoneNumber)
-        autofillTypes.add(AutofillType.PhoneNumberDevice)
-        autofillTypes.add(AutofillType.PhoneNumberNational)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.PhoneNumber + ContentType.PhoneNumberDevice + ContentType.PhoneNumberNational
+        } else {
+            autofillTypes.add(AutofillType.PhoneNumber)
+            autofillTypes.add(AutofillType.PhoneNumberDevice)
+            autofillTypes.add(AutofillType.PhoneNumberNational)
+        }
     }
-
     var suggestionsVisible by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }

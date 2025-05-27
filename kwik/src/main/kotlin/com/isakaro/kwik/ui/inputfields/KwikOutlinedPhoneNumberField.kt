@@ -31,6 +31,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.AutofillNode
 import androidx.compose.ui.autofill.AutofillType
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -39,6 +40,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -77,6 +80,10 @@ val allowedChars = Regex("^[0-9]*$")
  * @param countrySelectable Whether the country code is selectable
  * @param colors The colors of the field
  * @param onCountrySelected The callback that is called when a country is selected
+ * @param countryPickerTitle The title of the country picker dialog
+ * @param showFlags Whether to show the flags of the countries in the country picker dropdown button
+ * @param showCountryCode Whether to show the country code in the country picker dropdown button
+ * @param showDialingCode Whether to show the dialing code in the country picker dropdown button
  *
  * Example usage:
  *
@@ -178,6 +185,9 @@ fun KwikOutlinedPhoneNumberField(
                     .fillMaxWidth()
                     .heightIn(45.dp)
                     .then(modifier)
+                    .semantics {
+                        contentType = ContentType.PhoneNumber + ContentType.PhoneNumberDevice + ContentType.PhoneNumberNational
+                    }
                     .onGloballyPositioned {
                         autofillNode.boundingBox = it.boundsInWindow()
                     }.onFocusChanged { focusState ->

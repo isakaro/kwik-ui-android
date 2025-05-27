@@ -174,12 +174,14 @@ fun KwikCountryCodeButton(
                     text = country?.dialingCode ?: ""
                 )
             }
-            Icon(
-                Icons.Filled.KeyboardArrowDown,
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(35.dp),
-                contentDescription = null
-            )
+            if(enabled){
+                Icon(
+                    Icons.Filled.KeyboardArrowDown,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(35.dp),
+                    contentDescription = "Select country code"
+                )
+            }
         }
     }
 }
@@ -236,6 +238,7 @@ fun KwikCountryCodeItem(
 private fun KwikCountryCodePickerPreview(){
     KwikCountryCodePicker(
         state = rememberLazyListState(),
+
         onSelect = {
 
         },
