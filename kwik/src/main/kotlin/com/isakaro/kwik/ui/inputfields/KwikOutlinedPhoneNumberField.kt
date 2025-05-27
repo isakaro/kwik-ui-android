@@ -77,6 +77,10 @@ val allowedChars = Regex("^[0-9]*$")
  * @param countrySelectable Whether the country code is selectable
  * @param colors The colors of the field
  * @param onCountrySelected The callback that is called when a country is selected
+ * @param countryPickerTitle The title of the country picker dialog
+ * @param showFlags Whether to show the flags of the countries in the country picker dropdown button
+ * @param showCountryCode Whether to show the country code in the country picker dropdown button
+ * @param showDialingCode Whether to show the dialing code in the country picker dropdown button
  *
  * Example usage:
  *

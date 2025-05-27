@@ -54,6 +54,49 @@ import com.isakaro.kwik.ui.utils.KwikCountryInfo
 import com.isakaro.kwik.ui.utils.countryList
 import com.isakaro.kwik.ui.utils.text
 
+/**
+ * A powerful phone number field that allows the user to select a country code from a list of countries.
+ * The field is outlined and has a leading icon that shows the selected country code.
+ * The field also has a trailing icon that shows a check mark if the phone number is valid.
+ *
+ * @param value The current value of the field
+ * @param onValueChange The callback that is called when the value of the field changes
+ * @param onKeyboardDone The callback that is called when the keyboard done button is clicked
+ * @param label The label of the field
+ * @param shape The shape of the field
+ * @param isError Whether the field is in an error state
+ * @param error The error message to show when the field is in an error state
+ * @param singleLine Whether the field should be single line
+ * @param maxLines The maximum number of lines the field can have
+ * @param imeAction The action that should be performed when the keyboard done button is clicked
+ * @param initialCountryInfo The initial country info to show in the field
+ * @param isValid Whether the phone number is valid
+ * @param enabled Whether the field is enabled
+ * @param countrySelectable Whether the country code is selectable
+ * @param colors The colors of the field
+ * @param onCountrySelected The callback that is called when a country is selected
+ * @param countryPickerTitle The title of the country picker dialog
+ * @param showFlags Whether to show the flags of the countries in the country picker dropdown button
+ * @param showCountryCode Whether to show the country code in the country picker dropdown button
+ * @param showDialingCode Whether to show the dialing code in the country picker dropdown button
+ *
+ * Example usage:
+ *
+ * ```
+ * val value = remember { mutableStateOf(TextFieldValue("1234567890")) }
+ *
+ * KwikPhoneNumberField(
+ *    value = value,
+ *    onValueChange = {
+ *      value.value = it
+ *    },
+ *    onKeyboardDone = {},
+ *    placeholder = "Phone number",
+ *    initialCountryInfo = countryList.random()
+ *    onCountrySelected = {},
+ *    isValid = true
+ *)
+ * */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikPhoneNumberField(
