@@ -1,5 +1,6 @@
 package com.isakaro.kwik.ui.inputfields
 
+import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -43,6 +44,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.AutofillNode
 import androidx.compose.ui.autofill.AutofillType
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
@@ -55,6 +57,8 @@ import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -180,19 +184,32 @@ fun KwikTextField(
     delay: Boolean = false,
     delayDuration: Long = 500L
 ) {
-
+    var fieldContentType by remember { mutableStateOf<ContentType?>(null) }
     val autofillTypes = mutableListOf<AutofillType>()
 
     if(keyboardType == KeyboardType.Password){
-        autofillTypes.add(AutofillType.Password)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.Password
+        } else {
+            autofillTypes.add(AutofillType.Password)
+        }
     }
     if(keyboardType == KeyboardType.Email){
-        autofillTypes.add(AutofillType.EmailAddress)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.EmailAddress + ContentType.Username
+        } else {
+            autofillTypes.add(AutofillType.EmailAddress)
+            autofillTypes.add(AutofillType.Username)
+        }
     }
     if(keyboardType == KeyboardType.Phone){
-        autofillTypes.add(AutofillType.PhoneNumber)
-        autofillTypes.add(AutofillType.PhoneNumberDevice)
-        autofillTypes.add(AutofillType.PhoneNumberNational)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            fieldContentType = ContentType.PhoneNumber + ContentType.PhoneNumberDevice + ContentType.PhoneNumberNational
+        } else {
+            autofillTypes.add(AutofillType.PhoneNumber)
+            autofillTypes.add(AutofillType.PhoneNumberDevice)
+            autofillTypes.add(AutofillType.PhoneNumberNational)
+        }
     }
     var suggestionsVisible by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
@@ -304,6 +321,11 @@ fun KwikTextField(
                 .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
                 .then(modifier)
+                .semantics {
+                    if(fieldContentType != null){
+                        contentType = fieldContentType!!
+                    }
+                }
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
                     autofill?.run {
