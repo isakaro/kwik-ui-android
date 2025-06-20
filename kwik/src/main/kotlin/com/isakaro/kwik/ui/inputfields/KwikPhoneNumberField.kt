@@ -180,7 +180,6 @@ fun KwikPhoneNumberField(
                 isError = isError,
                 textStyle = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
-                    .fillMaxWidth()
                     .heightIn(45.dp)
                     .semantics {
                         contentType = ContentType.PhoneNumber + ContentType.PhoneNumberDevice + ContentType.PhoneNumberNational

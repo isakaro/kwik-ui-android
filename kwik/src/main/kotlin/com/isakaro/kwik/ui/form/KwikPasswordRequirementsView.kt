@@ -46,8 +46,6 @@ import com.isakaro.kwik.ui.theme.KwikColorSuccess
  *         formSubmitAttempted = false
  * )
  * ```
- *
- * @sample com.isakaro.Kwik.KwikPasswordRequirementsViewPreview
  * */
 @Composable
 fun KwikPasswordRequirementsView(

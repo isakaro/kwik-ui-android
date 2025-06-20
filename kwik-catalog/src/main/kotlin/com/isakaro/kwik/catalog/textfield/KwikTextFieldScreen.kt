@@ -1,6 +1,7 @@
 package com.isakaro.kwik.catalog.textfield
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
@@ -10,24 +11,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.isakaro.kwik.catalog.R
-import com.isakaro.kwik.ui.toast.KwikToast
 import com.isakaro.kwik.animations.SlideInFromRightAnimations
+import com.isakaro.kwik.catalog.R
 import com.isakaro.kwik.catalog.ScrollableShowCaseContainer
 import com.isakaro.kwik.catalog.ShowCase
 import com.isakaro.kwik.navigator
-import com.isakaro.kwik.ui.toast.rememberKwikToastState
-import com.isakaro.kwik.ui.toast.showToast
+import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.ui.inputfields.KwikOTP
 import com.isakaro.kwik.ui.inputfields.KwikPhoneNumberField
 import com.isakaro.kwik.ui.inputfields.KwikTextField
-import com.isakaro.kwik.theme.KwikTheme
+import com.isakaro.kwik.ui.toast.KwikToast
+import com.isakaro.kwik.ui.toast.rememberKwikToastState
+import com.isakaro.kwik.ui.toast.showToast
 import com.isakaro.kwik.ui.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -57,6 +59,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -79,6 +82,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -103,6 +107,7 @@ internal fun KwikTextFieldScreen(
             var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikPhoneNumberField(
+                modifier = Modifier.fillMaxWidth(),
                 initialCountryInfo = countryList.random(),
                 value = text,
                 label = "Phone number",
@@ -127,6 +132,7 @@ internal fun KwikTextFieldScreen(
             var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikPhoneNumberField(
+                modifier = Modifier.fillMaxWidth(),
                 initialCountryInfo = countryList.random(),
                 value = text,
                 showFlags = true,
@@ -152,6 +158,7 @@ internal fun KwikTextFieldScreen(
             var isPhoneNumberValid by remember { mutableStateOf(false) }
 
             KwikPhoneNumberField(
+                modifier = Modifier.fillMaxWidth(),
                 initialCountryInfo = countryList.random(),
                 value = text,
                 showFlags = true,
@@ -177,6 +184,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -197,6 +205,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -222,6 +231,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -243,6 +253,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -272,6 +283,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -290,6 +302,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -313,6 +326,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -337,6 +351,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -362,6 +377,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -389,6 +405,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it
@@ -415,6 +432,7 @@ internal fun KwikTextFieldScreen(
             }
 
             KwikTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text.value = it

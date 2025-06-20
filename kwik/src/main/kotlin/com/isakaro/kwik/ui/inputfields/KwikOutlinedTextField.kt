@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -264,7 +265,9 @@ fun KwikOutlinedTextField(
 
     LocalAutofillTree.current += autofillNode
 
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         OutlinedTextField(
             value = value.value,
             onValueChange = {
@@ -310,7 +313,6 @@ fun KwikOutlinedTextField(
                 .fillMaxWidth()
                 .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
-                .then(modifier)
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
                     autofill?.run {

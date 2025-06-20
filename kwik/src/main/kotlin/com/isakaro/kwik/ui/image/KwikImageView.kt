@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -43,7 +44,6 @@ fun KwikImageView(
                 contentDescription = contentDescription
             )
         }
-
         is ImageVector -> {
             Icon(
                 modifier = modifier.apply {
@@ -56,12 +56,12 @@ fun KwikImageView(
                 contentDescription = contentDescription
             )
         }
-
         is String -> {
             KwikImageLoader(
                 modifier = modifier,
                 contentScale = contentScale,
                 contentDescription = contentDescription,
+                colorFilter = if (tint == Color.Unspecified) null else ColorFilter.tint(tint),
                 url = url,
                 shape = shape
             )

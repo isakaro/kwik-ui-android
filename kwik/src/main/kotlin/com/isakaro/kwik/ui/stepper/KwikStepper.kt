@@ -37,11 +37,15 @@ import com.isakaro.kwik.ui.text.KwikText
  * @param steps: The list of steps to display in the stepper.
  * @param currentStep: The current step of the stepper. Starts from 0.
  * @param isComplete: Whether the stepper is complete or not. Default is false.
+ * @param showStepNumber: Whether to show the step number in the stepper. Default is true.
+ * @param showStepLabel: Whether to show the step label in the stepper. Default is true.
  * */
 data class KwikStepperState(
     val steps: List<String>,
     var currentStep: Int = 0,
-    var isComplete: Boolean = false
+    var isComplete: Boolean = false,
+    val showStepNumber: Boolean = true,
+    val showStepLabel: Boolean = true
 )
 
 /**
@@ -179,6 +183,8 @@ private fun KwikStepperItem(
     label: String,
     activeStepColor: Color,
     isLastStep: Boolean,
+    showStepNumber: Boolean = true,
+    showStepLabel: Boolean = true
 ) {
     val transition = updateTransition(isComplete, label = "")
 
@@ -194,14 +200,16 @@ private fun KwikStepperItem(
         }
     }
 
-    ConstraintLayout(modifier = modifier) {
+    ConstraintLayout(
+        modifier = modifier
+    ) {
         val (indicator, stepLabel, line) = createRefs()
 
         Surface(
             shape = CircleShape,
             color = indicatorColor,
             modifier = Modifier
-                .size(if(stepsCount > 5) 25.dp else 30.dp)
+                .size(25.dp)
                 .constrainAs(indicator) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
@@ -218,7 +226,7 @@ private fun KwikStepperItem(
                     )
                 } else {
                     KwikText.RenderText(
-                        text = (stepIndex + 1).toString(),
+                        text = if(showStepNumber) (stepIndex + 1).toString() else "",
                         color = Color.White,
                         style = if (stepsCount > 5) MaterialTheme.typography.bodySmall else MaterialTheme.typography.titleMedium
                     )
@@ -226,21 +234,23 @@ private fun KwikStepperItem(
             }
         }
 
-        KwikText.RenderText(
-            modifier = Modifier.constrainAs(stepLabel) {
-                start.linkTo(indicator.start)
-                top.linkTo(indicator.bottom)
-                end.linkTo(indicator.end)
-                bottom.linkTo(parent.bottom)
-            },
-            style = if(stepsCount > 5) MaterialTheme.typography.displaySmall else MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Bold,
-            maxLines = 2,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            text = label,
-            color = labelColor,
-        )
+        if(showStepLabel) {
+            KwikText.RenderText(
+                modifier = Modifier.constrainAs(stepLabel) {
+                    start.linkTo(indicator.start)
+                    top.linkTo(indicator.bottom)
+                    end.linkTo(indicator.end)
+                    bottom.linkTo(parent.bottom)
+                },
+                style = if(stepsCount > 5) MaterialTheme.typography.displaySmall else MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                text = label,
+                color = labelColor,
+            )
+        }
 
         if (!isLastStep) {
             HorizontalDivider(

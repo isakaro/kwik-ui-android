@@ -265,16 +265,8 @@ fun KwikTextField(
     Column(
         modifier = Modifier
             .alpha(alpha = if(enabled) 1f else 0.5f)
+            .then(modifier)
     ) {
-        if(!label.isNullOrBlank()){
-            KwikText.TitleMedium(
-                modifier = Modifier.padding(bottom = 4.dp),
-                text = label,
-                color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
-                textAlign = TextAlign.Start
-            )
-        }
-
         TextField(
             value = value.value,
             onValueChange = {
@@ -305,6 +297,15 @@ fun KwikTextField(
             },
             isError = isError,
             enabled = enabled && isEditable,
+            label = if(!label.isNullOrBlank()){
+                {
+                    KwikText.LabelMedium(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = label,
+                        color = Color.Gray
+                    )
+                }
+            } else null,
             placeholder = {
                 KwikText.TitleMedium(
                     text = placeholder,
@@ -320,7 +321,6 @@ fun KwikTextField(
                 .fillMaxWidth()
                 .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
-                .then(modifier)
                 .semantics {
                     if(fieldContentType != null){
                         contentType = fieldContentType!!

@@ -213,6 +213,8 @@ $dokka.location:com.isakaro.kwik.ui.inputfields//kwikOutlinedTextFieldColors/#ko
 $dokka.location:com.isakaro.kwik.ui.inputfields//kwikTextFieldColors/#kotlin.Boolean/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/kwik-text-field-colors.html
 $dokka.location:com.isakaro.kwik.ui.inputfields/AllowedChars///PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-allowed-chars/index.html
 $dokka.location:com.isakaro.kwik.ui.inputfields/AllowedChars/ALL/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-allowed-chars/-a-l-l.html
+$dokka.location:com.isakaro.kwik.ui.inputfields/AllowedChars/ALPHABETS/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-allowed-chars/-a-l-p-h-a-b-e-t-s.html
+$dokka.location:com.isakaro.kwik.ui.inputfields/AllowedChars/ALPHANUMERIC/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-allowed-chars/-a-l-p-h-a-n-u-m-e-r-i-c.html
 $dokka.location:com.isakaro.kwik.ui.inputfields/AllowedChars/NUMBERS/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-allowed-chars/-n-u-m-b-e-r-s.html
 $dokka.location:com.isakaro.kwik.ui.inputfields/KwikTagsInputItem///PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-kwik-tags-input-item/index.html
 $dokka.location:com.isakaro.kwik.ui.inputfields/KwikTagsInputItem/KwikTagsInputItem/#kotlin.Any#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/kwik/com.isakaro.kwik.ui.inputfields/-kwik-tags-input-item/-kwik-tags-input-item.html
@@ -267,7 +269,7 @@ $dokka.location:com.isakaro.kwik.ui.permissions/KwikPermissionRequestState.ShowR
 $dokka.location:com.isakaro.kwik.ui.permissions/KwikPermissionRequestState///PointingToDeclaration/kwik/com.isakaro.kwik.ui.permissions/-kwik-permission-request-state/index.html
 $dokka.location:com.isakaro.kwik.ui.radio////PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/index.html
 $dokka.location:com.isakaro.kwik.ui.radio//KwikRadioButton/#kotlin.String#kotlin.Boolean#kotlin.Function1[kotlin.Boolean,kotlin.Unit]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-button.html
-$dokka.location:com.isakaro.kwik.ui.radio//KwikRadioButtonGroup/androidx.compose.foundation.layout.ColumnScope#kotlin.collections.List[com.isakaro.kwik.ui.radio.KwikRadioItem[TypeParam(bounds=[kotlin.Any?])]]#TypeParam(bounds=[kotlin.Any?])?#kotlin.Function1[com.isakaro.kwik.ui.radio.KwikRadioItem[TypeParam(bounds=[kotlin.Any?])],kotlin.Unit]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-button-group.html
+$dokka.location:com.isakaro.kwik.ui.radio//KwikRadioButtonGroup/androidx.compose.foundation.layout.ColumnScope#kotlin.collections.List[com.isakaro.kwik.ui.radio.KwikRadioItem[TypeParam(bounds=[kotlin.Any?])]]#TypeParam(bounds=[kotlin.Any?])?#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-button-group.html
 $dokka.location:com.isakaro.kwik.ui.radio/KwikRadioItem///PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-item/index.html
 $dokka.location:com.isakaro.kwik.ui.radio/KwikRadioItem/KwikRadioItem/#kotlin.String#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-item/-kwik-radio-item.html
 $dokka.location:com.isakaro.kwik.ui.radio/KwikRadioItem/label/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.radio/-kwik-radio-item/label.html
@@ -281,7 +283,6 @@ $dokka.location:com.isakaro.kwik.ui.spacer////PointingToDeclaration/kwik/com.is
 $dokka.location:com.isakaro.kwik.ui.spacer//KwikHSpacer/#kotlin.Int/PointingToDeclaration/kwik/com.isakaro.kwik.ui.spacer/-kwik-h-spacer.html
 $dokka.location:com.isakaro.kwik.ui.spacer//KwikVSpacer/#kotlin.Int/PointingToDeclaration/kwik/com.isakaro.kwik.ui.spacer/-kwik-v-spacer.html
 $dokka.location:com.isakaro.kwik.ui.stepper////PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/index.html
-$dokka.location:com.isakaro.kwik.ui.stepper//KwikClassicStepper/#androidx.compose.runtime.MutableState[com.isakaro.kwik.ui.stepper.KwikStepperState]#androidx.compose.ui.Modifier#androidx.compose.ui.graphics.Color/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-classic-stepper.html
 $dokka.location:com.isakaro.kwik.ui.stepper//KwikLineStepper/#androidx.compose.runtime.MutableState[com.isakaro.kwik.ui.stepper.KwikStepperState]#androidx.compose.ui.Modifier#androidx.compose.ui.graphics.Color/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-line-stepper.html
 $dokka.location:com.isakaro.kwik.ui.stepper//KwikStepper/#androidx.compose.runtime.MutableState[com.isakaro.kwik.ui.stepper.KwikStepperState]#androidx.compose.ui.Modifier#androidx.compose.ui.graphics.Color/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper.html
 $dokka.location:com.isakaro.kwik.ui.stepper//clearAll/androidx.compose.runtime.MutableState[com.isakaro.kwik.ui.stepper.KwikStepperState]#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/clear-all.html
@@ -292,9 +293,11 @@ $dokka.location:com.isakaro.kwik.ui.stepper//moveToStep/androidx.compose.runtime
 $dokka.location:com.isakaro.kwik.ui.stepper//rememberKwikStepperState/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/remember-kwik-stepper-state.html
 $dokka.location:com.isakaro.kwik.ui.stepper//setNewSteps/androidx.compose.runtime.MutableState[com.isakaro.kwik.ui.stepper.KwikStepperState]#kotlin.collections.List[kotlin.String]#kotlin.Int/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/set-new-steps.html
 $dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState///PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/index.html
-$dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/KwikStepperState/#kotlin.collections.List[kotlin.String]#kotlin.Int#kotlin.Boolean/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/-kwik-stepper-state.html
+$dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/KwikStepperState/#kotlin.collections.List[kotlin.String]#kotlin.Int#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/-kwik-stepper-state.html
 $dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/currentStep/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/current-step.html
 $dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/isComplete/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/is-complete.html
+$dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/showStepLabel/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/show-step-label.html
+$dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/showStepNumber/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/show-step-number.html
 $dokka.location:com.isakaro.kwik.ui.stepper/KwikStepperState/steps/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.stepper/-kwik-stepper-state/steps.html
 $dokka.location:com.isakaro.kwik.ui.switch////PointingToDeclaration/kwik/com.isakaro.kwik.ui.switch/index.html
 $dokka.location:com.isakaro.kwik.ui.switch//KwikSwitch/#kotlin.String?#kotlin.Boolean#androidx.compose.material3.SwitchColors#kotlin.Function1[kotlin.Boolean,kotlin.Unit]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.switch/-kwik-switch.html
@@ -666,11 +669,13 @@ $dokka.location:com.isakaro.kwik.ui.webview////PointingToDeclaration/kwik/com.i
 $dokka.location:com.isakaro.kwik.ui.webview//KwikWebView/#androidx.compose.ui.Modifier#kotlin.String#kotlin.Any?#kotlin.String#kotlin.Boolean#kotlin.Function0[kotlin.Unit]#kotlin.Function0[kotlin.Unit]#kotlin.Function1[com.isakaro.kwik.ui.webview.KwikWebViewSettings,kotlin.Unit]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-web-view.html
 $dokka.location:com.isakaro.kwik.ui.webview//setCookie/android.webkit.WebView#kotlin.collections.List[com.isakaro.kwik.ui.webview.KwikCookie]/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/set-cookie.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie///PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/index.html
-$dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/KwikCookie/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/-kwik-cookie.html
+$dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/KwikCookie/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int?#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/-kwik-cookie.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/domain/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/domain.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/expires/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/expires.html
+$dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/httpOnly/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/http-only.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/name/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/name.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/path/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/path.html
+$dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/secure/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/secure.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikCookie/value/#/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-cookie/value.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikWebViewSettings///PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-web-view-settings/index.html
 $dokka.location:com.isakaro.kwik.ui.webview/KwikWebViewSettings/KwikWebViewSettings/#kotlin.String#kotlin.collections.List[com.isakaro.kwik.ui.webview.KwikCookie]#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/kwik/com.isakaro.kwik.ui.webview/-kwik-web-view-settings/-kwik-web-view-settings.html
