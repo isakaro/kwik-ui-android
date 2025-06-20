@@ -148,7 +148,7 @@ fun KwikPhoneNumberField(
 
     Column {
         if(label != null){
-            KwikText.TitleMedium(
+            KwikText.LabelMedium(
                 modifier = Modifier.padding(bottom = 4.dp),
                 text = label,
                 color = if(isSystemInDarkTheme()) Color.Gray else Color.DarkGray,
@@ -161,7 +161,7 @@ fun KwikPhoneNumberField(
         val autofillNode = AutofillNode(
             autofillTypes = listOf(AutofillType.PhoneNumberNational),
             onFill = {
-                if(value.text.matches(allowedChars) && value.text.length <= 12){
+                if(value.text.matches(onlyNumbers) && value.text.length <= 12){
                     onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
                 }
             }
@@ -173,7 +173,7 @@ fun KwikPhoneNumberField(
             TextField(
                 value = value.value,
                 onValueChange = {
-                    if (it.text.matches(allowedChars) && it.text.length <= 12) {
+                    if (it.text.matches(onlyNumbers) && it.text.length <= 12) {
                         onValueChange(it)
                     }
                 },

@@ -291,16 +291,18 @@ fun KwikOutlinedTextField(
                         }
 
                         if(allowedChars != null) {
-                            onValueChange(it.copy(allowedChars.replace(it.text, "")))
+                            if (allowedChars.matches(it.text)) {
+                                onValueChange(it)
+                            }
                         } else onValueChange(it)
                     }
                 }
             },
             label = {
-                KwikText.TitleMedium(
+                KwikText.LabelMedium(
                     text = placeholder,
                     textAlign = TextAlign.Start,
-                    color = if(isError) MaterialTheme.colorScheme.error else Color.Gray
+                    color = if(isError) MaterialTheme.colorScheme.error else if(isSystemInDarkTheme()) Color.LightGray else Color.DarkGray,
                 )
             },
             isError = isError,

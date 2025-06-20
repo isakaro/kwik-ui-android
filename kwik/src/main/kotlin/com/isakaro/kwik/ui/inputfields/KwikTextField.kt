@@ -290,7 +290,9 @@ fun KwikTextField(
                         }
 
                         if(allowedChars != null) {
-                            onValueChange(it.copy(allowedChars.replace(it.text, "")))
+                            if (allowedChars.matches(it.text)) {
+                                onValueChange(it)
+                            }
                         } else onValueChange(it)
                     }
                 }
