@@ -353,11 +353,6 @@ fun KwikSearchView(
     }
 }
 
-internal enum class LastInputType {
-    SUGGESTION,
-    TYPING
-}
-
 @Preview
 @Composable
 private fun KwikSearchViewPreview() {
