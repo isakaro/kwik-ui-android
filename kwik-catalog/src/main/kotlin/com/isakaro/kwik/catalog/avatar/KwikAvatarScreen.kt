@@ -12,10 +12,11 @@ import com.isakaro.kwik.catalog.utils.KwikConstants
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.avatar.KwikAvatar
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikAvatarScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

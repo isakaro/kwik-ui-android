@@ -31,12 +31,13 @@ import com.isakaro.kwik.ui.slider.KwikRangeSlider
 import com.isakaro.kwik.ui.slider.KwikSlider
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikSliderScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

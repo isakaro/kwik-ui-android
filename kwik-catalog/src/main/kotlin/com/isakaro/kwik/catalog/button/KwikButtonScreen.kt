@@ -27,10 +27,11 @@ import com.isakaro.kwik.ui.button.KwikTextButton
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikButtonScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

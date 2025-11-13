@@ -1,7 +1,5 @@
-import com.vanniktech.maven.publish.SonatypeHost
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -10,9 +8,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("maven-publish")
     id("signing")
-    id("com.vanniktech.maven.publish") version "0.31.0"
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.android.documentation.plugin)
+    alias(libs.plugins.dokka)
 }
 
 object Meta {
@@ -23,7 +20,9 @@ object Meta {
 
 val secretsPropertiesFile = rootProject.file("secrets.properties")
 val secretsProperties = Properties()
-secretsProperties.load(FileInputStream(secretsPropertiesFile))
+if (secretsPropertiesFile.exists()) {
+    secretsProperties.load(FileInputStream(secretsPropertiesFile))
+}
 
 val versionProperties = rootProject.file("version.properties")
 val versionPropertiesFile = Properties()
@@ -34,11 +33,6 @@ var major = Integer.parseInt(versionPropertiesFile["major"].toString())
 var minor = Integer.parseInt(versionPropertiesFile["minor"].toString())
 var patch = Integer.parseInt(versionPropertiesFile["patch"].toString())
 var libVersion = "$major.$minor.$patch"
-
-mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
-}
 
 android {
     namespace = "com.isakaro.kwik"
@@ -59,8 +53,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        jvmToolchain(17)
     }
     buildFeatures {
         compose = true
@@ -68,6 +62,13 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -77,49 +78,8 @@ dependencies {
     implementation(libs.splashscreen)
     debugImplementation(libs.compose.ui.tooling)
     testImplementation(libs.bundles.test)
-    dokkaPlugin(libs.android.documentation.plugin)
+    dokkaPlugin(libs.dokka)
     coreLibraryDesugaring(libs.desugaring)
-}
-
-val mavenUsername = secretsProperties["mavenUsername"].toString()
-val mavenToken = secretsProperties["mavenToken"].toString()
-val signingKeyId = secretsProperties["signing.keyId"].toString()
-val signingPassword = secretsProperties["signing.password"].toString()
-val signingKey = secretsProperties["signing.key"].toString()
-
-tasks.register<Zip>("bundleForMavenCentral") {
-    group = "publishing"
-    description = "Creates a bundle zip file for uploading to Maven Central"
-    archiveFileName.set("central-bundle.zip")
-    destinationDirectory.set(layout.buildDirectory.dir("distributions"))
-    dependsOn("publishToMavenLocal")
-
-    from(layout.buildDirectory.dir("publications")) {
-        include("**/*.pom")
-        include("**/*.jar")
-        include("**/*.aar")
-        include("**/*.module")
-        include("**/*.asc")
-    }
-}
-
-tasks.register<Exec>("uploadToMavenCentral") {
-    group = "publishing"
-    description = "Uploads the bundle to Maven Central"
-    dependsOn("bundleForMavenCentral")
-
-    commandLine(
-        "curl",
-        "--request", "POST",
-        "--verbose",
-        "--header", "Authorization: Bearer " + "${mavenUsername}:${mavenToken}".toBase64(),
-        "--form", "bundle=@${layout.buildDirectory.file("distributions/central-bundle.zip").get()}",
-        "https://central.sonatype.com/api/v1/publisher/upload"
-    )
-}
-
-fun String.toBase64(): String {
-    return Base64.getEncoder().encodeToString(this.toByteArray())
 }
 
 publishing {
@@ -166,21 +126,25 @@ publishing {
 }
 
 signing {
-    useGpgCmd()
-    sign(publishing.publications["release"])
+    val signingKey = providers.environmentVariable("GPG_PRIVATE_KEY")
+    val signingPassword = providers.environmentVariable("GPG_PASSWORD")
+    if (signingKey.isPresent && signingPassword.isPresent) {
+        useInMemoryPgpKeys(signingKey.get(), signingPassword.get())
+        sign(publishing.publications)
+    }
 }
 
-task("updateVersionCode") {
+tasks.register("updateVersionCode") {
     doFirst {
         appVersionCode++
         versionPropertiesFile.setProperty("versionCode", "$appVersionCode")
     }
 }
 
-task("getVersion") {
+tasks.register("getVersion") {
     val type = properties["type"].toString()
 
-    when(type) {
+    when (type) {
         "code" -> println("$appVersionCode")
         "name" -> println("$major.$minor.$patch")
     }

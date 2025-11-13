@@ -1,0 +1,45 @@
+project:
+  name: kwik-ui-library
+  description: A Jetpack Compose library for building UI components
+  longDescription: KwikUI is a comprehensive Jetpack Compose library that provides a collection of reusable UI components for Android applications.
+  links:
+    homepage: https://github.com/isakaro/kwik-ui-android
+  authors:
+    - Isakaro
+  license: Apache-2.0
+  inceptionYear: 2025
+  stereotype: none
+
+release:
+  github:
+    enabled: true
+    overwrite: true
+    changelog:
+      formatted: ALWAYS
+      preset: conventional-commits
+      contributors:
+        enabled: false
+
+signing:
+  active: ALWAYS
+  armored: true
+
+deploy:
+  maven:
+    mavenCentral:
+      sonatype:
+        active: ALWAYS
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepository: build/staging-deploy
+        closeRepository: true
+        releaseRepository: true
+        checksums: true
+        sourceJar: true
+        javadocJar: true
+
+distributions:
+  kwik-ui:
+    type: SINGLE_JAR
+    artifacts:
+      - path: kwik/build/outputs/aar/kwik-release.aar
+

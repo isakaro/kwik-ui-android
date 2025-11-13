@@ -32,10 +32,11 @@ import com.isakaro.kwik.ui.toast.rememberKwikToastState
 import com.isakaro.kwik.ui.toast.showToast
 import com.isakaro.kwik.ui.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikTextFieldScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -68,7 +69,7 @@ internal fun KwikTextFieldScreen(
                 placeholder = "Enter email or phone",
                 maxLength = 35,
                 imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Email,
                 onKeyboardDone = {
                     kwikToastState.showToast("keyboard done")
                 }

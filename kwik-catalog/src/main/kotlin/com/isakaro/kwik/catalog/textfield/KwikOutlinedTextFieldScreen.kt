@@ -32,10 +32,11 @@ import com.isakaro.kwik.ui.inputfields.KwikOutlinedTextField
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.countryList
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikOutlinedTextFieldScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
@@ -69,7 +70,7 @@ internal fun KwikOutlinedTextFieldScreen(
                 },
                 placeholder = "Username",
                 maxLength = 35,
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Done
             )
         }

@@ -1,6 +1,5 @@
 package com.isakaro.kwik.ui.inputfields
 
-import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -41,10 +39,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.AutofillNode
-import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
@@ -52,11 +47,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
-import androidx.compose.ui.platform.LocalAutofill
-import androidx.compose.ui.platform.LocalAutofillTree
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextRange
@@ -141,7 +135,6 @@ object AllowedChars {
  *    imeAction = ImeAction.Done,
  * )
  * */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun KwikOutlinedTextField(
     modifier: Modifier = Modifier,
@@ -186,33 +179,14 @@ fun KwikOutlinedTextField(
     delayDuration: Long = 500L,
     colors: TextFieldColors = kwikOutlinedTextFieldColors(enabled)
 ) {
-    var fieldContentType by remember { mutableStateOf<ContentType?>(null) }
-    val autofillTypes = mutableListOf<AutofillType>()
+    // Determine the autofill content type based on keyboard type
+    val contentTypeValue = when(keyboardType) {
+        KeyboardType.Password -> ContentType.Password
+        KeyboardType.Email -> ContentType.EmailAddress
+        KeyboardType.Phone -> ContentType.PhoneNumber
+        else -> null
+    }
 
-    if(keyboardType == KeyboardType.Password){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            fieldContentType = ContentType.Password
-        } else {
-            autofillTypes.add(AutofillType.Password)
-        }
-    }
-    if(keyboardType == KeyboardType.Email){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            fieldContentType = ContentType.EmailAddress + ContentType.Username
-        } else {
-            autofillTypes.add(AutofillType.EmailAddress)
-            autofillTypes.add(AutofillType.Username)
-        }
-    }
-    if(keyboardType == KeyboardType.Phone){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            fieldContentType = ContentType.PhoneNumber + ContentType.PhoneNumberDevice + ContentType.PhoneNumberNational
-        } else {
-            autofillTypes.add(AutofillType.PhoneNumber)
-            autofillTypes.add(AutofillType.PhoneNumberDevice)
-            autofillTypes.add(AutofillType.PhoneNumberNational)
-        }
-    }
     var suggestionsVisible by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
     var debounceJob by remember { mutableStateOf<Job?>(null) }
@@ -228,42 +202,6 @@ fun KwikOutlinedTextField(
     }
 
     var passwordVisible by remember { mutableStateOf(false) }
-
-    val autofill = LocalAutofill.current
-
-    val autofillNode = AutofillNode(
-        autofillTypes = autofillTypes.toList(),
-        onFill = {
-            if(it.length <= maxLength){
-                debounceJob?.cancel()
-                debounceJob = coroutineScope.launch {
-                    if(delay && delayDuration >= 1L) {
-                        delay(delayDuration)
-                    }
-
-                    // filter suggestions based on the query
-                    filteredSuggestions = suggestions.filter { suggestion ->
-                        suggestion.contains(it, ignoreCase = true)
-                    }
-
-                    if(lastInputType == LastInputType.TYPING){
-                        updateSuggestions()
-                    } else {
-                        lastInputType = LastInputType.TYPING
-                    }
-
-                    //trim the text to remove any leading or trailing spaces if not password field
-                    if(keyboardType == KeyboardType.Password){
-                        onValueChange(value.value.copy(text = it, selection = TextRange(it.length)))
-                    } else {
-                        onValueChange(value.value.copy(text = it.trim(), selection = TextRange(it.length)))
-                    }
-                }
-            }
-        }
-    )
-
-    LocalAutofillTree.current += autofillNode
 
     Column(
         modifier = modifier
@@ -315,21 +253,23 @@ fun KwikOutlinedTextField(
                 .fillMaxWidth()
                 .heightIn(if(isBigTextField) 150.dp else 45.dp)
                 .alpha(if (enabled) 1.0f else 0.5f)
+                .then(
+                    if (contentTypeValue != null) {
+                        Modifier.semantics {
+                            contentType = contentTypeValue
+                        }
+                    } else {
+                        Modifier
+                    }
+                )
                 .onFocusChanged { focusState ->
                     suggestionsVisible = focusState.isFocused
-                    autofill?.run {
-                        if (focusState.isFocused) {
-                            requestAutofillForNode(autofillNode)
-                        } else {
-                            cancelAutofillForNode(autofillNode)
-                        }
-                    }
                     if(focusState.isFocused){
                         updateSuggestions()
                     }
                     onFocusChanged(focusState.isFocused)
-                }.onGloballyPositioned { layoutCoordinates ->
-                    autofillNode.boundingBox = layoutCoordinates.boundsInWindow()
+                }
+                .onGloballyPositioned { layoutCoordinates ->
                     textFieldPosition = layoutCoordinates.positionInParent()
                     textFieldSize = layoutCoordinates.size
                 },

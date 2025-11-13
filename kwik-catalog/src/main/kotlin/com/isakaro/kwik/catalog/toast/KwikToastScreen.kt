@@ -16,11 +16,12 @@ import com.isakaro.kwik.ui.theme.KwikColorError
 import com.isakaro.kwik.ui.theme.KwikColorWarning
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikToastScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

@@ -15,6 +15,13 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="s">
         <activity
+            android:name="com.isakaro.kwik.ui.biometrics.KwikBiometricActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
             android:name="com.isakaro.kwik.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"

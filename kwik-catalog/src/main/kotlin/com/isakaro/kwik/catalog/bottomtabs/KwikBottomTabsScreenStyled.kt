@@ -23,10 +23,11 @@ import com.isakaro.kwik.ui.tabs.KwikTabItem
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 internal fun KwikBottomTabsScreenStyled(
     navigator: DestinationsNavigator = navigator()
