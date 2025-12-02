@@ -7,7 +7,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("maven-publish")
-    id("signing")
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dokka)
 }
@@ -128,15 +127,6 @@ publishing {
             name = "staging"
             url = uri(layout.buildDirectory.dir("staging-deploy"))
         }
-    }
-}
-
-signing {
-    val signingKey = providers.environmentVariable("GPG_PRIVATE_KEY")
-    val signingPassword = providers.environmentVariable("GPG_PASSWORD")
-    if (signingKey.isPresent && signingPassword.isPresent) {
-        useInMemoryPgpKeys(signingKey.get(), signingPassword.get())
-        sign(publishing.publications)
     }
 }
 

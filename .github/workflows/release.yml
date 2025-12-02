@@ -17,6 +17,14 @@ permissions:
 
 jobs:
   release:
+    env:
+      JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      JRELEASER_GPG_PASSPHRASE: ${{ secrets.MAVEN_SIGNING_PASSWORD }}
+      JRELEASER_GPG_SECRET_KEY: ${{ secrets.MAVEN_GPG_KEY }}
+      JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.MAVEN_GPG_PUBLIC_KEY }}
+      JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+      JRELEASER_MAVENCENTRAL_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+
     environment: production
 
     runs-on: ubuntu-latest
@@ -76,12 +84,6 @@ jobs:
         run: ./gradlew :kwik:publishAllPublicationsToStagingRepository --no-daemon --stacktrace
 
       - name: Deploy to Maven Central with JReleaser
-        env:
-          JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          JRELEASER_MAVENCENTRAL_SONATYPE_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-          JRELEASER_GPG_PASSPHRASE: ${{ secrets.MAVEN_SIGNING_PASSWORD }}
-          JRELEASER_GPG_SECRET_KEY: ${{ secrets.MAVEN_GPG_KEY }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew jreleaserFullRelease --no-daemon --stacktrace
 
       - name: Update README.md with new version
@@ -91,8 +93,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --local user.name "${{ github.event.head_commit.committer.name }}"
+          git config --local user.email "${{ github.event.head_commit.committer.email }}"
 
       - name: Commit and push version changes
         run: |
