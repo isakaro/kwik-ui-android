@@ -93,8 +93,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.name "${{ github.event.head_commit.committer.name }}"
-          git config --local user.email "${{ github.event.head_commit.committer.email }}"
+          git config --local user.email "actions@github.com"
+          git config --local user.name "github-actions[bot]"
 
       - name: Commit and push version changes
         run: |
