@@ -80,13 +80,11 @@ jobs:
       - name: Publish to staging directory
         run: ./gradlew :kwik:publishAllPublicationsToStagingRepository --no-daemon --stacktrace
 
-      - name: List staging artifacts
-        run: |
-          echo "Contents of staging directory:"
-          find kwik/build/staging-deploy -type f
-
       - name: Deploy to Maven Central
         run: ./gradlew jreleaserFullRelease --no-daemon --stacktrace
+
+      - name: Build documentation
+        run: ./gradlew :kwik:dokkaGenerate --no-daemon --stacktrace
 
       - name: Update README.md with new version
         run: |
