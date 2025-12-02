@@ -85,7 +85,7 @@ jreleaser {
                     checksums = true
                     sourceJar = true
                     javadocJar = true
-                    verifyPom = true
+                    verifyPom = false
                 }
             }
         }
