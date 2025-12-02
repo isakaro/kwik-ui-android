@@ -33,59 +33,59 @@ buildscript {
 }
 
 jreleaser {
-    gitRootSearch.set(true)
+    gitRootSearch = (true)
 
     project {
-        description.set("A Jetpack Compose library for building UI components.")
-        authors.set(listOf("Isakaro"))
-        license.set("Apache-2.0")
+        description = ("A Jetpack Compose library for building UI components.")
+        authors = (listOf("Isakaro"))
+        license = ("Apache-2.0")
         links {
-            homepage.set("https://github.com/isakaro/kwik-ui-android")
-            bugTracker.set("https://github.com/isakaro/kwik-ui-android/issues")
-            contact.set("https://isakaro.com")
+            homepage = ("https://github.com/isakaro/kwik-ui-android")
+            bugTracker = ("https://github.com/isakaro/kwik-ui-android/issues")
+            contact = ("https://isakaro.com")
         }
-        inceptionYear.set("2025")
-        vendor.set("Isakaro")
-        copyright.set("Copyright (c) ${LocalDate.now().year} Isakaro")
+        inceptionYear = ("2025")
+        vendor = ("Isakaro")
+        copyright = ("Copyright (c) ${LocalDate.now().year} Isakaro")
     }
 
     release {
         github {
-            repoOwner.set("isakaro")
-            name.set("kwik-ui-android")
-            overwrite.set(true)
-            skipTag.set(false)
+            repoOwner = ("isakaro")
+            name = ("kwik-ui-android")
+            overwrite = (true)
+            skipTag = (false)
             changelog {
-                formatted.set(Active.ALWAYS)
-                preset.set("conventional-commits")
+                formatted = (Active.ALWAYS)
+                preset = ("conventional-commits")
             }
             commitAuthor {
-                name.set("Isakaro")
-                email.set("ganza@isakaro.com")
+                name = ("Isakaro")
+                email = ("ganza@isakaro.com")
             }
         }
     }
 
     signing {
-        active.set(Active.ALWAYS)
-        armored.set(true)
-        mode.set(org.jreleaser.model.Signing.Mode.MEMORY)
-        verify.set(true)
+        active = (Active.ALWAYS)
+        armored = (true)
+        mode = (org.jreleaser.model.Signing.Mode.MEMORY)
+        verify = (true)
     }
 
     deploy {
         maven {
             mavenCentral {
                 create("sonatype") {
-                    active.set(Active.ALWAYS)
-                    url.set("https://central.sonatype.com/api/v1/publisher")
+                    active = (Active.ALWAYS)
+                    url = ("https://central.sonatype.com/api/v1/publisher")
                     stagingRepository(file("kwik/build/staging-deploy").absolutePath)
-                    applyMavenCentralRules.set(true)
-                    sign.set(true)
-                    checksums.set(true)
-                    sourceJar.set(true)
-                    javadocJar.set(true)
-                    verifyPom.set(true)
+                    applyMavenCentralRules = (true)
+                    sign = (true)
+                    checksums.(true)
+                    sourceJar = (true)
+                    javadocJar = (true)
+                    verifyPom = (true)
                 }
             }
         }
