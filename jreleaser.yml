@@ -27,15 +27,12 @@ signing:
 deploy:
   maven:
     mavenCentral:
-      sonatype:
+      kwik-ui-maven:
         active: ALWAYS
         url: https://central.sonatype.com/api/v1/publisher
-        stagingRepository: kwik/build/staging-deploy
-        closeRepository: true
-        releaseRepository: true
-        checksums: true
-        sourceJar: true
-        javadocJar: true
+        stagingRepositories:
+          - kwik/build/staging-deploy
+        applyMavenCentralRules: true
 
 distributions:
   kwik-ui:

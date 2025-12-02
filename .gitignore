@@ -22,3 +22,4 @@ Kwik/build/
 .cxx
 local.properties
 .idea
+.env
