@@ -25,3 +25,4 @@ local.properties
 .env
 secret.asc
 public.asc
+config.properties
