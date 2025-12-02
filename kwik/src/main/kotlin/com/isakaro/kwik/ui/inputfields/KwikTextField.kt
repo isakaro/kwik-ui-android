@@ -200,7 +200,6 @@ fun KwikTextField(
 
     var passwordVisible by remember { mutableStateOf(false) }
 
-
     Column(
         modifier = Modifier
             .alpha(alpha = if(enabled) 1f else 0.5f)
