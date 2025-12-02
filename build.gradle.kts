@@ -81,7 +81,7 @@ jreleaser {
                     url = ("https://central.sonatype.com/api/v1/publisher")
                     stagingRepository(file("kwik/build/staging-deploy").absolutePath)
                     applyMavenCentralRules = true
-                    sign = ()
+                    sign = true
                     checksums = true
                     sourceJar = true
                     javadocJar = true
