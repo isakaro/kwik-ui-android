@@ -47,8 +47,10 @@ jobs:
       - name: Get commit message
         id: commit_message
         run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+          COMMIT_MSG=$(git log -1 --pretty=%B | head -n 1)
+          echo "message<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           echo "Commit message: $COMMIT_MSG"
 
       - name: Create secrets.properties
