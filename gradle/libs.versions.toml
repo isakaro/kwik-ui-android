@@ -36,7 +36,7 @@ androidx-core-test = { module = "androidx.test:core", version.ref = "androidx-co
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-test-truth = { module = "androidx.test.ext:truth", version.ref = "androidx-test-truth" }
 androidx-security = { module = "androidx.security:security-crypto", version.ref = "androidx-security" }
-compose-material = { module = "androidx.compose.material:material-icons-core", name = "1.7.8" }
+compose-material = { module = "androidx.compose.material:material-icons-core", version = "1.7.8" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
