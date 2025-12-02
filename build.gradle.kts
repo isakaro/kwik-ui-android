@@ -33,7 +33,7 @@ buildscript {
 }
 
 jreleaser {
-    gitRootSearch = (true)
+    gitRootSearch = true
 
     project {
         description = ("A Jetpack Compose library for building UI components.")
@@ -53,10 +53,10 @@ jreleaser {
         github {
             repoOwner = ("isakaro")
             name = ("kwik-ui-android")
-            overwrite = (true)
+            overwrite = true
             skipTag = (false)
             changelog {
-                formatted = (Active.ALWAYS)
+                formatted = Active.ALWAYS
                 preset = ("conventional-commits")
             }
             commitAuthor {
@@ -67,25 +67,25 @@ jreleaser {
     }
 
     signing {
-        active = (Active.ALWAYS)
-        armored = (true)
+        active = Active.ALWAYS
+        armored = true
         mode = (org.jreleaser.model.Signing.Mode.MEMORY)
-        verify = (true)
+        verify = true
     }
 
     deploy {
         maven {
             mavenCentral {
                 create("sonatype") {
-                    active = (Active.ALWAYS)
+                    active = Active.ALWAYS
                     url = ("https://central.sonatype.com/api/v1/publisher")
                     stagingRepository(file("kwik/build/staging-deploy").absolutePath)
-                    applyMavenCentralRules = (true)
-                    sign = (true)
-                    checksums.(true)
-                    sourceJar = (true)
-                    javadocJar = (true)
-                    verifyPom = (true)
+                    applyMavenCentralRules = true
+                    sign = ()
+                    checksums = true
+                    sourceJar = true
+                    javadocJar = true
+                    verifyPom = true
                 }
             }
         }
