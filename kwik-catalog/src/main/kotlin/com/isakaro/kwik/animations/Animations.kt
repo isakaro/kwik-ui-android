@@ -12,14 +12,14 @@ import androidx.compose.animation.slideOutVertically
 import androidx.navigation.NavBackStackEntry
 import com.ramcosta.composedestinations.spec.DestinationStyle
 
-object SlideInFromRightAnimations : DestinationStyle.Animated {
-    override fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {
+object SlideInFromRightAnimations : DestinationStyle.Animated() {
+    fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return slideInHorizontally(
             initialOffsetX = { it },
             animationSpec = tween(500)
         ) + fadeIn()
     }
-    override fun AnimatedContentTransitionScope<NavBackStackEntry>.exitTransition(): ExitTransition {
+    fun AnimatedContentTransitionScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return slideOutHorizontally(
             targetOffsetX = { it },
             animationSpec = tween(500)
@@ -27,8 +27,8 @@ object SlideInFromRightAnimations : DestinationStyle.Animated {
     }
 }
 
-object SlideInFromTopAnimations : DestinationStyle.Animated {
-    override fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {
+object SlideInFromTopAnimations : DestinationStyle.Animated() {
+    fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return slideInVertically(
             initialOffsetY = { fullHeight -> - fullHeight },
             animationSpec = tween(durationMillis = 500)
@@ -36,7 +36,7 @@ object SlideInFromTopAnimations : DestinationStyle.Animated {
             animationSpec = tween(durationMillis = 500)
         )
     }
-    override fun AnimatedContentTransitionScope<NavBackStackEntry>.exitTransition(): ExitTransition {
+    fun AnimatedContentTransitionScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return slideOutVertically(
             targetOffsetY = { fullHeight -> fullHeight },
             animationSpec = tween(durationMillis = 500)

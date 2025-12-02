@@ -120,15 +120,25 @@ data class KwikBiometricPromptParams(
 /**
  * The contract for biometric authentication.
  *
+ * First of all, declare the activity in your AndroidManifest.xml:
+ * ```
+ * <activity
+ *      android:name="com.isakaro.kwik.ui.biometrics.KwikBiometricActivity"
+ *      android:exported="true"
+ *      android:launchMode="singleTop"
+ *      android:windowSoftInputMode="adjustResize"
+ * />
+ * ```
+ *
  * Usage:
  * ```
  *     val launcher = rememberLauncherForActivityResult(KwikBiometricsAuthenticationContract()) { result ->
  *         when(result){
- *             KwikBiometricsResult.SUCCESS -> kwikToastState.showToast("Biometric authentication successful", backgroundColor = KwikColorSuccess)
- *             KwikBiometricsResult.FAILED -> kwikToastState.showToast("Biometric authentication failed", backgroundColor = KwikColorError)
- *             KwikBiometricsResult.ERROR -> kwikToastState.showToast("Biometric authentication error", backgroundColor = KwikColorError)
- *             KwikBiometricsResult.CANCELED -> kwikToastState.showToast("Biometric authentication canceled")
- *             KwikBiometricsResult.NOT_SET -> kwikToastState.showToast("No biometrics set", backgroundColor = KwikColorError)
+ *             KwikBiometricsResult.SUCCESS -> // Handle success
+ *             KwikBiometricsResult.FAILED -> // Handle failed
+ *             KwikBiometricsResult.ERROR -> // Handle error
+ *             KwikBiometricsResult.CANCELED -> // Handle canceled
+ *             KwikBiometricsResult.NOT_SET -> // Handle no biometrics set
  *         }
  *     }
  *

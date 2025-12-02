@@ -19,13 +19,14 @@ import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import java.time.LocalDate
 import java.time.ZoneId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 internal fun KwikDateScreen(
     navigator: DestinationsNavigator = navigator()

@@ -25,10 +25,11 @@ import com.isakaro.kwik.ui.stepper.moveForward
 import com.isakaro.kwik.navigator
 import com.isakaro.kwik.ui.stepper.rememberKwikStepperState
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikStepperScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

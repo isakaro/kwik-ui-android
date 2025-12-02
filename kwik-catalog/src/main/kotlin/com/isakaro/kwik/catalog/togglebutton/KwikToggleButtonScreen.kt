@@ -1,6 +1,5 @@
 package com.isakaro.kwik.catalog.togglebutton
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -18,10 +17,11 @@ import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
 import com.isakaro.kwik.theme.KwikTheme
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikToggleButtonScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

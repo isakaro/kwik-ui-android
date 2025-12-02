@@ -750,7 +750,7 @@ kwikStepperState.completeAll() // Complete all steps
 
 kwikStepperState.clearAll() // Clear all steps
 
-kwikStepperState.moveToStep() // Move to a specific step
+kwikStepperState.moveToStep(index) // Move to a specific step
 ```
 
 [Stepper docs](https://isakaro.github.io/kwik-ui-android/kwik/com.isakaro.kwik.ui.stepper/index.html)

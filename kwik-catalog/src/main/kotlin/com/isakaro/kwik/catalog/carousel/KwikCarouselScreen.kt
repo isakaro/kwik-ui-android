@@ -34,10 +34,11 @@ import com.isakaro.kwik.ui.carousel.slideTo
 import com.isakaro.kwik.ui.helpers.KwikCenterColumn
 import com.isakaro.kwik.ui.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikCarouselScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

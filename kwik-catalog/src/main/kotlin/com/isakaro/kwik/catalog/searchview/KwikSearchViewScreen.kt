@@ -28,10 +28,11 @@ import com.isakaro.kwik.ui.toast.showToast
 import com.isakaro.kwik.theme.KwikTheme
 import com.isakaro.kwik.ui.utils.text
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(style = SlideInFromRightAnimations::class)
+@Destination<RootGraph>(style = SlideInFromRightAnimations::class)
 internal fun KwikSearchViewScreen(
     navigator: DestinationsNavigator = navigator()
 ) {

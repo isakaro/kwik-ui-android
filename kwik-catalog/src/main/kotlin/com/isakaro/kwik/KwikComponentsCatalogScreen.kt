@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,41 +22,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.isakaro.kwik.catalog.R
-import com.isakaro.kwik.destinations.KwikAccordionScreenDestination
-import com.isakaro.kwik.destinations.KwikAvatarScreenDestination
-import com.isakaro.kwik.destinations.KwikBiometricsScreenDestination
-import com.isakaro.kwik.destinations.KwikBottomTabsScreenDestination
-import com.isakaro.kwik.destinations.KwikBottomTabsScreenStyledDestination
-import com.isakaro.kwik.destinations.KwikButtonScreenDestination
-import com.isakaro.kwik.destinations.KwikCardScreenDestination
-import com.isakaro.kwik.destinations.KwikCarouselScreenDestination
-import com.isakaro.kwik.destinations.KwikCheckBoxScreenDestination
-import com.isakaro.kwik.destinations.KwikColorsScreenDestination
-import com.isakaro.kwik.destinations.KwikCounterScreenDestination
-import com.isakaro.kwik.destinations.KwikCountryPickerScreenDestination
-import com.isakaro.kwik.destinations.KwikDateScreenDestination
-import com.isakaro.kwik.destinations.KwikDialogScreenDestination
-import com.isakaro.kwik.destinations.KwikDropDownScreenDestination
-import com.isakaro.kwik.destinations.KwikFilterChipScreenDestination
-import com.isakaro.kwik.destinations.KwikGridScreenDestination
-import com.isakaro.kwik.destinations.KwikOutlinedTextFieldScreenDestination
-import com.isakaro.kwik.destinations.KwikPermissionsScreenDestination
-import com.isakaro.kwik.destinations.KwikProgressIndicatorScreenDestination
-import com.isakaro.kwik.destinations.KwikRadioButtonScreenDestination
-import com.isakaro.kwik.destinations.KwikRatingBarScreenDestination
-import com.isakaro.kwik.destinations.KwikSearchViewScreenDestination
-import com.isakaro.kwik.destinations.KwikShapeScreenDestination
-import com.isakaro.kwik.destinations.KwikSliderScreenDestination
-import com.isakaro.kwik.destinations.KwikStepperScreenDestination
-import com.isakaro.kwik.destinations.KwikSwitchScreenDestination
-import com.isakaro.kwik.destinations.KwikTabScreenDestination
-import com.isakaro.kwik.destinations.KwikTagsInputScreenDestination
-import com.isakaro.kwik.destinations.KwikTextFieldScreenDestination
-import com.isakaro.kwik.destinations.KwikTimelineScreenDestination
-import com.isakaro.kwik.destinations.KwikToastScreenDestination
-import com.isakaro.kwik.destinations.KwikToggleButtonScreenDestination
-import com.isakaro.kwik.destinations.KwikTypographyScreenDestination
-import com.isakaro.kwik.destinations.KwikWebViewScreenDestination
 import com.isakaro.kwik.ui.image.KwikImageView
 import com.isakaro.kwik.ui.inputfields.KwikSearchView
 import com.isakaro.kwik.ui.list.KwikLazyList
@@ -67,10 +31,46 @@ import com.isakaro.kwik.ui.spacer.KwikHSpacer
 import com.isakaro.kwik.ui.spacer.KwikVSpacer
 import com.isakaro.kwik.ui.text.KwikText
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.KwikAccordionScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikAvatarScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikBiometricsScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikBottomTabsScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikBottomTabsScreenStyledDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikButtonScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikCardScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikCarouselScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikCheckBoxScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikColorsScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikCounterScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikCountryPickerScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikDateScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikDialogScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikDropDownScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikFilterChipScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikGridScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikOutlinedTextFieldScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikPermissionsScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikProgressIndicatorScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikRadioButtonScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikRatingBarScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikSearchViewScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikShapeScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikSliderScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikStepperScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikSwitchScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikTabScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikTagsInputScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikTextFieldScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikTimelineScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikToastScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikToggleButtonScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikTypographyScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.KwikWebViewScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-@Destination(start = true)
+@Destination<RootGraph>(start = true)
 internal fun KwikComponentsCatalogScreen(
     navigator: DestinationsNavigator = navigator()
 ) {
