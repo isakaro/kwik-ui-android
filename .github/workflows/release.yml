@@ -69,8 +69,11 @@ jobs:
       - name: Build library
         run: ./gradlew :kwik:assembleRelease --no-daemon --stacktrace
 
-      - name: Publish to Maven Local (staging)
-        run: ./gradlew :kwik:publishToMavenLocal --no-daemon --stacktrace
+      - name: Publish to staging directory
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_KEY }}
+          GPG_PASSWORD: ${{ secrets.MAVEN_SIGNING_PASSWORD }}
+        run: ./gradlew :kwik:publishAllPublicationsToStagingRepository --no-daemon --stacktrace
 
       - name: Deploy to Maven Central with JReleaser
         env:
@@ -81,6 +84,11 @@ jobs:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew jreleaserFullRelease --no-daemon --stacktrace
 
+      - name: Update README.md with new version
+        run: |
+          sed -i 's/implementation("com.isakaro:kwik.ui:[^"]*")/implementation("com.isakaro:kwik.ui:${{ steps.version.outputs.new_version }}")/' README.md
+          echo "Updated README.md to version ${{ steps.version.outputs.new_version }}"
+
       - name: Configure Git
         run: |
           git config --local user.email "actions@github.com"
@@ -88,6 +96,6 @@ jobs:
 
       - name: Commit and push version changes
         run: |
-          git add version.properties
+          git add version.properties README.md
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} [skip ci]"
           git push

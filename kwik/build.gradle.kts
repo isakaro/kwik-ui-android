@@ -123,6 +123,12 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            name = "staging"
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
+        }
+    }
 }
 
 signing {

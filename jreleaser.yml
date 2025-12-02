@@ -30,7 +30,7 @@ deploy:
       sonatype:
         active: ALWAYS
         url: https://central.sonatype.com/api/v1/publisher
-        stagingRepository: build/staging-deploy
+        stagingRepository: kwik/build/staging-deploy
         closeRepository: true
         releaseRepository: true
         checksums: true
