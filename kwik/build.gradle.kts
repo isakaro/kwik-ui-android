@@ -93,6 +93,7 @@ publishing {
                 description = Meta.Descripton
                 url = "https://github.com/${Meta.GithubRepository}"
                 inceptionYear = "2025"
+                packaging = "jar"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
